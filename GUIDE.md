@@ -60,6 +60,21 @@
 - 회사 소식도 1번 사실 확인 규칙을 똑같이 따라요. 기사를 직접 열어 확인한 내용만 써요. 여러 회사가 함께 나오면 companies에 모두 넣어요.
 - news.js의 window.NEWS 배열에 추가하고, 같은 id나 같은 기사 주소가 이미 있으면 건너뛰어요. date 기준 최신순으로 정렬해요.
 
+## 2-3. 회사 기본 정보 (profiles.js)
+- 회사별 보기 맨 위의 "회사 기본 정보"예요. 면접 전에 그 회사에 대해 기본으로 알아야 할 것을 정리해요. "삼성화재"가 완성된 견본이니 같은 수준과 형식으로 써요.
+- 키는 companies.js의 name, 값은 { updated:"YYYY-MM-DD", summary, facts, strengths, talent, culture, results, history, tips, sources }
+  - summary: 회사를 한두 문장으로. 업계에서의 위치(순위나 규모)를 숫자로 담아요.
+  - facts: [{ label, value }] 설립, 업권(주력 상품), 소속 그룹, 대표이사(언제 기준인지 괄호로), 본사. 확인 못 한 항목은 빼요.
+  - strengths: 이 회사의 특징 3~5개. 주력 사업, 강점, 보험계약마진 같은 핵심 지표, 해외 진출, 최근 전략, 주주환원 목표 등.
+  - talent: [{ k, d }] 회사가 공식으로 밝힌 인재상(채용 홈페이지가 1순위). 공식 표현을 바꾸지 말고 옮겨요.
+  - culture: 일하는 방식과 분위기 3~5개. 회사가 공식으로 밝힌 제도(근무제도, 교육, 직무순환 등)와 언론 보도만 써요. 익명 후기 사이트의 평가나 소문은 쓰지 않아요. 계리·상품개발 직무가 따로 뽑히는지 확인되면 적어요.
+  - results: { title:"연간 당기순이익", unit:"억 원", items:[{ label:"2023년", value:숫자, text:"1조 8,216억", note }], note } 최근 3년, 기사나 공시 숫자 그대로. note에 그 해 실적의 이유를 짧게.
+  - history: [{ when, label }] 걸어온 길 5~8개(설립, 이름 변경, 상장, 인수합병, 큰 전환점).
+  - tips: 면접에서 이 회사 정보를 어떻게 쓸지 3개. 계리·상품개발 지원자 관점 하나는 꼭.
+  - sources: [{ name: "언론사나 사이트 (날짜) 무엇", url }] 실제로 연 주소만.
+- 1번 사실 확인 규칙을 똑같이 따라요. 숫자는 출처에 나온 그대로 쓰고, 계산한 값은 쓰지 않아요. 생명보험사 실적은 연결 기준인지 별도 기준인지 섞이지 않게 같은 기준으로 써요.
+- 문장은 친근한 존댓말, 영어 약어는 한국어로(보험계약마진, 지급여력비율(킥스)), 강조는 **별표**로 1~2곳만.
+
 ## 3. 네컷만화 comic (어울리는 이슈에만)
 - 모든 이슈에 넣지 않아요. 사람들의 선택과 행동이 이야기의 핵심인 이슈(역선택, 도덕적 해이, 보험사기, 갈아타기, 절판 마케팅 등)나, 소비자에게 직접 와닿는 변화, "반짝 좋아 보이지만 사실은…" 같은 반전이 있는 이슈에 넣어요. 하루 이슈 가운데 1~2개 정도가 알맞아요.
 - 형식: { title, panels: [4칸] }
@@ -120,7 +135,7 @@
 2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
 3. node 스크립트로 최신 파일에 합쳐 넣어요. issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. news.js의 window.NEWS도 같은 방식으로 합쳐요(같은 id나 같은 source.url은 건너뛰기). 파일 맨 위 주석은 그대로 둬요.
 4. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요. 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
-5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
+5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
 6. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
 7. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 

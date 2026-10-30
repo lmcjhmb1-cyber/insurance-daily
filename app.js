@@ -25,6 +25,7 @@ window.coLogoNext=img=>{if(!img.parentNode||img.dataset.dead)return;img.dataset.
   const n=img.cloneNode();delete n.dataset.dead;n.removeAttribute("data-dead");n.dataset.i=i;n.src=list[i][0];img.replaceWith(n)};
 window.coLogoLoad=img=>{if(img.dataset.dead)return;const list=JSON.parse(img.dataset.srcs),min=list[+img.dataset.i][1];if(img.naturalWidth<min)return coLogoNext(img);const box=img.parentNode;box.classList.add("haslogo");if(img.naturalWidth<48)box.classList.add("small")};
 const coMono=(c,cls)=>{const srcs=c.site?logoSrcs(c.site):[];return `<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${srcs.length?`<img src="${srcs[0][0]}" data-srcs='${JSON.stringify(srcs)}' data-i="0" alt="" loading="lazy" referrerpolicy="no-referrer" onload="coLogoLoad(this)" onerror="coLogoNext(this)">`:""}</span>`};
+const PROFILES=window.PROFILES||{};
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
 const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
@@ -707,7 +708,19 @@ function showCompany(name){
   const list=coIssues(name),done=list.filter(i=>status(i)==="done").length,nw=coNews(name);
   const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
   $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohead" style="${coVars(c)}">${coMono(c,"big")}<div><span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1></div></div><p class="meta">${list.length||nw.length?`회사 소식 ${nw.length}개 · 공부할 이슈 ${list.length}개${list.length?` (${done}개 끝냄)`:""}`:"아직 이 회사 소식이 없어요. 매일 아침 새 소식을 모아요."}</p>`;
-  let h="";
+  let h="";const pf=PROFILES[name];
+  if(pf){const tabs=[["about","한눈에"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
+    const P={};
+    P.about=`<p class="pf-sum">${esc(pf.summary)}</p>${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ul class="points">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
+    if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map(t=>`<div><b>${esc(t.k)}</b><span>${esc(t.d)}</span></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="points">${pf.culture.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
+    if(pf.results)P.results=figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
+    if(pf.history)P.history=figHTML({type:"timeline",title:"",items:pf.history.map(x=>({when:x.when,label:x.label}))});
+    if(pf.tips)P.tips=`<ol class="pf-tips">${pf.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;
+    h+=`<section class="step pf" style="${coVars(c)}"><div class="sh"><h2>회사 기본 정보</h2><span class="small">${esc(pf.updated||"")} 기준</span></div>
+      <div class="pf-tabs" role="tablist">${tabs.map(([k,l],i)=>`<button role="tab" data-pt="${k}" aria-selected="${i===0}" class="${i===0?"on":""}">${l}</button>`).join("")}</div>
+      ${tabs.map(([k],i)=>`<div class="pf-p" data-pp="${k}"${i?" hidden":""}>${P[k]}</div>`).join("")}
+      ${pf.sources?`<details class="pf-src small"><summary>출처 ${pf.sources.length}곳</summary><ul>${pf.sources.map(x=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a></li>`).join("")}</ul></details>`:""}</section>`}
+  else h+=`<section class="step pf-empty"><p class="small" style="margin:0">이 회사의 특징, 인재상, 분위기, 실적 요약을 출처를 확인해가며 채우는 중이에요.</p></section>`;
   if(nw.length){const kinds=[...new Set(nw.map(n=>n.kind).filter(Boolean))];
     h+=`<section class="step"><div class="sh"><h2>회사 소식 모아보기</h2><span class="small">최신순 · ${nw.length}개</span></div>
       ${kinds.length>1?`<div class="chips" role="group" aria-label="소식 종류"><button class="on" data-nk="">전체</button>${kinds.map(k=>`<button data-nk="${esc(k)}">${esc(k)}</button>`).join("")}</div>`:""}
@@ -728,6 +741,7 @@ function showCompany(name){
   const sib=COMPANIES.filter(x=>x.name!==c.name&&((c.group&&x.group===c.group)||x.kind===c.kind)).sort((a,b)=>((b.group&&b.group===c.group)?1:0)-((a.group&&a.group===c.group)?1:0)).slice(0,8);
   h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}" style="${coVars(x)}"><i class="codot"></i>${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
   $("#main").innerHTML=h;
+  document.querySelectorAll("[data-pt]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-pt]").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b)});document.querySelectorAll("[data-pp]").forEach(p=>p.hidden=p.dataset.pp!==b.dataset.pt)});
   document.querySelectorAll("[data-nk]").forEach(b=>b.onclick=()=>{const k=b.dataset.nk;document.querySelectorAll("[data-nk]").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll("#nwl li").forEach(li=>li.hidden=!!k&&li.dataset.k!==k)});
 }
 function newsLi(n,cur){const others=(n.companies||[]).filter(x=>x!==cur);
