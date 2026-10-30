@@ -19,6 +19,80 @@ window.ISSUES = [
       "answer": 1,
       "reveal": "9월 현장점검에서는 세부 담보의 통계가 충분하고 담보 사이 손해율 차이도 통계적으로 뚜렷한데, 산출단위를 나누지 않은 사례가 지적됐어요. 위험이 다른 담보를 하나로 뭉치면 실제 위험이 평균에 가려져 보험부채 계산이 틀어질 수 있어요. 다만 무조건 쪼개라는 건 아니고, **통계적으로 충분하고 의미 있는 차이가 있을 때 나누라는 게 기준**이에요."
     },
+    "comic": {
+      "title": "10년이면 될 줄 알았는데",
+      "panels": [
+        {
+          "caption": "계리팀 회의실",
+          "bg": "meeting",
+          "board": "down",
+          "sign": "갱신형 손실계약",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "pose": "point",
+              "say": "10년이면 손해율 100%로 돌아온대!"
+            },
+            {
+              "who": "mango",
+              "mood": "thinking",
+              "pose": "think",
+              "fx": "question"
+            }
+          ]
+        },
+        {
+          "caption": "9월, 금감원 현장점검",
+          "bg": "office",
+          "sign": "수렴기간 10년 → 실제 13년",
+          "chars": [
+            {
+              "who": "regulator",
+              "mood": "angry",
+              "pose": "doc",
+              "say": "보험료 조정률로 따지면 13년이에요"
+            },
+            {
+              "who": "insurer",
+              "mood": "surprised",
+              "fx": "exclaim"
+            }
+          ]
+        },
+        {
+          "caption": "짧게 잡으면 생기는 일",
+          "bg": "focus",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "worried",
+              "pose": "worry",
+              "say": "부채가 작게 잡혀서 나중에 한꺼번에 터져요",
+              "bubble": "shout"
+            }
+          ]
+        },
+        {
+          "caption": "11월 말 개선계획, 12월 말 보고서 시행",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "happy",
+              "pose": "point",
+              "fx": "idea",
+              "say": "가정마다 근거를 설명할 수 있어야 해요"
+            },
+            {
+              "who": "insurer",
+              "mood": "worried",
+              "pose": "doc"
+            }
+          ]
+        }
+      ]
+    },
     "numbers": [
       {
         "label": "9월 현장점검 대상",
@@ -454,6 +528,77 @@ window.ISSUES = [
       "answer": 1,
       "reveal": "순이익은 6,811억 원으로 11.2% 줄었어요. **투자손익이 2,240억 원으로 43.2%나 줄었기 때문**이에요. 보험사 이익은 보험 영업에서 버는 돈과 받은 보험료를 굴려서 버는 돈, **두 축**으로 이뤄져요."
     },
+    "comic": {
+      "title": "본업은 잘했는데 왜?",
+      "panels": [
+        {
+          "caption": "3분기 실적 발표 날",
+          "bg": "meeting",
+          "board": "up",
+          "sign": "보험손익 +13.1%",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "pose": "cheer",
+              "fx": "sparkle",
+              "say": "보험 영업 잘했다!"
+            }
+          ]
+        },
+        {
+          "caption": "그런데 맨 아래 줄을 보니",
+          "bg": "meeting",
+          "board": "down",
+          "sign": "순이익 −11.2%",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "surprised",
+              "fx": "question",
+              "say": "순이익은 왜 줄었지?"
+            }
+          ]
+        },
+        {
+          "caption": "망고 계리사가 숫자를 나눠 본다",
+          "bg": "office",
+          "sign": "투자손익 −43.2%",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "thinking",
+              "pose": "doc",
+              "say": "투자손익이 크게 줄었어요"
+            },
+            {
+              "who": "insurer",
+              "mood": "sad",
+              "fx": "gloom"
+            }
+          ]
+        },
+        {
+          "caption": "실적 기사 읽는 법",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "happy",
+              "pose": "point",
+              "fx": "idea",
+              "say": "본업과 투자를 나눠서 봐야 해요"
+            },
+            {
+              "who": "potato",
+              "mood": "thinking",
+              "pose": "think",
+              "say": "순이익만 보면 안 되는구나"
+            }
+          ]
+        }
+      ]
+    },
     "numbers": [
       {
         "label": "KB손해보험 보험손익",
@@ -888,6 +1033,73 @@ window.ISSUES = [
       ],
       "answer": 1,
       "reveal": "순이익은 **12조 2,172억 원으로 14.5% 줄었어요.** 새 회계기준 도입 뒤 처음 줄어든 거예요. 금감원은 **낙관적인 계리가정에 따른 예실차 손실 확대**와 손실계약 증가를 주요 원인으로 꼽았어요."
+    },
+    "comic": {
+      "title": "넉넉하게 잡은 가정의 청구서",
+      "panels": [
+        {
+          "caption": "몇 해 전, 가정을 세우던 날",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "pose": "point",
+              "say": "가정을 넉넉하게 잡자, 이익이 커 보이잖아"
+            },
+            {
+              "who": "mango",
+              "mood": "worried",
+              "fx": "sweat"
+            }
+          ]
+        },
+        {
+          "caption": "2025년, 실제 보험금이 나가 보니",
+          "bg": "meeting",
+          "board": "down",
+          "sign": "권고 예실차율 5% 이내",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "surprised",
+              "fx": "exclaim",
+              "say": "예상보다 훨씬 많이 나갔어!"
+            }
+          ]
+        },
+        {
+          "caption": "한 해 성적표",
+          "bg": "office",
+          "sign": "보험사 순이익 −14.5%",
+          "chars": [
+            {
+              "who": "regulator",
+              "mood": "angry",
+              "pose": "doc",
+              "say": "새 회계기준 도입 뒤 첫 감소예요"
+            },
+            {
+              "who": "insurer",
+              "mood": "sad",
+              "fx": "gloom"
+            }
+          ]
+        },
+        {
+          "caption": "망고 계리사의 한마디",
+          "bg": "focus",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "thinking",
+              "pose": "point",
+              "fx": "idea",
+              "say": "낙관적 가정은 결국 예실차로 돌아와요"
+            }
+          ]
+        }
+      ]
     },
     "figs": [
       {
@@ -1471,6 +1683,73 @@ window.ISSUES = [
       "answer": 1,
       "reveal": "보험사들은 150%를 맞추려고 자본증권을 크게 늘렸고, 채권 발행 이자비용이 **연간 1조 원 안팎**이었어요. 기준이 130%로 낮아지면 이 부담이 줄고 배당 여력도 생길 수 있어요. 대신 당국은 **손실을 막는 힘이 강한 기본자본을 따로 보겠다**고 했어요."
     },
+    "comic": {
+      "title": "기준이 내려가면 여유일까",
+      "panels": [
+        {
+          "caption": "2025년 6월, 금융위 발표",
+          "bg": "office",
+          "sign": "권고 기준 150% → 130%",
+          "chars": [
+            {
+              "who": "regulator",
+              "mood": "happy",
+              "pose": "doc",
+              "say": "지급여력비율 권고 기준을 낮춥니다"
+            }
+          ]
+        },
+        {
+          "caption": "배불뚝이 보험사의 속마음",
+          "bg": "focus",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "pose": "cheer",
+              "fx": "sparkle",
+              "say": "여유 생겼다, 배당 크게 하자!",
+              "bubble": "think"
+            }
+          ]
+        },
+        {
+          "caption": "망고 계리사가 말린다",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "worried",
+              "pose": "shrug",
+              "say": "기준이 낮아져도 위험은 그대로예요"
+            },
+            {
+              "who": "insurer",
+              "mood": "surprised",
+              "fx": "question"
+            }
+          ]
+        },
+        {
+          "caption": "당국의 다음 단계",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "regulator",
+              "mood": "thinking",
+              "pose": "point",
+              "say": "기본자본 비율도 따로 볼 거예요"
+            },
+            {
+              "who": "mango",
+              "mood": "happy",
+              "pose": "stand",
+              "fx": "idea"
+            }
+          ]
+        }
+      ]
+    },
     "figs": [
       {
         "type": "bars",
@@ -1942,6 +2221,74 @@ window.ISSUES = [
       ],
       "answer": 1,
       "reveal": "수입보험료는 237조 원으로 6.0% 줄었지만 순이익은 **13조 3,578억 원으로 45.5% 늘었어요.** 금감원은 새 회계제도 도입에 따른 손익 증가와 보장성·장기보험 판매 확대를 이유로 들었어요. 장부를 적는 방식이 바뀐 효과가 컸다는 뜻이에요."
+    },
+    "comic": {
+      "title": "역대급 순이익의 비밀",
+      "panels": [
+        {
+          "caption": "2023년 결산",
+          "bg": "meeting",
+          "board": "up",
+          "sign": "순이익 +45.5%",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "pose": "cheer",
+              "fx": "sparkle",
+              "say": "역대급 실적이다!"
+            }
+          ]
+        },
+        {
+          "caption": "가입자의 의문",
+          "bg": "home",
+          "sign": "수입보험료 −6.0%",
+          "chars": [
+            {
+              "who": "potato",
+              "mood": "thinking",
+              "pose": "phone",
+              "fx": "question",
+              "say": "보험료는 줄었다던데?"
+            }
+          ]
+        },
+        {
+          "caption": "망고 계리사의 설명",
+          "bg": "office",
+          "sign": "자기자본 +87.4%",
+          "chars": [
+            {
+              "who": "mango",
+              "mood": "thinking",
+              "pose": "doc",
+              "say": "부채를 지금 값으로 다시 잰 효과가 커요"
+            },
+            {
+              "who": "potato",
+              "mood": "surprised"
+            }
+          ]
+        },
+        {
+          "caption": "금감원의 경고",
+          "bg": "office",
+          "chars": [
+            {
+              "who": "regulator",
+              "mood": "worried",
+              "pose": "point",
+              "say": "손익과 자본이 크게 흔들릴 수 있어요"
+            },
+            {
+              "who": "insurer",
+              "mood": "worried",
+              "fx": "sweat"
+            }
+          ]
+        }
+      ]
     },
     "figs": [
       {
