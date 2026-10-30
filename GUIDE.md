@@ -35,8 +35,16 @@
 | thread | { id, name } 이어보기 묶음. 아래 5번 |
 | frames | frames.js의 생각의 틀 id 1~3개. 꼭 필요할 때만 frames.js에 새 틀 추가 |
 | jobs | frames.js의 window.JOBS 중 1~3개 |
+| companies | 기사에서 중요하게 다룬 국내 보험사의 정식 이름 목록(companies.js의 name 그대로). 업계 전체 이야기면 생략. 아래 2-1 참고 |
 | sources | [{ name: 언론사 이름, url: 실제로 읽은 기사 주소 }] |
 | basic | 기초 다지기 이슈만 true |
+
+## 2-1. 회사별 보기 companies
+- 사이트의 "회사별 보기"는 지원할 회사의 면접을 준비하는 용도예요. 그래서 특정 보험사가 주인공인 이슈(실적, 신상품, 제재, 인수합병, 경영 전략, 사고 대응 등)는 그 회사를 companies에 꼭 넣어요.
+- 업계 여러 회사를 비교한 기사(예: 대형 손보사 4곳 손해율)도 기사에 회사 이름과 숫자가 나오면 그 회사들을 넣어요. 회사 이름이 안 나오면 넣지 않아요.
+- 이름은 companies.js의 name과 똑같이 써요(예: "KB손해보험", "DB손해보험"). 본문에 회사 이름이 나오면 사이트가 자동으로도 묶지만, 줄임말이나 다른 표현일 수 있으니 companies에 정확히 적어요.
+- companies.js에 없는 국내 보험사가 중요하게 나오면 companies.js의 window.COMPANIES 배열에 { name, kind("생명"·"손해"·"재보험"), group(소속 금융그룹, 없으면 ""), aka(다른 이름 배열) } 형식으로 추가해요. 확실하지 않은 그룹 정보는 비워둬요.
+- 특정 회사가 주인공인 이슈는 interview 질문도 "그 회사 입장이라면"으로 생각해볼 수 있게 쓰면 좋아요(회사 이름을 넣어도 돼요).
 
 ## 3. 네컷만화 comic (어울리는 이슈에만)
 - 모든 이슈에 넣지 않아요. 사람들의 선택과 행동이 이야기의 핵심인 이슈(역선택, 도덕적 해이, 보험사기, 갈아타기, 절판 마케팅 등)나, 소비자에게 직접 와닿는 변화, "반짝 좋아 보이지만 사실은…" 같은 반전이 있는 이슈에 넣어요. 하루 이슈 가운데 1~2개 정도가 알맞아요.
@@ -98,7 +106,7 @@
 2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
 3. node 스크립트로 최신 파일에 합쳐 넣어요. issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. 파일 맨 위 주석은 그대로 둬요.
 4. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요. 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
-5. 확인: node로 issues.js, frames.js, weekly.js, basics.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
+5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, companies의 이름이 companies.js의 name에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
 6. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
 7. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 

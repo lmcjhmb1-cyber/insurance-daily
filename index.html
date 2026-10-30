@@ -612,6 +612,29 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .ss li.lock .ss-t{color:var(--ink-3)}
 .ss-go{flex:none;font-size:12.5px;font-weight:800;color:#fff;background:var(--u);padding:5px 11px;border-radius:99px}
 @media (max-width:560px){.st{grid-template-columns:34px minmax(0,1fr);gap:10px}.st-m{width:34px;height:34px;font-size:14px}.st::before{left:16px;top:34px}.ss-go{display:none}}
+
+/* 회사별 보기 */
+.cochips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cochips a{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:99px;background:var(--accent-bg);color:var(--accent-ink);text-decoration:none}
+.cochips a:hover{text-decoration:underline}
+.cosec h2{font-size:16px;margin:18px 0 10px}
+.cogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.cocard{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.cocard:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cocard b{font-size:16px}
+.cocard span{font-size:12.5px;color:var(--ink-2)}
+.cocard em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--accent-ink);margin-top:6px}
+.cocard.off{background:transparent}
+.cocard.off em{color:var(--ink-3);font-weight:500}
+.cotl{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.cotl li{position:relative;display:flex;flex-direction:column;gap:2px}
+.cotl li::before{content:"";position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--accent)}
+.cotl li.done::before{background:var(--accent)}
+.cotl-d{font-size:12px;font-weight:700;color:var(--ink-3)}
+.cotl a{font-weight:700;color:var(--ink);text-decoration:none}
+.cotl a:hover{text-decoration:underline}
+.coq{display:flex;flex-direction:column;gap:6px;padding:12px 0;border-top:1px solid var(--line)}
+.coq:first-of-type{border-top:0}
 </style>
 </head>
 <body>
@@ -623,12 +646,13 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310109"></script>
-<script src="frames.js?v=202610310109"></script>
-<script src="basics.js?v=202610310109"></script>
-<script src="weekly.js?v=202610310109"></script>
-<script src="comic.js?v=202610310109"></script>
-<script src="app.js?v=202610310109"></script>
-<script type="module" src="sync.js?v=202610310109"></script>
+<script src="issues.js?v=202610310113"></script>
+<script src="frames.js?v=202610310113"></script>
+<script src="basics.js?v=202610310113"></script>
+<script src="companies.js?v=202610310113"></script>
+<script src="weekly.js?v=202610310113"></script>
+<script src="comic.js?v=202610310113"></script>
+<script src="app.js?v=202610310113"></script>
+<script type="module" src="sync.js?v=202610310113"></script>
 </body>
 </html>

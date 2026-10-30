@@ -15,6 +15,13 @@ const FEEDBACK_URL="";
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const FRAMES=window.FRAMES||[];const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
 const BASICS=window.BASICS||[];
+const COMPANIES=window.COMPANIES||[];
+/* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
+const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
+  const txt=[it.title,...(it.points||[]),it.why,it.summary].join(" ").replace(/\*\*/g,"");
+  for(const c of COMPANIES)if([c.name,...(c.aka||[])].some(n=>txt.includes(n)))set.add(c.name);
+  const out=COMPANIES.map(c=>c.name).filter(n=>set.has(n));cache.set(it.id,out);return out}})();
+const coIssues=name=>issues.filter(it=>coOf(it).includes(name)).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
 const daily=issues.filter(i=>!i.basic);
 const dates=[...new Set(daily.map(i=>i.date))].sort().reverse();
 const byDate=d=>daily.filter(i=>i.date===d).sort((a,b)=>a.id<b.id?-1:1);
@@ -43,9 +50,9 @@ const SECS=[
   {k:"basics",label:"기초",icon:'<path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/>',tabs:[["basics","기초 다지기"]]},
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
-  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"]]},
+  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
-function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";return h}
+function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
@@ -55,7 +62,7 @@ function renderShell(){
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|review$|interview$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|c-|review$|interview$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -84,6 +91,8 @@ function route(){
   if(h==="weekly")return showWeeklyList();
   if(h.startsWith("w-"))return showWeek(h.slice(2));
   if(h==="interview")return showInterview();
+  if(h==="companies")return showCompanies();
+  if(h.startsWith("c-"))return showCompany(h.slice(2));
   if(h==="search")return showSearch();
   if(h==="league")return showLeague();
   if(h.startsWith("i-")){
@@ -420,7 +429,7 @@ function showIssue(it,mode){
   const st=load(it.id);const deep=mode==="deep";const used=new Set();
   const bs=basicOf(it);
   $("#head").innerHTML=(bs?back(`#b-${bs.id}`,`기초 다지기 · ${esc(bs.name)}`):back(`#d-${it.date}`,`${shortDate(it.date)} 이슈 목록`))+`
-    <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${modeLinks(it,mode)}`;
+    <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${coOf(it).length?`<div class="cochips">${coOf(it).map(n=>`<a href="#c-${encodeURIComponent(n)}">${esc(n)} 이슈 모아보기</a>`).join("")}</div>`:""}${modeLinks(it,mode)}`;
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
   if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
@@ -667,6 +676,43 @@ function showInterview(){
     <details><summary class="small" style="cursor:pointer;color:var(--accent)">답변 뼈대 보기</summary><div class="reveal" style="margin-top:8px">${esc(it.interview.guide)}</div></details></section>`}).join(""):`<p class="empty">이 직무 관점의 면접 질문이 아직 없어요.</p>`}`;
   document.querySelectorAll("[data-ivj]").forEach(b=>b.onclick=()=>{ivJob=b.dataset.ivj;showInterview()});
   document.querySelectorAll("[data-iv]").forEach(t=>{let tm;t.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{const s=load(t.dataset.iv);s.iv=t.value;save(t.dataset.iv,s)},400)}});
+}
+
+/* 회사별 보기 */
+let coQ="";
+function showCompanies(){
+  $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">지원할 회사에 관한 이슈를 한곳에 모아 봐요. 면접 전에 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 말할 준비를 해요.</p>`;
+  const kinds=[["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]];
+  const card=c=>{const list=coIssues(c.name),last=list[0];return `<a class="cocard${list.length?"":" off"}" href="#c-${encodeURIComponent(c.name)}"><b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${list.length?`이슈 ${list.length}개 · 최근 ${shortDate(last.date)}`:"아직 이슈 없음"}</em></a>`};
+  $("#main").innerHTML=`<input type="search" id="coq" placeholder="회사 이름 찾기" aria-label="회사 이름 찾기" value="${esc(coQ)}"><div id="cores"></div>`;
+  const render=()=>{const q=coQ.trim();let h="";
+    for(const [k,label] of kinds){const cs=COMPANIES.filter(c=>c.kind===k&&(!q||[c.name,c.group,...(c.aka||[])].some(x=>x&&x.includes(q)))).sort((a,b)=>coIssues(b.name).length-coIssues(a.name).length);
+      if(cs.length)h+=`<section class="cosec"><h2>${label}</h2><div class="cogrid">${cs.map(card).join("")}</div></section>`}
+    $("#cores").innerHTML=h||`<p class="empty">"${esc(q)}"에 맞는 회사가 없어요.</p>`};
+  $("#coq").oninput=e=>{coQ=e.target.value;render()};render();
+}
+function showCompany(name){
+  const c=COMPANIES.find(x=>x.name===name);if(!c)return showCompanies();
+  const list=coIssues(name),done=list.filter(i=>status(i)==="done").length;
+  const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
+  $("#head").innerHTML=back("#companies","회사별 보기")+`<span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1><p class="meta">${list.length?`관련 이슈 ${list.length}개 · ${done}개 끝냄 · 가장 최근 ${fmtDate(list[0].date)}`:"아직 이 회사가 나온 이슈가 없어요."}</p>`;
+  let h="";
+  if(list.length){
+    h+=`<section class="step"><div class="sh"><h2>이 회사에 무슨 일이 있었나</h2><span class="small">최신순</span></div><ol class="cotl">${list.map(it=>{const s=status(it);return `<li class="${s}"><span class="cotl-d">${fmtDate(it.date)}</span><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${esc(it.tag||"")}${s==="done"?' · <span class="ok">끝냄</span>':s==="doing"?" · 진행 중":""}</span></li>`}).join("")}</ol></section>`;
+    const ivs=list.filter(it=>it.interview);
+    if(ivs.length)h+=`<section class="step"><div class="sh"><h2>${esc(c.name)} 면접에서 나올 수 있는 질문</h2><span class="small">${ivs.length}개</span></div>
+      <p class="small" style="margin:0">이 회사가 나온 이슈의 면접 질문이에요. "우리 회사의 이 일을 어떻게 보나요?"처럼 회사 이름을 넣어 물어본다고 생각하고 답해보세요.</p>
+      ${ivs.map(it=>{const s=load(it.id);return `<div class="coq"><p class="q" style="font-size:16px;margin:0">${esc(it.interview.q)}</p><span class="small">${shortDate(it.date)} · ${esc(it.title)}${s.iv&&s.iv.trim()?' · <span class="ok">답 씀</span>':""}</span>
+        <details><summary class="small" style="cursor:pointer;color:var(--accent)">답변 뼈대 보기</summary><div class="reveal" style="margin-top:8px">${esc(it.interview.guide)}</div></details>
+        <a class="more" href="#i-${esc(it.id)}-deep">이슈에서 내 답 써보기 →</a></div>`}).join("")}</section>`;
+    const terms=[...new Map(list.flatMap(it=>it.terms||[]).map(x=>[x.t,x])).values()].slice(0,10);
+    if(terms.length)h+=`<section class="step"><div class="sh"><h2>이 회사 이슈에 나온 용어</h2></div><div class="termlist">${terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div></section>`;
+  }
+  const common=issues.filter(it=>!coOf(it).length&&!it.basic).sort((a,b)=>a.date<b.date?1:-1).slice(0,5);
+  if(common.length)h+=`<section class="step"><div class="sh"><h2>업계 전체 흐름도 함께</h2></div><p class="small" style="margin:0">특정 회사가 아니라 업계 모두에 영향을 주는 최근 이슈예요. 면접에서 "업계 흐름 속에서 우리 회사는?"으로 이어지기 좋아요.</p>${miniList(common)}</section>`;
+  const sib=COMPANIES.filter(x=>x.name!==c.name&&((c.group&&x.group===c.group)||x.kind===c.kind)).sort((a,b)=>((b.group&&b.group===c.group)?1:0)-((a.group&&a.group===c.group)?1:0)).slice(0,8);
+  h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}">${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
+  $("#main").innerHTML=h;
 }
 
 /* 찾기 */

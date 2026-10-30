@@ -535,6 +535,10 @@ window.ISSUES = [
       "리스크관리",
       "계리"
     ],
+    "companies": [
+      "KB손해보험",
+      "KB라이프"
+    ],
     "terms": [
       {
         "t": "보험손익",
