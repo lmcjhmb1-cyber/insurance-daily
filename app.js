@@ -18,7 +18,13 @@ const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
 const coVars=c=>`--cc:${c.color||"var(--accent)"};--ci:${c.ink||"#fff"}`;
-const coMono=(c,cls)=>`<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${c.site?`<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(c.site)}&sz=128" alt="" loading="lazy" referrerpolicy="no-referrer" onload="if(this.naturalWidth<=16)this.remove();else this.parentNode.classList.add('haslogo')" onerror="this.remove()">`:""}</span>`;
+/* 회사 로고: 회사 홈페이지 아이콘을 여러 곳에서 차례로 시도하고, 모두 실패하면 짧은 이름을 보여줘요 */
+const logoSrcs=site=>{const host=site.replace(/\.(co\.kr|or\.kr|com|net|kr)$/,"").includes(".")?site:"www."+site,e=encodeURIComponent(site);
+  return [[`https://${host}/apple-touch-icon.png`,40],[`https://www.google.com/s2/favicons?domain=${e}&sz=128`,17],[`https://${host}/favicon.ico?s=1`,16],[`https://${site}/favicon.ico?s=1`,16],[`https://icons.duckduckgo.com/ip3/${e}.ico`,17],[`https://www.google.com/s2/favicons?domain=${host}&sz=64`,17]]};
+window.coLogoNext=img=>{if(!img.parentNode||img.dataset.dead)return;img.dataset.dead=1;const list=JSON.parse(img.dataset.srcs);const i=+img.dataset.i+1;if(i>=list.length){img.remove();return}
+  const n=img.cloneNode();delete n.dataset.dead;n.removeAttribute("data-dead");n.dataset.i=i;n.src=list[i][0];img.replaceWith(n)};
+window.coLogoLoad=img=>{if(img.dataset.dead)return;const list=JSON.parse(img.dataset.srcs),min=list[+img.dataset.i][1];if(img.naturalWidth<min)return coLogoNext(img);const box=img.parentNode;box.classList.add("haslogo");if(img.naturalWidth<48)box.classList.add("small")};
+const coMono=(c,cls)=>{const srcs=c.site?logoSrcs(c.site):[];return `<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${srcs.length?`<img src="${srcs[0][0]}" data-srcs='${JSON.stringify(srcs)}' data-i="0" alt="" loading="lazy" referrerpolicy="no-referrer" onload="coLogoLoad(this)" onerror="coLogoNext(this)">`:""}</span>`};
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
 const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
