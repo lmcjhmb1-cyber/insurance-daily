@@ -1,10 +1,16 @@
 {
   "_설명": "과거 이슈 채우기 예약 작업의 진행 기록이에요. 작업이 스스로 고쳐가며 써요.",
   "phase": "basics",
-  "basicsDone": [],
+  "basicsDone": [
+    "ifrs17",
+    "kics",
+    "actuarial-supervision"
+  ],
   "octoberNext": "2026-10-01",
   "octoberLast": "2026-10-28",
   "weeklyNext": "2026-09-27",
   "weeklyStop": "2026-01-04",
-  "log": []
+  "log": [
+    "2026-10-31 01:15: 기초 다지기 3개 흐름(새 회계기준과 보험부채, 지급여력제도(킥스), 계리감독 강화) 기초 이슈 9개"
+  ]
 }
