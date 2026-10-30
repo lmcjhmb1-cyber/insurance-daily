@@ -322,7 +322,8 @@ function figHTML(f){
     const pos=v=>neg?50+v/max*50:v/max*100;
     const rows=items.map(x=>{const v=+x.value||0;const left=neg?Math.min(50,pos(v)):0,w=neg?Math.abs(pos(v)-50):pos(v);
       return `<div class="fb-row${x.hi?" hi":""}"><span class="fb-l">${esc(x.label)}</span><span class="fb-t">${neg?'<i class="fb-zero"></i>':""}<i class="fb-b${v<0?" neg":""}" style="left:${left}%;width:${Math.max(w,.8)}%"></i>${ref&&!neg?`<i class="fb-ref" style="left:${pos(ref)}%"></i>`:""}</span><span class="fb-v${v<0?" neg":""}">${esc(x.text||(v>0&&neg?"+":"")+fnum(v)+(f.unit||""))}</span></div>`}).join("");
-    return `<figure class="fig">${cap}<div class="fbars">${rows}</div>${ref&&!neg?`<p class="fig-ref"><i></i>${esc(f.ref.label||"기준")} ${fnum(ref)}${f.unit||""}</p>`:""}</figure>`}
+    const tl=Math.max(...items.map(x=>{const t=String(x.text||(fnum(+x.value||0)+(f.unit||"")));return [...t].reduce((a,ch)=>a+(/[가-힣]/.test(ch)?14:/[0-9]/.test(ch)?8.6:/[ ,.()+%−-]/.test(ch)?5:9),0)}));
+    return `<figure class="fig">${cap}<div class="fbars" style="--vw:${Math.max(88,Math.ceil(tl)+10)}px">${rows}</div>${ref&&!neg?`<p class="fig-ref"><i></i>${esc(f.ref.label||"기준")} ${fnum(ref)}${f.unit||""}</p>`:""}</figure>`}
   if(f.type==="compare"){
     return `<figure class="fig">${cap}<div class="fcmp"><div class="fcmp-h"><span></span><span>${esc(f.left)}</span><span></span><span>${esc(f.right)}</span></div>${(f.rows||[]).map(r=>`<div class="fcmp-r"><span class="fcmp-l">${esc(r.label)}</span><span class="fcmp-a">${esc(r.left)}</span><span class="fcmp-x" aria-hidden="true">→</span><span class="fcmp-b">${esc(r.right)}</span></div>`).join("")}</div></figure>`}
   if(f.type==="timeline"){
