@@ -34,16 +34,30 @@ function dueList(){const now=Date.now();return issues.filter(it=>{const s=load(i
 function nextReview(){let best=null;for(const it of issues){const s=load(it.id);if(!s.done)continue;const n=rvNext(s);if(n>Date.now()&&(!best||n<best))best=n}return best}
 
 /* 길찾기 */
-const NAV=[["","오늘 이슈"],["review","복습"],["terms","용어 사전"],["frames","생각의 틀"],["threads","이어보기"],["weekly","주간 큰 그림"],["interview","면접 연습"],["search","찾기"]];
+const SECS=[
+  {k:"issue",label:"이슈",icon:'<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2"/><path d="M8 9h4M8 13h4"/>',tabs:[["","오늘 이슈"],["threads","이어보기"],["weekly","주간 큰 그림"],["search","찾기"]]},
+  {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
+  {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
+  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"]]},
+  {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"]]}];
 function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";return h}
-function meLabel(){const u=window.Auth&&window.Auth.user;return u?`<span class="dot" aria-hidden="true"></span>마이페이지`:"마이페이지"}
-function brand(){const k=navKey();const due=dueList().length;
-  return `<div class="brand"><a class="home" href="#">오늘의 보험 이슈</a><a class="melink${location.hash==="#me"?" on":""}" href="#me">${meLabel()}</a></div>
-  <nav class="nav" aria-label="메뉴">${NAV.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}${h==="review"&&due?`<span class="cnt">${due}</span>`:""}</a>`).join("")}</nav>`}
+function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
+function renderShell(){
+  const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
+  const item=s=>`<a class="si${s.k===sec.k?" on":""}${s.k==="me"?" me":""}" href="#${s.tabs[0][0]}"${s.k===sec.k?' aria-current="page"':""}><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg>${s.label}${s.k==="review"&&due?`<span class="cnt">${due}</span>`:""}${s.k==="me"&&u?'<span class="dot" aria-hidden="true"></span>':""}</a>`;
+  $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로">보험</a>${SECS.slice(0,4).map(item).join("")}<span class="grow"></span>${item(SECS[4])}`;
+  $("#tline").innerHTML=`<a class="bt" href="#">오늘의 <em>보험</em> 이슈 <span>· ${sec.k==="me"?"마이페이지":sec.label}</span></a><a class="who" href="#me">${u?esc(u.displayName||"로그인됨")+"님":"로그인"}</a>`;
+  $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
+  $("#topbar").classList.toggle("single",sec.tabs.length<2);
+  const h=decodeURIComponent(location.hash.slice(1));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|review$|interview$)/.test(h));
+}
+function meLabel(){return ""}
+function brand(){return ""}
 function back(href,label){return `<a class="back" href="${href}">← ${label}</a>`}
 
 function route(){
-  hidePop();
+  hidePop();renderShell();
   const h=decodeURIComponent(location.hash.slice(1));
   if(!issues.length){$("#head").innerHTML=brand()+`<p class="empty">첫 이슈가 아직 올라오지 않았어요.</p>`;$("#main").innerHTML="";return}
   if(h==="me")return showMe();
@@ -174,29 +188,30 @@ function notesText(){
 
 /* 마이페이지 */
 function showMe(){
-  $("#head").innerHTML=brand()+`<h1>마이페이지</h1>`;
+  $("#head").innerHTML=`<h1>마이페이지</h1><p class="meta">공부 기록과 계정을 한곳에서 관리해요.</p>`;
   let done=0,qN=0,qOK=0;const tags={},wrong=[],doing=[];
   for(const it of issues){const s=load(it.id);const tag=it.tag||"보험 이슈";const T=tags[tag]||(tags[tag]={done:0,all:0,qN:0,qOK:0});T.all++;
     if(s.done){done++;T.done++}else if(status(it)==="doing")doing.push(it);
     for(const [k,j] of Object.entries(s.qa||{})){const q=(it.quiz||[])[k];if(!q)continue;qN++;T.qN++;if(+j===q.a){qOK++;T.qOK++}else wrong.push({it,q,j:+j,t:s.t||0})}}
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0;const pct=qN?Math.round(qOK/qN*100):null;const notes=collectNotes();const bs=badges();
   const stat=(label,val,sub)=>`<div class="stat"><span>${label}</span><b>${val}</b>${sub?`<em>${sub}</em>`:""}</div>`;
-  let h=`<section class="step"><div class="sh"><h2>내 계정</h2></div><div id="account">${accountHTML()}</div></section>
-  <div class="stats">${stat("끝낸 이슈",done+"개",`올라온 이슈 ${issues.length}개 중`)}${stat("연속 학습",streak(m)+"일","오늘이나 어제까지 이어진 날")}${stat("최장 연속",longest(m)+"일","지금까지 가장 길게 이어간 기록")}${stat("퀴즈 정답률",pct==null?"–":pct+"%",qN?`${qN}문제 중 ${qOK}문제 정답`:"아직 푼 퀴즈가 없어요")}</div>
-  <section class="step"><div class="sh"><h2>하루 목표</h2><span class="small">오늘 ${todayN}/${G}개</span></div>
+  const P={};
+  P.account=`<section class="step"><div class="sh"><h2>내 계정</h2></div><div id="account">${accountHTML()}</div></section>`;
+  P.stats=`<div class="stats">${stat("끝낸 이슈",done+"개",`올라온 이슈 ${issues.length}개 중`)}${stat("연속 학습",streak(m)+"일","오늘이나 어제까지 이어진 날")}${stat("최장 연속",longest(m)+"일","지금까지 가장 길게 이어간 기록")}${stat("퀴즈 정답률",pct==null?"–":pct+"%",qN?`${qN}문제 중 ${qOK}문제 정답`:"아직 푼 퀴즈가 없어요")}</div>`;
+  P.goal=`<section class="step"><div class="sh"><h2>하루 목표</h2><span class="small">오늘 ${todayN}/${G}개</span></div>
     <div class="goalrow"><label for="goalSel">하루에</label><select id="goalSel">${[1,2,3,4,5,6,7,8,10].map(n=>`<option value="${n}"${n===G?" selected":""}>${n}개</option>`).join("")}</select><span>끝내기</span></div>
     <div class="bar"><i style="width:${Math.min(100,todayN/G*100)}%"></i></div>
-    <p class="small" style="margin:0">${todayN>=G?"오늘 목표를 채웠어요. 달력에 체크가 붙어요.":`오늘 ${G-todayN}개 더 끝내면 목표 달성이에요.`}</p></section>
-  <section class="cal" id="cal" aria-label="학습 달력"></section>
-  <section class="step"><div class="sh"><h2>배지</h2><span class="small">${bs.filter(b=>b[2]).length}/${bs.length}개</span></div>
+    <p class="small" style="margin:0">${todayN>=G?"오늘 목표를 채웠어요. 달력에 체크가 붙어요.":`오늘 ${G-todayN}개 더 끝내면 목표 달성이에요.`}</p></section>`;
+  P.cal=`<section class="cal" id="cal" aria-label="학습 달력"></section>`;
+  P.badges=`<section class="step"><div class="sh"><h2>배지</h2><span class="small">${bs.filter(b=>b[2]).length}/${bs.length}개</span></div>
     <div class="badges">${bs.map(([n,d,ok])=>`<div class="bdg${ok?"":" off"}"><b>${n}</b><span>${d}</span></div>`).join("")}</div></section>`;
-  if(doing.length)h+=`<section class="step"><div class="sh"><h2>이어서 풀기</h2></div><ul class="links">${doing.map(it=>`<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}</span></li>`).join("")}</ul></section>`;
-  h+=`<section class="step"><div class="sh"><h2>오답 노트</h2><span class="small">${wrong.length}문제</span></div>${wrong.length?wrong.sort((x,y)=>y.t-x.t).map(w=>`<div class="wn"><p class="small" style="margin:0">${shortDate(w.it.date)} · ${esc(w.it.tag||"")}</p><p class="q" style="font-size:16px">${esc(w.q.q)}</p>
+  P.doing=doing.length?`<section class="step"><div class="sh"><h2>이어서 풀기</h2></div><ul class="links">${doing.map(it=>`<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}</span></li>`).join("")}</ul></section>`:"";
+  P.wrong=`<section class="step"><div class="sh"><h2>오답 노트</h2><span class="small">${wrong.length}문제</span></div>${wrong.length?wrong.sort((x,y)=>y.t-x.t).map(w=>`<div class="wn"><p class="small" style="margin:0">${shortDate(w.it.date)} · ${esc(w.it.tag||"")}</p><p class="q" style="font-size:16px">${esc(w.q.q)}</p>
     <p class="mine"><span class="no">내 답</span> ${esc(w.q.o[w.j])}</p><p class="right"><span class="ok">정답</span> ${esc(w.q.o[w.q.a])}</p><p class="small" style="margin:0">${esc(w.q.e)}</p><a class="more" href="#i-${esc(w.it.id)}">이슈 다시 보기 →</a></div>`).join("")+`<p class="small" style="margin:0">복습에서 다시 맞히면 오답 노트에서 빠져요.</p>`:`<p class="small" style="margin:0">틀린 문제가 생기면 여기에 모여요. 복습에서 다시 맞히면 빠져요.</p>`}</section>`;
   const tagRows=Object.entries(tags).filter(([,T])=>T.done||T.qN).sort((x,y)=>y[1].done-x[1].done);
-  h+=`<section class="step"><div class="sh"><h2>분야별 기록</h2></div>${tagRows.length?`<div class="tags">${tagRows.map(([tag,T])=>{const p=T.qN?Math.round(T.qOK/T.qN*100):0;return `<div class="tg"><div class="tgh"><b>${esc(tag)}</b><span>${T.done}/${T.all}개 끝냄 · 정답률 ${T.qN?p+"%":"–"}</span></div><div class="bar"><i style="width:${T.all?T.done/T.all*100:0}%"></i></div></div>`}).join("")}</div><p class="small" style="margin:0">막대는 그 분야에 올라온 이슈 중 끝낸 비율이에요. 정답률이 낮은 분야부터 다시 보면 좋아요.</p>`:`<p class="small" style="margin:0">이슈를 풀기 시작하면 분야마다 얼마나 공부했는지 보여줘요.</p>`}</section>`;
-  h+=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 면접 질문에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 면접 직전 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 면접 질문에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
-  $("#main").innerHTML=h;
+  P.tags=`<section class="step"><div class="sh"><h2>분야별 기록</h2></div>${tagRows.length?`<div class="tags">${tagRows.map(([tag,T])=>{const p=T.qN?Math.round(T.qOK/T.qN*100):0;return `<div class="tg"><div class="tgh"><b>${esc(tag)}</b><span>${T.done}/${T.all}개 끝냄 · 정답률 ${T.qN?p+"%":"–"}</span></div><div class="bar"><i style="width:${T.all?T.done/T.all*100:0}%"></i></div></div>`}).join("")}</div><p class="small" style="margin:0">막대는 그 분야에 올라온 이슈 중 끝낸 비율이에요. 정답률이 낮은 분야부터 다시 보면 좋아요.</p>`:`<p class="small" style="margin:0">이슈를 풀기 시작하면 분야마다 얼마나 공부했는지 보여줘요.</p>`}</section>`;
+  P.notes=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 면접 질문에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 면접 직전 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 면접 질문에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
+  $("#main").innerHTML=P.stats+`<div class="mepane"><div>${P.cal}${P.wrong}${P.notes}</div><div>${P.account}${P.goal}${P.doing}${P.badges}${P.tags}</div></div>`;
   if(!calMonth)calMonth=ymd(Date.now()).slice(0,7);
   renderCal(null);wireAccount();
   $("#goalSel").onchange=e=>{const c=cfg();c.goal=+e.target.value;save("cfg",c);showMe()};
@@ -212,15 +227,15 @@ function showList(d){
   const all=byDate(d);const list=job?all.filter(i=>(i.jobs||[]).includes(job)):all;const done=all.filter(i=>status(i)==="done").length;
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m),due=dueList().length;
   const sel=`<select id="pick" aria-label="날짜 고르기">${dates.map(x=>`<option value="${x}"${x===d?" selected":""}>${fmtDate(x)}</option>`).join("")}</select>`;
-  $("#head").innerHTML=brand()+`<div class="daterow">${sel}<a class="chip" href="#me">${sk?`연속 ${sk}일째`:"내 기록"} · 오늘 ${todayN}/${G}개 →</a></div><h1>${fmtDate(d)}의 이슈 ${all.length}개</h1>
-    <div class="prog"><div class="bar"><i style="width:${all.length?done/all.length*100:0}%"></i></div><span>${all.length}개 중 ${done}개 완료</span></div>`;
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}의 이슈 ${all.length}개</h1><p class="meta">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div><div class="hr">${sel}</div></div>
+    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   $("#pick").onchange=e=>{location.hash="d-"+e.target.value};
   let h="";
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
   h+=`<div class="chips" role="group" aria-label="직무별 보기"><span class="small">직무별 보기</span>${["",...JOBS].map(j=>`<button data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div>`;
   h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 관점의 이슈가 없어요. 다른 직무나 전체를 눌러보세요.</p>`;
-  h+=`<p class="small">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요. 퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
+  h+=`<p class="small">퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
   $("#main").innerHTML=h;
   document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{const c=cfg();c.job=b.dataset.job;save("cfg",c);showList(d)});
 }
@@ -357,7 +372,7 @@ function showReview(){
       rv.c=(rv.c||0)+1;rv.s=ok?Math.min((rv.s||0)+1,GAP.length-1):0;rv.n=sod(Date.now())+GAP[rv.s]*DAY;s.rv=rv;
       let fixed=0;x.qs.forEach((q,i)=>{if(x.ans[i]===q.a&&s.qa&&s.qa[q.k]!=null&&+s.qa[q.k]!==q.a){s.qa[q.k]=q.a;fixed++}});save(x.it.id,s);
       $(`#rR${n}`).innerHTML=`<p class="small" style="margin:0">${ok?'<span class="ok">다 맞혔어요.</span>':'<span class="no">틀린 문제가 있어요.</span>'} 다음 복습은 ${shortDate(ymd(rv.n))}이에요.${fixed?` 다시 맞힌 ${fixed}문제는 오답 노트에서 뺐어요.`:""}</p>`;
-      const nav=document.querySelector('.nav a[href="#review"] .cnt');if(nav){const c=+nav.textContent-1;if(c>0)nav.textContent=c;else nav.remove()}}}});
+      renderShell();}}});
 }
 
 /* 용어 사전 */
@@ -458,5 +473,5 @@ function showSearch(){
   render();
 }
 
-window.App={rerender:()=>route(),authChanged(){const l=document.querySelector(".melink");if(l)l.innerHTML=meLabel();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
+window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
 route();
