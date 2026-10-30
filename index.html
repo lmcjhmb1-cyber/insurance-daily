@@ -573,6 +573,45 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .bl.off{color:var(--ink-3);font-weight:500}
 @media (max-width:560px){.bstep{transform:translateX(calc(var(--o)*44px))}}
 @media (prefers-reduced-motion:reduce){.bstart,.cele-fig,.conf i,.xpt,.cele-card{animation:none}}
+
+/* 기초 다지기 단계 */
+.stp{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.st{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding-bottom:16px}
+.st::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:var(--line)}
+.st:last-child::before{display:none}
+.st.done::before{background:var(--u)}
+.st-m{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:16px;background:var(--card);border:2px solid var(--line);color:var(--ink-3)}
+.st-m svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.st.done .st-m{background:var(--u);border-color:var(--u)}
+.st.cur .st-m{background:var(--u);border-color:var(--u);color:#fff;box-shadow:0 0 0 6px color-mix(in srgb,var(--u) 20%,transparent)}
+.st.lock .st-m{color:var(--u);border-color:color-mix(in srgb,var(--u) 45%,var(--line))}
+.st-c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;min-width:0}
+.st.cur .st-c{border:2px solid var(--u);box-shadow:0 6px 20px color-mix(in srgb,var(--u) 14%,transparent)}
+.st.wait .st-c{background:transparent;border-style:dashed}
+.st-h{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;text-decoration:none;color:var(--ink)}
+.st-k{font-size:12px;font-weight:800;color:var(--u)}
+.st-h b{font-size:16.5px}
+.st-b{margin-left:auto;font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--paper);color:var(--ink-2)}
+.st.cur .st-b{background:var(--u);color:#fff}
+.st.done .st-b{background:color-mix(in srgb,var(--u) 15%,var(--card));color:var(--u)}
+.st-p{margin:6px 0 0;font-size:13.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.st.wait .st-h b{color:var(--ink-2)}
+.ss{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+.ss li{position:relative}
+.ss li:not(:last-child)::after{content:"";position:absolute;left:13px;top:34px;height:calc(100% - 26px);width:2px;background:var(--line)}
+.ss li.done:not(:last-child)::after{background:var(--u)}
+.ss a,.ss button{display:flex;align-items:center;gap:10px;width:100%;padding:6px 8px 6px 0;border:0;background:none;border-radius:10px;text-decoration:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.ss a:hover .ss-t{text-decoration:underline}
+.ss-d{position:relative;z-index:1;flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:800;background:var(--paper);color:var(--ink-2)}
+.ss-d svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ss li.done .ss-d{background:var(--u);color:#fff}
+.ss li.cur .ss-d{background:var(--u);color:#fff;box-shadow:0 0 0 4px color-mix(in srgb,var(--u) 22%,transparent)}
+.ss li.lock .ss-d{color:var(--ink-3)}
+.ss-t{flex:1;min-width:0;font-size:14px;line-height:1.4}
+.ss li.cur .ss-t{font-weight:800}
+.ss li.lock .ss-t{color:var(--ink-3)}
+.ss-go{flex:none;font-size:12.5px;font-weight:800;color:#fff;background:var(--u);padding:5px 11px;border-radius:99px}
+@media (max-width:560px){.st{grid-template-columns:34px minmax(0,1fr);gap:10px}.st-m{width:34px;height:34px;font-size:14px}.st::before{left:16px;top:34px}.ss-go{display:none}}
 </style>
 </head>
 <body>
@@ -584,12 +623,12 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310104"></script>
-<script src="frames.js?v=202610310104"></script>
-<script src="basics.js?v=202610310104"></script>
-<script src="weekly.js?v=202610310104"></script>
-<script src="comic.js?v=202610310104"></script>
-<script src="app.js?v=202610310104"></script>
-<script type="module" src="sync.js?v=202610310104"></script>
+<script src="issues.js?v=202610310106"></script>
+<script src="frames.js?v=202610310106"></script>
+<script src="basics.js?v=202610310106"></script>
+<script src="weekly.js?v=202610310106"></script>
+<script src="comic.js?v=202610310106"></script>
+<script src="app.js?v=202610310106"></script>
+<script type="module" src="sync.js?v=202610310106"></script>
 </body>
 </html>

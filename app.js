@@ -537,19 +537,18 @@ function showBasics(){
   let side=`<div class="bsum"><h2>내 진도</h2>${mascotSay(cur?(done?`<b>${done}칸</b> 끝냈어요. 이어서 해볼까요?`:"첫 칸부터 시작해 보세요."):nodes.length?"열린 칸을 모두 끝냈어요. 새 칸은 채워지는 대로 열려요.":"기초 칸을 채우는 중이에요. 곧 첫 칸이 열려요.",{mood:"happy",pose:cur?"point":"cheer"},
     `<div class="bsum-bar"><i style="width:${pct}%"></i></div><div class="bsum-row"><span class="small">${done}/${nodes.length}칸 · 흐름 ${BASICS.length}개</span>${cur?`<a class="bgo" href="#i-${esc(cur.it.id)}">${done?"이어서 하기":"시작하기"}</a>`:""}</div>`)}</div>`;
   side+=`<ol class="bidx">${BASICS.map((b,u)=>{const it=path.filter(x=>x.it&&x.u===u),d=it.filter(x=>x.done).length;return `<li><a href="#bu-${u}" style="--u:${UCOL[u%UCOL.length]}"><i></i><span>${esc(b.name)}</span><em>${it.length?`${d}/${it.length}`:"준비 중"}</em></a></li>`}).join("")}</ol>`;
-  let h="",waits=[];const flush=()=>{if(waits.length){h+=`<div class="bwaits">${waits.join("")}</div>`;waits=[]}};
+  let h="";
   const units=BASICS.map((b,u)=>({b,u,items:path.filter(x=>x.it&&x.u===u)}));
   for(const {b,u,items} of units){const col=UCOL[u%UCOL.length],d=items.filter(x=>x.done).length;
-    if(!items.length){waits.push(`<a class="bu wait" id="bu-${u}" href="#b-${esc(b.id)}" style="--u:${col}"><span class="bu-n">${u+1}</span><div class="bu-t"><b>${esc(b.name)}</b><span>${esc(b.desc)}</span><em class="bu-w">준비 중 · 곧 열려요</em></div></a>`);continue}
-    flush();
-    const all=d===items.length;
-    h+=`<section class="bunit" id="bu-${u}" style="--u:${col}"><a class="bu" href="#b-${esc(b.id)}"><span class="bu-n">${all?"✓":u+1}</span><div class="bu-t"><b>${esc(b.name)}</b><span>${esc(b.desc)}</span></div><span class="bu-p">${d}/${items.length}</span></a><div class="bpath">`;
-    items.forEach((x,k)=>{const o=[0,1,0,-1][k%4],it=x.it,st=x.state;
-      const icon=st==="done"?'<path d="M5 12.5l4.5 4.5L19 7.5"/>':st==="lock"?'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>':'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" class="f"/>';
-      const btn=st==="lock"?`<button class="bn lock" data-lock="1" aria-label="잠긴 칸: ${esc(it.title)}"><svg viewBox="0 0 24 24" aria-hidden="true">${icon}</svg></button>`:`<a class="bn ${st}" href="#i-${esc(it.id)}" aria-label="${esc(it.title)}"><svg viewBox="0 0 24 24" aria-hidden="true">${icon}</svg></a>`;
-      h+=`<div class="bstep${st==="cur"?" cur":""}" style="--o:${o}">${st==="cur"?`<span class="bstart">${done?"이어서":"시작"}</span>`:""}${btn}<span class="bl${st==="lock"?" off":""}">${esc(it.title)}</span></div>`});
-    h+=`</div></section>`}
-  flush();
+    const ust=!items.length?"wait":d===items.length?"done":items.some(x=>x.state==="cur")?"cur":"lock";
+    const badge=ust==="done"?"완료":ust==="cur"?"지금 단계":ust==="lock"?"잠김":"준비 중";
+    const sub=items.length?`<ol class="ss">${items.map((x,k)=>{const it=x.it,st=x.state;
+        const inner=`<span class="ss-d">${st==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':st==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11"/></svg>':k+1}</span><span class="ss-t">${esc(it.title)}</span>${st==="cur"?`<span class="ss-go">${done?"이어서 하기":"시작하기"} →</span>`:""}`;
+        return `<li class="${st}">${st==="lock"?`<button type="button" data-lock="1">${inner}</button>`:`<a href="#i-${esc(it.id)}">${inner}</a>`}</li>`}).join("")}</ol>`:"";
+    h+=`<li class="st ${ust}" id="bu-${u}" style="--u:${col}"><span class="st-m">${ust==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':u+1}</span>
+      <div class="st-c"><a class="st-h" href="#b-${esc(b.id)}"><span class="st-k">${u+1}단계</span><b>${esc(b.name)}</b><span class="st-b">${badge}${items.length?` · ${d}/${items.length}`:""}</span></a><p class="st-p">${esc(b.desc)}</p>${sub}</div></li>`;
+  }
+  h=`<ol class="stp">${h}</ol>`;
   $("#main").innerHTML=`<div class="bwrap"><aside class="bside">${side}</aside><div class="bmain">${h}<p class="small" id="pathMsg" role="status"></p></div></div>`;
   document.querySelectorAll('.bidx a').forEach(a=>a.onclick=e=>{e.preventDefault();const t=document.getElementById(a.getAttribute("href").slice(1));if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
   document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{$("#pathMsg").innerHTML=`🔒 앞 칸을 먼저 끝내면 열려요.${cur?` <a href="#i-${esc(cur.it.id)}">지금 할 칸으로 가기 →</a>`:""}`;$("#pathMsg").scrollIntoView({block:"nearest",behavior:"smooth"})});
