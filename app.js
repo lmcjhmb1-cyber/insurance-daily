@@ -278,7 +278,7 @@ function showList(d){
   const strip=asc.map((x,k)=>{const [,mm,dd]=x.split("-");const n=byDate(x).length,dn=byDate(x).filter(i=>status(i)==="done").length;const newM=k===0||asc[k-1].slice(0,7)!==x.slice(0,7);
     return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
   const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개 · 이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div></div>${sel}
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개</p></div></div>${sel}
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
   document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
@@ -286,10 +286,14 @@ function showList(d){
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
   h+=favNewsHTML();
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
-  h+=`<div class="chips" role="group" aria-label="직무별 보기"><span class="small">직무별 보기</span>${["",...JOBS].map(j=>`<button data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div>`;
-  h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 관점의 이슈가 없어요. 다른 직무나 전체를 눌러보세요.</p>`;
+  h+=`<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>영역별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...JOBS].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div>`;
+  h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 영역의 이슈가 없어요. 다른 영역이나 전체를 골라보세요.</p>`;
   h+=`<p class="small">퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
   $("#main").innerHTML=h;
+  {const B=$("#areaB"),M=$("#areaM");const close=()=>{M.hidden=true;B.setAttribute("aria-expanded","false")};
+    B.onclick=e=>{e.stopPropagation();const o=M.hidden;M.hidden=!o;B.setAttribute("aria-expanded",String(o))};
+    document.addEventListener("click",function f(e){if(!document.body.contains(M)){document.removeEventListener("click",f);return}if(!e.target.closest(".areaf"))close()});
+    document.addEventListener("keydown",function k(e){if(!document.body.contains(M)){document.removeEventListener("keydown",k);return}if(e.key==="Escape")close()});}
   document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{const c=cfg();c.job=b.dataset.job;save("cfg",c);showList(d)});
 }
 function cardHTML(it){const s=status(it),st=load(it.id);
@@ -682,7 +686,7 @@ let ivJob="";
 function showInterview(){
   $("#head").innerHTML=brand()+`<h1>면접 연습</h1><p class="meta" style="margin:0">이슈마다 나올 법한 면접 질문을 모았어요. 말하듯 적어보고 답변 뼈대와 비교해보세요. 쓴 답은 이슈 화면과 마이페이지에도 함께 저장돼요.</p>`;
   const list=issues.filter(i=>i.interview&&(!ivJob||(i.jobs||[]).includes(ivJob)));
-  $("#main").innerHTML=`<div class="chips" role="group" aria-label="직무별 보기"><span class="small">직무별 보기</span>${["",...JOBS].map(j=>`<button data-ivj="${esc(j)}" class="${j===ivJob?"on":""}">${j||"전체"}</button>`).join("")}</div>
+  $("#main").innerHTML=`<div class="chips" role="group" aria-label="영역별 보기"><span class="small">영역별 보기</span>${["",...JOBS].map(j=>`<button data-ivj="${esc(j)}" class="${j===ivJob?"on":""}">${j||"전체"}</button>`).join("")}</div>
     ${list.length?list.map(it=>{const s=load(it.id);return `<section class="step"><div class="sh"><h2>${shortDate(it.date)} · ${esc(it.tag||"")}</h2>${s.iv&&s.iv.trim()?'<span class="small ok">답 씀</span>':""}</div>
     <p class="q">${esc(it.interview.q)}</p><a class="more" href="#i-${esc(it.id)}-deep">관련 이슈: ${esc(it.title)} →</a>
     <textarea data-iv="${esc(it.id)}" placeholder="면접관에게 말하듯 2~4문장으로">${esc(s.iv||"")}</textarea>
@@ -863,7 +867,7 @@ function showSearch(){
   const tags=[...new Set(issues.map(i=>i.tag).filter(Boolean))];
   $("#main").innerHTML=`<input type="search" id="sq" placeholder="제목, 내용, 용어로 찾기" aria-label="이슈 찾기" value="${esc(SQ.q)}">
     <div class="chips" role="group" aria-label="분야"><span class="small">분야</span>${["",...tags].map(t=>`<button data-st="${esc(t)}" class="${t===SQ.tag?"on":""}">${t||"전체"}</button>`).join("")}</div>
-    <div class="chips" role="group" aria-label="직무"><span class="small">직무</span>${["",...JOBS].map(j=>`<button data-sj="${esc(j)}" class="${j===SQ.job?"on":""}">${j||"전체"}</button>`).join("")}</div>
+    <div class="chips" role="group" aria-label="영역"><span class="small">영역</span>${["",...JOBS].map(j=>`<button data-sj="${esc(j)}" class="${j===SQ.job?"on":""}">${j||"전체"}</button>`).join("")}</div>
     <p class="small" id="scount" style="margin:0"></p><div id="sres" class="cards"></div>`;
   const render=()=>{const q=SQ.q.trim();
     const list=issues.filter(it=>(!SQ.tag||it.tag===SQ.tag)&&(!SQ.job||(it.jobs||[]).includes(SQ.job))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").replace(/\*\*/g,"").includes(q)));
