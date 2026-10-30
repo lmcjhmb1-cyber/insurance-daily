@@ -264,11 +264,12 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .fsplit-k li{display:flex;align-items:center;gap:6px}
 .fsplit-k i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .fsplit-k b{color:var(--ink);font-weight:800}
-.ntiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-.nt{display:flex;flex-direction:column;gap:2px;background:var(--paper);border-radius:10px;padding:12px 14px;min-width:0}
-.nt span{font-size:12.5px;color:var(--ink-2);font-weight:600}
-.nt b{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
-.nt em{font-style:normal;font-size:12px;color:var(--ink-3);line-height:1.45}
+.ntiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.nt{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px 15px;min-width:0;overflow:hidden}
+.nt::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:var(--accent)}
+.nt span{font-size:13px;color:var(--ink-2);font-weight:700}
+.nt b{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--accent-ink);word-break:keep-all}
+.nt em{font-style:normal;font-size:13px;color:var(--ink-2);line-height:1.55;padding-top:8px;border-top:1px dashed var(--line)}
 .flow{display:flex;flex-direction:column;align-items:stretch}
 .flow-b{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;font-size:14.5px}
 .flow-b.last{border-color:var(--accent);background:var(--accent-bg)}
@@ -812,15 +813,15 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310154"></script>
-<script src="frames.js?v=202610310154"></script>
-<script src="basics.js?v=202610310154"></script>
-<script src="profiles.js?v=202610310154"></script>
-<script src="news.js?v=202610310154"></script>
-<script src="companies.js?v=202610310154"></script>
-<script src="weekly.js?v=202610310154"></script>
-<script src="comic.js?v=202610310154"></script>
-<script src="app.js?v=202610310154"></script>
-<script type="module" src="sync.js?v=202610310154"></script>
+<script src="issues.js?v=202610310155"></script>
+<script src="frames.js?v=202610310155"></script>
+<script src="basics.js?v=202610310155"></script>
+<script src="profiles.js?v=202610310155"></script>
+<script src="news.js?v=202610310155"></script>
+<script src="companies.js?v=202610310155"></script>
+<script src="weekly.js?v=202610310155"></script>
+<script src="comic.js?v=202610310155"></script>
+<script src="app.js?v=202610310155"></script>
+<script type="module" src="sync.js?v=202610310155"></script>
 </body>
 </html>
