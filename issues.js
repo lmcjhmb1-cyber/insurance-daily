@@ -1,6 +1,7 @@
 // 이슈 목록 파일이에요. 새 이슈는 맨 앞에 같은 모양으로 추가하면 돼요.
 // 가볍게: predict, numbers(또는 gauge), points, why, quiz / 깊게: 여기에 chain, role, summary, interview 추가. 깊게에서만 낼 퀴즈는 "deep": true
 // 그림 figs(선택, 1~2개): bars{title,unit,items[{label,value,text?,hi?}],ref?{value,label},note?}, compare{title,left,right,rows[{label,left,right}],note?}, timeline{title,items[{when,label,now?}]}, split{title,items[{label,value,text?}],total?,note?}
+// 네컷만화 comic(선택, 어울리는 이슈에만): {title, panels:[4칸 {caption, sign?, chars:[1~2명 {who, mood, say, name?}]}]}. who: customer, customer2, insurer, actuary, regulator, doctor, driver / mood: happy, worried, surprised, thinking, angry, sad
 // 연결 정보: terms(용어와 뜻), thread(이어보기 묶음 id와 이름), frames(frames.js의 생각의 틀 id), jobs(frames.js의 JOBS 중에서)
 window.ISSUES = [
   {
@@ -370,7 +371,58 @@ window.ISSUES = [
         ],
         "note": "선택형 특약은 모든 특약을 고를 때의 예상 할인율이에요."
       }
-    ]
+    ],
+    "comic": {
+      "title": "갈아탈까, 남을까",
+      "panels": [
+        {
+          "caption": "11월, 할인 안내가 왔다",
+          "sign": "5세대로 바꾸면 3년간 50% 추가 할인",
+          "chars": [
+            {
+              "who": "customer",
+              "mood": "happy",
+              "say": "보험료가 88%나 줄 수 있대!"
+            }
+          ]
+        },
+        {
+          "caption": "그런데 친구는 고민 중",
+          "chars": [
+            {
+              "who": "customer2",
+              "mood": "worried",
+              "say": "난 도수치료를 자주 받는데…"
+            },
+            {
+              "who": "customer",
+              "mood": "thinking",
+              "say": "5세대는 그건 보장 안 해"
+            }
+          ]
+        },
+        {
+          "caption": "병원을 잘 안 가는 사람만 갈아타면?",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "worried",
+              "say": "보험금 많이 쓰는 분만 남으면 손해율이…"
+            }
+          ]
+        },
+        {
+          "caption": "계리사의 할 일",
+          "chars": [
+            {
+              "who": "actuary",
+              "mood": "thinking",
+              "say": "남은 계약 손해율을 따로 지켜봐야 해요"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "2026-10-30-3",
@@ -725,6 +777,57 @@ window.ISSUES = [
           }
         ]
       }
-    ]
+    ],
+    "comic": {
+      "title": "9월엔 웃었지만",
+      "panels": [
+        {
+          "caption": "10월 하순, 9월 성적표가 나왔다",
+          "sign": "9월 손해율 85.0%",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "happy",
+              "say": "작년보다 9%p나 좋아졌어!"
+            }
+          ]
+        },
+        {
+          "caption": "계리사가 누적 숫자를 꺼낸다",
+          "chars": [
+            {
+              "who": "actuary",
+              "mood": "thinking",
+              "say": "1~9월 누적은 84.7%, 손익분기선 80%를 넘어요"
+            }
+          ]
+        },
+        {
+          "caption": "한편 10월 단풍철",
+          "chars": [
+            {
+              "who": "driver",
+              "mood": "happy",
+              "say": "단풍 보러 출발!"
+            }
+          ]
+        },
+        {
+          "caption": "사고도 늘고, 정비수가와 임금도 오르고",
+          "chars": [
+            {
+              "who": "insurer",
+              "mood": "worried",
+              "say": "다시 나빠지겠는걸…"
+            },
+            {
+              "who": "actuary",
+              "mood": "thinking",
+              "say": "한 달 숫자보다 추세를 봐야죠"
+            }
+          ]
+        }
+      ]
+    }
   }
 ];
