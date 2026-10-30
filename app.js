@@ -707,17 +707,20 @@ function showCompany(name){
   const c=COMPANIES.find(x=>x.name===name);if(!c)return showCompanies();
   const list=coIssues(name),done=list.filter(i=>status(i)==="done").length,nw=coNews(name);
   const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
-  $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohead" style="${coVars(c)}">${coMono(c,"big")}<div><span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1></div></div><p class="meta">${list.length||nw.length?`회사 소식 ${nw.length}개 · 공부할 이슈 ${list.length}개${list.length?` (${done}개 끝냄)`:""}`:"아직 이 회사 소식이 없어요. 매일 아침 새 소식을 모아요."}</p>`;
+  const pf0=PROFILES[name],lastR=pf0&&pf0.results&&pf0.results.items[pf0.results.items.length-1],found=pf0&&pf0.facts&&pf0.facts.find(f=>f.label==="설립");
+  const kpi=[lastR&&[lastR.label+" 순이익",lastR.text],found&&["설립",(found.value.match(/\d{4}년/)||[found.value])[0]],["회사 소식",nw.length+"개"],["공부할 이슈",list.length+"개"]].filter(Boolean);
+  $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohero" style="${coVars(c)}"><div class="cohero-top">${coMono(c,"big")}<div class="cohero-t"><div class="cohero-tags"><span>${kindLabel}</span>${c.group?`<span>${esc(c.group)} 계열</span>`:""}</div><h1>${esc(c.name)}</h1></div></div>
+    ${pf0&&pf0.summary?`<p class="cohero-sum">${esc(pf0.summary)}</p>`:""}<div class="cohero-kpi">${kpi.map(([l,v])=>`<div><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join("")}</div></div>`;
   let h="";const pf=PROFILES[name];
   if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
     const P={};
-    P.about=`<p class="pf-sum">${esc(pf.summary)}</p>${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ul class="points">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
+    P.about=`${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ol class="pf-str">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`;
     if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div>`).join("")}</div>`;
     if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map(t=>`<div><b>${esc(t.k)}</b><span>${esc(t.d)}</span></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="points">${pf.culture.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
     if(pf.results)P.results=figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
     if(pf.history)P.history=figHTML({type:"timeline",title:"",items:pf.history.map(x=>({when:x.when,label:x.label}))});
     if(pf.tips)P.tips=`<ol class="pf-tips">${pf.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;
-    h+=`<section class="step pf" style="${coVars(c)}"><div class="sh"><h2>회사 기본 정보</h2><span class="small">${esc(pf.updated||"")} 기준</span></div>
+    h+=`<section class="step pf" style="${coVars(c)}"><div class="pf-head"><h2>회사 기본 정보</h2><span>${esc(pf.updated||"")} 기준</span></div>
       <div class="pf-tabs" role="tablist">${tabs.map(([k,l],i)=>`<button role="tab" data-pt="${k}" aria-selected="${i===0}" class="${i===0?"on":""}">${l}</button>`).join("")}</div>
       ${tabs.map(([k],i)=>`<div class="pf-p" data-pp="${k}"${i?" hidden":""}>${P[k]}</div>`).join("")}
       ${pf.sources?`<details class="pf-src small"><summary>출처 ${pf.sources.length}곳</summary><ul>${pf.sources.map(x=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a></li>`).join("")}</ul></details>`:""}</section>`}

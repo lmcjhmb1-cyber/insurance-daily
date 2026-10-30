@@ -692,6 +692,39 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .pf-tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
 .pf-src{margin-top:12px}.pf-src ul{margin:6px 0 0;padding-left:18px}.pf-src a{color:var(--accent-ink)}
 .pf-empty{border-style:dashed}
+
+/* 회사 페이지 머리와 기본 정보 (다듬은 판) */
+.cohero{position:relative;overflow:hidden;border-radius:22px;padding:24px 24px 20px;color:var(--ci);background:linear-gradient(135deg,var(--cc),color-mix(in srgb,var(--cc) 62%,#000));margin-top:6px;box-shadow:0 14px 36px color-mix(in srgb,var(--cc) 28%,transparent)}
+.cohero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.cohero::before{content:"";position:absolute;right:60px;bottom:-110px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06)}
+.cohero-top{position:relative;z-index:1;display:flex;align-items:center;gap:16px}
+.cohero .comono.big{width:68px;height:68px;border-radius:18px;background:#fff;color:color-mix(in srgb,var(--cc) 72%,#000);box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.cohero-tags{display:flex;gap:6px;flex-wrap:wrap}
+.cohero-tags span{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--ci) 16%,transparent);color:var(--ci)}
+.cohero h1{margin:6px 0 0;color:var(--ci);font-size:32px;letter-spacing:-.02em}
+.cohero-sum{position:relative;z-index:1;margin:16px 0 0;font-size:16px;line-height:1.6;color:var(--ci);opacity:.95;max-width:720px}
+.cohero-sum mark.em{background:none;color:inherit;font-weight:800;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ci) 55%,transparent);text-underline-offset:4px}
+.cohero-kpi{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:18px}
+.cohero-kpi div{background:color-mix(in srgb,var(--ci) 13%,transparent);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;gap:2px;backdrop-filter:blur(2px)}
+.cohero-kpi span{font-size:12px;color:var(--ci);opacity:.8}
+.cohero-kpi b{font-size:18px;color:var(--ci)}
+.pf{border-top:0;padding-top:20px}
+.pf-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px}
+.pf-head h2{margin:0;font-size:18px}
+.pf-head span{font-size:12px;color:var(--ink-3)}
+.pf-tabs{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--paper);border:0;margin:0 0 18px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+.pf-tabs::-webkit-scrollbar{display:none}
+.pf-tabs button{flex:none;border:0;border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;color:var(--ink-2);background:none;margin:0}
+.pf-tabs button.on{background:var(--card);color:var(--ink);font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.pf-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 24px;margin:0}
+.pf-facts div{background:none;border-radius:0;padding:11px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:baseline}
+.pf-facts dt{font-size:13px;font-weight:700;color:var(--ink-3)}
+.pf-facts dd{margin:0;font-size:14.5px;font-weight:600}
+.pf-h{font-size:15px;margin:22px 0 10px}
+.pf-str{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.pf-str li{counter-increment:s;position:relative;padding:14px 16px 14px 52px;border-radius:14px;background:color-mix(in srgb,var(--cc) 6%,var(--card));border:1px solid color-mix(in srgb,var(--cc) 18%,var(--line));font-size:14.5px;line-height:1.6}
+.pf-str li::before{content:counter(s);position:absolute;left:14px;top:13px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--cc);color:var(--ci);font-weight:900;font-size:13px}
+@media (max-width:560px){.cohero{padding:20px 18px 16px}.cohero h1{font-size:26px}.cohero .comono.big{width:56px;height:56px}.pf-facts div{grid-template-columns:64px 1fr}}
 </style>
 </head>
 <body>
@@ -703,15 +736,15 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310139"></script>
-<script src="frames.js?v=202610310139"></script>
-<script src="basics.js?v=202610310139"></script>
-<script src="profiles.js?v=202610310139"></script>
-<script src="news.js?v=202610310139"></script>
-<script src="companies.js?v=202610310139"></script>
-<script src="weekly.js?v=202610310139"></script>
-<script src="comic.js?v=202610310139"></script>
-<script src="app.js?v=202610310139"></script>
-<script type="module" src="sync.js?v=202610310139"></script>
+<script src="issues.js?v=202610310143"></script>
+<script src="frames.js?v=202610310143"></script>
+<script src="basics.js?v=202610310143"></script>
+<script src="profiles.js?v=202610310143"></script>
+<script src="news.js?v=202610310143"></script>
+<script src="companies.js?v=202610310143"></script>
+<script src="weekly.js?v=202610310143"></script>
+<script src="comic.js?v=202610310143"></script>
+<script src="app.js?v=202610310143"></script>
+<script type="module" src="sync.js?v=202610310143"></script>
 </body>
 </html>
