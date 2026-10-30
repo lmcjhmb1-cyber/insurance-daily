@@ -251,7 +251,7 @@ function showList(d){
   const all=byDate(d);const list=job?all.filter(i=>(i.jobs||[]).includes(job)):all;const done=all.filter(i=>status(i)==="done").length;
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m),due=dueList().length;
   const sel=`<select id="pick" aria-label="날짜 고르기">${dates.map(x=>`<option value="${x}"${x===d?" selected":""}>${fmtDate(x)}</option>`).join("")}</select>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}의 이슈 ${all.length}개</h1><p class="meta">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div><div class="hr">${sel}</div></div>
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}의 보험 이슈</h1><p class="meta">이날 올라온 이슈 ${all.length}개 · 이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div><div class="hr">${sel}</div></div>
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   $("#pick").onchange=e=>{location.hash="d-"+e.target.value};
   let h="";
