@@ -52,7 +52,7 @@
     - 보험사: insurer(배불뚝이 보험사). 보험사는 언제나 이것 하나만 써요.
     - 그 밖의 역할은 역할 이름 그대로예요: driver(운전자), regulator(금융당국), doctor(의사), planner(설계사), fraudster(보험사기범)
   - 한 만화 안에서는 같은 인물을 같은 who로 계속 써요. 가입자가 둘이면 서로 다른 채소를 골라요. 만화마다 채소는 골고루 바꿔 써요.
-  - 계리사는 사이트 마스코트인 mango(망고 계리사)를 늘 먼저 써요. 한 칸이나 한 만화에 계리사가 둘 필요할 때만 두 번째 계리사로 strawberry(딸기 계리사)나 watermelon(수박이 계리사)를 써요.
+  - 계리사는 mango(망고 계리사)를 늘 먼저 써요. 한 칸이나 한 만화에 계리사가 둘 필요할 때만 두 번째 계리사로 strawberry(딸기 계리사)나 watermelon(수박이 계리사)를 써요.
   - mood: happy, worried, surprised, thinking, angry, sad
   - pose: stand(기본), point(가리키기), cheer(만세), think(턱 괴기), phone(휴대폰 보기), doc(서류 들기), worry(머리 감싸기), shrug(어깨 으쓱)
   - fx(선택): sweat(땀방울), sparkle(반짝), question(물음표), exclaim(느낌표), gloom(우울한 그늘), heart(하트), idea(전구). worried는 따로 안 적어도 땀방울이 나와요.
