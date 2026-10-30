@@ -14,8 +14,12 @@ const FEEDBACK_URL="";
 
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const FRAMES=window.FRAMES||[];const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
-const dates=[...new Set(issues.map(i=>i.date))].sort().reverse();
-const byDate=d=>issues.filter(i=>i.date===d).sort((a,b)=>a.id<b.id?-1:1);
+const BASICS=window.BASICS||[];
+const daily=issues.filter(i=>!i.basic);
+const dates=[...new Set(daily.map(i=>i.date))].sort().reverse();
+const byDate=d=>daily.filter(i=>i.date===d).sort((a,b)=>a.id<b.id?-1:1);
+const basicIssues=b=>(b.order||[]).map(id=>issues.find(i=>i.id===id)).filter(Boolean);
+const basicOf=it=>it.basic&&it.thread?BASICS.find(b=>b.id===it.thread.id):null;
 const lightQuiz=it=>(it.quiz||[]).map((q,k)=>({...q,k})).filter(q=>!q.deep);
 function status(it){const s=load(it.id);if(s.done)return"done";if(s.pred!=null||(s.qa&&Object.keys(s.qa).length)||s.role||s.sum||s.iv)return"doing";return""}
 const cfg=()=>load("cfg");
@@ -36,21 +40,22 @@ function nextReview(){let best=null;for(const it of issues){const s=load(it.id);
 /* 길찾기 */
 const SECS=[
   {k:"issue",label:"이슈",icon:'<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2"/><path d="M8 9h4M8 13h4"/>',tabs:[["","오늘 이슈"],["threads","이어보기"],["weekly","주간 큰 그림"],["search","찾기"]]},
+  {k:"basics",label:"기초",icon:'<path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/>',tabs:[["basics","기초 다지기"]]},
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
   {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"]]}];
-function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";return h}
+function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
   const item=s=>`<a class="si${s.k===sec.k?" on":""}${s.k==="me"?" me":""}" href="#${s.tabs[0][0]}"${s.k===sec.k?' aria-current="page"':""}><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg>${s.label}${s.k==="review"&&due?`<span class="cnt">${due}</span>`:""}${s.k==="me"&&u?'<span class="dot" aria-hidden="true"></span>':""}</a>`;
-  $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로">보험</a>${SECS.slice(0,4).map(item).join("")}<span class="grow"></span>${item(SECS[4])}`;
+  $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로">보험</a>${SECS.slice(0,5).map(item).join("")}<span class="grow"></span>${item(SECS[5])}`;
   $("#tline").innerHTML=`<a class="bt" href="#">오늘의 <em>보험</em> 이슈 <span>· ${sec.k==="me"?"마이페이지":sec.label}</span></a><a class="who" href="#me">${u?esc(u.displayName||"로그인됨")+"님":"로그인"}</a>`;
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|review$|interview$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|review$|interview$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -62,6 +67,8 @@ function route(){
   if(!issues.length){$("#head").innerHTML=brand()+`<p class="empty">첫 이슈가 아직 올라오지 않았어요.</p>`;$("#main").innerHTML="";return}
   if(h==="me")return showMe();
   if(h==="review")return showReview();
+  if(h==="basics")return showBasics();
+  if(h.startsWith("b-"))return showBasic(h.slice(2));
   if(h==="terms")return showTerms();
   if(h.startsWith("g-"))return showTerm(h.slice(2));
   if(h==="frames")return showFrames();
@@ -253,8 +260,9 @@ function miniList(list){return `<ul class="links">${list.map(it=>{const s=status
 let statsCache={};
 function showIssue(it,mode){
   const st=load(it.id);const deep=mode==="deep";const used=new Set();
-  $("#head").innerHTML=brand()+back(`#d-${it.date}`,`${shortDate(it.date)} 이슈 목록`)+`
-    <span class="tag">${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${modeLinks(it,mode)}`;
+  const bs=basicOf(it);
+  $("#head").innerHTML=(bs?back(`#b-${bs.id}`,`기초 다지기 · ${esc(bs.name)}`):back(`#d-${it.date}`,`${shortDate(it.date)} 이슈 목록`))+`
+    <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${modeLinks(it,mode)}`;
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
   if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
@@ -288,8 +296,8 @@ function showIssue(it,mode){
   if(!deep&&(it.chain||it.role))h+=`<p class="small" style="margin:0">더 파고들고 싶으면 위에서 <a href="#i-${esc(it.id)}-deep" style="color:var(--accent)">깊게 보기</a>로 바꿔보세요. 인과 사슬, 담당자 질문, 면접 질문이 더해져요.</p>`;
   if(it.sources)h+=`<section class="src small">원문 기사: ${it.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}<br>이 페이지의 해설은 원문을 바탕으로 새로 쓴 학습용 정리예요.</section>`;
   h+=`<details class="report"><summary>내용이 틀렸나요? 알려주세요</summary><textarea id="repT" placeholder="어느 부분이 어떻게 틀렸는지 적어주세요. 개인정보는 적지 마세요." maxlength="1000"></textarea><div class="err" id="repE"></div><div class="row"><button id="repB">보내기</button></div></details>`;
-  const sib=byDate(it.date);const k=sib.findIndex(x=>x.id===it.id);const nx=sib[k+1];
-  h+=`<nav class="next"><a href="#d-${it.date}">← 목록으로</a>${nx?`<a href="#i-${esc(nx.id)}">다음 이슈: ${esc(nx.title.length>22?nx.title.slice(0,22)+"…":nx.title)} →</a>`:""}</nav>`;
+  const sib=bs?basicIssues(bs):byDate(it.date);const k=sib.findIndex(x=>x.id===it.id);const nx=sib[k+1];
+  h+=`<nav class="next"><a href="${bs?"#b-"+bs.id:"#d-"+it.date}">← 목록으로</a>${nx?`<a href="#i-${esc(nx.id)}">다음 이슈: ${esc(nx.title.length>22?nx.title.slice(0,22)+"…":nx.title)} →</a>`:""}</nav>`;
   $("#main").innerHTML=h;wire(it,st,mode,all);
 }
 
@@ -350,6 +358,27 @@ function wire(it,st,mode,all){
     if(!window.Stats){$("#repE").textContent="지금은 보낼 수 없어요. 잠시 뒤 다시 시도해주세요.";return}
     $("#repB").disabled=true;try{await window.Stats.report(it.id,t);$("#repT").value="";$("#repE").innerHTML=`<span class="ok">보냈어요. 확인해서 고칠게요. 고마워요.</span>`}catch(e){$("#repE").textContent="보내지 못했어요. 잠시 뒤 다시 시도해주세요."}finally{$("#repB").disabled=false}};
   $("#repT").oninput=()=>{$("#repE").textContent=""};
+}
+
+/* 기초 다지기 */
+function showBasics(){
+  const all=BASICS.flatMap(basicIssues),done=all.filter(i=>status(i)==="done").length;
+  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 순서대로 익혀요. 위에서부터 하나씩 보면 매일 이슈가 훨씬 잘 읽혀요.</p>
+    ${all.length?`<div class="statline"><span>기초 이슈 <b>${done}/${all.length}</b>개 완료</span><span>흐름 <b>${BASICS.length}</b>개</span></div>`:""}`;
+  $("#main").innerHTML=`<ol class="blist">${BASICS.map((b,n)=>{const list=basicIssues(b),d=list.filter(i=>status(i)==="done").length;
+    return `<li><a class="bitem" href="#b-${esc(b.id)}"><span class="bn">${n+1}</span><div class="bt2"><b>${esc(b.name)}</b><p>${esc(b.desc)}</p></div><span class="bs">${list.length?`${d}/${list.length} 완료`:"준비 중"}</span></a></li>`}).join("")}</ol>
+    ${all.length<BASICS.length*2?`<p class="small">기초 이슈는 원문 기사를 확인해가며 차례로 채우고 있어요. 준비 중인 흐름은 곧 채워져요.</p>`:""}`;
+}
+function showBasic(id){
+  const b=BASICS.find(x=>x.id===id);if(!b)return showBasics();
+  const list=basicIssues(b),idx=BASICS.indexOf(b),nx=BASICS[idx+1];
+  const recent=daily.filter(i=>i.thread&&i.thread.id===b.id).sort((x,y)=>x.id<y.id?1:-1).slice(0,5);
+  $("#head").innerHTML=back("#basics","기초 다지기")+`<span class="tag light">기초 ${idx+1} / ${BASICS.length}</span><h1>${esc(b.name)}</h1><p class="meta">${esc(b.desc)}</p>`;
+  let h=`<section class="step"><div class="sh"><h2>왜 먼저 알아야 할까</h2></div><p style="margin:0">${esc(b.why)}</p></section>`;
+  h+=`<section class="step"><div class="sh"><h2>순서대로 보기</h2><span class="small">${list.length}개</span></div>${list.length?`<ol class="steps">${list.map((it,n)=>{const s=status(it);return `<li><span class="sn${s==="done"?" done":""}">${s==="done"?"✓":n+1}</span><div><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${fmtDate(it.date)}${s==="doing"?" · 진행 중":""}</span></div></li>`}).join("")}</ol>`:`<p class="small" style="margin:0">이 흐름의 기초 이슈를 준비하고 있어요. 원문 기사를 확인해가며 곧 채워져요.</p>`}</section>`;
+  if(recent.length)h+=`<section class="step"><div class="sh"><h2>이 흐름의 최근 소식</h2></div>${miniList(recent)}<a class="more" href="#t-${esc(b.id)}">처음부터 지금까지 시간 순서로 보기 →</a></section>`;
+  if(nx)h+=`<nav class="next"><a href="#basics">← 기초 다지기</a><a href="#b-${esc(nx.id)}">다음 흐름: ${esc(nx.name)} →</a></nav>`;
+  $("#main").innerHTML=h;
 }
 
 /* 오늘의 복습 */

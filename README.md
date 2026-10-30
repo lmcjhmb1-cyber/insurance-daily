@@ -7,5 +7,7 @@
 - `issues.js` 이슈 목록 (새 이슈는 맨 앞에 같은 모양으로 추가)
 - `sync.js` 구글 로그인, 학습 기록 저장, 친구들 정답률, 오류 신고 (파이어베이스)
 - `frames.js` 생각의 틀 목록과 직무 목록
+- `basics.js` 기초 다지기 흐름 목록 (기초 이슈는 issues.js에 "basic": true)
 - `weekly.js` 주간 큰 그림 (매주 일요일 추가)
+- `backfill.json` 과거 이슈 채우기 작업의 진행 기록
 - `worker/feedback.js` 인공지능 피드백 서버 코드 (클라우드플레어 워커에 붙여넣어 사용, 비밀값 없음)
