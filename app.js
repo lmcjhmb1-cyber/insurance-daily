@@ -61,7 +61,7 @@ const SECS=[
   {k:"basics",label:"기초",icon:'<path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/>',tabs:[["basics","기초 다지기"]]},
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
-  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["companies","회사별 보기"]]},
+  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"],["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
 function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
@@ -73,7 +73,7 @@ function renderShell(){
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|c-|review$|interview$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -103,6 +103,7 @@ function route(){
   if(h.startsWith("w-"))return showWeek(h.slice(2));
   if(h==="interview")return showInterview();
   if(h==="companies")return showCompanies();
+  if(h==="mock")return showMock();
   if(h.startsWith("c-"))return showCompany(h.slice(2));
   if(h==="search")return showSearch();
   if(h==="league")return showLeague();
@@ -283,6 +284,7 @@ function showList(d){
   document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
+  h+=favNewsHTML();
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
   h+=`<div class="chips" role="group" aria-label="직무별 보기"><span class="small">직무별 보기</span>${["",...JOBS].map(j=>`<button data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div>`;
   h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 관점의 이슈가 없어요. 다른 직무나 전체를 눌러보세요.</p>`;
@@ -689,6 +691,19 @@ function showInterview(){
   document.querySelectorAll("[data-iv]").forEach(t=>{let tm;t.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{const s=load(t.dataset.iv);s.iv=t.value;save(t.dataset.iv,s)},400)}});
 }
 
+/* 내 지원 회사 고정 (최대 3곳) */
+const favs=()=>(cfg().fav||[]).filter(n=>COMPANIES.some(c=>c.name===n));
+function toggleFav(name){const c=cfg();let f=favs();if(f.includes(name))f=f.filter(x=>x!==name);else{if(f.length>=3){alertBox("지원 회사는 3곳까지 고정할 수 있어요. 다른 회사를 먼저 풀어주세요.");return false}f.push(name)}c.fav=f;save("cfg",c);return true}
+function alertBox(t){let b=document.getElementById("toast1");if(!b){b=document.createElement("div");b.id="toast1";b.className="toast1";b.setAttribute("role","status");document.body.appendChild(b)}b.textContent=t;b.classList.add("on");clearTimeout(b._t);b._t=setTimeout(()=>b.classList.remove("on"),2600)}
+const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/></svg>';
+function favBtn(name,big){const on=favs().includes(name);return `<button type="button" class="favb${on?" on":""}${big?" big":""}" data-fav="${esc(name)}" aria-pressed="${on}" aria-label="${esc(name)} ${on?"지원 회사 고정 풀기":"지원 회사로 고정"}">${STAR}${big?`<span>${on?"지원 회사로 고정됨":"지원 회사로 고정"}</span>`:""}</button>`}
+function wireFav(after){document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();if(toggleFav(b.dataset.fav))after()})}
+function favNewsHTML(){const f=favs();
+  if(!f.length)return `<a class="favhint" href="#companies">${STAR}<span><b>지원할 회사를 고정해보세요</b> 회사별 보기에서 별을 누르면 그 회사 새 소식이 여기에 먼저 떠요.</span></a>`;
+  const since=ymd(Date.now()-14*DAY);
+  return `<section class="favbox"><div class="sh"><h2>내 지원 회사 소식</h2><a class="chip" href="#mock">모의 면접 보기 →</a></div><div class="favgrid">${f.map(n=>{const c=COMPANIES.find(x=>x.name===n);const nw=coNews(n).filter(x=>x.date>=since).slice(0,3);const is=coIssues(n).filter(x=>x.date>=since);
+    return `<div class="favc" style="${coVars(c)}"><a class="favc-h" href="#c-${encodeURIComponent(n)}">${coMono(c)}<b>${esc(n)}</b><em>${nw.length||is.length?`최근 2주 소식 ${coNews(n).filter(x=>x.date>=since).length}개${is.length?` · 이슈 ${is.length}개`:""}`:"최근 2주 새 소식 없음"}</em></a>${nw.length?`<ul>${nw.map(x=>`<li><span>${shortDate(x.date)}</span>${esc(x.title)}</li>`).join("")}</ul>`:""}</div>`}).join("")}</div></section>`}
+
 /* 회사 기본 정보 아이콘 */
 const ICO=p=>`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
 function prodIcon(n){
@@ -711,13 +726,16 @@ let coQ="";
 function showCompanies(){
   $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">지원할 회사에 관한 이슈를 한곳에 모아 봐요. 면접 전에 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 말할 준비를 해요.</p>`;
   const kinds=[["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]];
-  const card=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:"아직 소식 없음"}</em></a>`};
+  const card0=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n||PROFILES[c.name]?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:PROFILES[c.name]?"기본 정보 있음 · 소식 모으는 중":"아직 소식 없음"}</em></a>`};
+  const card=c=>`<div class="cowrap">${card0(c)}${favBtn(c.name)}</div>`;
   $("#main").innerHTML=`<input type="search" id="coq" placeholder="회사 이름 찾기" aria-label="회사 이름 찾기" value="${esc(coQ)}"><div id="cores"></div>`;
   const render=()=>{const q=coQ.trim();let h="";
     for(const [k,label] of kinds){const cs=COMPANIES.filter(c=>c.kind===k&&(!q||[c.name,c.group,...(c.aka||[])].some(x=>x&&x.includes(q)))).sort((a,b)=>(coIssues(b.name).length+coNews(b.name).length)-(coIssues(a.name).length+coNews(a.name).length));
       if(cs.length)h+=`<section class="cosec"><h2>${label}</h2><div class="cogrid">${cs.map(card).join("")}</div></section>`}
+    const fv=favs().map(n=>COMPANIES.find(c=>c.name===n));
+    if(!q)h=(fv.length?`<section class="cosec"><h2>내 지원 회사</h2><div class="cogrid">${fv.map(card).join("")}</div></section>`:`<p class="small favtip">${STAR} 카드 오른쪽 위 별을 누르면 지원 회사로 고정돼요(최대 3곳). 오늘 이슈 화면에 그 회사 새 소식이 먼저 뜨고, 모의 면접도 그 회사로 볼 수 있어요.</p>`)+h;
     if(!q&&NEWS.length)h=`<section class="step"><div class="sh"><h2>최근 회사 소식</h2><span class="small">전체 ${NEWS.length}개</span></div><ul class="nwl">${NEWS.slice(0,8).map(n=>newsLi(n)).join("")}</ul></section>`+h;
-    $("#cores").innerHTML=h||`<p class="empty">"${esc(q)}"에 맞는 회사가 없어요.</p>`};
+    $("#cores").innerHTML=h||`<p class="empty">"${esc(q)}"에 맞는 회사가 없어요.</p>`;wireFav(render)};
   $("#coq").oninput=e=>{coQ=e.target.value;render()};render();
 }
 function showCompany(name){
@@ -726,7 +744,7 @@ function showCompany(name){
   const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
   const pf0=PROFILES[name],lastR=pf0&&pf0.results&&pf0.results.items[pf0.results.items.length-1],found=pf0&&pf0.facts&&pf0.facts.find(f=>f.label==="설립");
   const kpi=[lastR&&[lastR.label+" 순이익",lastR.text],found&&["설립",(found.value.match(/\d{4}년/)||[found.value])[0]],["회사 소식",nw.length+"개"],["공부할 이슈",list.length+"개"]].filter(Boolean);
-  $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohero" style="${coVars(c)}"><div class="cohero-top">${coMono(c,"big")}<div class="cohero-t"><div class="cohero-tags"><span>${kindLabel}</span>${c.group?`<span>${esc(c.group)} 계열</span>`:""}</div><h1>${esc(c.name)}</h1></div></div>
+  $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohero" style="${coVars(c)}"><div class="cohero-top">${coMono(c,"big")}<div class="cohero-t"><div class="cohero-tags"><span>${kindLabel}</span>${c.group?`<span>${esc(c.group)} 계열</span>`:""}</div><h1>${esc(c.name)}</h1></div>${favBtn(c.name,true)}</div>
     ${pf0&&pf0.summary?`<p class="cohero-sum">${esc(pf0.summary)}</p>`:""}<div class="cohero-kpi">${kpi.map(([l,v])=>`<div><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join("")}</div></div>`;
   let h="";const pf=PROFILES[name];
   if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
@@ -762,6 +780,7 @@ function showCompany(name){
   const sib=COMPANIES.filter(x=>x.name!==c.name&&((c.group&&x.group===c.group)||x.kind===c.kind)).sort((a,b)=>((b.group&&b.group===c.group)?1:0)-((a.group&&a.group===c.group)?1:0)).slice(0,8);
   h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}" style="${coVars(x)}"><i class="codot"></i>${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
   $("#main").innerHTML=h;
+  wireFav(()=>showCompany(name));
   document.querySelectorAll("[data-pt]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-pt]").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b)});document.querySelectorAll("[data-pp]").forEach(p=>p.hidden=p.dataset.pp!==b.dataset.pt)});
   document.querySelectorAll("[data-nk]").forEach(b=>b.onclick=()=>{const k=b.dataset.nk;document.querySelectorAll("[data-nk]").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll("#nwl li").forEach(li=>li.hidden=!!k&&li.dataset.k!==k)});
 }
@@ -769,6 +788,73 @@ function newsLi(n,cur){const others=(n.companies||[]).filter(x=>x!==cur);
   return `<li data-k="${esc(n.kind||"")}"><div class="nw-top"><span class="nw-d">${shortDate(n.date)}</span>${n.kind?`<span class="nw-k">${esc(n.kind)}</span>`:""}${!cur?(n.companies||[]).map(c=>`<a class="nw-c" href="#c-${encodeURIComponent(c)}">${esc(c)}</a>`).join(""):""}</div>
     <b class="nw-t">${esc(n.title)}</b>${n.text?`<p class="nw-x">${esc(n.text)}</p>`:""}${n.point?`<p class="nw-p"><span>면접 포인트</span>${esc(n.point)}</p>`:""}
     <div class="nw-f">${n.source&&n.source.url?`<a href="${esc(n.source.url)}" target="_blank" rel="noopener">${esc(n.source.name||"원문 기사")} ↗</a>`:""}${n.issue&&issues.find(i=>i.id===n.issue)?`<a href="#i-${esc(n.issue)}">이슈로 깊게 공부하기 →</a>`:""}${cur&&others.length?others.map(c=>`<a href="#c-${encodeURIComponent(c)}">${esc(c)}</a>`).join(""):""}</div></li>`}
+
+/* 모의 면접 */
+let MK=null;const MKSET={co:"",n:5,sec:120};
+function mockPool(name){
+  const out=[],c=name&&COMPANIES.find(x=>x.name===name),pf=name&&PROFILES[name],job=(cfg().job||"계리·상품개발");
+  if(c){
+    out.push({kind:"지원 동기",q:`왜 ${name}인가요? 경쟁사와 비교해서 ${name}을(를) 고른 이유를 말해보세요.`,
+      guide:pf?`결론부터: ${name}을(를) 고른 이유 한 문장\n근거: ${(pf.strengths||[]).slice(0,2).join(" / ")}\n관점: 이 강점이 내가 하고 싶은 일(${job})과 어떻게 이어지는지\n마무리: 입사해서 해보고 싶은 일`:"결론부터: 지원 이유 한 문장\n근거: 회사의 강점이나 최근 소식 하나를 숫자와 함께\n관점: 내 직무와의 연결\n마무리: 입사 후 하고 싶은 일",w:3});
+    if(pf&&pf.results)out.push({kind:"회사 이해",q:`${name}의 최근 실적을 아는 대로 설명해보세요. 좋아진 점과 걱정되는 점을 나눠서요.`,guide:`최근 3년 순이익: ${pf.results.items.map(x=>x.label+" "+x.text).join(" → ")}\n${pf.results.note||""}\n좋은 점과 걱정되는 점을 하나씩, 숫자와 함께 말하면 좋아요.`,w:2});
+    if(pf&&pf.talent)out.push({kind:"인재상",q:`${name}의 인재상 가운데 본인과 가장 잘 맞는 것은 무엇이고, 그걸 보여준 경험은 무엇인가요?`,guide:`인재상: ${pf.talent.map(t=>t.k+"("+t.d+")").join(", ")}\n하나를 골라 → 내 경험(상황, 내가 한 일, 결과) → 입사 후 어떻게 이어갈지 순서로 말해요.`,w:2});
+    if(pf&&pf.products)out.push({kind:"상품 이해",q:`${name}의 주력 상품 하나를 골라, 계리·상품개발 관점에서 앞으로 어떤 점을 관리해야 할지 말해보세요.`,guide:pf.products.map(x=>x.name+": "+x.d).join("\n")+"\n손해율, 보험료, 경쟁 상품, 제도 변화 중 하나와 연결해서 말하면 좋아요.",w:2});
+    for(const n of coNews(name).slice(0,8))out.push({kind:"최근 소식",q:`${name}의 최근 소식 "${n.title}"을(를) 어떻게 보나요?`,guide:`${n.text||""}${n.point?"\n면접 포인트: "+n.point:""}\n결론 → 근거(숫자) → 직무 관점 → 회사에 주는 의미 순서로 말해요.`,w:1,link:n.issue?"#i-"+n.issue:null});
+    for(const it of coIssues(name).filter(i=>i.interview).slice(0,6))out.push({kind:"관련 이슈",q:it.interview.q.replace(/^/,"")+` (${name} 입장에서)`,guide:it.interview.guide,w:2,link:"#i-"+it.id+"-deep"});
+  }
+  const recent=issues.filter(i=>i.interview&&!i.basic).sort((a,b)=>a.date<b.date?1:-1).slice(0,12);
+  for(const it of recent)if(!out.some(o=>o.link==="#i-"+it.id+"-deep"))out.push({kind:"업계 이슈",q:it.interview.q,guide:it.interview.guide,w:c?0.6:1,link:"#i-"+it.id+"-deep"});
+  return out}
+function mockPick(pool,n){const a=pool.slice(),out=[];const first=a.findIndex(x=>x.kind==="지원 동기");if(first>=0)out.push(a.splice(first,1)[0]);
+  while(out.length<n&&a.length){const tot=a.reduce((s,x)=>s+x.w,0);let r=Math.random()*tot,k=0;for(;k<a.length;k++){r-=a[k].w;if(r<=0)break}out.push(a.splice(Math.min(k,a.length-1),1)[0])}return out}
+function showMock(){
+  if(MK&&MK.i<MK.qs.length)return mockQ();
+  if(MK&&MK.i>=MK.qs.length)return mockEnd();
+  const f=favs();if(!MKSET.co&&f.length)MKSET.co=f[0];
+  $("#head").innerHTML=`<h1>모의 면접</h1><p class="meta" style="margin:0">지원할 회사를 고르면 그 회사 소식과 기본 정보, 이슈로 면접 질문이 연달아 나와요. 시간 안에 말하듯 적고, 끝나면 답변 뼈대와 한꺼번에 비교해요.</p>`;
+  const opt=(arr,key,lab)=>`<div class="mk-row"><span class="mk-l">${lab}</span><div class="mk-opts">${arr.map(([v,t])=>`<button data-mk="${key}" data-v="${esc(v)}" class="${String(MKSET[key])===String(v)?"on":""}">${t}</button>`).join("")}</div></div>`;
+  const cos=[...f,...COMPANIES.map(c=>c.name).filter(n=>!f.includes(n))];
+  const hist=(load("mock").list||[]);
+  $("#main").innerHTML=`<section class="step mk-set"><div class="sh"><h2>면접 준비</h2></div>
+    <div class="mk-row"><span class="mk-l">지원 회사</span><select id="mkCo" aria-label="지원 회사"><option value="">업계 전반 (회사 없이)</option>${cos.map(n=>`<option value="${esc(n)}"${n===MKSET.co?" selected":""}>${f.includes(n)?"★ ":""}${esc(n)}</option>`).join("")}</select></div>
+    ${opt([[3,"3개"],[5,"5개"],[7,"7개"]],"n","질문 수")}${opt([[60,"1분"],[120,"2분"],[180,"3분"],[0,"제한 없음"]],"sec","답변 시간")}
+    <p class="small" id="mkInfo" style="margin:0"></p>
+    <div class="row"><button class="pri mk-go" id="mkGo">면접 시작하기</button></div></section>
+    ${hist.length?`<section class="step"><div class="sh"><h2>지난 모의 면접</h2><span class="small">${hist.length}번</span></div><ul class="links">${hist.slice().reverse().map((x,i)=>`<li><a href="#" data-mh="${hist.length-1-i}">${fmtDate(x.date)} · ${esc(x.co||"업계 전반")} · 질문 ${x.qs.length}개</a><span class="small">${x.qs.filter((q,k)=>(x.a[k]||"").trim()).length}개 답함</span></li>`).join("")}</ul></section>`:""}`;
+  const info=()=>{const pool=mockPool(MKSET.co);$("#mkInfo").textContent=`${MKSET.co||"업계 전반"} 질문 후보 ${pool.length}개 가운데 ${Math.min(MKSET.n,pool.length)}개를 골라요.${MKSET.co&&!PROFILES[MKSET.co]?" 이 회사 기본 정보가 아직 채워지는 중이라 질문이 적을 수 있어요.":""}`};info();
+  $("#mkCo").onchange=e=>{MKSET.co=e.target.value;info()};
+  document.querySelectorAll("[data-mk]").forEach(b=>b.onclick=()=>{MKSET[b.dataset.mk]=+b.dataset.v;showMock()});
+  $("#mkGo").onclick=()=>{const qs=mockPick(mockPool(MKSET.co),MKSET.n);if(!qs.length)return alertBox("질문을 만들 자료가 아직 없어요.");MK={co:MKSET.co,sec:MKSET.sec,qs,a:[],i:0,date:ymd(Date.now())};showMock()};
+  document.querySelectorAll("[data-mh]").forEach(a=>a.onclick=e=>{e.preventDefault();const x=hist[+a.dataset.mh];MK={...x,i:x.qs.length,old:true};showMock()});
+}
+let mkTimer=null;
+function mockQ(){
+  clearInterval(mkTimer);const q=MK.qs[MK.i],c=MK.co&&COMPANIES.find(x=>x.name===MK.co);
+  $("#head").innerHTML=`<div class="mk-top"${c?` style="${coVars(c)}"`:""}><span class="mk-co">${c?coMono(c):""}${esc(MK.co||"업계 전반")} 모의 면접</span><span class="mk-prog">${MK.i+1} / ${MK.qs.length}</span></div><div class="mk-bar"><i style="width:${MK.i/MK.qs.length*100}%"></i></div>`;
+  $("#main").innerHTML=`<section class="step mk-q"><span class="mk-kind">${esc(q.kind)}</span><p class="mk-text">${esc(q.q)}</p>
+    ${MK.sec?`<div class="mk-time"><div class="mk-tb"><i id="mkT"></i></div><span id="mkS"></span></div>`:""}
+    <textarea id="mkA" placeholder="면접관 앞에서 말하듯 적어보세요. 결론부터, 근거는 숫자로.">${esc(MK.a[MK.i]||"")}</textarea>
+    <div class="row mk-btns"><button id="mkSkip">건너뛰기</button><button class="pri" id="mkNext">${MK.i===MK.qs.length-1?"면접 끝내기":"다음 질문"}</button></div></section>
+    <p class="small"><a href="#" id="mkQuit">그만두기</a> · 답은 끝난 뒤 답변 뼈대와 함께 다시 볼 수 있어요.</p>`;
+  const ta=$("#mkA");ta.focus();
+  if(MK.sec){let left=MK.sec;const T=$("#mkT"),S=$("#mkS");const tick=()=>{if(!document.body.contains(T)){clearInterval(mkTimer);return}T.style.width=(left/MK.sec*100)+"%";S.textContent=left>0?`${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`:"시간 끝! 마무리하고 넘어가요";T.parentNode.classList.toggle("low",left<=15);S.classList.toggle("low",left<=15);if(left<=0)clearInterval(mkTimer);left--};tick();mkTimer=setInterval(tick,1000)}
+  const go=skip=>{clearInterval(mkTimer);MK.a[MK.i]=skip?"":ta.value;MK.i++;window.scrollTo(0,0);showMock()};
+  $("#mkNext").onclick=()=>go(false);$("#mkSkip").onclick=()=>go(true);
+  $("#mkQuit").onclick=e=>{e.preventDefault();clearInterval(mkTimer);MK=null;showMock()};
+}
+function mockEnd(){
+  clearInterval(mkTimer);
+  if(!MK.old){const h=load("mock");h.list=(h.list||[]).concat([{co:MK.co,date:MK.date,qs:MK.qs,a:MK.a}]).slice(-20);save("mock",h);MK.old=true}
+  const answered=MK.qs.filter((q,k)=>(MK.a[k]||"").trim()).length;
+  $("#head").innerHTML=`<h1>모의 면접 돌아보기</h1><p class="meta" style="margin:0">${esc(MK.co||"업계 전반")} · ${fmtDate(MK.date)} · ${MK.qs.length}개 중 ${answered}개 답함</p>`;
+  $("#main").innerHTML=MK.qs.map((q,k)=>`<section class="step mk-rv"><div class="sh"><span class="n">${String(k+1).padStart(2,"0")}</span><h2>${esc(q.kind)}</h2></div><p class="q" style="margin:0">${esc(q.q)}</p>
+    <div class="mk-mine"><span>내 답</span><p>${(MK.a[k]||"").trim()?esc(MK.a[k]):'<em>건너뛴 질문이에요</em>'}</p></div>
+    <div class="reveal"><strong>답변 뼈대</strong>\n${esc(q.guide)}</div>
+    <p class="small" style="margin:0">결론부터 말했는지, 숫자 근거가 있는지, 내 직무와 회사로 이어졌는지 비교해보세요.${q.link?` <a href="${q.link}">관련 이슈 보기 →</a>`:""}</p></section>`).join("")+
+    `<div class="row"><button class="pri" id="mkAgain">같은 회사로 다시 보기</button><button id="mkHome">처음으로</button></div>`;
+  $("#mkAgain").onclick=()=>{MKSET.co=MK.co||"";const qs=mockPick(mockPool(MKSET.co),MKSET.n);MK={co:MKSET.co,sec:MKSET.sec,qs,a:[],i:0,date:ymd(Date.now())};window.scrollTo(0,0);showMock()};
+  $("#mkHome").onclick=()=>{MK=null;window.scrollTo(0,0);showMock()};
+}
 
 /* 찾기 */
 const SQ={q:"",tag:"",job:""};
