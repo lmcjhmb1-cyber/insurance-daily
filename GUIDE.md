@@ -45,7 +45,7 @@
   - bg: office(사무실), meeting(회의실 화이트보드), home(집 거실), hospital(병원), road(도로), focus(강조 집중선), night(밤), plain(빈 배경). 배경은 시선을 뺏지 않게 연한 색으로만 그려져요.
   - board: up(오르는 그래프), down(내리는 그래프), flat(제자리). office나 meeting에서만 보여요. 인물이 1명이면 보드가 보이도록 인물이 오른쪽으로 비켜서요.
   - 인물: { who, mood, pose, fx, say(말풍선), bubble }
-  - 등장인물은 사람이 아니라 마스코트예요. 이름은 who에 따라 자동으로 붙으니 name은 적지 않아요.
+  - 등장인물은 사람이 아니라 마스코트예요. 이름표는 who에 따라 "이름 직업"으로 자동으로 붙어요(예: 망고 계리사, 감자 가입자, 배불뚝이 보험사). name은 적지 않아요. 말풍선이나 해설에서 인물을 부를 때도 "망고 계리사"처럼 이름 뒤에 직업을 붙여요.
   - who와 이름:
     - 가입자(채소): potato(감자), sweetpotato(고구마), onion(양파), carrot(당근이)
     - 계리사(과일): mango(망고), strawberry(딸기), watermelon(수박이)

@@ -23,6 +23,7 @@ const CAST={
 const ALIAS={customer:"potato",customer2:"sweetpotato",actuary:"mango",fraud:"fraudster"};
 const keyOf=w=>CAST[ALIAS[w]||w]?(ALIAS[w]||w):"potato";
 const castOf=w=>CAST[keyOf(w)];
+const label=c=>c.name.endsWith(c.group)?c.name:c.name+" "+c.group;
 
 /* 배경: 시선을 뺏지 않게 연하고 단순하게 */
 function bgSVG(bg,board){
@@ -144,12 +145,12 @@ function panelHTML(p,i){
   const signHTML=p.sign?`<div class="cp-sign">${esc(p.sign)}</div>`:"";
   const pos=k=>n===2?(k===0?"l":"r"):side?"r":"c";
   const bubbles=chars.map((ch,k)=>ch.say?`<div class="cp-b ${ch.bubble||"talk"} ${pos(k)}"><span>${esc(ch.say)}</span></div>`:"").join("");
-  const names=chars.map((ch,k)=>`<span class="cp-n ${n===2?(k===0?"l":"r"):side?"s":"c"}">${esc(ch.name||castOf(ch.who).name)}</span>`).join("");
+  const names=chars.map((ch,k)=>`<span class="cp-n ${n===2?(k===0?"l":"r"):side?"s":"c"}">${esc(ch.name||label(castOf(ch.who)))}</span>`).join("");
   return `<div class="cp">${svg}<div class="cp-o">${p.caption?`<div class="cp-cap"><b>${i+1}</b>${esc(p.caption)}</div>`:`<div class="cp-cap only"><b>${i+1}</b></div>`}${signHTML}<div class="cp-bs n${n}${side?" sd":""}">${bubbles}</div>${names}</div></div>`;
 }
 window.comicHTML=function(c){
   const panels=(c.panels||[]).slice(0,4).map(panelHTML).join("");
   return `<figure class="comic">${c.title?`<figcaption><b>${esc(c.title)}</b></figcaption>`:""}<div class="cgrid">${panels}</div></figure>`;
 };
-window.COMIC_CAST=Object.fromEntries(Object.entries(CAST).map(([k,v])=>[k,v.name]));
+window.COMIC_CAST=Object.fromEntries(Object.entries(CAST).map(([k,v])=>[k,label(v)]));
 })();
