@@ -268,8 +268,8 @@ function cardHTML(it){const s=status(it),st=load(it.id);
   return `<div class="card">
     <div class="top"><span class="tag">${esc(it.tag||"보험 이슈")}</span><span class="stat ${s==="done"?"done":""}">${stat}</span></div>
     <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
-    ${it.jobs?`<div class="jobs">${it.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>`:""}
-    ${modeLinks(it,st.mode)}</div>`}
+    <div class="cfoot">${it.jobs?`<div class="jobs">${it.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>`:"<span></span>"}
+    <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${st.mode===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></div></div>`}
 function modeLinks(it,cur){return `<div class="modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${m}${cur===m?" on":""}">${MODE[m].label} · ${MODE[m].time}<span>${MODE[m].desc}</span></a>`).join("")}</div>`}
 function miniList(list){return `<ul class="links">${list.map(it=>{const s=status(it);return `<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}${s==="done"?' · <span class="ok">완료</span>':""}</span></li>`}).join("")}</ul>`}
 
