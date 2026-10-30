@@ -619,12 +619,23 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .cochips a:hover{text-decoration:underline}
 .cosec h2{font-size:16px;margin:18px 0 10px}
 .cogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.cocard{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
-.cocard:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cocard{position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:1px;align-items:center;padding:16px 16px 14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--cc) 9%,var(--card)),var(--card) 60%);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s,box-shadow .15s}
+.cocard::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--cc)}
+.cocard:hover{border-color:var(--cc);transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--cc) 18%,transparent)}
+.cocard .comono{grid-row:1/4;grid-column:1}
+.cocard>b,.cocard>span:not(.comono),.cocard>em{grid-column:2}
+.comono{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--cc);color:var(--ci);font-weight:900;font-size:13px;letter-spacing:-.03em;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12)}
+.comono.big{width:64px;height:64px;border-radius:18px;font-size:18px}
+.cohead{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;background:color-mix(in srgb,var(--cc) 10%,var(--card));border:1px solid color-mix(in srgb,var(--cc) 28%,var(--line));margin-top:4px}
+.cohead h1{margin:4px 0 0}
+.cohead .tag{background:var(--card);color:var(--ink-2)}
+.codot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cc);margin-right:6px;vertical-align:1px}
 .cocard b{font-size:16px}
-.cocard span{font-size:12.5px;color:var(--ink-2)}
+.cocard>span:not(.comono){font-size:12.5px;color:var(--ink-2)}
 .cocard em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--accent-ink);margin-top:6px}
-.cocard.off{background:transparent}
+.cocard.off{background:var(--card)}
+.cocard.off .comono{opacity:.55}
+.cocard.off::before{opacity:.45}
 .cocard.off em{color:var(--ink-3);font-weight:500}
 .cotl{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:14px}
 .cotl li{position:relative;display:flex;flex-direction:column;gap:2px}
@@ -662,14 +673,14 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310119"></script>
-<script src="frames.js?v=202610310119"></script>
-<script src="basics.js?v=202610310119"></script>
-<script src="news.js?v=202610310119"></script>
-<script src="companies.js?v=202610310119"></script>
-<script src="weekly.js?v=202610310119"></script>
-<script src="comic.js?v=202610310119"></script>
-<script src="app.js?v=202610310119"></script>
-<script type="module" src="sync.js?v=202610310119"></script>
+<script src="issues.js?v=202610310122"></script>
+<script src="frames.js?v=202610310122"></script>
+<script src="basics.js?v=202610310122"></script>
+<script src="news.js?v=202610310122"></script>
+<script src="companies.js?v=202610310122"></script>
+<script src="weekly.js?v=202610310122"></script>
+<script src="comic.js?v=202610310122"></script>
+<script src="app.js?v=202610310122"></script>
+<script type="module" src="sync.js?v=202610310122"></script>
 </body>
 </html>

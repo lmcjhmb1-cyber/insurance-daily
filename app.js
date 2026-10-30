@@ -17,6 +17,8 @@ const FRAMES=window.FRAMES||[];const JOBS=window.JOBS||[];const WEEKLY=(window.W
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
+const coVars=c=>`--cc:${c.color||"var(--accent)"};--ci:${c.ink||"#fff"}`;
+const coMono=(c,cls)=>`<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}</span>`;
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
 const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
@@ -431,7 +433,7 @@ function showIssue(it,mode){
   const st=load(it.id);const deep=mode==="deep";const used=new Set();
   const bs=basicOf(it);
   $("#head").innerHTML=(bs?back(`#b-${bs.id}`,`기초 다지기 · ${esc(bs.name)}`):back(`#d-${it.date}`,`${shortDate(it.date)} 이슈 목록`))+`
-    <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${coOf(it).length?`<div class="cochips">${coOf(it).map(n=>`<a href="#c-${encodeURIComponent(n)}">${esc(n)} 이슈 모아보기</a>`).join("")}</div>`:""}${modeLinks(it,mode)}`;
+    <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${coOf(it).length?`<div class="cochips">${coOf(it).map(n=>{const c=COMPANIES.find(x=>x.name===n)||{};return `<a href="#c-${encodeURIComponent(n)}" style="${coVars(c)}"><i class="codot"></i>${esc(n)} 이슈 모아보기</a>`}).join("")}</div>`:""}${modeLinks(it,mode)}`;
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
   if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
@@ -685,7 +687,7 @@ let coQ="";
 function showCompanies(){
   $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">지원할 회사에 관한 이슈를 한곳에 모아 봐요. 면접 전에 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 말할 준비를 해요.</p>`;
   const kinds=[["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]];
-  const card=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n?"":" off"}" href="#c-${encodeURIComponent(c.name)}"><b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:"아직 소식 없음"}</em></a>`};
+  const card=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:"아직 소식 없음"}</em></a>`};
   $("#main").innerHTML=`<input type="search" id="coq" placeholder="회사 이름 찾기" aria-label="회사 이름 찾기" value="${esc(coQ)}"><div id="cores"></div>`;
   const render=()=>{const q=coQ.trim();let h="";
     for(const [k,label] of kinds){const cs=COMPANIES.filter(c=>c.kind===k&&(!q||[c.name,c.group,...(c.aka||[])].some(x=>x&&x.includes(q)))).sort((a,b)=>(coIssues(b.name).length+coNews(b.name).length)-(coIssues(a.name).length+coNews(a.name).length));
@@ -698,7 +700,7 @@ function showCompany(name){
   const c=COMPANIES.find(x=>x.name===name);if(!c)return showCompanies();
   const list=coIssues(name),done=list.filter(i=>status(i)==="done").length,nw=coNews(name);
   const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
-  $("#head").innerHTML=back("#companies","회사별 보기")+`<span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1><p class="meta">${list.length||nw.length?`회사 소식 ${nw.length}개 · 공부할 이슈 ${list.length}개${list.length?` (${done}개 끝냄)`:""}`:"아직 이 회사 소식이 없어요. 매일 아침 새 소식을 모아요."}</p>`;
+  $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohead" style="${coVars(c)}">${coMono(c,"big")}<div><span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1></div></div><p class="meta">${list.length||nw.length?`회사 소식 ${nw.length}개 · 공부할 이슈 ${list.length}개${list.length?` (${done}개 끝냄)`:""}`:"아직 이 회사 소식이 없어요. 매일 아침 새 소식을 모아요."}</p>`;
   let h="";
   if(nw.length){const kinds=[...new Set(nw.map(n=>n.kind).filter(Boolean))];
     h+=`<section class="step"><div class="sh"><h2>회사 소식 모아보기</h2><span class="small">최신순 · ${nw.length}개</span></div>
@@ -718,7 +720,7 @@ function showCompany(name){
   const common=issues.filter(it=>!coOf(it).length&&!it.basic).sort((a,b)=>a.date<b.date?1:-1).slice(0,5);
   if(common.length)h+=`<section class="step"><div class="sh"><h2>업계 전체 흐름도 함께</h2></div><p class="small" style="margin:0">특정 회사가 아니라 업계 모두에 영향을 주는 최근 이슈예요. 면접에서 "업계 흐름 속에서 우리 회사는?"으로 이어지기 좋아요.</p>${miniList(common)}</section>`;
   const sib=COMPANIES.filter(x=>x.name!==c.name&&((c.group&&x.group===c.group)||x.kind===c.kind)).sort((a,b)=>((b.group&&b.group===c.group)?1:0)-((a.group&&a.group===c.group)?1:0)).slice(0,8);
-  h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}">${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
+  h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}" style="${coVars(x)}"><i class="codot"></i>${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
   $("#main").innerHTML=h;
   document.querySelectorAll("[data-nk]").forEach(b=>b.onclick=()=>{const k=b.dataset.nk;document.querySelectorAll("[data-nk]").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll("#nwl li").forEach(li=>li.hidden=!!k&&li.dataset.k!==k)});
 }
