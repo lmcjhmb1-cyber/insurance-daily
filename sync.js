@@ -23,8 +23,6 @@ let user = null;
 let pending = {};
 let timer = null;
 let syncState = "";
-const bar = document.getElementById("authbar");
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function localAll() {
   const out = {};
@@ -122,42 +120,13 @@ async function removeAll() {
   window.App && window.App.rerender();
 }
 
-const NOTICE = `<details class="notice"><summary>무엇을 저장하나요?</summary>
-  <ul>
-    <li><b>저장하는 것:</b> 구글 계정의 고유 번호와 학습 기록(예측 답, 퀴즈 답, 완료 여부, 고른 방식, 직접 쓴 답)이에요. 로그인할 때 구글이 알려주는 이름과 이메일은 로그인 정보로만 남고, 학습 기록에는 넣지 않아요.</li>
-    <li><b>목적:</b> 다른 기기에서 들어와도 공부한 기록을 이어 보기 위해서예요. 다른 용도로는 쓰지 않아요.</li>
-    <li><b>보관 위치:</b> 서울에 있는 구글 서버(파이어베이스)예요. 다른 사용자는 내 기록을 볼 수 없어요.</li>
-    <li><b>알아둘 점:</b> 사이트 운영자는 관리 화면에서 로그인한 사람의 이메일과 저장된 기록을 볼 수 있어요. 직접 쓰는 답에는 개인적인 내용을 적지 마세요.</li>
-    <li><b>지우는 법:</b> 로그인한 뒤 "내 기록 지우기"를 누르면 저장된 기록과 로그인 정보가 모두 지워져요.</li>
-  </ul></details>`;
+function render() { window.App && window.App.authChanged && window.App.authChanged(); }
 
-function render() {
-  if (!bar) return;
-  if (!user) {
-    const msg = syncState === "deleted" ? `<span class="ok">기록과 로그인 정보를 모두 지웠어요.</span>`
-      : syncState === "loginError" ? `<span class="no">로그인하지 못했어요. 잠시 뒤 다시 눌러주세요.</span>`
-      : `<span>로그인하면 어느 기기에서나 기록이 이어져요.</span>`;
-    bar.innerHTML = `<div class="authrow">${msg}<button id="loginBtn" class="pri">구글로 로그인</button></div>${NOTICE}`;
-    document.getElementById("loginBtn").onclick = login;
-    return;
-  }
-  const name = esc(user.displayName || "로그인한 사용자");
-  const stateMsg = syncState === "loading" ? "기록을 불러오는 중이에요"
-    : syncState === "error" ? `<span class="no">기록을 저장하지 못했어요. 인터넷 연결을 확인해주세요.</span>`
-    : syncState === "deleting" ? "기록을 지우는 중이에요"
-    : syncState === "deleteError" ? `<span class="no">지우지 못했어요. 다시 시도해주세요.</span>`
-    : syncState === "partial" ? `<span class="ok">학습 기록은 모두 지웠어요.</span> 로그인 정보까지 지우려면 "내 기록 지우기"를 한 번 더 눌러주세요`
-    : "기록이 계정에 저장되고 있어요";
-  bar.innerHTML = `<div class="authrow"><span><b>${name}</b>님 · ${stateMsg}</span>
-    <span class="row"><button id="logoutBtn">로그아웃</button><button id="delBtn">내 기록 지우기</button></span></div>
-    <div id="delAsk" hidden class="ask"><p>정말 지울까요? 이 계정에 저장된 학습 기록과 로그인 정보가 모두 지워지고, 되돌릴 수 없어요.</p>
-    <span class="row"><button id="delYes" class="danger">모두 지우기</button><button id="delNo">취소</button></span></div>${NOTICE}`;
-  document.getElementById("logoutBtn").onclick = logout;
-  document.getElementById("delBtn").onclick = () => { document.getElementById("delAsk").hidden = false; };
-  document.getElementById("delNo").onclick = () => { document.getElementById("delAsk").hidden = true; };
-  document.getElementById("delYes").onclick = removeAll;
-}
-
+window.Auth = {
+  get user() { return user; },
+  get state() { return syncState; },
+  login, logout, removeAll
+};
 window.Sync = { push(id, rec) { if (user) queue(id, rec); } };
 onAuthStateChanged(auth, u => {
   const was = user;
