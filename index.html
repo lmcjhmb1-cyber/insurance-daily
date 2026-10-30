@@ -804,6 +804,31 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .aream button{border:0;background:none;border-radius:9px;padding:9px 12px;font-size:14px;text-align:left}
 .aream button:hover{background:var(--paper)}
 .aream button.on{color:var(--accent-ink);font-weight:800;background:var(--accent-bg)}
+
+/* 담당자 질문 말풍선 */
+.rq-sit{margin:0;font-size:14.5px;color:var(--ink-2)}
+.rq-bub{position:relative;margin:4px 0 2px 6px;padding:14px 18px;border-radius:4px 18px 18px 18px;background:var(--accent-bg);border:1.5px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.rq-bub::before{content:"";position:absolute;left:-9px;top:-1.5px;width:14px;height:14px;background:var(--accent-bg);border-left:1.5px solid color-mix(in srgb,var(--accent) 35%,transparent);border-top:1.5px solid color-mix(in srgb,var(--accent) 35%,transparent);clip-path:polygon(0 0,100% 0,100% 100%)}
+.rq-who{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--accent);padding:2px 9px;border-radius:99px;margin-bottom:6px}
+.rq-bub p{margin:0;font-size:16.5px;font-weight:700;line-height:1.6;color:var(--ink)}
+.rq-ask{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--paper)}
+.rq-ask span{flex:none;font-size:12px;font-weight:800;color:var(--accent-ink);border:1.5px solid var(--accent);border-radius:8px;padding:1px 8px;margin-top:2px}
+.rq-ask p{margin:0;font-size:15px;font-weight:600;line-height:1.6}
+
+/* 용어 짝 맞추기 (한 문제씩) */
+.mq-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+.mq-dots{display:flex;gap:5px}.mq-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.mq-dots i.on{background:var(--accent);width:20px;border-radius:99px}.mq-dots i.ok{background:var(--good)}
+.mq-def{margin:10px 0 12px;padding:16px 18px;border-radius:16px;background:var(--accent-bg);border:1.5px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.mq-n{font-size:12px;font-weight:800;color:var(--accent-ink)}
+.mq-def p{margin:6px 0 0;font-size:16.5px;font-weight:700;line-height:1.6}
+.mq-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:6px}
+.mq-opts button{text-align:center;font-weight:700;font-size:15px;padding:12px;border-radius:12px;border-width:1.5px;border-bottom-width:3px}
+.mq-opts button:hover:not(:disabled){border-color:var(--accent);color:var(--accent-ink)}
+.mq-opts button.used{opacity:.35;text-decoration:line-through}
+.mq-got{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.mq-got li{display:flex;gap:10px;align-items:baseline;font-size:13.5px;padding:8px 12px;border-radius:10px;background:var(--paper)}
+.mq-got b{flex:none;color:var(--good)}.mq-got span{color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -815,15 +840,15 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310156"></script>
-<script src="frames.js?v=202610310156"></script>
-<script src="basics.js?v=202610310156"></script>
-<script src="profiles.js?v=202610310156"></script>
-<script src="news.js?v=202610310156"></script>
-<script src="companies.js?v=202610310156"></script>
-<script src="weekly.js?v=202610310156"></script>
-<script src="comic.js?v=202610310156"></script>
-<script src="app.js?v=202610310156"></script>
-<script type="module" src="sync.js?v=202610310156"></script>
+<script src="issues.js?v=202610310157"></script>
+<script src="frames.js?v=202610310157"></script>
+<script src="basics.js?v=202610310157"></script>
+<script src="profiles.js?v=202610310157"></script>
+<script src="news.js?v=202610310157"></script>
+<script src="companies.js?v=202610310157"></script>
+<script src="weekly.js?v=202610310157"></script>
+<script src="comic.js?v=202610310157"></script>
+<script src="app.js?v=202610310157"></script>
+<script type="module" src="sync.js?v=202610310157"></script>
 </body>
 </html>

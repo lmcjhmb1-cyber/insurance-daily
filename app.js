@@ -421,16 +421,21 @@ function wireOrder(it,st){
 function matchTerms(it){return (it.terms||[]).slice(0,4)}
 function wireMatch(it,st){
   const box=$("#mBox");if(!box)return;const ts=matchTerms(it);
-  const start=()=>{let sel=null,left=ts.length,miss=0;
-    box.innerHTML=`<p class="small" style="margin:0 0 8px">용어를 고른 다음, 알맞은 뜻을 눌러요.</p><div class="mt-t">${shuffle(ts.map((x,i)=>i)).map(i=>`<button data-t="${i}">${esc(ts[i].t)}</button>`).join("")}</div><div class="mt-d">${shuffle(ts.map((x,i)=>i)).map(i=>`<button data-d="${i}">${esc(ts[i].d)}</button>`).join("")}</div><p class="small" id="mMsg" style="margin:8px 0 0"></p>`;
-    box.onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;
-      if(b.dataset.t!=null){box.querySelectorAll("[data-t]").forEach(x=>x.classList.toggle("sel",x===b));sel=+b.dataset.t;return}
-      if(b.dataset.d!=null){if(sel==null){$("#mMsg").textContent="먼저 위에서 용어를 골라주세요.";return}
-        const d=+b.dataset.d,tb=box.querySelector(`[data-t="${sel}"]`);
-        if(d===sel){b.classList.add("ok-m");tb.classList.remove("sel");tb.classList.add("ok-m");b.disabled=tb.disabled=true;sel=null;left--;$("#mMsg").textContent="";
-          if(!left){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`다 맞췄어요. ${miss}번 헷갈렸어요.`:"한 번에 다 맞췄어요!"}</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;st.mt=1;save(it.id,st);addXP(`m:${it.id}`,miss?8:15,"짝 맞추기");$("#mRe").onclick=start}}
-        else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");b.addEventListener("animationend",()=>b.classList.remove("shake"),{once:true});$("#mMsg").innerHTML=`<span class="no">짝이 아니에요.</span> 다시 골라보세요.`}}}};
-  if(st.mt){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">짝 맞추기를 끝냈어요.</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;$("#mRe").onclick=start}else start();
+  const done=()=>`<p class="small" style="margin:0"><span class="ok">용어 짝 맞추기를 끝냈어요.</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;
+  const start=()=>{const order=shuffle(ts.map((x,i)=>i)),opts=shuffle(ts.map((x,i)=>i));let k=0,miss=0;const got=[];
+    const draw=()=>{const cur=order[k];
+      box.innerHTML=`<div class="mq-top"><span>이 뜻에 맞는 용어를 골라요</span><span class="mq-dots">${order.map((x,i)=>`<i class="${i<k?"ok":i===k?"on":""}"></i>`).join("")}</span></div>
+        <div class="mq-def"><span class="mq-n">${k+1} / ${ts.length}</span><p>${esc(ts[cur].d)}</p></div>
+        <div class="mq-opts">${opts.map(i=>`<button data-o="${i}"${got.includes(i)?" disabled class=\"used\"":""}>${esc(ts[i].t)}</button>`).join("")}</div>
+        <p class="small" id="mMsg" style="margin:0;min-height:1.4em"></p>
+        ${got.length?`<ul class="mq-got">${got.map(i=>`<li><b>${esc(ts[i].t)}</b><span>${esc(ts[i].d)}</span></li>`).join("")}</ul>`:""}`;
+      box.querySelector(".mq-opts").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const o=+b.dataset.o;
+        if(o===cur){b.classList.add("ok-m");got.push(o);k++;
+          if(k>=ts.length){setTimeout(()=>{box.innerHTML=`<p class="small" style="margin:0 0 10px"><span class="ok">${miss?`다 맞췄어요. ${miss}번 헷갈렸어요.`:"한 번에 다 맞췄어요!"}</span> <button class="lnk" id="mRe">다시 해보기</button></p><ul class="mq-got">${ts.map(x=>`<li><b>${esc(x.t)}</b><span>${esc(x.d)}</span></li>`).join("")}</ul>`;st.mt=1;save(it.id,st);addXP(`m:${it.id}`,miss?8:15);$("#mRe").onclick=start},350)}
+          else setTimeout(draw,350)}
+        else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");b.addEventListener("animationend",()=>b.classList.remove("shake"),{once:true});$("#mMsg").innerHTML=`<span class="no">아니에요.</span> "${esc(ts[o].t)}"은(는) 다른 뜻이에요. 다시 골라보세요.`}}};
+    draw()};
+  if(st.mt){box.innerHTML=done();$("#mRe").onclick=start}else start();
 }
 /* 복습용 숫자 빈칸 문제: 이슈의 숫자 타일로 만들어요 */
 function numberQ(it){const ns=(it.numbers||[]).filter(x=>x.value&&x.label);if(ns.length<3)return null;const seed=Math.floor(sod(Date.now())/DAY);const pick=ns[seed%ns.length];
@@ -443,6 +448,15 @@ function basicPath(){const out=[];BASICS.forEach((b,u)=>{const list=basicIssues(
 
 /* 이슈 화면 */
 let statsCache={};
+/* 담당자 질문: 상황, 말풍선(인용한 말), 할 일로 나눠 보여줘요 */
+function roleQ(q){
+  const m=q.match(/^([\s\S]*?)["“]([\s\S]+?)["”]([\s\S]*)$/);
+  if(!m){const ss=q.split(/(?<=[.?!])\s+/);let k=ss.length;while(k>0&&/\?$/.test(ss[k-1].trim()))k--;
+    if(k>0&&k<ss.length)return `<p class="rq-sit">${esc(ss.slice(0,k).join(" "))}</p><div class="rq-ask"><span>미션</span><p>${esc(ss.slice(k).join(" "))}</p></div>`;
+    return `<div class="rq-ask"><span>미션</span><p>${esc(q)}</p></div>`}
+  const sit=m[1].trim(),said=m[2].trim(),ask=m[3].trim();
+  const w=(sit.match(/([가-힣]+님|면접관|고객|선배|상사|동료)(?:이|가|께서)?\s*(?:묻|말|물어|질문)/)||[])[1]||"질문";
+  return `${sit?`<p class="rq-sit">${esc(sit)}</p>`:""}<div class="rq-bub"><span class="rq-who">${esc(w)}</span><p>${esc(said)}</p></div>${ask?`<div class="rq-ask"><span>미션</span><p>${esc(ask)}</p></div>`:""}`}
 function showIssue(it,mode){
   const st=load(it.id);const deep=mode==="deep";const used=new Set();
   const bs=basicOf(it);
@@ -464,10 +478,8 @@ function showIssue(it,mode){
   if(it.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
   const fr=(it.frames||[]).map(id=>FRAMES.find(f=>f.id===id)).filter(Boolean);
   if(fr.length)h+=sec("이 이슈에 쓰인 생각의 틀",`<div class="frs">${fr.map(f=>`<a href="#f-${f.id}"><b>${esc(f.name)}</b><span>${esc(f.ask[0])}</span></a>`).join("")}</div>`);
-  if(deep&&it.role)h+=sec("내가 담당자라면",`<p class="q">${esc(it.role.q)}</p><textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
+  if(deep&&it.role)h+=sec("내가 담당자라면",`${roleQ(it.role.q)}<textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
     <div class="row"><button class="pri" id="rM">모범 해설과 비교하기</button>${fbBtn("r")}</div><div id="rO"></div><div id="rFO"></div>`);
-  if(deep&&it.summary)h+=sec("내 말로 한 줄 요약",`<p class="q">보험을 모르는 친구에게 이 이슈를 한 줄로 설명한다면?</p><textarea id="sT" placeholder="친구한테 말하듯이 한 줄로" style="min-height:64px">${esc(st.sum||"")}</textarea><div class="err" id="sE"></div>
-    <div class="row"><button class="pri" id="sM">예시 요약과 비교하기</button>${fbBtn("s")}</div><div id="sO"></div><div id="sFO"></div>`);
   if(deep&&it.interview)h+=sec("면접에서 이렇게 묻는다면",`<p class="q">${esc(it.interview.q)}</p><textarea id="vT" placeholder="면접관에게 말하듯 2~4문장으로">${esc(st.iv||"")}</textarea><div class="err" id="vE"></div>
     <div class="row"><button class="pri" id="vM">답변 뼈대 보기</button>${fbBtn("v")}</div><div id="vO"></div><div id="vFO"></div>`);
   const own=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
