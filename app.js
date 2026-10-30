@@ -66,14 +66,15 @@ const SECS=[
   {k:"basics",label:"기초",icon:'<path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/>',tabs:[["basics","기초 다지기"]]},
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"]]},
-  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"],["companies","회사별 보기"]]},
+  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"]]},
+  {k:"company",label:"회사",icon:'<path d="M4 21V7l6-3v17"/><path d="M10 9h8a2 2 0 0 1 2 2v10"/><path d="M3 21h18"/><path d="M7 10h.01M7 14h.01M14 13h2M14 17h2"/>',tabs:[["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
 function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-")||h.startsWith("l-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-")||h.startsWith("cr-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
   const item=s=>`<a class="si${s.k===sec.k?" on":""}${s.k==="me"?" me":""}" href="#${s.tabs[0][0]}"${s.k===sec.k?' aria-current="page"':""}><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg>${s.label}${s.k==="review"&&due?`<span class="cnt">${due}</span>`:""}${s.k==="me"&&u?'<span class="dot" aria-hidden="true"></span>':""}</a>`;
-  $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로"><svg aria-hidden="true" viewBox="0 0 40 40"><defs><linearGradient id="logoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7366E6"/><stop offset="1" stop-color="#4537B8"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#logoG)"/><path d="M8 20.5C8 13.6 13.4 9 20 9s12 4.6 12 11.5c-1.4-1.3-2.7-1.9-4-1.9-1.5 0-2.8.8-4 2.2-1.2-1.4-2.5-2.2-4-2.2s-2.8.8-4 2.2c-1.2-1.4-2.5-2.2-4-2.2-1.3 0-2.6.6-4 1.9z" fill="#fff"/><path d="M20 20v9.2a2.6 2.6 0 0 1-5.2 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="31" cy="9.5" r="3.8" fill="#FFC83D"/></svg></a>${SECS.slice(0,5).map(item).join("")}<span class="grow"></span>${item(SECS[5])}`;
+  $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로"><svg aria-hidden="true" viewBox="0 0 40 40"><defs><linearGradient id="logoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7366E6"/><stop offset="1" stop-color="#4537B8"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#logoG)"/><path d="M8 20.5C8 13.6 13.4 9 20 9s12 4.6 12 11.5c-1.4-1.3-2.7-1.9-4-1.9-1.5 0-2.8.8-4 2.2-1.2-1.4-2.5-2.2-4-2.2s-2.8.8-4 2.2c-1.2-1.4-2.5-2.2-4-2.2-1.3 0-2.6.6-4 1.9z" fill="#fff"/><path d="M20 20v9.2a2.6 2.6 0 0 1-5.2 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="31" cy="9.5" r="3.8" fill="#FFC83D"/></svg></a>${SECS.slice(0,-1).map(item).join("")}<span class="grow"></span>${item(SECS[SECS.length-1])}`;
   $("#tline").innerHTML=`<a class="bt" href="#">오늘의 <em>보험</em> 이슈 <span>· ${sec.k==="me"?"마이페이지":sec.label}</span></a><a class="who" href="#me">${u?esc(u.displayName||"로그인됨")+"님":"로그인"}</a>`;
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
@@ -914,10 +915,13 @@ function showLatest(name){
   if(L.csm)h+=sec("미래 이익 창고, 보험계약마진",`<div class="lr-csm">${L.csm.map(x=>`<div><span>${esc(x.label)}</span><b>${esc(x.value)}</b><p>${esc(x.note)}</p></div>`).join("")}</div>${LESSONS["보험계약마진"]?`<a class="more" href="#l-${encodeURIComponent("보험계약마진")}">보험계약마진이 뭔지 기본 뜻 알기 →</a>`:""}`);
   if(L.good||L.watch)h+=sec("좋아진 점과 지켜볼 점",`<div class="lr-gw"><div class="g"><h3>좋아진 점</h3><ul>${(L.good||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="w"><h3>지켜볼 점</h3><ul>${(L.watch||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`);
   if(L.plan)h+=sec("회사가 밝힌 계획",`<ul class="pf-str">${L.plan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`);
+  if(L.think&&L.think.length){const ts=load("cr:"+name);ts.a=ts.a||{};
+    h+=sec("스스로 생각해볼 거리",`<p class="small" style="margin:0 0 4px">정답이 정해진 문제가 아니에요. 내 생각을 짧게 적어보고, 막히면 생각의 실마리를 열어보세요. 적은 내용은 이 기기${window.Auth&&window.Auth.user?"와 계정":""}에 저장돼요.</p>${L.think.map((t,i)=>`<div class="tk"><p class="tk-q"><span>Q${i+1}</span>${esc(t.q)}</p><textarea data-tk="${i}" placeholder="내 생각을 적어보세요">${esc(ts.a[i]||"")}</textarea>${t.hint?`<details class="tk-h"><summary>생각의 실마리 보기</summary><p>${esc(t.hint)}</p></details>`:""}</div>`).join("")}`)}
   if(L.tips)h+=sec("면접에서 이렇게 써보세요",`<ol class="pf-tips">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`);
   if(L.sources)h+=`<section class="src small">출처: ${L.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ")}<br>기사 숫자를 바탕으로 새로 정리한 학습용 분석이에요.</section>`;
   h+=`<nav class="next"><a href="#c-${encodeURIComponent(name)}">← ${esc(name)} 페이지로</a><a href="#mock">이 회사로 모의 면접 보기 →</a></nav>`;
   $("#main").innerHTML=`<div class="lr-wrap" style="${coVars(c)}">${h}</div>`;
+  document.querySelectorAll("[data-tk]").forEach(t=>{let tm;t.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{const ts=load("cr:"+name);ts.a=ts.a||{};ts.a[t.dataset.tk]=t.value;save("cr:"+name,ts)},400)}});
   const mk=document.querySelector('.next a[href="#mock"]');if(mk)mk.onclick=()=>{MK=null;MKSET.co=name};
 }
 
