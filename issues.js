@@ -820,7 +820,7 @@ window.ISSUES = [
           "board": "flat",
           "chars": [
             {
-              "who": "strawberry",
+              "who": "mango",
               "mood": "thinking",
               "pose": "point",
               "say": "손익분기선 80%는 아직 넘어요"
@@ -858,7 +858,7 @@ window.ISSUES = [
               "say": "다시 나빠지겠네…"
             },
             {
-              "who": "strawberry",
+              "who": "mango",
               "mood": "thinking",
               "pose": "doc",
               "say": "한 달보다 추세를 봐야죠",
