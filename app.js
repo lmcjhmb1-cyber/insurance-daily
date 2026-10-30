@@ -17,6 +17,10 @@ const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
+/* 분야: 이슈의 분야(tag)와 이어보기 이름으로 큰 분야를 정해요 */
+const FIELDS=[["감독·제도",/감독|규제|당국|정책|법/],["회계·계리",/회계|계리|가정|부채/],["실적·건전성",/실적|건전성|자본|지급여력|킥스/],["실손·건강",/실손|건강|의료|암|간병|질병/],["자동차",/자동차|운전/],["상품·판매",/상품|판매|채널|설계사|수수료|요율/],["보험사기",/사기/],["고령화·연금",/고령|연금|요양|치매|노후/]];
+const fieldsOf=it=>{const txt=[it.tag,it.thread&&it.thread.name].join(" ");const f=FIELDS.filter(([,re])=>re.test(txt)).map(x=>x[0]);return f.length?f:["기타"]};
+const FIELD_LIST=()=>{const used=new Set(issues.flatMap(fieldsOf));return [...FIELDS.map(x=>x[0]),"기타"].filter(f=>used.has(f))};
 const coVars=c=>`--cc:${c.color||"var(--accent)"};--ci:${c.ink||"#fff"}`;
 /* 회사 로고: 회사 홈페이지 아이콘을 여러 곳에서 차례로 시도하고, 모두 실패하면 짧은 이름을 보여줘요 */
 const logoSrcs=site=>{const host=site.replace(/\.(co\.kr|or\.kr|com|net|kr)$/,"").includes(".")?site:"www."+site,e=encodeURIComponent(site);
@@ -270,8 +274,8 @@ function showMe(){
 
 /* 오늘 이슈 목록 */
 function showList(d){
-  const c=cfg();const job=c.job||"";
-  const all=byDate(d);const list=job?all.filter(i=>(i.jobs||[]).includes(job)):all;const done=all.filter(i=>status(i)==="done").length;
+  const c=cfg();const job=c.field||"";
+  const all=byDate(d);const list=job?all.filter(i=>fieldsOf(i).includes(job)):all;const done=all.filter(i=>status(i)==="done").length;
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m),due=dueList().length;
   const asc=[...dates].reverse(),di=asc.indexOf(d),prev=asc[di-1],next=asc[di+1];
   const WD="일월화수목금토";
@@ -286,15 +290,15 @@ function showList(d){
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
   h+=favNewsHTML();
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
-  h+=`<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>영역별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...JOBS].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div>`;
-  h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 영역의 이슈가 없어요. 다른 영역이나 전체를 골라보세요.</p>`;
+  h+=`<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>분야별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...FIELD_LIST()].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div>`;
+  h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 분야의 이슈가 없어요. 다른 분야나 전체를 골라보세요.</p>`;
   h+=`<p class="small">퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
   $("#main").innerHTML=h;
   {const B=$("#areaB"),M=$("#areaM");const close=()=>{M.hidden=true;B.setAttribute("aria-expanded","false")};
     B.onclick=e=>{e.stopPropagation();const o=M.hidden;M.hidden=!o;B.setAttribute("aria-expanded",String(o))};
     document.addEventListener("click",function f(e){if(!document.body.contains(M)){document.removeEventListener("click",f);return}if(!e.target.closest(".areaf"))close()});
     document.addEventListener("keydown",function k(e){if(!document.body.contains(M)){document.removeEventListener("keydown",k);return}if(e.key==="Escape")close()});}
-  document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{const c=cfg();c.job=b.dataset.job;save("cfg",c);showList(d)});
+  document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{const c=cfg();c.field=b.dataset.job;save("cfg",c);showList(d)});
 }
 function cardHTML(it){const s=status(it),st=load(it.id);
   const stat=s==="done"?`완료${st.doneMode?" · "+MODE[st.doneMode].label:""}`:s==="doing"?"진행 중":"";
@@ -721,8 +725,8 @@ function showWeek(id){
 let ivJob="";
 function showInterview(){
   $("#head").innerHTML=brand()+`<h1>면접 연습</h1><p class="meta" style="margin:0">이슈마다 나올 법한 면접 질문을 모았어요. 말하듯 적어보고 답변 뼈대와 비교해보세요. 쓴 답은 이슈 화면과 마이페이지에도 함께 저장돼요.</p>`;
-  const list=issues.filter(i=>i.interview&&(!ivJob||(i.jobs||[]).includes(ivJob)));
-  $("#main").innerHTML=`<div class="chips" role="group" aria-label="영역별 보기"><span class="small">영역별 보기</span>${["",...JOBS].map(j=>`<button data-ivj="${esc(j)}" class="${j===ivJob?"on":""}">${j||"전체"}</button>`).join("")}</div>
+  const list=issues.filter(i=>i.interview&&(!ivJob||fieldsOf(i).includes(ivJob)));
+  $("#main").innerHTML=`<div class="chips" role="group" aria-label="분야별 보기"><span class="small">분야별 보기</span>${["",...FIELD_LIST()].map(j=>`<button data-ivj="${esc(j)}" class="${j===ivJob?"on":""}">${j||"전체"}</button>`).join("")}</div>
     ${list.length?list.map(it=>{const s=load(it.id);return `<section class="step"><div class="sh"><h2>${shortDate(it.date)} · ${esc(it.tag||"")}</h2>${s.iv&&s.iv.trim()?'<span class="small ok">답 씀</span>':""}</div>
     <p class="q">${esc(it.interview.q)}</p><a class="more" href="#i-${esc(it.id)}-deep">관련 이슈: ${esc(it.title)} →</a>
     <textarea data-iv="${esc(it.id)}" placeholder="면접관에게 말하듯 2~4문장으로">${esc(s.iv||"")}</textarea>
@@ -902,16 +906,14 @@ function showSearch(){
   $("#head").innerHTML=brand()+`<h1>지난 이슈 찾기</h1>`;
   const tags=[...new Set(issues.map(i=>i.tag).filter(Boolean))];
   $("#main").innerHTML=`<input type="search" id="sq" placeholder="제목, 내용, 용어로 찾기" aria-label="이슈 찾기" value="${esc(SQ.q)}">
-    <div class="chips" role="group" aria-label="분야"><span class="small">분야</span>${["",...tags].map(t=>`<button data-st="${esc(t)}" class="${t===SQ.tag?"on":""}">${t||"전체"}</button>`).join("")}</div>
-    <div class="chips" role="group" aria-label="영역"><span class="small">영역</span>${["",...JOBS].map(j=>`<button data-sj="${esc(j)}" class="${j===SQ.job?"on":""}">${j||"전체"}</button>`).join("")}</div>
+    <div class="chips" role="group" aria-label="분야"><span class="small">분야</span>${["",...FIELD_LIST()].map(t=>`<button data-st="${esc(t)}" class="${t===SQ.tag?"on":""}">${t||"전체"}</button>`).join("")}</div>
     <p class="small" id="scount" style="margin:0"></p><div id="sres" class="cards"></div>`;
   const render=()=>{const q=SQ.q.trim();
-    const list=issues.filter(it=>(!SQ.tag||it.tag===SQ.tag)&&(!SQ.job||(it.jobs||[]).includes(SQ.job))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").replace(/\*\*/g,"").includes(q)));
+    const list=issues.filter(it=>(!SQ.tag||fieldsOf(it).includes(SQ.tag))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").replace(/\*\*/g,"").includes(q)));
     $("#scount").textContent=`${list.length}개 이슈`;
     $("#sres").innerHTML=list.length?list.map(it=>`<div class="card"><div class="top"><span class="tag">${esc(it.tag||"")}</span><span class="stat">${shortDate(it.date)}${status(it)==="done"?' · <span class="ok">완료</span>':""}</span></div><div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div></div>`).join(""):`<p class="empty">조건에 맞는 이슈가 없어요.</p>`};
   $("#sq").oninput=e=>{SQ.q=e.target.value;render()};
   document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{SQ.tag=b.dataset.st;showSearch()});
-  document.querySelectorAll("[data-sj]").forEach(b=>b.onclick=()=>{SQ.job=b.dataset.sj;showSearch()});
   render();
 }
 
