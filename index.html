@@ -50,6 +50,16 @@ a.card.deep{border-width:1.5px;border-color:var(--accent)}
 .card .ttl{font-family:var(--f-disp);font-size:19px;font-weight:700;line-height:1.45;text-wrap:balance}
 .card .stat{font-size:13px;color:var(--ink-2)}
 .card .stat.done{color:var(--good);font-weight:600}
+div.card{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+div.card .ttl a{color:var(--ink);text-decoration:none}
+div.card .ttl a:hover{color:var(--accent)}
+/* 깊이 고르기 */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modes a{display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);text-decoration:none;font-size:15px;font-weight:600}
+.modes a span{font-size:12.5px;font-weight:400;color:var(--ink-2)}
+.modes a:hover{border-color:var(--accent)}
+.modes a.on{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.modes a.on.light{border-color:var(--warm);background:var(--warm-bg);color:var(--warm)}
 /* 단계 */
 .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .sh{display:flex;align-items:baseline;gap:10px}
@@ -98,7 +108,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <header id="head"><p class="empty">이슈를 불러오는 중이에요.</p></header>
   <main id="main"></main>
 </div>
-<script src="issues.js?v=202610301803"></script>
-<script src="app.js?v=202610301803"></script>
+<script src="issues.js?v=202610301807"></script>
+<script src="app.js?v=202610301807"></script>
 </body>
 </html>
