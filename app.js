@@ -26,6 +26,7 @@ window.coLogoNext=img=>{if(!img.parentNode||img.dataset.dead)return;img.dataset.
 window.coLogoLoad=img=>{if(img.dataset.dead)return;const list=JSON.parse(img.dataset.srcs),min=list[+img.dataset.i][1];if(img.naturalWidth<min)return coLogoNext(img);const box=img.parentNode;box.classList.add("haslogo");if(img.naturalWidth<48)box.classList.add("small")};
 const coMono=(c,cls)=>{const srcs=c.site?logoSrcs(c.site):[];return `<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${srcs.length?`<img src="${srcs[0][0]}" data-srcs='${JSON.stringify(srcs)}' data-i="0" alt="" loading="lazy" referrerpolicy="no-referrer" onload="coLogoLoad(this)" onerror="coLogoNext(this)">`:""}</span>`};
 const PROFILES=window.PROFILES||{};
+const LESSONS=window.LESSONS||{};
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
 const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
@@ -63,7 +64,7 @@ const SECS=[
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"]]},
   {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"],["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
-function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
+function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-")||h.startsWith("l-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
@@ -73,7 +74,7 @@ function renderShell(){
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|l-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -95,6 +96,7 @@ function route(){
   if(h.startsWith("b-"))return showBasic(h.slice(2));
   if(h==="terms")return showTerms();
   if(h.startsWith("g-"))return showTerm(h.slice(2));
+  if(h.startsWith("l-"))return showLesson(h.slice(2));
   if(h==="threads")return showThreads();
   if(h.startsWith("t-"))return showThread(h.slice(2));
   if(h==="weekly")return showWeeklyList();
@@ -139,7 +141,7 @@ document.addEventListener("click",e=>{
   const b=e.target.closest(".term");
   if(b){e.preventDefault();hidePop();const t=b.dataset.t;const g=GLOSS.find(x=>x.t===t);if(!g)return;
     pop=document.createElement("div");pop.id="pop";pop.setAttribute("role","dialog");
-    pop.innerHTML=`<b>${esc(g.t)}</b><p>${esc(g.d)}</p><a href="#g-${encodeURIComponent(g.t)}">용어 사전에서 보기 →</a>`;
+    pop.innerHTML=`<b>${esc(g.t)}</b><p>${esc(g.d)}</p>${LESSONS[g.t]?`<a href="#l-${encodeURIComponent(g.t)}">기본 뜻 알기 →</a> · `:""}<a href="#g-${encodeURIComponent(g.t)}">용어 사전에서 보기 →</a>`;
     document.body.appendChild(pop);const r=b.getBoundingClientRect();const w=Math.min(320,innerWidth-32);pop.style.width=w+"px";
     pop.style.top=(r.bottom+scrollY+6)+"px";pop.style.left=Math.max(16,Math.min(r.left+scrollX,innerWidth-16-w))+"px";return}
   if(pop&&!e.target.closest("#pop"))hidePop();
@@ -635,17 +637,46 @@ function showReview(){
 }
 
 /* 용어 사전 */
+const lessonDone=t=>!!load("l:"+t).done;
 function showTerms(){
-  $("#head").innerHTML=brand()+`<h1>용어 사전</h1><p class="meta" style="margin:0">이슈에 나온 보험 용어 ${GLOSS.length}개가 모여 있어요. 이슈가 쌓일수록 나만의 용어집이 돼요.</p>`;
-  $("#main").innerHTML=`<input type="search" id="tq" placeholder="용어 찾기" aria-label="용어 찾기"><div id="tres" class="glist"></div>`;
-  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>!q||g.t.includes(q)||g.d.includes(q));
-    $("#tres").innerHTML=list.length?list.map(g=>`<a class="gitem" href="#g-${encodeURIComponent(g.t)}"><b>${esc(g.t)}</b><span>${esc(g.d)}</span><em>이슈 ${g.issues.length}개</em></a>`).join(""):`<p class="empty">"${esc(q)}"에 맞는 용어가 없어요.</p>`};
-  $("#tq").oninput=render;render();
+  const nL=GLOSS.filter(g=>LESSONS[g.t]).length,nD=GLOSS.filter(g=>LESSONS[g.t]&&lessonDone(g.t)).length;
+  $("#head").innerHTML=brand()+`<h1>용어 사전</h1><p class="meta" style="margin:0">이슈에 나온 보험 용어 ${GLOSS.length}개가 모여 있어요. "기본 뜻 알기"로 용어 하나를 비유와 숫자 예시로 차근차근 배울 수 있어요.</p>
+    ${nL?`<div class="statline"><span>기본 뜻 알기 <b>${nD}/${nL}</b>개 완료</span></div>`:""}`;
+  $("#main").innerHTML=`<div class="tbar"><input type="search" id="tq" placeholder="용어 찾기" aria-label="용어 찾기"><div class="chips" role="group" aria-label="보기"><button data-tf="" class="on">전체</button><button data-tf="l">배울 수 있는 용어</button><button data-tf="n">아직 안 배운 용어</button></div></div><div id="tres" class="glist2"></div>`;
+  let tf="";
+  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>(!q||g.t.includes(q)||g.d.includes(q))&&(!tf||(tf==="l"&&LESSONS[g.t])||(tf==="n"&&LESSONS[g.t]&&!lessonDone(g.t)))).sort((a,b)=>(LESSONS[b.t]?1:0)-(LESSONS[a.t]?1:0));
+    $("#tres").innerHTML=list.length?list.map(g=>{const L=LESSONS[g.t],dn=L&&lessonDone(g.t);return `<div class="gi2${L?" has":""}"><a class="gi2-m" href="#g-${encodeURIComponent(g.t)}"><b>${esc(g.t)}</b><span>${esc(g.d)}</span><em>이슈 ${g.issues.length}개</em></a>${L?`<a class="gi2-l${dn?" done":""}" href="#l-${encodeURIComponent(g.t)}">${dn?"✓ 학습 완료":"기본 뜻 알기 →"}</a>`:`<span class="gi2-w">학습 준비 중</span>`}</div>`}).join(""):`<p class="empty">맞는 용어가 없어요.</p>`};
+  $("#tq").oninput=render;document.querySelectorAll("[data-tf]").forEach(b=>b.onclick=()=>{tf=b.dataset.tf;document.querySelectorAll("[data-tf]").forEach(x=>x.classList.toggle("on",x===b));render()});render();
 }
 function showTerm(t){
-  const g=GLOSS.find(x=>x.t===t);if(!g)return showTerms();
+  const g=GLOSS.find(x=>x.t===t);if(!g)return showTerms();const L=LESSONS[t];
   $("#head").innerHTML=brand()+back("#terms","용어 사전")+`<h1>${esc(g.t)}</h1>`;
-  $("#main").innerHTML=`<section class="step"><p style="margin:0;font-size:16.5px">${esc(g.d)}</p></section><section class="step"><div class="sh"><h2>이 용어가 나온 이슈</h2><span class="small">${g.issues.length}개</span></div>${miniList(g.issues)}</section>`;
+  $("#main").innerHTML=`<section class="step"><p style="margin:0;font-size:16.5px">${esc(g.d)}</p></section>
+    ${L?`<a class="lcta" href="#l-${encodeURIComponent(t)}"><span class="lcta-ic">📘</span><span><b>기본 뜻 알기</b><em>쉬운 한 줄 → 비유 → 차근차근 → 숫자 예시 → 헷갈리는 용어 → 퀴즈 · 약 3분</em></span><span class="lcta-go">${lessonDone(t)?"다시 보기":"시작하기"} →</span></a>`:`<section class="step pf-empty"><p class="small" style="margin:0">이 용어의 "기본 뜻 알기"를 준비하고 있어요. 곧 비유와 숫자 예시로 배울 수 있어요.</p></section>`}
+    <section class="step"><div class="sh"><h2>이 용어가 나온 이슈</h2><span class="small">${g.issues.length}개</span></div>${miniList(g.issues)}</section>`;
+}
+function termSentences(t){const out=[];for(const it of issues.slice().sort((a,b)=>a.date<b.date?1:-1)){for(const p of [...(it.points||[]),it.why||""]){for(const sn of p.split(/(?<=[.요다])\s+/))if(sn.replace(/\*\*/g,"").includes(t)&&out.length<3&&!out.some(o=>o.it===it))out.push({it,sn})}}return out}
+function showLesson(t){
+  const L=LESSONS[t],g=GLOSS.find(x=>x.t===t);if(!L)return showTerm(t);const st=load("l:"+t);
+  $("#head").innerHTML=brand()+back(`#g-${encodeURIComponent(t)}`,"용어 사전")+`<span class="tag">기본 뜻 알기</span><h1>${esc(t)}</h1>${g?`<p class="meta">${esc(g.d)}</p>`:""}`;
+  let n=0;const N=()=>String(++n).padStart(2,"0");const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
+  let h=sec("한 줄로 먼저",`<p class="ls-easy">${esc(L.easy)}</p>`);
+  if(L.analogy)h+=sec("비유로 이해하기",`<div class="ls-ana"><span aria-hidden="true">💡</span><p>${esc(L.analogy)}</p></div>`);
+  if(L.steps)h+=sec("차근차근 알아보기",`<ol class="ls-steps">${L.steps.map(x=>`<li><b>${esc(x.h)}</b><p>${esc(x.t)}</p></li>`).join("")}</ol>`);
+  if(L.example)h+=sec(esc(L.example.title||"숫자로 보기"),`<div class="ls-ex">${L.example.rows.map(r=>`<div class="${r.hi?"hi":""}"><span>${esc(r.label)}</span><b>${esc(r.value)}</b></div>`).join("")}</div>${L.example.note?`<p class="small" style="margin:0">${esc(L.example.note)}</p>`:""}`);
+  if(L.vs&&L.vs.length)h+=sec("헷갈리기 쉬운 용어",`<div class="ls-vs">${L.vs.map(v=>`<div><b>${esc(t)} <i>vs</i> ${GLOSS.some(x=>x.t===v.t)?`<a href="#${LESSONS[v.t]?"l":"g"}-${encodeURIComponent(v.t)}">${esc(v.t)}</a>`:esc(v.t)}</b><p>${esc(v.d)}</p></div>`).join("")}</div>`);
+  if(L.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${esc(L.why)}</p>`);
+  const ss=termSentences(t);
+  if(ss.length)h+=sec("뉴스에서는 이렇게 쓰여요",`<ul class="ls-news">${ss.map(x=>`<li><p>${esc(x.sn).replace(new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"),m=>`<mark class="em">${m}</mark>`)}</p><a href="#i-${esc(x.it.id)}">${shortDate(x.it.date)} · ${esc(x.it.title)} →</a></li>`).join("")}</ul>`);
+  if(L.quiz&&L.quiz.length)h+=sec("확인 퀴즈",L.quiz.map((q,i)=>`<div><p class="q" style="font-size:16px">${esc(q.q)}</p><div class="row" data-lq="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="lqO${i}"></div></div>`).join("")+`<div id="lqDone"></div>`);
+  if(L.related&&L.related.length)h+=`<section class="step"><div class="sh"><h2>이어서 배울 용어</h2></div><div class="cochips">${L.related.map(r=>`<a href="#${LESSONS[r]?"l":"g"}-${encodeURIComponent(r)}">${esc(r)}${LESSONS[r]?(lessonDone(r)?" ✓":" →"):""}</a>`).join("")}</div></section>`;
+  $("#main").innerHTML=h;
+  st.qa=st.qa||{};
+  const show=(i,j,row)=>{const q=L.quiz[i];row.querySelectorAll("button").forEach(x=>x.classList.toggle("picked",+x.dataset.j===j));$("#lqO"+i).innerHTML=`<div class="reveal"><span class="${j===q.a?"ok":"no"}">${j===q.a?"정답이에요. ":"아쉬워요. 정답은 "+esc(q.o[q.a])+". "}</span>${esc(q.e)}</div>`};
+  const fin=()=>{if(L.quiz.every((q,i)=>st.qa[i]!=null)){const first=!st.done;st.done=true;st.doneAt=st.doneAt||Date.now();save("l:"+t,st);
+    const nx=(L.related||[]).find(r=>LESSONS[r]&&!lessonDone(r));$("#lqDone").innerHTML=`<div class="ls-fin"><b>✓ ${esc(t)} 기본 뜻 알기 완료!</b>${nx?`<a href="#l-${encodeURIComponent(nx)}">다음 용어: ${esc(nx)} →</a>`:`<a href="#terms">용어 사전으로 →</a>`}</div>`;if(first)renderShell()}};
+  document.querySelectorAll("[data-lq]").forEach(row=>{const i=+row.dataset.lq;if(st.qa[i]!=null)show(i,st.qa[i],row);row.onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=+b.dataset.j;if(st.qa[i]==null){st.qa[i]=j;save("l:"+t,st)}show(i,j,row);fin()}});
+  fin();
 }
 
 /* 이어보기 */

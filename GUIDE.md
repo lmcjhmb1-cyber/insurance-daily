@@ -75,6 +75,20 @@
 - 1번 사실 확인 규칙을 똑같이 따라요. 숫자는 출처에 나온 그대로 쓰고, 계산한 값은 쓰지 않아요. 생명보험사 실적은 연결 기준인지 별도 기준인지 섞이지 않게 같은 기준으로 써요.
 - 문장은 친근한 존댓말, 영어 약어는 한국어로(보험계약마진, 지급여력비율(킥스)), 강조는 **별표**로 1~2곳만.
 
+## 2-4. 용어 기본 뜻 알기 (lessons.js)
+- 용어 사전에서 "기본 뜻 알기"를 누르면 용어 하나를 이슈처럼 단계별로 배우는 화면이에요. 이슈 terms의 한 줄 설명만으로는 이해가 안 된다는 요청으로 생겼어요. "보험계약마진", "손해율"이 완성된 견본이니 같은 수준과 형식으로 써요.
+- 키는 이슈 terms의 t와 똑같은 용어 이름, 값은 { easy, analogy, steps, example, vs, why, quiz, related }
+  - easy: 보험을 처음 배우는 대학생이 바로 알아듣는 한두 문장. 핵심 한 곳을 **별표**로 강조.
+  - analogy: 일상 비유 2~3문장(용돈, 회비, 헬스장, 월세처럼 대학생에게 익숙한 것).
+  - steps: [{ h, t }] 3~4단계로 "어떻게 계산하는지 / 어떻게 움직이는지"를 차근차근. 공식이 있으면 꼭 넣어요.
+  - example: { title:"예시 숫자로 계산해보기", rows:[{ label, value, hi(결과 줄) }], note } 쉬운 가상 숫자로 계산 과정을 보여주고, note에 "설명을 위한 예시 숫자예요"를 꼭 밝혀요. 계산은 node로 직접 확인해요.
+  - vs: [{ t, d }] 헷갈리기 쉬운 용어 1~3개와 차이.
+  - why: 계리·상품개발 직무와 뉴스 읽기에서 왜 중요한지.
+  - quiz: [{ q, o, a, e }] 2~3개. 계산 문제 하나를 넣으면 좋아요.
+  - related: 이어서 배울 용어 3~5개(용어 사전에 있는 이름으로).
+- 개념 설명은 보험 회계·감독의 일반적인 정의에 맞게 정확하게 써요. 실제 회사나 제도의 숫자(예: 권고 기준 130%)를 쓸 때는 issues.js에 있거나 출처로 확인한 것만 써요.
+- "뉴스에서는 이렇게 쓰여요"는 사이트가 이슈 문장에서 자동으로 찾아 보여주니 따로 쓰지 않아요.
+
 ## 3. 네컷만화 comic (어울리는 이슈에만)
 - 모든 이슈에 넣지 않아요. 사람들의 선택과 행동이 이야기의 핵심인 이슈(역선택, 도덕적 해이, 보험사기, 갈아타기, 절판 마케팅 등)나, 소비자에게 직접 와닿는 변화, "반짝 좋아 보이지만 사실은…" 같은 반전이 있는 이슈에 넣어요. 하루 이슈 가운데 1~2개 정도가 알맞아요.
 - 형식: { title, panels: [4칸] }
@@ -135,7 +149,7 @@
 2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
 3. node 스크립트로 최신 파일에 합쳐 넣어요. issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. news.js의 window.NEWS도 같은 방식으로 합쳐요(같은 id나 같은 source.url은 건너뛰기). 파일 맨 위 주석은 그대로 둬요.
 4. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요. 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
-5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
+5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js, lessons.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
 6. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
 7. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 
