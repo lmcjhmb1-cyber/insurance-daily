@@ -682,7 +682,7 @@ function showLesson(t){
   st.qa=st.qa||{};
   const show=(i,j,row)=>{const q=L.quiz[i];row.querySelectorAll("button").forEach(x=>x.classList.toggle("picked",+x.dataset.j===j));$("#lqO"+i).innerHTML=`<div class="reveal"><span class="${j===q.a?"ok":"no"}">${j===q.a?"정답이에요. ":"아쉬워요. 정답은 "+esc(q.o[q.a])+". "}</span>${esc(q.e)}</div>`};
   const fin=()=>{if(L.quiz.every((q,i)=>st.qa[i]!=null)){const first=!st.done;st.done=true;st.doneAt=st.doneAt||Date.now();save("l:"+t,st);
-    const nx=(L.related||[]).find(r=>LESSONS[r]&&!lessonDone(r));$("#lqDone").innerHTML=`<div class="ls-fin"><b>✓ ${esc(t)} 기본 뜻 알기 완료!</b>${nx?`<a href="#l-${encodeURIComponent(nx)}">다음 용어: ${esc(nx)} →</a>`:`<a href="#terms">용어 사전으로 →</a>`}</div>`;if(first)renderShell()}};
+    const nx=(L.related||[]).find(r=>LESSONS[r]&&!lessonDone(r));$("#lqDone").innerHTML=`<div class="ls-fin"><b>✓ ${esc(t)} 기본 뜻 알기 완료!</b>${nx?`<a href="#l-${encodeURIComponent(nx)}">다음 용어: ${esc(nx)} →</a>`:`<a href="#terms">용어 사전으로 →</a>`}</div>`;if(first){renderShell();const nD=Object.keys(LESSONS).filter(lessonDone).length;setTimeout(()=>celebrate({title:"용어 학습 완료!",say:`"${t}"의 기본 뜻을 익혔어요. 지금까지 ${nD}개 용어를 배웠어요.`,next:nx?{href:"#l-"+encodeURIComponent(nx),label:"다음 용어: "+nx}:{href:"#terms",label:"용어 사전으로"}}),500)}}};
   document.querySelectorAll("[data-lq]").forEach(row=>{const i=+row.dataset.lq;if(st.qa[i]!=null)show(i,st.qa[i],row);row.onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=+b.dataset.j;if(st.qa[i]==null){st.qa[i]=j;save("l:"+t,st)}show(i,j,row);fin()}});
   fin();
 }
