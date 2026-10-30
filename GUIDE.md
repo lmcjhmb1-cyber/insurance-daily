@@ -42,10 +42,16 @@
 - 모든 이슈에 넣지 않아요. 사람들의 선택과 행동이 이야기의 핵심인 이슈(역선택, 도덕적 해이, 보험사기, 갈아타기, 절판 마케팅 등)나, 소비자에게 직접 와닿는 변화, "반짝 좋아 보이지만 사실은…" 같은 반전이 있는 이슈에 넣어요. 하루 이슈 가운데 1~2개 정도가 알맞아요.
 - 형식: { title, panels: [4칸] }
   - 칸: { caption(노란 해설 상자, 짧게), bg(배경), sign(선택, 안내판에 들어갈 핵심 숫자나 문구), board(선택, 화이트보드 그래프 방향), chars: [1~2명] }
-  - bg: office(사무실), meeting(회의실 화이트보드), home(집 거실), hospital(병원), road(단풍 든 도로와 자동차), focus(강조 집중선), night(밤), plain(무늬 배경)
+  - bg: office(사무실), meeting(회의실 화이트보드), home(집 거실), hospital(병원), road(도로), focus(강조 집중선), night(밤), plain(빈 배경). 배경은 시선을 뺏지 않게 연한 색으로만 그려져요.
   - board: up(오르는 그래프), down(내리는 그래프), flat(제자리). office나 meeting에서만 보여요. 인물이 1명이면 보드가 보이도록 인물이 오른쪽으로 비켜서요.
-  - 사람: { who, mood, pose, fx, say(말풍선), bubble, name(선택, 기본 이름 대신) }
-  - who: customer(가입자), customer2(가입자 2), insurer(보험사), actuary(계리사), regulator(금융당국), doctor(병원), driver(운전자)
+  - 인물: { who, mood, pose, fx, say(말풍선), bubble }
+  - 등장인물은 사람이 아니라 마스코트예요. 이름은 who에 따라 자동으로 붙으니 name은 적지 않아요.
+  - who와 이름:
+    - 가입자(채소): potato(감자), sweetpotato(고구마), onion(양파), carrot(당근이)
+    - 계리사(과일): mango(망고), strawberry(딸기), watermelon(수박이)
+    - 보험사: insurer(배불뚝이 보험사). 보험사는 언제나 이것 하나만 써요.
+    - 그 밖의 역할은 역할 이름 그대로예요: driver(운전자), regulator(금융당국), doctor(의사), planner(설계사), fraudster(보험사기범)
+  - 한 만화 안에서는 같은 인물을 같은 who로 계속 써요. 가입자가 둘이면 서로 다른 채소, 계리사는 과일 하나를 골라요. 만화마다 채소와 과일을 골고루 바꿔 써요.
   - mood: happy, worried, surprised, thinking, angry, sad
   - pose: stand(기본), point(가리키기), cheer(만세), think(턱 괴기), phone(휴대폰 보기), doc(서류 들기), worry(머리 감싸기), shrug(어깨 으쓱)
   - fx(선택): sweat(땀방울), sparkle(반짝), question(물음표), exclaim(느낌표), gloom(우울한 그늘), heart(하트), idea(전구). worried는 따로 안 적어도 땀방울이 나와요.
@@ -54,7 +60,7 @@
 - 말풍선이 없는 사람(표정과 효과만)도 괜찮아요. 한 칸에 말풍선은 2개까지예요.
 - 말풍선은 30자 안쪽으로 짧게 써요. 휴대폰에서는 칸이 작아요.
 - 기사에 나온 사실과 숫자만 쓰고, 마지막 칸은 계리·상품개발 관점의 깨달음이나 다음에 지켜볼 점으로 마무리하면 좋아요.
-- 실존 인물이나 회사 이름을 등장인물 이름으로 쓰지 않아요.
+- 실존 인물이나 회사 이름을 등장인물 이름으로 쓰지 않아요. 말풍선에서도 보험사는 "우리"나 "배불뚝이 보험사"로 불러요.
 
 ## 4. 그림 figs
 글만 이어지지 않게 핵심 숫자나 흐름을 그림으로 보여줘요. 사이트가 아래 데이터로 직접 그려요. 기사 숫자만 쓰고, 계산한 값이면 note에 "어림값"이라고 밝혀요.

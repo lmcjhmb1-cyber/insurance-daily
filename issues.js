@@ -381,7 +381,7 @@ window.ISSUES = [
           "sign": "5세대로 바꾸면 3년간 50% 추가 할인",
           "chars": [
             {
-              "who": "customer",
+              "who": "potato",
               "mood": "surprised",
               "pose": "phone",
               "fx": "sparkle",
@@ -395,13 +395,13 @@ window.ISSUES = [
           "bg": "home",
           "chars": [
             {
-              "who": "customer2",
+              "who": "sweetpotato",
               "mood": "worried",
               "pose": "worry",
               "say": "난 도수치료를 자주 받는데…"
             },
             {
-              "who": "customer",
+              "who": "potato",
               "mood": "thinking",
               "pose": "think",
               "say": "5세대는 그거 보장 안 해",
@@ -429,7 +429,7 @@ window.ISSUES = [
           "bg": "office",
           "chars": [
             {
-              "who": "actuary",
+              "who": "mango",
               "mood": "happy",
               "pose": "doc",
               "fx": "idea",
@@ -820,7 +820,7 @@ window.ISSUES = [
           "board": "flat",
           "chars": [
             {
-              "who": "actuary",
+              "who": "strawberry",
               "mood": "thinking",
               "pose": "point",
               "say": "손익분기선 80%는 아직 넘어요"
@@ -858,7 +858,7 @@ window.ISSUES = [
               "say": "다시 나빠지겠네…"
             },
             {
-              "who": "actuary",
+              "who": "strawberry",
               "mood": "thinking",
               "pose": "doc",
               "say": "한 달보다 추세를 봐야죠",
