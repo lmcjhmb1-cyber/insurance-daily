@@ -133,15 +133,24 @@ function charSVG(ch,flip){
   return `<g>${feet(c)}${front?"":arms}${bodySVG(k,c)}<g transform="translate(${c.face[0]} ${c.face[1]})">${faceSVG(ch.mood,c,k)}</g>${front?arms:""}${fxg}</g>`;
 }
 
+/* 자동차: 운전자 옆에 세워요 (바퀴 바닥이 y=0, 앞이 오른쪽) */
+function carSVG(){
+  return `<ellipse cx="0" cy="2" rx="76" ry="7" fill="#000" opacity=".08"/><path d="M-72 -14 Q-74 -44 -50 -46 L-36 -48 Q-24 -80 6 -80 L30 -80 Q50 -80 58 -50 Q76 -46 76 -26 L76 -14 Q76 -8 70 -8 L-66 -8 Q-72 -8 -72 -14Z" fill="#6FA8DC" stroke="${OL}" stroke-width="2.6" stroke-linejoin="round"/><path d="M-28 -50 Q-20 -72 4 -72 L6 -50Z" fill="#DDF0FF" stroke="${OL}" stroke-width="2.2" stroke-linejoin="round"/><path d="M14 -50 L14 -72 L28 -72 Q44 -72 50 -50Z" fill="#DDF0FF" stroke="${OL}" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 -48 V-14" stroke="#4F86C6" stroke-width="2"/><rect x="18" y="-40" width="10" height="3" rx="1.5" fill="#4F86C6"/><circle cx="70" cy="-32" r="5" fill="#FFE066" stroke="${OL}" stroke-width="1.8"/><rect x="-74" y="-30" width="8" height="7" rx="2" fill="#F28C8C" stroke="${OL}" stroke-width="1.6"/>${[-42,44].map(x=>`<circle cx="${x}" cy="-8" r="15" fill="#3B3F48" stroke="${OL}" stroke-width="2.4"/><circle cx="${x}" cy="-8" r="6" fill="#C9CDD4"/>`).join("")}`;
+}
+
 /* 칸 하나 */
 function panelHTML(p,i){
   const chars=(p.chars||[]).slice(0,2),n=chars.length;
   const has=w=>chars.some(c=>keyOf(c.who)===w);
   const bg=p.bg||(has("driver")?"road":has("doctor")?"hospital":chars.some(c=>["보험사","계리사","금융당국","설계사"].includes(castOf(c.who).group))?"office":"home");
-  const side=n===1&&p.board&&(bg==="office"||bg==="meeting");
+  const hasDriver=has("driver");
+  const side=n===1&&(hasDriver||(p.board&&(bg==="office"||bg==="meeting")));
   const xs=n===2?[90,230]:[side?228:160];
   const people=chars.map((ch,k)=>{const flip=(n===2&&k===1)||side;const sc=n===2?.95:1.08;return `<g transform="translate(${xs[k]} 294) scale(${flip?-sc:sc} ${sc})">${charSVG(ch,flip)}</g>`}).join("");
-  const svg=`<svg class="cp-svg" viewBox="0 0 320 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${bgSVG(bg,p.board)}${people}</svg>`;
+  let car="";
+  if(hasDriver){const k=chars.findIndex(c=>keyOf(c.who)==="driver");
+    car=n===1?`<g transform="translate(98 286) scale(.95)">${carSVG()}</g>`:k===0?`<g transform="translate(46 252) scale(-.62 .62)">${carSVG()}</g>`:`<g transform="translate(274 252) scale(.62)">${carSVG()}</g>`;}
+  const svg=`<svg class="cp-svg" viewBox="0 0 320 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${bgSVG(bg,p.board)}${car}${people}</svg>`;
   const signHTML=p.sign?`<div class="cp-sign">${esc(p.sign)}</div>`:"";
   const pos=k=>n===2?(k===0?"l":"r"):side?"r":"c";
   const bubbles=chars.map((ch,k)=>ch.say?`<div class="cp-b ${ch.bubble||"talk"} ${pos(k)}"><span>${esc(ch.say)}</span></div>`:"").join("");
