@@ -59,7 +59,13 @@ function renderShell(){
 }
 function meLabel(){return ""}
 function brand(){return ""}
-function back(href,label){return `<a class="back" href="${href}">← ${label}</a>`}
+/* 지나온 화면 기억: 뒤로 링크는 방금 보던 화면과 보던 위치로 돌아가요 */
+const trail=[];let goingBack=false;
+function backLabel(t){t=(t||"").trim();return t?(t.length>24?t.slice(0,24)+"…":t):"이전 화면"}
+function back(href,label){
+  if(trail.length>=2){const p=trail[trail.length-2];return `<a class="back" href="${p.h||"#"}" data-back="1">← ${esc(backLabel(p.t))}</a>`}
+  return `<a class="back" href="${href}">← ${label}</a>`}
+document.addEventListener("click",e=>{const a=e.target.closest("a[data-back]");if(a&&trail.length>=2){e.preventDefault();history.back()}});
 
 function route(){
   hidePop();renderShell();
@@ -88,7 +94,18 @@ function route(){
   const d=h.startsWith("d-")&&dates.includes(h.slice(2))?h.slice(2):dates[0];
   showList(d);
 }
-window.addEventListener("hashchange",()=>{route();window.scrollTo(0,0)});
+function track(){
+  const h=location.hash||"#";
+  if(trail.length&&trail[trail.length-1].h===h)return null;
+  if(trail.length>=2&&trail[trail.length-2].h===h){trail.pop();return trail[trail.length-1]}
+  trail.push({h,t:"",y:0});if(trail.length>50)trail.shift();return null;
+}
+function afterRender(){const top=trail[trail.length-1];const t=document.querySelector("#head h1");if(top&&t)top.t=t.textContent}
+window.addEventListener("hashchange",()=>{
+  const prevTop=trail[trail.length-1];if(prevTop)prevTop.y=window.scrollY;
+  const back=track();route();afterRender();
+  window.scrollTo(0,back?back.y:0);
+});
 
 /* 용어 풍선 */
 let pop=null;
@@ -503,4 +520,4 @@ function showSearch(){
 }
 
 window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
-route();
+track();route();afterRender();
