@@ -18,7 +18,7 @@ const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
 const coVars=c=>`--cc:${c.color||"var(--accent)"};--ci:${c.ink||"#fff"}`;
-const coMono=(c,cls)=>`<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}</span>`;
+const coMono=(c,cls)=>`<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${c.site?`<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(c.site)}&sz=128" alt="" loading="lazy" referrerpolicy="no-referrer" onload="if(this.naturalWidth<=16)this.remove();else this.parentNode.classList.add('haslogo')" onerror="this.remove()">`:""}</span>`;
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
 const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
