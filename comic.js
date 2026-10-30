@@ -161,5 +161,6 @@ window.comicHTML=function(c){
   const panels=(c.panels||[]).slice(0,4).map(panelHTML).join("");
   return `<figure class="comic">${c.title?`<figcaption><b>${esc(c.title)}</b></figcaption>`:""}<div class="cgrid">${panels}</div></figure>`;
 };
+window.mascotSVG=function(o){o=o||{};return `<svg viewBox="-88 -192 176 200" aria-hidden="true" class="mascot-svg">${charSVG({who:o.who||"mango",mood:o.mood||"happy",pose:o.pose||"stand",fx:o.fx||""},false)}</svg>`};
 window.COMIC_CAST=Object.fromEntries(Object.entries(CAST).map(([k,v])=>[k,label(v)]));
 })();

@@ -2,7 +2,7 @@
 // 기록 위치: users/{로그인 고유번호}/months/{YYYY-MM} 문서의 r 안에 이슈별 기록
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut, onAuthStateChanged, reauthenticateWithPopup, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, collection, getDocs, getDoc, setDoc, addDoc, deleteDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, collection, getDocs, getDoc, setDoc, addDoc, deleteDoc, increment, serverTimestamp, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyABEyX9keVUAUGK3eFjr4-D-Xm3vn9KH3U",
@@ -102,6 +102,7 @@ async function removeAll() {
     pending = {}; clearTimeout(timer);
     const snap = await getDocs(months());
     for (const d of snap.docs) await deleteDoc(d.ref);
+    try { await deleteDoc(doc(db, "league", weekId(), "u", user.uid)); } catch (e) {}
     clearLocal();
     const u = user;
     try { await deleteUser(u); }
@@ -144,6 +145,20 @@ window.Stats = {
   async report(issueId, text) {
     await addDoc(collection(db, "reports"), { issue: issueId, text: String(text).slice(0, 1000), at: serverTimestamp() });
   }
+};
+// 친구 리그: 이번 주(월요일 시작) 경험치와 직접 정한 별명만 올라가요
+function weekId() { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+window.LeagueDB = {
+  async push(week, name, xp) {
+    if (!user) return false;
+    await setDoc(doc(db, "league", week, "u", user.uid), { name: String(name).slice(0, 12), xp: Math.max(0, Math.min(100000, Math.round(xp))), at: serverTimestamp() });
+    return true;
+  },
+  async top(week) {
+    const snap = await getDocs(query(collection(db, "league", week, "u"), orderBy("xp", "desc"), limit(50)));
+    return snap.docs.map(d => ({ me: !!user && d.id === user.uid, ...d.data() }));
+  },
+  async leave(week) { if (user) await deleteDoc(doc(db, "league", week, "u", user.uid)); }
 };
 onAuthStateChanged(auth, u => {
   const was = user;

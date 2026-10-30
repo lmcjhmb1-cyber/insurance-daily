@@ -44,14 +44,14 @@ const SECS=[
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
   {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"]]},
-  {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"]]}];
+  {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
 function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
   const item=s=>`<a class="si${s.k===sec.k?" on":""}${s.k==="me"?" me":""}" href="#${s.tabs[0][0]}"${s.k===sec.k?' aria-current="page"':""}><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg>${s.label}${s.k==="review"&&due?`<span class="cnt">${due}</span>`:""}${s.k==="me"&&u?'<span class="dot" aria-hidden="true"></span>':""}</a>`;
   $("#side").innerHTML=`<a class="logo" href="#" aria-label="오늘의 보험 이슈 처음으로">보험</a>${SECS.slice(0,5).map(item).join("")}<span class="grow"></span>${item(SECS[5])}`;
-  $("#tline").innerHTML=`<a class="bt" href="#">오늘의 <em>보험</em> 이슈 <span>· ${sec.k==="me"?"마이페이지":sec.label}</span></a><a class="who" href="#me">${u?esc(u.displayName||"로그인됨")+"님":"로그인"}</a>`;
+  $("#tline").innerHTML=`<a class="bt" href="#">오늘의 <em>보험</em> 이슈 <span>· ${sec.k==="me"?"마이페이지":sec.label}</span></a><a class="xpchip" id="xpChip" href="#league" title="이번 주 경험치 · 친구 리그 보기">${xpChipHTML()}</a><a class="who" href="#me">${u?esc(u.displayName||"로그인됨")+"님":"로그인"}</a>`;
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
@@ -85,6 +85,7 @@ function route(){
   if(h.startsWith("w-"))return showWeek(h.slice(2));
   if(h==="interview")return showInterview();
   if(h==="search")return showSearch();
+  if(h==="league")return showLeague();
   if(h.startsWith("i-")){
     let rest=h.slice(2),mode=null;
     for(const m of ["light","deep"])if(rest.endsWith("-"+m)){mode=m;rest=rest.slice(0,-m.length-1)}
@@ -167,6 +168,7 @@ const NOTICE=`<details class="notice"><summary>무엇을 저장하나요?</summa
   <li><b>저장하는 것:</b> 구글 계정의 고유 번호와 학습 기록(예측 답, 퀴즈 답, 완료 여부와 시각, 복습 일정, 고른 방식, 하루 목표, 직접 쓴 답)이에요. 로그인할 때 구글이 알려주는 이름과 이메일은 로그인 정보로만 남고, 학습 기록에는 넣지 않아요.</li>
   <li><b>목적:</b> 다른 기기에서 들어와도 공부한 기록을 이어 보기 위해서예요. 다른 용도로는 쓰지 않아요.</li>
   <li><b>친구들 정답률:</b> 로그인한 사람이 퀴즈에서 처음 고른 답은 누가 골랐는지 없이 숫자로만 합쳐져서, "친구들 몇 %가 맞혔어요"를 보여주는 데 쓰여요.</li>
+  <li><b>친구 리그:</b> 참가하면 직접 정한 별명과 이번 주 경험치만 순위표에 올라가고, 로그인한 사람은 순위표를 볼 수 있어요. 나가면 순위표에서 빠져요.</li>
   <li><b>오류 신고:</b> 신고한 내용은 누가 보냈는지 없이 운영자에게만 전달돼요.</li>
   <li><b>보관 위치:</b> 서울에 있는 구글 서버(파이어베이스)예요. 다른 사용자는 내 기록을 볼 수 없어요.</li>
   <li><b>알아둘 점:</b> 사이트 운영자는 관리 화면에서 로그인한 사람의 이메일과 저장된 기록을 볼 수 있어요. 직접 쓰는 답에는 개인적인 내용을 적지 마세요.</li>
@@ -256,11 +258,14 @@ function showList(d){
     return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
   const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
   $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개 · 이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div></div>${sel}
-    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
+    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><span>이번 주 <b>${weekXP()}</b> 경험치</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
   document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
-  if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
+  {const left=Math.max(0,G-todayN),wx=weekXP();
+    const say=due?`복습할 이슈가 <b>${due}개</b> 있어요. 잊기 전에 꺼내보면 오래 남아요!`:todayN>=G?`오늘 목표 달성! 이번 주 <b>${wx}</b> 경험치 모았어요.`:sk?`연속 <b>${sk}일</b>째예요! 오늘 <b>${left}개</b>만 더 하면 목표 달성이에요.`:`안녕하세요, ${MASCOT}예요. 오늘 이슈 하나 같이 볼까요?`;
+    const act=due?`<a class="chip" href="#review">복습하러 가기 →</a>`:`<a class="chip" href="#league">친구 리그 보기 →</a>`;
+    h+=mascotSay(say,{mood:due?"thinking":"happy",pose:due?"point":todayN>=G?"cheer":"stand"},act);}
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
   h+=`<div class="chips" role="group" aria-label="직무별 보기"><span class="small">직무별 보기</span>${["",...JOBS].map(j=>`<button data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div>`;
   h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 관점의 이슈가 없어요. 다른 직무나 전체를 눌러보세요.</p>`;
@@ -299,6 +304,123 @@ function figHTML(f){
   return "";
 }
 
+/* 경험치: 같은 행동으로는 한 번만 받아요. ev에 받은 일과 점수를 적어둬요 */
+function xpData(){const x=load("xp");x.log=x.log||{};x.ev=x.ev||{};x.total=x.total||0;return x}
+function weekStart(ts){const d=new Date(sod(ts));d.setDate(d.getDate()-(d.getDay()+6)%7);return ymd(d.getTime())}
+function weekXP(x){x=x||xpData();const ws=weekStart(Date.now());let n=0;for(const [k,v] of Object.entries(x.log))if(k>=ws)n+=v;return n}
+function todayXP(x){return (x||xpData()).log[ymd(Date.now())]||0}
+function issueXP(id){const x=xpData();let n=0;for(const [k,v] of Object.entries(x.ev))if(k.split(":")[1]===id)n+=+v||0;return n}
+function addXP(key,n,label){const x=xpData();if(key&&x.ev[key]!=null)return 0;if(key)x.ev[key]=n;const d=ymd(Date.now());x.log[d]=(x.log[d]||0)+n;x.total+=n;save("xp",x);xpToast(n,label);leagueBump();
+  const c=document.getElementById("xpChip");if(c)c.innerHTML=xpChipHTML();return n}
+function xpChipHTML(){return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>${weekXP()}`}
+let toastBox=null;
+function xpToast(n,label){if(!toastBox){toastBox=document.createElement("div");toastBox.className="xpt-box";toastBox.setAttribute("aria-live","polite");document.body.appendChild(toastBox)}
+  const t=document.createElement("div");t.className="xpt";t.innerHTML=`<b>+${n}</b> 경험치${label?` · ${esc(label)}`:""}`;toastBox.appendChild(t);setTimeout(()=>t.remove(),2200)}
+
+/* 마스코트 망고 계리사 */
+const MASCOT="망고 계리사";
+function mascot(o){return window.mascotSVG?window.mascotSVG(o):""}
+function mascotSay(text,o,extra){return `<div class="mbox">${`<div class="mfig">${mascot(o)}</div>`}<div class="mbub"><span class="mname">${MASCOT}</span><p>${text}</p>${extra||""}</div></div>`}
+const CHEERS=["역시! 숫자 뒤의 이유까지 봤네요.","좋아요, 이런 게 쌓이면 면접에서 바로 나와요.","오늘도 한 걸음! 계리사의 눈이 생기고 있어요.","깔끔하게 끝냈어요. 다음 것도 같이 볼까요?","이 흐름, 다음 뉴스에서 또 만날 거예요."];
+
+/* 완료 축하 화면 */
+function celebrate(o){
+  const old=document.getElementById("cele");if(old)old.remove();
+  const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m);
+  const box=document.createElement("div");box.id="cele";box.className="cele";box.setAttribute("role","dialog");box.setAttribute("aria-modal","true");box.setAttribute("aria-label",o.title);
+  const conf=Array.from({length:36},(_,i)=>`<i style="left:${(i*97)%100}%;background:${["#FFB82E","#10A37A","#EC4A5A","#5B6CF0","#F472B6"][i%5]};animation-delay:${(i%9)*.08}s;animation-duration:${1.6+(i%5)*.25}s"></i>`).join("");
+  box.innerHTML=`<div class="conf" aria-hidden="true">${conf}</div><div class="cele-card">
+    <div class="cele-fig">${mascot({mood:"happy",pose:"cheer",fx:"sparkle"})}</div>
+    <h2>${esc(o.title)}</h2><p class="cele-say">${esc(o.say||CHEERS[Math.floor(Math.random()*CHEERS.length)])}</p>
+    ${o.xp?`<div class="cele-xp">+${o.xp}<span>경험치</span></div>`:""}
+    <div class="cele-stats"><div><b>${todayXP()}</b><span>오늘 경험치</span></div><div><b>${sk}일</b><span>연속 학습</span></div><div><b>${todayN}/${G}</b><span>오늘 목표</span></div></div>
+    <div class="cele-btns">${o.next?`<a class="pri" href="${o.next.href}">${esc(o.next.label)}</a>`:""}<button id="celeX">${o.next?"여기 더 볼래요":"닫기"}</button></div></div>`;
+  document.body.appendChild(box);
+  const close=()=>box.remove();
+  box.querySelector("#celeX").onclick=close;box.onclick=e=>{if(e.target===box)close()};
+  box.querySelectorAll("a").forEach(a=>a.addEventListener("click",close));
+  document.addEventListener("keydown",function k(e){if(e.key==="Escape"){close();document.removeEventListener("keydown",k)}});
+  (box.querySelector(".cele-btns .pri")||box.querySelector("#celeX")).focus();
+}
+function nextOf(it){const bs=basicOf(it);if(bs){const path=basicPath();const k=path.findIndex(x=>x.it&&x.it.id===it.id);const nx=path.slice(k+1).find(x=>x.it);return nx?{href:"#i-"+nx.it.id,label:"다음 단계로"}:{href:"#basics",label:"기초 다지기 길로"}}
+  const sib=byDate(it.date);const nx=sib.slice(sib.findIndex(x=>x.id===it.id)+1).find(x=>status(x)!=="done");return nx?{href:"#i-"+nx.id,label:"다음 이슈 풀기"}:{href:"#d-"+it.date,label:"목록으로"}}
+function goalBonus(){const m=doneByDay(),G=goal();if((m[ymd(Date.now())]||0)>=G)addXP("goal:"+ymd(Date.now()),30,"하루 목표 달성")}
+
+/* 친구 리그 */
+let lgTimer=null;
+function leagueBump(){const c=cfg();if(!c.nick||!window.LeagueDB||!window.Auth||!window.Auth.user)return;clearTimeout(lgTimer);lgTimer=setTimeout(()=>{window.LeagueDB.push(weekStart(Date.now()),c.nick,weekXP()).catch(e=>console.warn("리그 저장 실패",e))},2500)}
+function showLeague(){
+  const ws=weekStart(Date.now()),we=ymd(new Date(ws+"T00:00:00").getTime()+6*DAY),c=cfg(),A=window.Auth,x=xpData();
+  $("#head").innerHTML=`<h1>친구 리그</h1><p class="meta">${shortDate(ws)}~${shortDate(we)} · 이번 주 경험치로 순위를 매겨요. 매주 월요일에 새로 시작해요.</p>`;
+  const days=Array.from({length:7},(_,i)=>{const d=ymd(new Date(ws+"T00:00:00").getTime()+i*DAY);return {d,n:x.log[d]||0}});const mx=Math.max(30,...days.map(v=>v.n));
+  const mine=`<section class="step"><div class="sh"><h2>이번 주 내 경험치</h2><span class="small">누적 ${x.total}</span></div><div class="lg-me"><b>${weekXP(x)}</b><span>경험치</span></div>
+    <div class="wkbars">${days.map((v,i)=>`<div class="${v.d===ymd(Date.now())?"on":""}"><i style="height:${Math.round(v.n/mx*100)}%"></i><em>${v.n||""}</em><span>${"월화수목금토일"[i]}</span></div>`).join("")}</div>
+    <p class="small" style="margin:0">퀴즈 정답 10, 이슈 완료 20(깊게 40), 내 답 쓰기 10, 짝 맞추기·순서 맞추기 최대 15, 복습 최대 20, 하루 목표 달성 30.</p></section>`;
+  let body="";
+  if(!A)body=`<section class="step"><p class="small" style="margin:0">로그인 기능을 불러오는 중이에요.</p></section>`;
+  else if(!A.user)body=`<section class="step">${mascotSay("리그는 로그인한 친구들끼리 겨뤄요. 로그인하면 별명으로 참가할 수 있어요.",{mood:"happy",pose:"point"})}<div class="row" style="margin-top:12px"><button class="pri" id="lgLogin">구글로 로그인</button></div></section>`;
+  else if(!c.nick)body=`<section class="step"><div class="sh"><h2>리그 참가하기</h2></div>${mascotSay("별명을 정하면 이번 주 경험치와 함께 순위표에 올라가요. 실명 말고 별명을 써주세요!",{mood:"happy",pose:"point"})}
+    <div class="row" style="margin-top:12px"><input id="nick" maxlength="10" placeholder="별명 (2~10자)" aria-label="별명" style="flex:1;min-width:160px"><button class="pri" id="nickB">참가하기</button></div><div class="err" id="nickE"></div>
+    <p class="small" style="margin:0">순위표에는 별명과 이번 주 경험치만 보여요. 로그인한 사람은 누구나 순위표를 볼 수 있어요. 언제든 나갈 수 있어요.</p></section>`;
+  else body=`<section class="step"><div class="sh"><h2>이번 주 순위</h2><span class="small">${esc(c.nick)}(으)로 참가 중</span></div><div id="lgList"><p class="small" style="margin:0">순위를 불러오는 중이에요.</p></div>
+    <div class="row" style="margin-top:6px"><button id="lgRe">새로고침</button><button id="lgOut">리그에서 나가기</button></div></section>`;
+  $("#main").innerHTML=body+mine;
+  const on=(id,f)=>{const e=document.getElementById(id);if(e)e.onclick=f};
+  on("lgLogin",()=>A.login());
+  on("nickB",async()=>{const v=$("#nick").value.trim();if(v.length<2){$("#nickE").textContent="별명을 2자 이상 적어주세요";return}
+    try{await window.LeagueDB.push(ws,v,weekXP());const c2=cfg();c2.nick=v;save("cfg",c2);showLeague()}catch(e){$("#nickE").textContent="참가하지 못했어요. 운영자가 리그 저장 규칙을 아직 열지 않았을 수 있어요."}});
+  on("lgOut",async()=>{try{await window.LeagueDB.leave(ws)}catch(e){}const c2=cfg();delete c2.nick;save("cfg",c2);showLeague()});
+  on("lgRe",()=>showLeague());
+  if(c.nick&&A&&A.user&&window.LeagueDB){
+    window.LeagueDB.push(ws,c.nick,weekXP()).catch(()=>{}).finally(()=>window.LeagueDB.top(ws).then(list=>{
+      if(!list.some(r=>r.me))list.push({me:true,name:c.nick,xp:weekXP()});list.sort((a,b)=>b.xp-a.xp);
+      const myRank=list.findIndex(r=>r.me)+1;
+      const say=list.length<2?"아직 참가한 친구가 없어요. 링크를 친구들에게 보내서 같이 겨뤄봐요!":myRank===1?"이번 주 1등이에요! 이대로 지켜봐요.":`지금 ${myRank}등이에요. ${list[myRank-2].xp-list[myRank-1].xp+1}경험치만 더 모으면 한 계단 올라가요!`;
+      $("#lgList").innerHTML=mascotSay(say,{mood:myRank===1?"happy":"thinking",pose:myRank===1?"cheer":"think"})+`<ol class="lg">${list.map((r,i)=>`<li class="${r.me?"me":""}"><span class="rk${i<3?" t"+(i+1):""}">${i+1}</span><b>${esc(r.name)}${r.me?" (나)":""}</b><em>${r.xp} 경험치</em></li>`).join("")}</ol>`;
+    }).catch(()=>{$("#lgList").innerHTML=`<p class="small no" style="margin:0">순위를 불러오지 못했어요. 운영자가 리그 저장 규칙을 아직 열지 않았거나 인터넷이 불안정할 수 있어요.</p>`}));
+  }
+}
+
+/* 순서 맞추기·짝 맞추기 */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function shuffledIdx(n){let o;do{o=shuffle([...Array(n).keys()])}while(n>2&&o.every((v,i)=>v===i));return o}
+function flowStep(C,i,text,last){if(i>0){const ar=document.createElement("div");ar.className="flow-ar";ar.setAttribute("aria-hidden","true");C.appendChild(ar)}const d=document.createElement("div");d.className="flow-b"+(last?" last":"");d.innerHTML=`<span class="flow-n">${i+1}</span><span>${esc(text)}</span>`;C.appendChild(d)}
+function wireOrder(it,st){
+  const box=$("#ordBox");if(!box)return;const ch=it.chain;
+  const start=()=>{let next=0,miss=0;const C=$("#chain");C.innerHTML="";
+    box.innerHTML=`<div class="ord">${shuffledIdx(ch.length).map(i=>`<button data-c="${i}">${esc(ch[i])}</button>`).join("")}</div><p class="small" id="ordMsg" style="margin:0">맨 처음 원인부터 눌러보세요.</p>`;
+    box.querySelector(".ord").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const c=+b.dataset.c;
+      if(c===next){b.remove();flowStep(C,next,ch[next],next===ch.length-1);next++;
+        if(next===ch.length){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`완성했어요. 헷갈린 고리가 ${miss}번 있었어요.`:"한 번에 맞혔어요!"}</span> <button class="lnk" id="ordRe">다시 해보기</button></p>`;
+          st.ch=1;save(it.id,st);addXP(`c:${it.id}`,miss?8:15,"순서 맞추기");$("#ordRe").onclick=start}
+        else $("#ordMsg").textContent=`좋아요. ${next+1}번째 고리는 무엇일까요?`}
+      else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");$("#ordMsg").innerHTML=`<span class="no">그 고리는 아직이에요.</span> 바로 앞 고리의 결과로 이어지는 걸 찾아보세요.`}}};
+  if(st.ch){const C=$("#chain");ch.forEach((t,i)=>flowStep(C,i,t,i===ch.length-1));box.innerHTML=`<p class="small" style="margin:0"><span class="ok">순서 맞추기를 끝냈어요.</span> <button class="lnk" id="ordRe">다시 해보기</button></p>`;$("#ordRe").onclick=start}
+  else start();
+}
+function matchTerms(it){return (it.terms||[]).slice(0,4)}
+function wireMatch(it,st){
+  const box=$("#mBox");if(!box)return;const ts=matchTerms(it);
+  const start=()=>{let sel=null,left=ts.length,miss=0;
+    box.innerHTML=`<p class="small" style="margin:0 0 8px">용어를 고른 다음, 알맞은 뜻을 눌러요.</p><div class="mt-t">${shuffle(ts.map((x,i)=>i)).map(i=>`<button data-t="${i}">${esc(ts[i].t)}</button>`).join("")}</div><div class="mt-d">${shuffle(ts.map((x,i)=>i)).map(i=>`<button data-d="${i}">${esc(ts[i].d)}</button>`).join("")}</div><p class="small" id="mMsg" style="margin:8px 0 0"></p>`;
+    box.onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;
+      if(b.dataset.t!=null){box.querySelectorAll("[data-t]").forEach(x=>x.classList.toggle("sel",x===b));sel=+b.dataset.t;return}
+      if(b.dataset.d!=null){if(sel==null){$("#mMsg").textContent="먼저 위에서 용어를 골라주세요.";return}
+        const d=+b.dataset.d,tb=box.querySelector(`[data-t="${sel}"]`);
+        if(d===sel){b.classList.add("ok-m");tb.classList.remove("sel");tb.classList.add("ok-m");b.disabled=tb.disabled=true;sel=null;left--;$("#mMsg").textContent="";
+          if(!left){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`다 맞췄어요. ${miss}번 헷갈렸어요.`:"한 번에 다 맞췄어요!"}</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;st.mt=1;save(it.id,st);addXP(`m:${it.id}`,miss?8:15,"짝 맞추기");$("#mRe").onclick=start}}
+        else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");$("#mMsg").innerHTML=`<span class="no">짝이 아니에요.</span> 다시 골라보세요.`}}}};
+  if(st.mt){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">짝 맞추기를 끝냈어요.</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;$("#mRe").onclick=start}else start();
+}
+/* 복습용 숫자 빈칸 문제: 이슈의 숫자 타일로 만들어요 */
+function numberQ(it){const ns=(it.numbers||[]).filter(x=>x.value&&x.label);if(ns.length<3)return null;const seed=Math.floor(sod(Date.now())/DAY);const pick=ns[seed%ns.length];
+  const opts=shuffle(ns.map(x=>x.value).filter((v,i,a)=>a.indexOf(v)===i)).slice(0,4);if(!opts.includes(pick.value))opts[0]=pick.value;
+  const o=shuffle(opts);return {q:`빈칸 채우기: "${pick.label}"은(는) [ ? ]였어요.`,o,a:o.indexOf(pick.value),e:pick.note?`${pick.label}: ${pick.value}. ${pick.note}`:`${pick.label}: ${pick.value}`,k:null,num:1}}
+
+/* 기초 다지기 길 */
+function basicPath(){const out=[];BASICS.forEach((b,u)=>{const list=basicIssues(b);out.push({unit:b,u});if(!list.length)out.push({unit:b,u,empty:1});list.forEach(it=>out.push({unit:b,u,it}))});
+  let open=true;for(const x of out){if(!x.it)continue;const d=status(x.it)==="done";x.done=d;x.state=d?"done":open?"cur":"lock";if(!d&&open)open=false}return out}
+
 /* 이슈 화면 */
 let statsCache={};
 function showIssue(it,mode){
@@ -318,7 +440,7 @@ function showIssue(it,mode){
     <p class="small" id="gN"></p>`);
   if(it.numbers)h+=sec("숫자 감각 잡기",`<div class="ntiles">${it.numbers.map(x=>`<div class="nt"><span>${esc(x.label)}</span><b>${esc(x.value)}</b>${x.note?`<em>${esc(x.note)}</em>`:""}</div>`).join("")}</div>`);
   if(it.points)h+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
-  if(deep&&it.chain)h+=sec("인과 사슬 따라가기",`<p class="q">다음 고리를 보기 전에 무엇이 올지 먼저 떠올려보세요.</p><div class="flow" id="chain"></div><div><button id="cBtn">다음 고리 보기</button></div>`);
+  if(deep&&it.chain)h+=sec("인과 사슬 순서 맞추기",`<p class="q">뒤섞인 고리를 원인에서 결과 순서로 눌러서 사슬을 완성해보세요.</p><div class="flow" id="chain"></div><div id="ordBox"></div>`);
   if(it.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
   const fr=(it.frames||[]).map(id=>FRAMES.find(f=>f.id===id)).filter(Boolean);
   if(fr.length)h+=sec("이 이슈에 쓰인 생각의 틀",`<div class="frs">${fr.map(f=>`<a href="#f-${f.id}"><b>${esc(f.name)}</b><span>${esc(f.ask[0])}</span></a>`).join("")}</div>`);
@@ -333,6 +455,7 @@ function showIssue(it,mode){
   if(deep){const pool=issues.filter(x=>x.date<it.date&&x.quiz&&x.quiz.length);
     while(rev.length<2&&pool.length){const x=pool.splice(Math.floor(Math.random()*pool.length),1)[0];rev.push({...x.quiz[Math.floor(Math.random()*x.quiz.length)],from:x.date,k:null})}}
   const all=[...own,...rev];
+  if(matchTerms(it).length>=3)h+=sec("용어 짝 맞추기",`<div id="mBox"></div>`);
   if(all.length)h+=sec(`확인 퀴즈${rev.length?" · 지난 이슈 복습 포함":""}`,
     all.map((q,i)=>`<div><p class="q" style="font-size:16px">${q.from?`<span class="small">${shortDate(q.from)} 복습 · </span>`:""}${esc(q.q)}</p><div class="row" data-q="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="qO${i}"></div></div>`).join(""));
   if(it.terms)h+=sec("이 이슈의 용어",`<div class="termlist">${it.terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div><a class="more" href="#terms">용어 사전 전체 보기 →</a>`);
@@ -372,17 +495,18 @@ function wire(it,st,mode,all){
   const P=$("#pOpts");
   const pReveal=j=>{P.querySelectorAll("button").forEach(b=>b.classList.toggle("picked",+b.dataset.j===j));
     const right=j===it.predict.answer;$("#pOut").innerHTML=`<div class="reveal"><span class="${right?"ok":"no"}">${right?"예측이 맞았어요. ":"예측과 달라요. "}</span>${esc(it.predict.reveal)}</div>`};
-  if(P){P.onclick=e=>{const b=e.target.closest("button");if(!b)return;st.pred=+b.dataset.j;save(it.id,st);pReveal(st.pred)};if(st.pred!=null)pReveal(st.pred)}
+  if(P){P.onclick=e=>{const b=e.target.closest("button");if(!b)return;const first=st.pred==null;st.pred=+b.dataset.j;save(it.id,st);pReveal(st.pred);if(first)addXP(`p:${it.id}`,st.pred===it.predict.answer?5:2,st.pred===it.predict.answer?"예측 적중":"예측 참여")};if(st.pred!=null)pReveal(st.pred)}
   if(it.gauge){const g=it.gauge,r=$("#gR");const f=()=>{const v=+r.value,left=100-v-g.cost;$("#gV").textContent=v+"%";$("#g1").textContent=v+"원";
       const e=$("#g3");e.textContent=(left>0?"+":"")+left+"원";e.style.color=left<0?"var(--bad)":"var(--good)";
       $("#gN").textContent=`보험료 100원 기준이에요. ${g.label}과 운영비 비율을 더한 합산비율은 지금 ${v+g.cost}%이고, 100%를 넘으면 보험 영업만으로는 적자예요. ${g.note||""}`};r.oninput=f;f()}
+  wireOrder(it,st);wireMatch(it,st);
   const B=$("#cBtn");if(B){let i=0;const C=$("#chain");B.onclick=()=>{if(i>=it.chain.length)return;if(i>0){const ar=document.createElement("div");ar.className="flow-ar";ar.setAttribute("aria-hidden","true");C.appendChild(ar)}const d=document.createElement("div");d.className="flow-b"+(i===it.chain.length-1?" last":"");d.innerHTML=`<span class="flow-n">${i+1}</span><span>${esc(it.chain[i])}</span>`;C.appendChild(d);i++;if(i>=it.chain.length){B.textContent="끝까지 왔어요";B.disabled=true}else B.textContent=`다음 고리 보기 (${i}/${it.chain.length})`}}
   const persist=(id,key,eid)=>{const t=$(id);if(!t)return;let tm;t.oninput=()=>{$(eid).textContent="";clearTimeout(tm);tm=setTimeout(()=>{st[key]=t.value;save(it.id,st)},400)}};
   persist("#rT","role","#rE");persist("#sT","sum","#sE");persist("#vT","iv","#vE");
   const check=`<p class="small" style="margin:8px 0 0">스스로 점검해보세요. 일시적인 현상인지 구조적인 변화인지 짚었나요? 무엇과 비교한 숫자인지 따져봤나요? 한 시점이 아니라 추세를 봤나요?</p>`;
-  if($("#rM"))$("#rM").onclick=()=>{if(!needText("#rT","#rE"))return;st.role=$("#rT").value;save(it.id,st);$("#rO").innerHTML=`<div class="reveal"><strong>모범 해설</strong>\n${esc(it.role.model)}</div>${check}`};
-  if($("#sM"))$("#sM").onclick=()=>{if(!needText("#sT","#sE"))return;st.sum=$("#sT").value;save(it.id,st);$("#sO").innerHTML=`<div class="reveal"><strong>예시 요약</strong>\n${esc(it.summary)}</div><p class="small" style="margin:8px 0 0">내 요약에 핵심 숫자나 원인이 빠지진 않았는지, 보험을 모르는 사람도 알아들을 말인지 비교해보세요.</p>`};
-  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요. 면접 연습 메뉴에서 다른 질문도 모아볼 수 있어요.</p>`};
+  if($("#rM"))$("#rM").onclick=()=>{if(!needText("#rT","#rE"))return;st.role=$("#rT").value;save(it.id,st);addXP(`r:${it.id}`,10,"담당자 답 쓰기");$("#rO").innerHTML=`<div class="reveal"><strong>모범 해설</strong>\n${esc(it.role.model)}</div>${check}`};
+  if($("#sM"))$("#sM").onclick=()=>{if(!needText("#sT","#sE"))return;st.sum=$("#sT").value;save(it.id,st);addXP(`s:${it.id}`,10,"한 줄 요약 쓰기");$("#sO").innerHTML=`<div class="reveal"><strong>예시 요약</strong>\n${esc(it.summary)}</div><p class="small" style="margin:8px 0 0">내 요약에 핵심 숫자나 원인이 빠지진 않았는지, 보험을 모르는 사람도 알아들을 말인지 비교해보세요.</p>`};
+  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);addXP(`v:${it.id}`,10,"면접 답 쓰기");$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요. 면접 연습 메뉴에서 다른 질문도 모아볼 수 있어요.</p>`};
   if($("#rF"))$("#rF").onclick=()=>{st.role=$("#rT").value;save(it.id,st);askFeedback(it,"role","r")};
   if($("#sF"))$("#sF").onclick=()=>{st.sum=$("#sT").value;save(it.id,st);askFeedback(it,"sum","s")};
   if($("#vF"))$("#vF").onclick=()=>{st.iv=$("#vT").value;save(it.id,st);askFeedback(it,"iv","v")};
@@ -393,11 +517,17 @@ function wire(it,st,mode,all){
   document.querySelectorAll("[data-q]").forEach(row=>{const i=+row.dataset.q,q=all[i];
     if(q.k!=null&&st.qa[q.k]!=null)answer(i,st.qa[q.k],row);
     row.onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=+b.dataset.j;
-      if(q.k!=null){const first=st.qa[q.k]==null;st.qa[q.k]=j;
+      let fresh=false;
+      if(q.k!=null){const first=st.qa[q.k]==null;st.qa[q.k]=j;if(first)addXP(`q:${it.id}:${q.k}`,j===q.a?10:2,j===q.a?"정답":"도전");
         if(first&&window.Stats&&window.Stats.record(it.id,q.k,j)){const s=statsCache[it.id];if(s){const c=s["q"+q.k]||(s["q"+q.k]={});c[j]=(+c[j]||0)+1}}
-        if(need.every(k=>st.qa[k]!=null)){if(!st.done){st.doneAt=Date.now();st.rv={s:0,n:sod(Date.now())+DAY,c:0}}st.done=true;if(st.doneMode!=="deep")st.doneMode=mode}
+        if(need.every(k=>st.qa[k]!=null)){if(!st.done){st.doneAt=Date.now();st.rv={s:0,n:sod(Date.now())+DAY,c:0};fresh=true}st.done=true;if(st.doneMode!=="deep")st.doneMode=mode}
         save(it.id,st)}
-      answer(i,j,row)}});
+      else if(q.from)addXP(`x:${it.id}:${q.q.slice(0,24)}`,j===q.a?5:1,"지난 이슈 복습");
+      answer(i,j,row);
+      if(q.k!=null&&need.every(k=>st.qa[k]!=null)){
+        if(fresh)addXP(`d:${it.id}`,20,"이슈 완료");
+        const deepNew=mode==="deep"&&addXP(`dd:${it.id}`,20,"깊게 보기 완료");
+        if(fresh||deepNew){goalBonus();renderShell();setTimeout(()=>celebrate({title:mode==="deep"?"깊게 보기 완료!":"이슈 완료!",xp:issueXP(it.id),next:nextOf(it)}),500)}}}});
   if(window.Stats&&!statsCache[it.id])window.Stats.get(it.id).then(s=>{statsCache[it.id]=s||{};document.querySelectorAll("[data-q]").forEach(row=>{const i=+row.dataset.q,q=all[i];if(q.k!=null&&st.qa[q.k]!=null)answer(i,st.qa[q.k],row)})}).catch(()=>{});
   $("#repB").onclick=async()=>{const t=$("#repT").value.trim();if(!t){$("#repE").textContent="어떤 부분이 틀렸는지 적어주세요";return}
     if(!window.Stats){$("#repE").textContent="지금은 보낼 수 없어요. 잠시 뒤 다시 시도해주세요.";return}
@@ -407,12 +537,21 @@ function wire(it,st,mode,all){
 
 /* 기초 다지기 */
 function showBasics(){
-  const all=BASICS.flatMap(basicIssues),done=all.filter(i=>status(i)==="done").length;
-  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 순서대로 익혀요. 위에서부터 하나씩 보면 매일 이슈가 훨씬 잘 읽혀요.</p>
-    ${all.length?`<div class="statline"><span>기초 이슈 <b>${done}/${all.length}</b>개 완료</span><span>흐름 <b>${BASICS.length}</b>개</span></div>`:""}`;
-  $("#main").innerHTML=`<ol class="blist">${BASICS.map((b,n)=>{const list=basicIssues(b),d=list.filter(i=>status(i)==="done").length;
-    return `<li><a class="bitem" href="#b-${esc(b.id)}"><span class="bn">${n+1}</span><div class="bt2"><b>${esc(b.name)}</b><p>${esc(b.desc)}</p></div><span class="bs">${list.length?`${d}/${list.length} 완료`:"준비 중"}</span></a></li>`}).join("")}</ol>
-    ${all.length<BASICS.length*2?`<p class="small">기초 이슈는 원문 기사를 확인해가며 차례로 채우고 있어요. 준비 중인 흐름은 곧 채워져요.</p>`:""}`;
+  const path=basicPath(),nodes=path.filter(x=>x.it),done=nodes.filter(x=>x.done).length,cur=nodes.find(x=>x.state==="cur");
+  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 한 칸씩 익혀요. 앞 칸을 끝내면 다음 칸이 열려요.</p>
+    ${nodes.length?`<div class="statline"><span>기초 이슈 <b>${done}/${nodes.length}</b>칸 완료</span><span>흐름 <b>${BASICS.length}</b>개</span></div>`:""}`;
+  let h="",k=0;
+  for(const x of path){
+    if(!x.it&&!x.empty){const list=basicIssues(x.unit),d=list.filter(i=>status(i)==="done").length;
+      h+=`<a class="pu" href="#b-${esc(x.unit.id)}"><span class="pu-n">${x.u+1}단원</span><b>${esc(x.unit.name)}</b><p>${esc(x.unit.desc)}</p><span class="pu-s">${list.length?`${d}/${list.length}`:"준비 중"}</span></a>`;continue}
+    if(x.empty){h+=`<div class="pn-row" style="--o:${[0,1,0,-1][k++%4]}"><span class="pn wait" title="준비 중">…</span><span class="pn-l small">원문 기사를 확인하며 채우는 중이에요</span></div>`;continue}
+    const o=[0,1,0,-1][k++%4],it=x.it,isCur=x.state==="cur";
+    const icon=x.done?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':x.state==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>';
+    h+=`<div class="pn-row" style="--o:${o}">${x.state==="lock"?`<button class="pn lock" data-lock="1" aria-label="잠긴 칸: ${esc(it.title)}">${icon}</button>`:`<a class="pn ${x.state}" href="#i-${esc(it.id)}" aria-label="${esc(it.title)}">${icon}</a>`}
+      <span class="pn-l${x.state==="lock"?" off":""}">${esc(it.title)}<em>${fmtDate(it.date)}</em></span>${isCur?`<div class="pn-m">${mascotSay(done?"여기부터 이어서 해요!":"여기서 시작해요!",{mood:"happy",pose:"point"})}</div>`:""}</div>`;
+  }
+  $("#main").innerHTML=`<div class="path">${h}</div><p class="small" id="pathMsg"></p>${nodes.length<BASICS.length*2?`<p class="small">기초 이슈는 원문 기사를 확인해가며 차례로 채우고 있어요. 준비 중인 칸은 곧 열려요.</p>`:""}`;
+  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{$("#pathMsg").innerHTML=`앞 칸을 먼저 끝내면 열려요.${cur?` <a href="#i-${esc(cur.it.id)}">지금 할 칸으로 가기 →</a>`:""}`});
 }
 function showBasic(id){
   const b=BASICS.find(x=>x.id===id);if(!b)return showBasics();
@@ -433,7 +572,7 @@ function showReview(){
   $("#head").innerHTML=brand()+`<h1>오늘의 복습</h1><p class="meta" style="margin:0">끝낸 이슈를 1일, 3일, 7일, 14일, 30일 뒤에 다시 꺼내요. 다 맞히면 다음 복습이 뒤로 미뤄지고, 틀리면 내일 다시 나와요.</p>`;
   const due=dueList().slice(0,10);
   if(!due.length){const nx=nextReview();$("#main").innerHTML=`<section class="step"><p style="margin:0">오늘 복습할 이슈가 없어요.</p><p class="small" style="margin:0">${nx?`다음 복습은 ${shortDate(ymd(nx))}에 있어요.`:"이슈를 끝내면 다음 날부터 복습이 시작돼요."} 그동안 <a href="#">오늘 이슈</a>를 풀거나 <a href="#terms">용어 사전</a>을 훑어보세요.</p></section>`;return}
-  const sets=due.map(it=>{const s=load(it.id);return {it,s,qs:pickQs(it,s),ans:{}}});
+  const sets=due.map(it=>{const s=load(it.id);const qs=pickQs(it,s);const nq=numberQ(it);if(nq)qs.push(nq);return {it,s,qs,ans:{}}});
   $("#main").innerHTML=sets.map((x,n)=>`<section class="step" id="rv${n}"><div class="sh"><span class="n">${String(n+1).padStart(2,"0")}</span><h2>${esc(x.it.tag||"")}</h2><span class="small">${(x.s.rv&&x.s.rv.c)?x.s.rv.c+1+"번째 복습":"첫 복습"}</span></div>
     <a class="rvt" href="#i-${esc(x.it.id)}">${esc(x.it.title)}</a>
     ${x.it.points?`<details class="small"><summary>핵심 정리 다시 보기</summary><ul class="points">${x.it.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></details>`:""}
@@ -445,6 +584,8 @@ function showReview(){
     if(Object.keys(x.ans).length===x.qs.length){const s=load(x.it.id);const ok=x.qs.every((q,i)=>x.ans[i]===q.a);const rv=s.rv||{s:0,c:0};
       rv.c=(rv.c||0)+1;rv.s=ok?Math.min((rv.s||0)+1,GAP.length-1):0;rv.n=sod(Date.now())+GAP[rv.s]*DAY;s.rv=rv;
       let fixed=0;x.qs.forEach((q,i)=>{if(x.ans[i]===q.a&&s.qa&&s.qa[q.k]!=null&&+s.qa[q.k]!==q.a){s.qa[q.k]=q.a;fixed++}});save(x.it.id,s);
+      addXP(`rv:${x.it.id}:${rv.c}`,ok?20:10,"복습");
+      if(sets.every(y=>Object.keys(y.ans).length===y.qs.length)){goalBonus();setTimeout(()=>celebrate({title:"오늘 복습 끝!",say:"잊을 때쯤 다시 꺼내는 게 제일 오래 남아요. 잘했어요!",next:{href:"#",label:"오늘 이슈 보러 가기"}}),600)}
       $(`#rR${n}`).innerHTML=`<p class="small" style="margin:0">${ok?'<span class="ok">다 맞혔어요.</span>':'<span class="no">틀린 문제가 있어요.</span>'} 다음 복습은 ${shortDate(ymd(rv.n))}이에요.${fixed?` 다시 맞힌 ${fixed}문제는 오답 노트에서 뺐어요.`:""}</p>`;
       renderShell();}}});
 }
@@ -547,5 +688,5 @@ function showSearch(){
   render();
 }
 
-window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
+window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#league")return showLeague();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
 track();route();afterRender();
