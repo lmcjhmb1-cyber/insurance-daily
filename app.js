@@ -29,19 +29,48 @@ window.addEventListener("hashchange",()=>{route();window.scrollTo(0,0)});
 function brand(extra){return `<div class="brand"><a class="home" href="#">오늘의 보험 이슈</a>${extra||""}</div>`}
 function modeLinks(it,cur){return `<div class="modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${m}${cur===m?" on":""}">${MODE[m].label} · ${MODE[m].time}<span>${MODE[m].desc}</span></a>`).join("")}</div>`}
 
+let calMonth=null;
+function ymd(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function doneByDay(){const m={};for(const it of issues){const s=load(it.id);if(!s.done)continue;const ts=s.doneAt||s.t;if(!ts)continue;const k=ymd(ts);m[k]=(m[k]||0)+1}return m}
+function streak(m){let n=0;const d=new Date();if(!m[ymd(d)])d.setDate(d.getDate()-1);while(m[ymd(d)]){n++;d.setDate(d.getDate()-1)}return n}
+function renderCal(sel){
+  const box=$("#cal");if(!box)return;
+  const m=doneByDay();const [y,mo]=calMonth.split("-").map(Number);
+  const first=new Date(y,mo-1,1).getDay(),days=new Date(y,mo,0).getDate(),today=ymd(Date.now()),pub=new Set(dates);
+  let cells="",total=0;
+  for(let i=0;i<first;i++)cells+=`<span class="cd blank" aria-hidden="true"></span>`;
+  for(let d=1;d<=days;d++){
+    const k=`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`,c=m[k]||0;total+=c;
+    const lv=c===0?0:c===1?1:c<=3?2:c<=5?3:4;
+    const cls=`cd lv${lv}${k===today?" today":""}${k===sel?" sel":""}`;
+    const inner=`<b>${d}</b><i>${c?c+"개":""}</i>${pub.has(k)?`<u aria-hidden="true"></u>`:""}`;
+    const label=`${mo}월 ${d}일, ${c}개 완료${pub.has(k)?", 이슈 보기":""}`;
+    cells+=pub.has(k)?`<a class="${cls}" href="#d-${k}" aria-label="${label}" title="${label}">${inner}</a>`:`<span class="${cls}" title="${label}">${inner}</span>`;
+  }
+  const wk=["일","월","화","수","목","금","토"].map(w=>`<span class="wk">${w}</span>`).join("");
+  box.innerHTML=`<div class="calhead"><button id="calPrev" aria-label="이전 달">‹</button><b>${y}년 ${mo}월</b><button id="calNext" aria-label="다음 달">›</button></div>
+    <div class="calgrid">${wk}${cells}</div>
+    <div class="calfoot"><span>${mo}월에 <b>${total}개</b> 완료 · 연속 <b>${streak(m)}일</b></span><span class="legend">적음<i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>많음</span></div>
+    <p class="small" style="margin:0">숫자는 그날 내가 끝낸 이슈 개수예요. 점이 찍힌 날은 이슈가 올라온 날이라, 누르면 그날 이슈 목록으로 가요.</p>`;
+  const shift=n=>{const dt=new Date(y,mo-1+n,1);calMonth=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0");renderCal(sel)};
+  $("#calPrev").onclick=()=>shift(-1);$("#calNext").onclick=()=>shift(1);
+}
+
 function showList(d){
   const list=byDate(d);const done=list.filter(i=>status(i)==="done").length;
   const sel=`<select id="pick" aria-label="날짜 고르기">${dates.map(x=>`<option value="${x}"${x===d?" selected":""}>${fmtDate(x)}</option>`).join("")}</select>`;
   $("#head").innerHTML=brand(sel)+`<h1>${fmtDate(d)}의 이슈 ${list.length}개</h1>
     <div class="prog"><div class="bar"><i style="width:${list.length?done/list.length*100:0}%"></i></div><span>${list.length}개 중 ${done}개 완료</span></div>`;
   $("#pick").onchange=e=>{location.hash="d-"+e.target.value};
-  $("#main").innerHTML=`<div class="cards">${list.map(it=>{const s=status(it),st=load(it.id);
+  if(!calMonth)calMonth=d.slice(0,7);
+  $("#main").innerHTML=`<section class="cal" id="cal" aria-label="학습 달력"></section><div class="cards">${list.map(it=>{const s=status(it),st=load(it.id);
     const stat=s==="done"?`완료${st.doneMode?" · "+MODE[st.doneMode].label:""}`:s==="doing"?"진행 중":"";
     return `<div class="card">
       <div class="top"><span class="tag">${esc(it.tag||"보험 이슈")}</span><span class="stat ${s==="done"?"done":""}">${stat}</span></div>
       <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
       ${modeLinks(it,st.mode)}</div>`}).join("")}</div>
     <p class="small">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요. 보는 중에도 위에서 바꿀 수 있어요. 퀴즈를 모두 풀면 완료로 표시돼요. 로그인하면 기록이 계정에 저장되고, 로그인하지 않으면 이 기기에만 남아요.</p>`;
+  renderCal(d);
 }
 
 function showIssue(it,mode){
@@ -102,7 +131,7 @@ function wire(it,st,mode,all){
     if(q.k!=null&&st.qa[q.k]!=null)answer(i,st.qa[q.k],row);
     row.onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=+b.dataset.j;answer(i,j,row);
       if(q.k!=null){st.qa[q.k]=j;
-        if(need.every(k=>st.qa[k]!=null)){st.done=true;if(st.doneMode!=="deep")st.doneMode=mode}
+        if(need.every(k=>st.qa[k]!=null)){if(!st.done)st.doneAt=Date.now();st.done=true;if(st.doneMode!=="deep")st.doneMode=mode}
         save(it.id,st)}}});
 }
 

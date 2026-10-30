@@ -99,6 +99,32 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .empty{text-align:center;color:var(--ink-2);padding:32px 0}
 .next{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .next a{color:var(--accent);font-size:15px;text-decoration:none}
+/* 학습 달력 */
+.cal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.calhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.calhead b{font-family:var(--f-disp);font-size:18px}
+.calhead button{padding:2px 14px;font-size:20px;line-height:1.4;text-align:center}
+.calgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.wk{text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:2px}
+.cd{position:relative;height:clamp(42px,11vw,58px);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);line-height:1.25}
+.cd.blank{visibility:hidden}
+.cd b{font-weight:500;font-size:13px;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.cd i{font-style:normal;font-size:11px;font-weight:600;min-height:1.25em}
+.cd u{position:absolute;top:5px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--warm)}
+.lv0{background:var(--paper)}
+.lv1{background:color-mix(in srgb,var(--accent) 20%,var(--card))}
+.lv2{background:color-mix(in srgb,var(--accent) 42%,var(--card))}
+.lv3{background:color-mix(in srgb,var(--accent) 68%,var(--card))}
+.lv4{background:var(--accent)}
+.cd.lv3,.cd.lv4{color:var(--card)}
+.cd.today{box-shadow:inset 0 0 0 2px var(--warm)}
+.cd.sel{box-shadow:inset 0 0 0 2px var(--ink)}
+.cd.today.sel{box-shadow:inset 0 0 0 2px var(--ink),inset 0 0 0 4px var(--warm)}
+a.cd:hover{box-shadow:inset 0 0 0 2px var(--accent)}
+.calfoot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--ink-2)}
+.calfoot b{color:var(--ink);font-weight:600}
+.legend{display:flex;align-items:center;gap:3px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
 /* 로그인 */
 #authbar{display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 #authbar:empty{display:none}
@@ -122,8 +148,8 @@ button.danger{background:var(--bad);border-color:var(--bad);color:var(--card)}
   <header id="head"><p class="empty">이슈를 불러오는 중이에요.</p></header>
   <main id="main"></main>
 </div>
-<script src="issues.js?v=202610302234"></script>
-<script src="app.js?v=202610302234"></script>
-<script type="module" src="sync.js?v=202610302234"></script>
+<script src="issues.js?v=202610302241"></script>
+<script src="app.js?v=202610302241"></script>
+<script type="module" src="sync.js?v=202610302241"></script>
 </body>
 </html>
