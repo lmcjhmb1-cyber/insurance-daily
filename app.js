@@ -250,10 +250,15 @@ function showList(d){
   const c=cfg();const job=c.job||"";
   const all=byDate(d);const list=job?all.filter(i=>(i.jobs||[]).includes(job)):all;const done=all.filter(i=>status(i)==="done").length;
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m),due=dueList().length;
-  const sel=`<select id="pick" aria-label="날짜 고르기">${dates.map(x=>`<option value="${x}"${x===d?" selected":""}>${fmtDate(x)}</option>`).join("")}</select>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}의 보험 이슈</h1><p class="meta">이날 올라온 이슈 ${all.length}개 · 이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div><div class="hr">${sel}</div></div>
+  const asc=[...dates].reverse(),di=asc.indexOf(d),prev=asc[di-1],next=asc[di+1];
+  const WD="일월화수목금토";
+  const strip=asc.map((x,k)=>{const [,mm,dd]=x.split("-");const n=byDate(x).length,dn=byDate(x).filter(i=>status(i)==="done").length;const newM=k===0||asc[k-1].slice(0,7)!==x.slice(0,7);
+    return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
+  const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}의 보험 이슈</h1><p class="meta">이날 올라온 이슈 ${all.length}개 · 이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요.</p></div></div>${sel}
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
-  $("#pick").onchange=e=>{location.hash="d-"+e.target.value};
+  {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
+  document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
