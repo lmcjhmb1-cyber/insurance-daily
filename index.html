@@ -12,7 +12,7 @@
   --bg:#FFFFFF; --card:#FFFFFF; --paper:#F5F6F5; --line:#E4E7E5; --line-2:#111413;
   --ink:#111413; --ink-2:#6A716E; --ink-3:#9AA19E;
   --accent:#0E9F6E; --accent-ink:#047857; --accent-bg:#E8F6EF;
-  --warm:#B45309; --warm-bg:#FEF3E2; --good:#047857; --bad:#C2410C;
+  --warm:#B45309; --warm-bg:#FEF3E2;--mark:#FFE7A0; --good:#047857; --bad:#C2410C;
   --f-body:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --f-disp:var(--f-body); --f-num:var(--f-body);
   --side:84px; color-scheme:light;
@@ -21,7 +21,7 @@
   --bg:#0F1211; --card:#151918; --paper:#1C2120; --line:#2A302E; --line-2:#E6EAE8;
   --ink:#ECEFEE; --ink-2:#A1AAA6; --ink-3:#6E7773;
   --accent:#34D399; --accent-ink:#6EE7B7; --accent-bg:#123A2D;
-  --warm:#F5B565; --warm-bg:#3A2A14; --good:#6EE7B7; --bad:#FB923C; color-scheme:dark}}
+  --warm:#F5B565; --warm-bg:#3A2A14;--mark:rgba(245,181,101,.32); --good:#6EE7B7; --bad:#FB923C; color-scheme:dark}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word;font-feature-settings:"tnum"}
@@ -269,6 +269,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 }
 /* 용어 */
 button.term{font:inherit;font-size:inherit;color:inherit;background:none;border:0;padding:0;border-radius:0;border-bottom:1.5px dotted var(--accent);cursor:pointer;text-align:inherit;font-weight:inherit}
+mark.em{color:inherit;font-weight:700;background:linear-gradient(transparent 52%,var(--mark) 52%);padding:0 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 button.term:hover{color:var(--accent-ink)}
 #pop{position:absolute;z-index:30;background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.12);font-size:14px;display:flex;flex-direction:column;gap:6px}
 #pop p{margin:0;color:var(--ink-2)}
@@ -439,12 +440,12 @@ a.cd:hover{box-shadow:inset 0 0 0 2px var(--accent)}
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310024"></script>
-<script src="frames.js?v=202610310024"></script>
-<script src="basics.js?v=202610310024"></script>
-<script src="weekly.js?v=202610310024"></script>
-<script src="comic.js?v=202610310024"></script>
-<script src="app.js?v=202610310024"></script>
-<script type="module" src="sync.js?v=202610310024"></script>
+<script src="issues.js?v=202610310026"></script>
+<script src="frames.js?v=202610310026"></script>
+<script src="basics.js?v=202610310026"></script>
+<script src="weekly.js?v=202610310026"></script>
+<script src="comic.js?v=202610310026"></script>
+<script src="app.js?v=202610310026"></script>
+<script type="module" src="sync.js?v=202610310026"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])).replace(/\*\*(.+?)\*\*/g,'<mark class="em">$1</mark>');
 function load(k){try{return JSON.parse(localStorage.getItem("bi:"+k))||{}}catch(e){return{}}}
 function save(k,v){v.t=Date.now();try{localStorage.setItem("bi:"+k,JSON.stringify(v))}catch(e){}if(window.Sync)window.Sync.push(k,v)}
 function fmtDate(d){const [y,m,dd]=d.split("-");return `${+y}년 ${+m}월 ${+dd}일`}
@@ -207,7 +207,7 @@ function notesText(){
     if(cur!==n.it.id){cur=n.it.id;lines.push("━━━━━━━━━━━━━━━━━━━━",`[${fmtDate(n.it.date)}] ${n.it.title}`,`분야: ${n.it.tag||""}${n.it.jobs?" · 관련 직무: "+n.it.jobs.join(", "):""}`,"")}
     lines.push(`▶ ${n.kind}`,`질문: ${n.q}`,`내 답: ${n.a}`,`${n.kind==="면접 질문"?"답변 뼈대":n.kind==="한 줄 요약"?"예시 요약":"모범 해설"}: ${n.model||""}`,"");
   }
-  return lines.join("\n");
+  return lines.join("\n").replace(/\*\*/g,"");
 }
 
 /* 마이페이지 */
@@ -533,7 +533,7 @@ function showSearch(){
     <div class="chips" role="group" aria-label="직무"><span class="small">직무</span>${["",...JOBS].map(j=>`<button data-sj="${esc(j)}" class="${j===SQ.job?"on":""}">${j||"전체"}</button>`).join("")}</div>
     <p class="small" id="scount" style="margin:0"></p><div id="sres" class="cards"></div>`;
   const render=()=>{const q=SQ.q.trim();
-    const list=issues.filter(it=>(!SQ.tag||it.tag===SQ.tag)&&(!SQ.job||(it.jobs||[]).includes(SQ.job))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").includes(q)));
+    const list=issues.filter(it=>(!SQ.tag||it.tag===SQ.tag)&&(!SQ.job||(it.jobs||[]).includes(SQ.job))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").replace(/\*\*/g,"").includes(q)));
     $("#scount").textContent=`${list.length}개 이슈`;
     $("#sres").innerHTML=list.length?list.map(it=>`<div class="card"><div class="top"><span class="tag">${esc(it.tag||"")}</span><span class="stat">${shortDate(it.date)}${status(it)==="done"?' · <span class="ok">완료</span>':""}</span></div><div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div></div>`).join(""):`<p class="empty">조건에 맞는 이슈가 없어요.</p>`};
   $("#sq").oninput=e=>{SQ.q=e.target.value;render()};
