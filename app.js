@@ -582,7 +582,7 @@ function showBasics(){
   const curU=cur?cur.u:-1;if(openUnit===null)openUnit=curU;
   const ring=(d,n,col)=>{const r=17,c=2*Math.PI*r,f=n?d/n:0;return `<svg class="bring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="22" cy="22" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 22 22)"/></svg>`};
   let h=`<div class="bhero"><div class="bhero-l"><span class="bhero-k">내 진도</span><div class="bhero-n"><b>${pct}</b>%</div><div class="bhero-bar"><i style="width:${pct}%"></i></div><span class="bhero-s">${done} / ${nodes.length}칸 · 흐름 ${BASICS.length}개</span></div>
-    ${cur?`<a class="bhero-r" href="#i-${esc(cur.it.id)}"><span class="bhero-k">${done?"이어서 할 칸":"첫 칸"} · ${cur.u+1}단계 ${esc(cur.unit.name)}</span><b>${esc(cur.it.title)}</b><span class="bhero-go">${done?"이어서 하기":"시작하기"} →</span></a>`:`<div class="bhero-r none"><b>${nodes.length?"열린 칸을 모두 끝냈어요":"기초 칸을 채우는 중이에요"}</b><span class="bhero-k">새 칸은 채워지는 대로 열려요.</span></div>`}</div>`;
+    ${cur?`<a class="bhero-r" href="#i-${esc(cur.it.id)}"><span class="bhero-txt"><span class="bhero-k">${done?"이어서 할 칸":"첫 칸"} · ${cur.u+1}단계 ${esc(cur.unit.name)}</span><b>${esc(cur.it.title)}</b></span><span class="bhero-go">${done?"이어서 하기":"시작하기"} →</span></a>`:`<div class="bhero-r none"><b>${nodes.length?"열린 칸을 모두 끝냈어요":"기초 칸을 채우는 중이에요"}</b><span class="bhero-k">새 칸은 채워지는 대로 열려요.</span></div>`}</div>`;
   h+=`<div class="blist2">`;
   for(const {b,u,items} of units){const col=UCOL[u%UCOL.length],d=items.filter(x=>x.done).length,n=items.length;
     const ust=!n?"wait":d===n?"done":u===curU?"cur":"lock";const open=n&&openUnit===u;
