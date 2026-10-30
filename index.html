@@ -519,11 +519,27 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .wkbars em{font-style:normal;font-size:11px;color:var(--ink-2);order:-1}
 .wkbars span{font-size:12px;color:var(--ink-2)}.wkbars .on span{font-weight:800;color:var(--ink)}
 /* 기초 다지기 길 */
-.bwrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bwrap{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start}
+.bside{position:sticky;top:20px;display:flex;flex-direction:column;gap:14px}
+.bsum h2{margin:0 0 10px;font-size:15px}
+.bmain{display:flex;flex-direction:column;gap:14px;min-width:0}
+.bidx{list-style:none;margin:0;padding:6px;border:1px solid var(--line);border-radius:16px;background:var(--card);display:flex;flex-direction:column}
+.bidx a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:14px}
+.bidx a:hover{background:var(--paper)}
+.bidx i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--u)}
+.bidx span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bidx em{font-style:normal;font-size:12px;color:var(--ink-3)}
+.bwaits{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.bu.wait{align-items:flex-start;min-height:96px;border-left:4px solid var(--u)}
+.bu.wait .bu-t span{-webkit-line-clamp:2;margin-top:2px}
+.bu-w{font-style:normal;font-size:12px;font-weight:700;color:var(--ink-3);margin-top:6px}
+@media (max-width:900px){.bwrap{grid-template-columns:1fr}.bside{position:static}.bidx{display:none}}
 .bsum{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
 .bsum .mbub{border:0;background:var(--paper);margin-bottom:6px}.bsum .mbub::before{background:var(--paper);border:0}
 .bsum-bar{height:10px;border-radius:99px;background:var(--card);margin-top:10px;overflow:hidden}
-.bsum-bar i{display:block;height:100%;background:#FFB82E;border-radius:99px;min-width:10px}
+.bsum-bar i{display:block;height:100%;background:#FFB82E;border-radius:99px}
+.bsum .mnote{background:none;padding:0}
+.bsum .bsum-bar{background:var(--paper)}
 .bsum-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
 .bgo{background:var(--accent);color:#fff;font-weight:800;font-size:14px;text-decoration:none;padding:8px 16px;border-radius:12px;box-shadow:0 3px 0 color-mix(in srgb,var(--accent) 65%,#000)}
 .bunit{display:flex;flex-direction:column;gap:6px}
@@ -533,9 +549,9 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .bu-t b{font-size:16px}
 .bu-t span{font-size:12.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .bu-p{flex:none;font-size:13px;font-weight:800;color:color-mix(in srgb,var(--u) 80%,var(--ink))}
-.bu.wait{background:var(--card);border:1.5px dashed var(--line);padding:9px 14px}
-.bu.wait .bu-n{background:var(--line);color:var(--ink-3);width:28px;height:28px;font-size:13px;border-radius:9px}
-.bu.wait b{font-size:14.5px;color:var(--ink-2)}
+.bu.wait{background:var(--card);border:1.5px solid var(--line);padding:12px 14px}
+.bu.wait .bu-n{background:color-mix(in srgb,var(--u) 18%,var(--card));color:var(--u);width:30px;height:30px;font-size:13px;border-radius:9px}
+.bu.wait b{font-size:15px;color:var(--ink)}
 .bpath{display:flex;flex-direction:column;align-items:center;gap:18px;padding:16px 0 12px}
 .bstep{position:relative;display:flex;flex-direction:column;align-items:center;width:170px;transform:translateX(calc(var(--o)*64px))}
 .bn{width:64px;height:58px;border-radius:50%;display:grid;place-items:center;border:0;padding:0;cursor:pointer;background:var(--u);box-shadow:0 6px 0 color-mix(in srgb,var(--u) 62%,#000);transition:transform .08s}
@@ -565,12 +581,12 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310059"></script>
-<script src="frames.js?v=202610310059"></script>
-<script src="basics.js?v=202610310059"></script>
-<script src="weekly.js?v=202610310059"></script>
-<script src="comic.js?v=202610310059"></script>
-<script src="app.js?v=202610310059"></script>
-<script type="module" src="sync.js?v=202610310059"></script>
+<script src="issues.js?v=202610310102"></script>
+<script src="frames.js?v=202610310102"></script>
+<script src="basics.js?v=202610310102"></script>
+<script src="weekly.js?v=202610310102"></script>
+<script src="comic.js?v=202610310102"></script>
+<script src="app.js?v=202610310102"></script>
+<script type="module" src="sync.js?v=202610310102"></script>
 </body>
 </html>
