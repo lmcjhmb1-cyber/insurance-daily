@@ -46,7 +46,7 @@ const basicOf=it=>it.basic&&it.thread?BASICS.find(b=>b.id===it.thread.id):null;
 const lightQuiz=it=>(it.quiz||[]).map((q,k)=>({...q,k})).filter(q=>!q.deep);
 function status(it){const s=load(it.id);if(s.done)return"done";if(s.pred!=null||(s.qa&&Object.keys(s.qa).length)||s.role||s.sum||s.iv)return"doing";return""}
 const cfg=()=>load("cfg");
-const goal=()=>+cfg().goal||3;
+const goal=()=>{const g=cfg().goal;return g===0||g==="0"?0:(+g||3)};
 
 const GLOSS=(()=>{const m=new Map();for(const it of issues)for(const x of it.terms||[]){if(!m.has(x.t))m.set(x.t,{t:x.t,d:x.d,issues:[]});m.get(x.t).issues.push(it)}return [...m.values()].sort((a,b)=>a.t.localeCompare(b.t,"ko"))})();
 const THREADS=(()=>{const m=new Map();for(const it of issues){if(!it.thread)continue;const k=it.thread.id;if(!m.has(k))m.set(k,{id:k,name:it.thread.name,issues:[]});m.get(k).issues.push(it)}
@@ -163,18 +163,18 @@ function renderCal(sel){
   let cells="",total=0,met=0;
   for(let i=0;i<first;i++)cells+=`<span class="cd blank" aria-hidden="true"></span>`;
   for(let d=1;d<=days;d++){
-    const k=`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`,c=m[k]||0;total+=c;if(c>=G)met++;
+    const k=`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`,c=m[k]||0;total+=c;if((G&&c>=G))met++;
     const lv=c===0?0:c===1?1:c<=3?2:c<=5?3:4;
-    const cls=`cd lv${lv}${k===today?" today":""}${k===sel?" sel":""}${c>=G?" met":""}`;
+    const cls=`cd lv${lv}${k===today?" today":""}${k===sel?" sel":""}${(G&&c>=G)?" met":""}`;
     const inner=`<b>${d}</b><i>${c?c+"개":""}</i>${pub.has(k)?`<u aria-hidden="true"></u>`:""}`;
-    const label=`${mo}월 ${d}일, ${c}개 완료${c>=G?", 목표 달성":""}${pub.has(k)?", 이슈 보기":""}`;
+    const label=`${mo}월 ${d}일, ${c}개 완료${(G&&c>=G)?", 목표 달성":""}${pub.has(k)?", 이슈 보기":""}`;
     cells+=pub.has(k)?`<a class="${cls}" href="#d-${k}" aria-label="${label}" title="${label}">${inner}</a>`:`<span class="${cls}" title="${label}">${inner}</span>`;
   }
   const wk=["일","월","화","수","목","금","토"].map(w=>`<span class="wk">${w}</span>`).join("");
   box.innerHTML=`<div class="calhead"><button id="calPrev" aria-label="이전 달">‹</button><b>${y}년 ${mo}월</b><button id="calNext" aria-label="다음 달">›</button></div>
     <div class="calgrid">${wk}${cells}</div>
     <div class="calfoot"><span>${mo}월에 <b>${total}개</b> 완료 · 목표 달성 <b>${met}일</b></span><span class="legend">적음<i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>많음</span></div>
-    <p class="small" style="margin:0">숫자는 그날 끝낸 이슈 개수, 왼쪽 위 체크는 하루 목표(${G}개)를 채운 날이에요. 점이 찍힌 날은 이슈가 올라온 날이라 누르면 그날 목록으로 가요.</p>`;
+    <p class="small" style="margin:0">숫자는 그날 끝낸 이슈 개수, ${G?`왼쪽 위 체크는 하루 목표(${G}개)를 채운 날이에요.`:"하루 목표는 설정하지 않았어요."} 점이 찍힌 날은 이슈가 올라온 날이라 누르면 그날 목록으로 가요.</p>`;
   const shift=n=>{const dt=new Date(y,mo-1+n,1);calMonth=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0");renderCal(sel)};
   $("#calPrev").onclick=()=>shift(-1);$("#calNext").onclick=()=>shift(1);
 }
@@ -183,7 +183,7 @@ function renderCal(sel){
 function badges(){
   const m=doneByDay(),G=goal();let done=0,deep=0,rv=0,iv=0;const tags=new Set();
   for(const it of issues){const s=load(it.id);if(s.done){done++;tags.add(it.tag);if(s.doneMode==="deep")deep++}rv+=(s.rv&&s.rv.c)||0;if(s.iv&&s.iv.trim())iv++}
-  const L=longest(m),met=Object.values(m).filter(c=>c>=G).length;
+  const L=longest(m),met=G?Object.values(m).filter(c=>c>=G).length:0;
   return [
     ["첫 걸음","이슈 1개 끝내기",done>=1],["사흘 연속","3일 연속 공부하기",L>=3],["일주일 연속","7일 연속 공부하기",L>=7],["한 달 연속","30일 연속 공부하기",L>=30],
     ["이슈 10개","이슈 10개 끝내기",done>=10],["이슈 50개","이슈 50개 끝내기",done>=50],["이슈 100개","이슈 100개 끝내기",done>=100],
@@ -252,10 +252,10 @@ function showMe(){
   const P={};
   P.account=`<section class="step"><div class="sh"><h2>내 계정</h2></div><div id="account">${accountHTML()}</div></section>`;
   P.stats=`<div class="stats">${stat("끝낸 이슈",done+"개",`올라온 이슈 ${issues.length}개 중`)}${stat("연속 학습",streak(m)+"일","오늘이나 어제까지 이어진 날")}${stat("최장 연속",longest(m)+"일","지금까지 가장 길게 이어간 기록")}${stat("퀴즈 정답률",pct==null?"–":pct+"%",qN?`${qN}문제 중 ${qOK}문제 정답`:"아직 푼 퀴즈가 없어요")}</div>`;
-  P.goal=`<section class="step"><div class="sh"><h2>하루 목표</h2><span class="small">오늘 ${todayN}/${G}개</span></div>
-    <div class="goalrow"><label for="goalSel">하루에</label><select id="goalSel">${[1,2,3,4,5,6,7,8,10].map(n=>`<option value="${n}"${n===G?" selected":""}>${n}개</option>`).join("")}</select><span>끝내기</span></div>
-    <div class="bar"><i style="width:${Math.min(100,todayN/G*100)}%"></i></div>
-    <p class="small" style="margin:0">${todayN>=G?"오늘 목표를 채웠어요. 달력에 체크가 붙어요.":`오늘 ${G-todayN}개 더 끝내면 목표 달성이에요.`}</p></section>`;
+  P.goal=`<section class="step"><div class="sh"><h2>하루 목표</h2><span class="small">${G?`오늘 ${todayN}/${G}개`:`오늘 ${todayN}개 끝냄`}</span></div>
+    <div class="goalrow"><label for="goalSel">하루에</label><select id="goalSel"><option value="0"${G===0?" selected":""}>목표 없음</option>${[1,2,3,4,5,6,7,8,10].map(n=>`<option value="${n}"${n===G?" selected":""}>${n}개</option>`).join("")}</select>${G?"<span>끝내기</span>":""}</div>
+    ${G?`<div class="bar"><i style="width:${Math.min(100,todayN/G*100)}%"></i></div>
+    <p class="small" style="margin:0">${todayN>=G?"오늘 목표를 채웠어요. 달력에 체크가 붙어요.":`오늘 ${G-todayN}개 더 끝내면 목표 달성이에요.`}</p>`:`<p class="small" style="margin:0">목표 없이 내 속도대로 공부하고 있어요. 언제든 목표를 다시 정할 수 있어요.</p>`}</section>`;
   P.cal=`<section class="cal" id="cal" aria-label="학습 달력"></section>`;
   P.badges=`<section class="step"><div class="sh"><h2>배지</h2><span class="small">${bs.filter(b=>b[2]).length}/${bs.length}개</span></div>
     <div class="badges">${bs.map(([n,d,ok])=>`<div class="bdg${ok?"":" off"}"><b>${n}</b><span>${d}</span></div>`).join("")}</div></section>`;
@@ -286,7 +286,7 @@ function showList(d){
     return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
   const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
   $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개</p></div></div>${sel}
-    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span><span>오늘 목표 <b>${todayN}/${G}</b>개</span><span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
+    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span>${G?`<span>오늘 목표 <b>${todayN}/${G}</b>개</span>`:`<span>오늘 <b>${todayN}</b>개 끝냄</span>`}<span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
   document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
@@ -360,7 +360,7 @@ function celebrate(o){
     <div class="cele-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
     <h2>${esc(o.title)}</h2><p class="cele-say">${esc(o.say||CHEERS[Math.floor(Math.random()*CHEERS.length)])}</p>
     
-    <div class="cele-stats"><div><b>${weekDone()}개</b><span>이번 주 끝낸 이슈</span></div><div><b>${sk}일</b><span>연속 학습</span></div><div><b>${todayN}/${G}</b><span>오늘 목표</span></div></div>
+    <div class="cele-stats"><div><b>${weekDone()}개</b><span>이번 주 끝낸 이슈</span></div><div><b>${sk}일</b><span>연속 학습</span></div><div><b>${G?`${todayN}/${G}`:`${todayN}개`}</b><span>${G?"오늘 목표":"오늘 끝낸 이슈"}</span></div></div>
     <div class="cele-btns">${o.next?`<a class="pri" href="${o.next.href}">${esc(o.next.label)}</a>`:""}<button id="celeX">${o.next?"여기 더 볼래요":"닫기"}</button></div></div>`;
   document.body.appendChild(box);
   const close=()=>box.remove();
@@ -371,7 +371,7 @@ function celebrate(o){
 }
 function nextOf(it){const bs=basicOf(it);if(bs){const path=basicPath();const k=path.findIndex(x=>x.it&&x.it.id===it.id);const nx=path.slice(k+1).find(x=>x.it);return nx?{href:"#i-"+nx.it.id,label:"다음 단계로"}:{href:"#basics",label:"기초 다지기 길로"}}
   const sib=byDate(it.date);const nx=sib.slice(sib.findIndex(x=>x.id===it.id)+1).find(x=>status(x)!=="done");return nx?{href:"#i-"+nx.id,label:"다음 이슈 풀기"}:{href:"#d-"+it.date,label:"목록으로"}}
-function goalBonus(){const m=doneByDay(),G=goal();if((m[ymd(Date.now())]||0)>=G)addXP("goal:"+ymd(Date.now()),30,"하루 목표 달성")}
+function goalBonus(){const m=doneByDay(),G=goal();if(!G)return;if((m[ymd(Date.now())]||0)>=G)addXP("goal:"+ymd(Date.now()),30,"하루 목표 달성")}
 
 /* 친구 리그 */
 let lgTimer=null;
@@ -838,7 +838,7 @@ function newsLi(n,cur){const others=(n.companies||[]).filter(x=>x!==cur);
     <div class="nw-f">${n.source&&n.source.url?`<a href="${esc(n.source.url)}" target="_blank" rel="noopener">${esc(n.source.name||"원문 기사")} ↗</a>`:""}${n.issue&&issues.find(i=>i.id===n.issue)?`<a href="#i-${esc(n.issue)}">이슈로 깊게 공부하기 →</a>`:""}${cur&&others.length?others.map(c=>`<a href="#c-${encodeURIComponent(c)}">${esc(c)}</a>`).join(""):""}</div></li>`}
 
 /* 모의 면접 */
-let MK=null;const MKSET={co:"",n:5,sec:120};
+let MK=null;const MKSET={co:"",n:5,sec:120};let MKK="",MKQ="";
 function mockPool(name){
   const out=[],c=name&&COMPANIES.find(x=>x.name===name),pf=name&&PROFILES[name],job=(cfg().job||"계리·상품개발");
   if(c){
@@ -864,13 +864,21 @@ function showMock(){
   const cos=[...f,...COMPANIES.map(c=>c.name).filter(n=>!f.includes(n))];
   const hist=(load("mock").list||[]);
   $("#main").innerHTML=`<section class="step mk-set"><div class="sh"><h2>면접 준비</h2></div>
-    <div class="mk-row"><span class="mk-l">지원 회사</span><select id="mkCo" aria-label="지원 회사"><option value="">업계 전반 (회사 없이)</option>${cos.map(n=>`<option value="${esc(n)}"${n===MKSET.co?" selected":""}>${f.includes(n)?"★ ":""}${esc(n)}</option>`).join("")}</select></div>
+    <div class="mk-co-pick"><span class="mk-l">지원 회사</span>
+      <div class="mk-cp"><div class="mk-cp-top"><div class="mk-kinds" role="group" aria-label="업권">${[["","전체"],["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]].map(([k,l])=>`<button data-mkk="${k}" class="${MKK===k?"on":""}">${l}</button>`).join("")}</div><input type="search" id="mkQ" placeholder="회사 이름 찾기" aria-label="회사 이름 찾기" value="${esc(MKQ)}"></div>
+      <div class="mk-cos" id="mkCos"></div><p class="small" id="mkSel" style="margin:0"></p></div></div>
     ${opt([[3,"3개"],[5,"5개"],[7,"7개"]],"n","질문 수")}${opt([[60,"1분"],[120,"2분"],[180,"3분"],[0,"제한 없음"]],"sec","답변 시간")}
     <p class="small" id="mkInfo" style="margin:0"></p>
     <div class="row"><button class="pri mk-go" id="mkGo">면접 시작하기</button></div></section>
     ${hist.length?`<section class="step"><div class="sh"><h2>지난 모의 면접</h2><span class="small">${hist.length}번</span></div><ul class="links">${hist.slice().reverse().map((x,i)=>`<li><a href="#" data-mh="${hist.length-1-i}">${fmtDate(x.date)} · ${esc(x.co||"업계 전반")} · 질문 ${x.qs.length}개</a><span class="small">${x.qs.filter((q,k)=>(x.a[k]||"").trim()).length}개 답함</span></li>`).join("")}</ul></section>`:""}`;
   const info=()=>{const pool=mockPool(MKSET.co);$("#mkInfo").textContent=`${MKSET.co||"업계 전반"} 질문 후보 ${pool.length}개 가운데 ${Math.min(MKSET.n,pool.length)}개를 골라요.${MKSET.co&&!PROFILES[MKSET.co]?" 이 회사 기본 정보가 아직 채워지는 중이라 질문이 적을 수 있어요.":""}`};info();
-  $("#mkCo").onchange=e=>{MKSET.co=e.target.value;info()};
+  const drawCos=()=>{const q=MKQ.trim();const list=COMPANIES.filter(c=>(!MKK||c.kind===MKK)&&(!q||[c.name,c.group,...(c.aka||[])].some(x=>x&&x.includes(q)))).sort((a,b)=>(f.includes(b.name)?1:0)-(f.includes(a.name)?1:0));
+    $("#mkCos").innerHTML=(!q&&!MKK?`<button class="mk-c${!MKSET.co?" on":""}" data-mkc=""><span class="comono" style="--cc:var(--ink-3);--ci:#fff">업계</span><b>업계 전반</b></button>`:"")+list.map(c=>`<button class="mk-c${MKSET.co===c.name?" on":""}" data-mkc="${esc(c.name)}" style="${coVars(c)}">${coMono(c)}<b>${f.includes(c.name)?"★ ":""}${esc(c.name)}</b></button>`).join("")+(list.length?"":`<p class="small" style="margin:0">"${esc(q)}"에 맞는 회사가 없어요.</p>`);
+    $("#mkSel").innerHTML=`선택: <b>${esc(MKSET.co||"업계 전반")}</b>`;
+    document.querySelectorAll("[data-mkc]").forEach(b=>b.onclick=()=>{MKSET.co=b.dataset.mkc;drawCos();info()})};
+  drawCos();
+  document.querySelectorAll("[data-mkk]").forEach(b=>b.onclick=()=>{MKK=b.dataset.mkk;document.querySelectorAll("[data-mkk]").forEach(x=>x.classList.toggle("on",x===b));drawCos()});
+  $("#mkQ").oninput=e=>{MKQ=e.target.value;drawCos()};
   document.querySelectorAll("[data-mk]").forEach(b=>b.onclick=()=>{MKSET[b.dataset.mk]=+b.dataset.v;showMock()});
   $("#mkGo").onclick=()=>{const qs=mockPick(mockPool(MKSET.co),MKSET.n);if(!qs.length)return alertBox("질문을 만들 자료가 아직 없어요.");MK={co:MKSET.co,sec:MKSET.sec,qs,a:[],i:0,date:ymd(Date.now())};showMock()};
   document.querySelectorAll("[data-mh]").forEach(a=>a.onclick=e=>{e.preventDefault();const x=hist[+a.dataset.mh];MK={...x,i:x.qs.length,old:true};showMock()});
