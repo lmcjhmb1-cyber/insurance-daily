@@ -9,6 +9,8 @@ function ymd(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMon
 function sod(ts){const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime()}
 const MODE={light:{label:"가볍게",time:"약 5분",desc:"예측, 핵심 정리, 퀴즈"},deep:{label:"깊게",time:"약 15분",desc:"인과 사슬, 담당자 질문, 면접 질문까지"}};
 const GAP=[1,3,7,14,30];
+// 인공지능 피드백 서버 주소 (클라우드플레어 워커). 비어 있으면 피드백 버튼이 숨겨져요.
+const FEEDBACK_URL="";
 
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const FRAMES=window.FRAMES||[];const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
@@ -253,11 +255,11 @@ function showIssue(it,mode){
   const fr=(it.frames||[]).map(id=>FRAMES.find(f=>f.id===id)).filter(Boolean);
   if(fr.length)h+=sec("이 이슈에 쓰인 생각의 틀",`<div class="frs">${fr.map(f=>`<a href="#f-${f.id}"><b>${esc(f.name)}</b><span>${esc(f.ask[0])}</span></a>`).join("")}</div>`);
   if(deep&&it.role)h+=sec("내가 담당자라면",`<p class="q">${esc(it.role.q)}</p><textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
-    <div class="row"><button class="pri" id="rM">모범 해설과 비교하기</button></div><div id="rO"></div>`);
+    <div class="row"><button class="pri" id="rM">모범 해설과 비교하기</button>${fbBtn("r")}</div><div id="rO"></div><div id="rFO"></div>`);
   if(deep&&it.summary)h+=sec("내 말로 한 줄 요약",`<p class="q">보험을 모르는 친구에게 이 이슈를 한 줄로 설명한다면?</p><textarea id="sT" placeholder="친구한테 말하듯이 한 줄로" style="min-height:64px">${esc(st.sum||"")}</textarea><div class="err" id="sE"></div>
-    <div class="row"><button class="pri" id="sM">예시 요약과 비교하기</button></div><div id="sO"></div>`);
+    <div class="row"><button class="pri" id="sM">예시 요약과 비교하기</button>${fbBtn("s")}</div><div id="sO"></div><div id="sFO"></div>`);
   if(deep&&it.interview)h+=sec("면접에서 이렇게 묻는다면",`<p class="q">${esc(it.interview.q)}</p><textarea id="vT" placeholder="면접관에게 말하듯 2~4문장으로">${esc(st.iv||"")}</textarea><div class="err" id="vE"></div>
-    <div class="row"><button class="pri" id="vM">답변 뼈대 보기</button></div><div id="vO"></div>`);
+    <div class="row"><button class="pri" id="vM">답변 뼈대 보기</button>${fbBtn("v")}</div><div id="vO"></div><div id="vFO"></div>`);
   const own=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
   const rev=[];
   if(deep){const pool=issues.filter(x=>x.date<it.date&&x.quiz&&x.quiz.length);
@@ -276,6 +278,22 @@ function showIssue(it,mode){
   $("#main").innerHTML=h;wire(it,st,mode,all);
 }
 
+function fbBtn(p){return FEEDBACK_URL?`<button id="${p}F">인공지능 피드백 받기</button>`:""}
+async function askFeedback(it,kind,p){
+  const t=$("#"+p+"T"),e=$("#"+p+"E"),out=$("#"+p+"FO"),btn=$("#"+p+"F");
+  if(!t.value.trim()){e.textContent="먼저 내 답을 적어보세요";return}
+  const A=window.Auth;
+  if(!A||!A.user){out.innerHTML=`<p class="small" style="margin:8px 0 0">인공지능 피드백은 로그인한 사람만 받을 수 있어요. <a href="#me">마이페이지</a>에서 로그인해주세요.</p>`;return}
+  btn.disabled=true;out.innerHTML=`<div class="fb">답을 읽고 생각하는 중이에요. 10초쯤 걸려요.</div>`;
+  try{
+    const token=await A.token();
+    const r=await fetch(FEEDBACK_URL,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({issueId:it.id,kind,answer:t.value})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok){out.innerHTML=`<p class="small no" style="margin:8px 0 0">${esc(d.error||"피드백을 받아오지 못했어요. 잠시 뒤 다시 시도해주세요.")}</p>`;return}
+    out.innerHTML=`<div class="fb"><strong>인공지능 피드백</strong>\n${esc(d.text)}</div><p class="small" style="margin:6px 0 0">오늘 남은 피드백 ${d.left}회 · 인공지능 피드백은 틀릴 수 있으니 모범 해설과 함께 보세요.</p>`;
+  }catch(err){out.innerHTML=`<p class="small no" style="margin:8px 0 0">피드백 서버에 연결하지 못했어요. 인터넷 연결을 확인해주세요.</p>`}
+  finally{btn.disabled=false}
+}
 function needText(tId,eId){if(!$(tId).value.trim()){$(eId).textContent="먼저 내 답을 적어보세요";return false}return true}
 function friendLine(it,k,q){
   const s=statsCache[it.id];if(!s)return"";const c=s["q"+k]||{};const tot=Object.values(c).reduce((a,b)=>a+(+b||0),0);
@@ -297,6 +315,9 @@ function wire(it,st,mode,all){
   if($("#rM"))$("#rM").onclick=()=>{if(!needText("#rT","#rE"))return;st.role=$("#rT").value;save(it.id,st);$("#rO").innerHTML=`<div class="reveal"><strong>모범 해설</strong>\n${esc(it.role.model)}</div>${check}`};
   if($("#sM"))$("#sM").onclick=()=>{if(!needText("#sT","#sE"))return;st.sum=$("#sT").value;save(it.id,st);$("#sO").innerHTML=`<div class="reveal"><strong>예시 요약</strong>\n${esc(it.summary)}</div><p class="small" style="margin:8px 0 0">내 요약에 핵심 숫자나 원인이 빠지진 않았는지, 보험을 모르는 사람도 알아들을 말인지 비교해보세요.</p>`};
   if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요. 면접 연습 메뉴에서 다른 질문도 모아볼 수 있어요.</p>`};
+  if($("#rF"))$("#rF").onclick=()=>{st.role=$("#rT").value;save(it.id,st);askFeedback(it,"role","r")};
+  if($("#sF"))$("#sF").onclick=()=>{st.sum=$("#sT").value;save(it.id,st);askFeedback(it,"sum","s")};
+  if($("#vF"))$("#vF").onclick=()=>{st.iv=$("#vT").value;save(it.id,st);askFeedback(it,"iv","v")};
   st.qa=st.qa||{};
   const need=all.filter(q=>q.k!=null).map(q=>q.k);
   const answer=(i,j,row)=>{const q=all[i];row.querySelectorAll("button").forEach(x=>x.classList.toggle("picked",+x.dataset.j===j));

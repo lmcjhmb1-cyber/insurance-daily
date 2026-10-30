@@ -124,6 +124,7 @@ function render() { window.App && window.App.authChanged && window.App.authChang
 
 window.Auth = {
   get user() { return user; },
+  async token() { return user ? await user.getIdToken() : null; },
   get state() { return syncState; },
   login, logout, removeAll
 };
