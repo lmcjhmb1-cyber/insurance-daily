@@ -406,7 +406,7 @@ function wireOrder(it,st){
   const box=$("#ordBox");if(!box)return;const ch=it.chain;
   const start=()=>{let next=1,miss=0;const C=$("#chain");C.innerHTML="";flowStep(C,0,ch[0],ch.length===1);
     const rest=shuffledIdx(ch.length-1).map(i=>i+1);
-    box.innerHTML=`<p class="ord-msg" id="ordMsg">1번 고리는 알려드릴게요. <b>그다음에 이어지는 2번 고리</b>를 아래에서 골라 눌러보세요.</p><div class="ord">${rest.map(i=>`<button data-c="${i}">${esc(ch[i])}</button>`).join("")}</div>`;
+    box.innerHTML=`<p class="ord-msg" id="ordMsg"><b>2번 고리</b>는 무엇일까요?</p><div class="ord">${rest.map(i=>`<button data-c="${i}">${esc(ch[i])}</button>`).join("")}</div>`;
     box.querySelector(".ord").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const c=+b.dataset.c;
       if(c===next){b.remove();flowStep(C,next,ch[next],next===ch.length-1);next++;
         if(next===ch.length){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`완성했어요. 헷갈린 고리가 ${miss}번 있었어요.`:"한 번에 맞혔어요!"}</span> <button class="lnk" id="ordRe">다시 해보기</button></p>`;

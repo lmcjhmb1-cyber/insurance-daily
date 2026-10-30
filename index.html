@@ -264,12 +264,16 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .fsplit-k li{display:flex;align-items:center;gap:6px}
 .fsplit-k i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .fsplit-k b{color:var(--ink);font-weight:800}
-.ntiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
-.nt{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px 15px;min-width:0;overflow:hidden}
-.nt::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:var(--accent)}
-.nt span{font-size:13px;color:var(--ink-2);font-weight:700}
-.nt b{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--accent-ink);word-break:keep-all}
-.nt em{font-style:normal;font-size:13px;color:var(--ink-2);line-height:1.55;padding-top:8px;border-top:1px dashed var(--line)}
+.ntiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}
+.nt{display:flex;flex-direction:column;gap:4px;padding:18px 20px;min-width:0;border-bottom:1px solid var(--line)}
+.nt:nth-child(odd){border-right:1px solid var(--line)}
+.nt:nth-last-child(-n+2):nth-child(odd),.nt:last-child{border-bottom:0}
+.nt:last-child:nth-child(odd){grid-column:1/-1;border-right:0}
+.nt span{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);font-weight:600}
+.nt span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.nt b{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.2;color:var(--ink);word-break:keep-all;font-variant-numeric:tabular-nums;margin-top:2px}
+.nt em{font-style:normal;font-size:13px;color:var(--ink-3);line-height:1.55}
+@media (max-width:560px){.ntiles{grid-template-columns:1fr}.nt:nth-child(odd){border-right:0}.nt{border-bottom:1px solid var(--line)!important}.nt:last-child{border-bottom:0!important}.nt b{font-size:24px}}
 .flow{display:flex;flex-direction:column;align-items:stretch}
 .flow-b{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;font-size:14.5px}
 .flow-b.last{border-color:var(--accent);background:var(--accent-bg)}
@@ -840,15 +844,15 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310158"></script>
-<script src="frames.js?v=202610310158"></script>
-<script src="basics.js?v=202610310158"></script>
-<script src="profiles.js?v=202610310158"></script>
-<script src="news.js?v=202610310158"></script>
-<script src="companies.js?v=202610310158"></script>
-<script src="weekly.js?v=202610310158"></script>
-<script src="comic.js?v=202610310158"></script>
-<script src="app.js?v=202610310158"></script>
-<script type="module" src="sync.js?v=202610310158"></script>
+<script src="issues.js?v=202610310200"></script>
+<script src="frames.js?v=202610310200"></script>
+<script src="basics.js?v=202610310200"></script>
+<script src="profiles.js?v=202610310200"></script>
+<script src="news.js?v=202610310200"></script>
+<script src="companies.js?v=202610310200"></script>
+<script src="weekly.js?v=202610310200"></script>
+<script src="comic.js?v=202610310200"></script>
+<script src="app.js?v=202610310200"></script>
+<script type="module" src="sync.js?v=202610310200"></script>
 </body>
 </html>
