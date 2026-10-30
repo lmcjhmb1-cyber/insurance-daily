@@ -68,7 +68,7 @@ const SECS=[
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"]]},
   {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"],["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
-function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-")||h.startsWith("l-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
+function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-")||h.startsWith("l-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-")||h.startsWith("cr-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
@@ -78,7 +78,7 @@ function renderShell(){
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|l-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|l-|t-|w-|b-|c-|cr-|review$|interview$|mock$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -108,6 +108,7 @@ function route(){
   if(h==="interview")return showInterview();
   if(h==="companies")return showCompanies();
   if(h==="mock")return showMock();
+  if(h.startsWith("cr-"))return showLatest(h.slice(3));
   if(h.startsWith("c-"))return showCompany(h.slice(2));
   if(h==="search")return showSearch();
   if(h==="league")return showLeague();
@@ -797,7 +798,7 @@ function showCompany(name){
     P.about=`${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ol class="pf-str">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`;
     if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div class="pp"><span class="pp-ic">${prodIcon(x.name)}</span><div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div></div>`).join("")}</div>`;
     if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map((t,i)=>`<div class="tl"><span class="tl-n">${String(i+1).padStart(2,"0")}</span><b>${esc(t.k)}</b><p>${esc(t.d)}</p></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="pf-cul">${pf.culture.map(x=>`<li><span class="cu-ic">${cultIcon(x)}</span><p>${esc(x)}</p></li>`).join("")}</ul>`:""}`;
-    if(pf.results)P.results=figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
+    if(pf.results)P.results=(pf.latest?`<a class="lr-cta" href="#cr-${encodeURIComponent(name)}"><span><em>최근 실적 자세히 보기</em><b>${esc(pf.latest.period)} · ${esc(pf.latest.kpi[0].label)} ${esc(pf.latest.kpi[0].value)} (${esc(pf.latest.kpi[0].change)})</b></span><span class="lr-go">→</span></a>`:"")+figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
     if(pf.history)P.history=figHTML({type:"timeline",title:"",items:pf.history.map(x=>({when:x.when,label:x.label}))});
     if(pf.tips)P.tips=`<ol class="pf-tips">${pf.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;
     h+=`<section class="step pf" style="${coVars(c)}"><div class="pf-head"><h2>회사 기본 정보</h2><span>${esc(pf.updated||"")} 기준</span></div>
@@ -899,6 +900,24 @@ function mockEnd(){
     `<div class="row"><button class="pri" id="mkAgain">같은 회사로 다시 보기</button><button id="mkHome">처음으로</button></div>`;
   $("#mkAgain").onclick=()=>{MKSET.co=MK.co||"";const qs=mockPick(mockPool(MKSET.co),MKSET.n);MK={co:MKSET.co,sec:MKSET.sec,qs,a:[],i:0,date:ymd(Date.now())};window.scrollTo(0,0);showMock()};
   $("#mkHome").onclick=()=>{MK=null;window.scrollTo(0,0);showMock()};
+}
+
+/* 최근 실적 자세히 보기 */
+function showLatest(name){
+  const c=COMPANIES.find(x=>x.name===name),pf=PROFILES[name],L=pf&&pf.latest;if(!L)return showCompany(name);
+  $("#head").innerHTML=back(`#c-${encodeURIComponent(name)}`,name)+`<div class="lr-head" style="${coVars(c)}">${coMono(c)}<div><span class="tag">최근 실적 자세히 보기</span><h1>${esc(name)} ${esc(L.period)} 실적</h1><p class="meta" style="margin:0">${fmtDate(L.date)} 발표 기준</p></div></div>`;
+  let n=0;const N=()=>String(++n).padStart(2,"0");const sec=(t,b)=>`<section class="step"><div class="sh"><span class="n">${N()}</span><h2>${t}</h2></div>${b}</section>`;
+  let h=sec("한 줄 요약",`<p class="ls-easy">${esc(L.headline)}</p>`);
+  h+=sec("핵심 숫자",`<div class="lr-kpi">${L.kpi.map(k=>`<div><span>${esc(k.label)}</span><b>${esc(k.value)}</b>${k.change?`<em class="${k.up?"up":"down"}">${esc(k.change)}</em>`:""}</div>`).join("")}</div>`);
+  if(L.parts)h+=sec(esc(L.parts.title),figHTML({type:"bars",title:"",unit:L.parts.unit,items:L.parts.items})+(L.parts.note?`<p class="small" style="margin:0">${esc(L.parts.note)}</p>`:""));
+  if(L.csm)h+=sec("미래 이익 창고, 보험계약마진",`<div class="lr-csm">${L.csm.map(x=>`<div><span>${esc(x.label)}</span><b>${esc(x.value)}</b><p>${esc(x.note)}</p></div>`).join("")}</div>${LESSONS["보험계약마진"]?`<a class="more" href="#l-${encodeURIComponent("보험계약마진")}">보험계약마진이 뭔지 기본 뜻 알기 →</a>`:""}`);
+  if(L.good||L.watch)h+=sec("좋아진 점과 지켜볼 점",`<div class="lr-gw"><div class="g"><h3>좋아진 점</h3><ul>${(L.good||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="w"><h3>지켜볼 점</h3><ul>${(L.watch||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`);
+  if(L.plan)h+=sec("회사가 밝힌 계획",`<ul class="pf-str">${L.plan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`);
+  if(L.tips)h+=sec("면접에서 이렇게 써보세요",`<ol class="pf-tips">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`);
+  if(L.sources)h+=`<section class="src small">출처: ${L.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ")}<br>기사 숫자를 바탕으로 새로 정리한 학습용 분석이에요.</section>`;
+  h+=`<nav class="next"><a href="#c-${encodeURIComponent(name)}">← ${esc(name)} 페이지로</a><a href="#mock">이 회사로 모의 면접 보기 →</a></nav>`;
+  $("#main").innerHTML=`<div class="lr-wrap" style="${coVars(c)}">${h}</div>`;
+  const mk=document.querySelector('.next a[href="#mock"]');if(mk)mk.onclick=()=>{MK=null;MKSET.co=name};
 }
 
 /* 찾기 */
