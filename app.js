@@ -1,7 +1,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function load(k){try{return JSON.parse(localStorage.getItem("bi:"+k))||{}}catch(e){return{}}}
-function save(k,v){try{localStorage.setItem("bi:"+k,JSON.stringify(v))}catch(e){}}
+function save(k,v){v.t=Date.now();try{localStorage.setItem("bi:"+k,JSON.stringify(v))}catch(e){}if(window.Sync)window.Sync.push(k,v)}
 function fmtDate(d){const [y,m,dd]=d.split("-");return `${+y}년 ${+m}월 ${+dd}일`}
 function shortDate(d){const [,m,dd]=d.split("-");return `${+m}월 ${+dd}일`}
 const MODE={light:{label:"가볍게",time:"약 5분",desc:"예측, 핵심 정리, 퀴즈"},deep:{label:"깊게",time:"약 15분",desc:"인과 사슬, 담당자 질문, 요약까지"}};
@@ -41,7 +41,7 @@ function showList(d){
       <div class="top"><span class="tag">${esc(it.tag||"보험 이슈")}</span><span class="stat ${s==="done"?"done":""}">${stat}</span></div>
       <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
       ${modeLinks(it,st.mode)}</div>`}).join("")}</div>
-    <p class="small">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요. 보는 중에도 위에서 바꿀 수 있어요. 퀴즈를 모두 풀면 완료로 표시되고, 기록은 이 기기의 브라우저에만 저장돼요.</p>`;
+    <p class="small">이슈마다 가볍게 볼지 깊게 볼지 골라서 들어가세요. 보는 중에도 위에서 바꿀 수 있어요. 퀴즈를 모두 풀면 완료로 표시돼요. 로그인하면 기록이 계정에 저장되고, 로그인하지 않으면 이 기기에만 남아요.</p>`;
 }
 
 function showIssue(it,mode){
@@ -106,4 +106,5 @@ function wire(it,st,mode,all){
         save(it.id,st)}}});
 }
 
+window.App={rerender:()=>route()};
 route();

@@ -99,16 +99,31 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .empty{text-align:center;color:var(--ink-2);padding:32px 0}
 .next{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .next a{color:var(--accent);font-size:15px;text-decoration:none}
+/* 로그인 */
+#authbar{display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+#authbar:empty{display:none}
+.authrow{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap}
+.authrow b{color:var(--ink);font-weight:600}
+#authbar button{font-size:14px;padding:6px 12px}
+button.danger{background:var(--bad);border-color:var(--bad);color:var(--card)}
+.ask{display:flex;flex-direction:column;gap:8px;background:var(--paper);border-radius:10px;padding:10px 12px}
+.ask p{margin:0;color:var(--ink)}
+.ask[hidden]{display:none}
+.notice summary{cursor:pointer;color:var(--accent);font-size:13px}
+.notice ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.notice b{color:var(--ink);font-weight:600}
 @media (max-width:420px){.gauge{grid-template-columns:1fr}.step{padding:16px}a.card{padding:16px}}
 @media (prefers-reduced-motion:no-preference){.reveal,.link{animation:in .25s ease-out}@keyframes in{from{transform:translateY(4px)}to{transform:none}}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div id="authbar"></div>
   <header id="head"><p class="empty">이슈를 불러오는 중이에요.</p></header>
   <main id="main"></main>
 </div>
-<script src="issues.js?v=202610301807"></script>
-<script src="app.js?v=202610301807"></script>
+<script src="issues.js?v=202610302234"></script>
+<script src="app.js?v=202610302234"></script>
+<script type="module" src="sync.js?v=202610302234"></script>
 </body>
 </html>
