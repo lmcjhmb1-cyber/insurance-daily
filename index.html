@@ -678,15 +678,7 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .pf-facts div{background:var(--paper);border-radius:12px;padding:10px 12px}
 .pf-facts dt{font-size:12px;font-weight:700;color:var(--ink-3)}
 .pf-facts dd{margin:2px 0 0;font-size:14px;font-weight:600}
-.pf-prod{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
-.pf-prod div{border:1px solid var(--line);border-left:4px solid var(--cc);border-radius:12px;padding:12px 14px}
-.pf-prod b{font-size:15.5px}
-.pf-prod p{margin:4px 0 0;font-size:13.5px;color:var(--ink-2)}
 .pf-h{font-size:14.5px;margin:14px 0 6px}
-.pf-talent{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
-.pf-talent div{border:1.5px solid color-mix(in srgb,var(--cc) 40%,var(--line));border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;background:color-mix(in srgb,var(--cc) 6%,var(--card))}
-.pf-talent b{font-size:18px;color:color-mix(in srgb,var(--cc) 80%,var(--ink))}
-.pf-talent span{font-size:13.5px;color:var(--ink-2)}
 .pf-rn{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
 .pf-rn b{margin-right:6px}
 .pf-tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
@@ -725,6 +717,26 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
 .pf-str li{counter-increment:s;position:relative;padding:14px 16px 14px 52px;border-radius:14px;background:color-mix(in srgb,var(--cc) 6%,var(--card));border:1px solid color-mix(in srgb,var(--cc) 18%,var(--line));font-size:14.5px;line-height:1.6}
 .pf-str li::before{content:counter(s);position:absolute;left:14px;top:13px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--cc);color:var(--ci);font-weight:900;font-size:13px}
 @media (max-width:560px){.cohero{padding:20px 18px 16px}.cohero h1{font-size:26px}.cohero .comono.big{width:56px;height:56px}.pf-facts div{grid-template-columns:64px 1fr}}
+
+/* 주력 상품·인재상 (다듬은 판) */
+.pf-prod{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.pp{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:border-color .15s,box-shadow .15s}
+.pp:hover{border-color:color-mix(in srgb,var(--cc) 45%,var(--line));box-shadow:0 6px 18px color-mix(in srgb,var(--cc) 12%,transparent)}
+.pp-ic,.cu-ic{flex:none;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--cc) 14%,var(--card));color:color-mix(in srgb,var(--cc) 60%,var(--ink))}
+.pp-ic{width:42px;height:42px}
+.pp-ic svg,.cu-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pp b{font-size:15.5px}
+.pp p{margin:4px 0 0;font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.pf-talent{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.tl{position:relative;overflow:hidden;padding:18px 18px 16px;border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--cc) 14%,var(--card)),var(--card) 70%);border:1px solid color-mix(in srgb,var(--cc) 22%,var(--line))}
+.tl-n{position:absolute;right:14px;top:8px;font-size:40px;font-weight:900;line-height:1;color:color-mix(in srgb,var(--cc) 18%,transparent)}
+.tl b{display:block;font-size:22px;letter-spacing:-.02em;color:color-mix(in srgb,var(--cc) 55%,var(--ink))}
+.tl p{margin:8px 0 0;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.pf-cul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px}
+.pf-cul li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--paper)}
+.cu-ic{width:36px;height:36px;border-radius:10px}
+.cu-ic svg{width:19px;height:19px}
+.pf-cul p{margin:0;font-size:14px;line-height:1.6;align-self:center}
 </style>
 </head>
 <body>
@@ -736,15 +748,15 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610310143"></script>
-<script src="frames.js?v=202610310143"></script>
-<script src="basics.js?v=202610310143"></script>
-<script src="profiles.js?v=202610310143"></script>
-<script src="news.js?v=202610310143"></script>
-<script src="companies.js?v=202610310143"></script>
-<script src="weekly.js?v=202610310143"></script>
-<script src="comic.js?v=202610310143"></script>
-<script src="app.js?v=202610310143"></script>
-<script type="module" src="sync.js?v=202610310143"></script>
+<script src="issues.js?v=202610310145"></script>
+<script src="frames.js?v=202610310145"></script>
+<script src="basics.js?v=202610310145"></script>
+<script src="profiles.js?v=202610310145"></script>
+<script src="news.js?v=202610310145"></script>
+<script src="companies.js?v=202610310145"></script>
+<script src="weekly.js?v=202610310145"></script>
+<script src="comic.js?v=202610310145"></script>
+<script src="app.js?v=202610310145"></script>
+<script type="module" src="sync.js?v=202610310145"></script>
 </body>
 </html>

@@ -689,6 +689,23 @@ function showInterview(){
   document.querySelectorAll("[data-iv]").forEach(t=>{let tm;t.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{const s=load(t.dataset.iv);s.iv=t.value;save(t.dataset.iv,s)},400)}});
 }
 
+/* 회사 기본 정보 아이콘 */
+const ICO=p=>`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+function prodIcon(n){
+  if(/자동차/.test(n))return ICO('<path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/>');
+  if(/장기|건강|보장/.test(n))return ICO('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M8 12h2l1-2 2 4 1-2h2"/>');
+  if(/일반|화재|기업/.test(n))return ICO('<path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/>');
+  if(/다이렉트|온라인|디지털/.test(n))return ICO('<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>');
+  if(/연금|저축|변액|투자/.test(n))return ICO('<path d="M4 18l5-5 4 3 7-8"/><path d="M15 8h5v5"/>');
+  if(/설계사|대면|채널|방카/.test(n))return ICO('<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 11l2 2 4-4"/>');
+  if(/재보험|해외/.test(n))return ICO('<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/>');
+  return ICO('<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>');}
+function cultIcon(t){
+  if(/근무|시간|출퇴근|재택/.test(t))return ICO('<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>');
+  if(/교육|멘토|학습|성장/.test(t))return ICO('<path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c0 1.5 2.5 3 5 3s5-1.5 5-3v-4"/>');
+  if(/채용|직무|계리|상품개발/.test(t))return ICO('<rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2"/>');
+  if(/상|격려|도전|문화/.test(t))return ICO('<path d="M12 4l2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.3 7 19l1.2-5.6L4 9.6 9.6 9z"/>');
+  return ICO('<path d="M5 12.5l4.5 4.5L19 7.5"/>');}
 /* 회사별 보기 */
 let coQ="";
 function showCompanies(){
@@ -715,8 +732,8 @@ function showCompany(name){
   if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
     const P={};
     P.about=`${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ol class="pf-str">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`;
-    if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div>`).join("")}</div>`;
-    if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map(t=>`<div><b>${esc(t.k)}</b><span>${esc(t.d)}</span></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="points">${pf.culture.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
+    if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div class="pp"><span class="pp-ic">${prodIcon(x.name)}</span><div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div></div>`).join("")}</div>`;
+    if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map((t,i)=>`<div class="tl"><span class="tl-n">${String(i+1).padStart(2,"0")}</span><b>${esc(t.k)}</b><p>${esc(t.d)}</p></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="pf-cul">${pf.culture.map(x=>`<li><span class="cu-ic">${cultIcon(x)}</span><p>${esc(x)}</p></li>`).join("")}</ul>`:""}`;
     if(pf.results)P.results=figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
     if(pf.history)P.history=figHTML({type:"timeline",title:"",items:pf.history.map(x=>({when:x.when,label:x.label}))});
     if(pf.tips)P.tips=`<ol class="pf-tips">${pf.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;
