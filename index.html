@@ -167,6 +167,75 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .report textarea{margin-top:8px;min-height:72px}
 .report .row{margin-top:8px}
 
+/* 그림 */
+.fig{margin:0;display:flex;flex-direction:column;gap:12px}
+.fig+.fig{border-top:1px solid var(--line);padding-top:18px}
+.fig figcaption{display:flex;flex-direction:column;gap:2px}
+.fig figcaption b{font-size:14.5px;font-weight:700}
+.fig figcaption span{font-size:12.5px;color:var(--ink-3)}
+.fbars{display:flex;flex-direction:column;gap:10px}
+.fb-row{display:grid;grid-template-columns:minmax(80px,28%) minmax(0,1fr) 88px;gap:12px;align-items:center;font-size:13.5px}
+.fb-l{color:var(--ink-2);line-height:1.35}
+.fb-t{position:relative;height:22px;background:var(--paper);border-radius:5px}
+.fb-b{position:absolute;top:0;bottom:0;background:var(--ink-3);border-radius:5px}
+.fb-row.hi .fb-b{background:var(--accent)}
+.fb-row.hi .fb-l{color:var(--ink);font-weight:700}
+.fb-b.neg{background:var(--bad)}
+.fb-zero{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--ink-2)}
+.fb-ref{position:absolute;top:-4px;bottom:-4px;width:0;border-left:2px dashed var(--warm)}
+.fb-v{font-weight:800;font-size:14px;text-align:right;white-space:nowrap}
+.fb-v.neg{color:var(--bad)}
+.fig-ref{margin:0;font-size:12.5px;color:var(--warm);display:flex;align-items:center;gap:6px}
+.fig-ref i{display:inline-block;width:14px;border-top:2px dashed var(--warm)}
+.fcmp{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fcmp-h,.fcmp-r{display:grid;grid-template-columns:minmax(90px,1.1fr) minmax(0,1fr) 24px minmax(0,1fr);gap:8px;align-items:center;padding:10px 14px}
+.fcmp-h{background:var(--paper);font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.fcmp-h span:last-child{color:var(--accent-ink)}
+.fcmp-r{border-top:1px solid var(--line);font-size:14px}
+.fcmp-l{color:var(--ink-2);font-size:13px}
+.fcmp-a{color:var(--ink-2)}
+.fcmp-x{color:var(--ink-3);text-align:center}
+.fcmp-b{font-weight:800}
+.ftl{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(120px,1fr);overflow-x:auto;position:relative;padding-top:4px}
+.ftl li{position:relative;display:flex;flex-direction:column;gap:2px;padding:20px 10px 0 0}
+.ftl li::before{content:"";position:absolute;top:4px;left:0;right:0;border-top:2px solid var(--line)}
+.ftl li::after{content:"";position:absolute;top:-1px;left:0;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--ink-3)}
+.ftl li.now::after{background:var(--accent);border-color:var(--accent)}
+.ftl-w{font-size:12.5px;font-weight:800;color:var(--ink-2)}
+.ftl li.now .ftl-w{color:var(--accent-ink)}
+.ftl-l{font-size:13.5px;line-height:1.45}
+.fsplit{display:flex;height:28px;border-radius:7px;overflow:hidden;gap:2px}
+.fsplit i{display:block;height:100%}
+.c0{background:var(--accent)}.c1{background:var(--warm)}.c2{background:var(--ink-3)}.c3{background:color-mix(in srgb,var(--accent) 45%,var(--card))}.c4{background:color-mix(in srgb,var(--warm) 45%,var(--card))}
+.fsplit-k{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2)}
+.fsplit-k li{display:flex;align-items:center;gap:6px}
+.fsplit-k i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fsplit-k b{color:var(--ink);font-weight:800}
+.ntiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.nt{display:flex;flex-direction:column;gap:2px;background:var(--paper);border-radius:10px;padding:12px 14px;min-width:0}
+.nt span{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.nt b{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.nt em{font-style:normal;font-size:12px;color:var(--ink-3);line-height:1.45}
+.flow{display:flex;flex-direction:column;align-items:stretch}
+.flow-b{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;font-size:14.5px}
+.flow-b.last{border-color:var(--accent);background:var(--accent-bg)}
+.flow-n{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.flow-ar{height:18px;position:relative}
+.flow-ar::before{content:"";position:absolute;left:24px;top:0;bottom:5px;border-left:2px solid var(--ink-3)}
+.flow-ar::after{content:"";position:absolute;left:20px;bottom:0;border:5px solid transparent;border-top:6px solid var(--ink-3);border-bottom:0}
+@media (max-width:760px){
+  .fb-row{grid-template-columns:minmax(0,1fr) 80px;gap:4px 10px}
+  .fb-l{grid-column:1/-1}
+  .fb-t{grid-column:1}
+  .fcmp-h{display:none}
+  .fcmp-r{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);row-gap:2px}
+  .fcmp-l{grid-column:1/-1;font-weight:600;color:var(--ink)}
+  .ftl{grid-auto-flow:row;grid-auto-columns:auto;padding-left:6px}
+  .ftl li{padding:0 0 14px 22px}
+  .ftl li::before{top:12px;bottom:-4px;left:5px;right:auto;border-top:0;border-left:2px solid var(--line)}
+  .ftl li:last-child::before{display:none}
+  .ftl li::after{top:4px;left:0}
+}
 /* 용어 */
 button.term{font:inherit;font-size:inherit;color:inherit;background:none;border:0;padding:0;border-radius:0;border-bottom:1.5px dotted var(--accent);cursor:pointer;text-align:inherit;font-weight:inherit}
 button.term:hover{color:var(--accent-ink)}
@@ -339,11 +408,11 @@ a.cd:hover{box-shadow:inset 0 0 0 2px var(--accent)}
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610302343"></script>
-<script src="frames.js?v=202610302343"></script>
-<script src="basics.js?v=202610302343"></script>
-<script src="weekly.js?v=202610302343"></script>
-<script src="app.js?v=202610302343"></script>
-<script type="module" src="sync.js?v=202610302343"></script>
+<script src="issues.js?v=202610302347"></script>
+<script src="frames.js?v=202610302347"></script>
+<script src="basics.js?v=202610302347"></script>
+<script src="weekly.js?v=202610302347"></script>
+<script src="app.js?v=202610302347"></script>
+<script type="module" src="sync.js?v=202610302347"></script>
 </body>
 </html>

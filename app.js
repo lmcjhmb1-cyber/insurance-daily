@@ -273,6 +273,27 @@ function cardHTML(it){const s=status(it),st=load(it.id);
 function modeLinks(it,cur){return `<div class="modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${m}${cur===m?" on":""}">${MODE[m].label} · ${MODE[m].time}<span>${MODE[m].desc}</span></a>`).join("")}</div>`}
 function miniList(list){return `<ul class="links">${list.map(it=>{const s=status(it);return `<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}${s==="done"?' · <span class="ok">완료</span>':""}</span></li>`}).join("")}</ul>`}
 
+/* 그림: 기사 숫자로 사이트가 직접 그려요 */
+function fnum(v){return Math.abs(v)>=1000?v.toLocaleString("ko-KR"):String(v)}
+function figHTML(f){
+  const cap=`${f.title?`<figcaption><b>${esc(f.title)}</b>${f.note?`<span>${esc(f.note)}</span>`:""}</figcaption>`:""}`;
+  if(f.type==="bars"){
+    const items=f.items||[],vals=items.map(x=>+x.value||0),neg=vals.some(v=>v<0),ref=f.ref&&+f.ref.value;
+    const max=Math.max(...vals.map(Math.abs),ref?Math.abs(ref):0)*1.08||1;
+    const pos=v=>neg?50+v/max*50:v/max*100;
+    const rows=items.map(x=>{const v=+x.value||0;const left=neg?Math.min(50,pos(v)):0,w=neg?Math.abs(pos(v)-50):pos(v);
+      return `<div class="fb-row${x.hi?" hi":""}"><span class="fb-l">${esc(x.label)}</span><span class="fb-t">${neg?'<i class="fb-zero"></i>':""}<i class="fb-b${v<0?" neg":""}" style="left:${left}%;width:${Math.max(w,.8)}%"></i>${ref&&!neg?`<i class="fb-ref" style="left:${pos(ref)}%"></i>`:""}</span><span class="fb-v${v<0?" neg":""}">${esc(x.text||(v>0&&neg?"+":"")+fnum(v)+(f.unit||""))}</span></div>`}).join("");
+    return `<figure class="fig">${cap}<div class="fbars">${rows}</div>${ref&&!neg?`<p class="fig-ref"><i></i>${esc(f.ref.label||"기준")} ${fnum(ref)}${f.unit||""}</p>`:""}</figure>`}
+  if(f.type==="compare"){
+    return `<figure class="fig">${cap}<div class="fcmp"><div class="fcmp-h"><span></span><span>${esc(f.left)}</span><span></span><span>${esc(f.right)}</span></div>${(f.rows||[]).map(r=>`<div class="fcmp-r"><span class="fcmp-l">${esc(r.label)}</span><span class="fcmp-a">${esc(r.left)}</span><span class="fcmp-x" aria-hidden="true">→</span><span class="fcmp-b">${esc(r.right)}</span></div>`).join("")}</div></figure>`}
+  if(f.type==="timeline"){
+    return `<figure class="fig">${cap}<ol class="ftl">${(f.items||[]).map(x=>`<li class="${x.now?"now":""}"><span class="ftl-w">${esc(x.when)}</span><span class="ftl-l">${esc(x.label)}</span></li>`).join("")}</ol></figure>`}
+  if(f.type==="split"){
+    const items=f.items||[],tot=+f.total||items.reduce((s,x)=>s+(+x.value||0),0)||1;
+    return `<figure class="fig">${cap}<div class="fsplit">${items.map((x,i)=>`<i class="c${i%5}" style="width:${(+x.value||0)/tot*100}%"></i>`).join("")}</div><ul class="fsplit-k">${items.map((x,i)=>`<li><i class="c${i%5}"></i>${esc(x.label)} <b>${esc(x.text||fnum(+x.value))}</b></li>`).join("")}</ul></figure>`}
+  return "";
+}
+
 /* 이슈 화면 */
 let statsCache={};
 function showIssue(it,mode){
@@ -283,14 +304,15 @@ function showIssue(it,mode){
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
   if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
+  if(it.figs&&it.figs.length)h+=sec("한눈에 보기",it.figs.map(figHTML).join(""));
   if(it.gauge)h+=sec("숫자 감각 잡기",`<p class="q">${esc(it.gauge.q)}</p>
     <label class="small" for="gR">${esc(it.gauge.label)} <b id="gV" style="font-family:var(--f-num)"></b></label>
     <input type="range" id="gR" min="${it.gauge.min}" max="${it.gauge.max}" step="1" value="${it.gauge.value}">
     <div class="gauge"><div><span>보험금으로 나감</span><em id="g1"></em></div><div><span>운영비 (가정)</span><em>${it.gauge.cost}원</em></div><div><span>보험사에 남는 돈</span><em id="g3"></em></div></div>
     <p class="small" id="gN"></p>`);
-  if(it.numbers)h+=sec("숫자 감각 잡기",`<div class="nums">${it.numbers.map(x=>`<div><b>${esc(x.label)}</b><em>${esc(x.value)}</em>${x.note?`<span>${esc(x.note)}</span>`:""}</div>`).join("")}</div>`);
+  if(it.numbers)h+=sec("숫자 감각 잡기",`<div class="ntiles">${it.numbers.map(x=>`<div class="nt"><span>${esc(x.label)}</span><b>${esc(x.value)}</b>${x.note?`<em>${esc(x.note)}</em>`:""}</div>`).join("")}</div>`);
   if(it.points)h+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
-  if(deep&&it.chain)h+=sec("인과 사슬 따라가기",`<p class="q">다음 고리를 보기 전에 무엇이 올지 먼저 떠올려보세요.</p><div class="chain" id="chain"></div><div><button id="cBtn">다음 고리 보기</button></div>`);
+  if(deep&&it.chain)h+=sec("인과 사슬 따라가기",`<p class="q">다음 고리를 보기 전에 무엇이 올지 먼저 떠올려보세요.</p><div class="flow" id="chain"></div><div><button id="cBtn">다음 고리 보기</button></div>`);
   if(it.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
   const fr=(it.frames||[]).map(id=>FRAMES.find(f=>f.id===id)).filter(Boolean);
   if(fr.length)h+=sec("이 이슈에 쓰인 생각의 틀",`<div class="frs">${fr.map(f=>`<a href="#f-${f.id}"><b>${esc(f.name)}</b><span>${esc(f.ask[0])}</span></a>`).join("")}</div>`);
@@ -348,7 +370,7 @@ function wire(it,st,mode,all){
   if(it.gauge){const g=it.gauge,r=$("#gR");const f=()=>{const v=+r.value,left=100-v-g.cost;$("#gV").textContent=v+"%";$("#g1").textContent=v+"원";
       const e=$("#g3");e.textContent=(left>0?"+":"")+left+"원";e.style.color=left<0?"var(--bad)":"var(--good)";
       $("#gN").textContent=`보험료 100원 기준이에요. ${g.label}과 운영비 비율을 더한 합산비율은 지금 ${v+g.cost}%이고, 100%를 넘으면 보험 영업만으로는 적자예요. ${g.note||""}`};r.oninput=f;f()}
-  const B=$("#cBtn");if(B){let i=0;const C=$("#chain");B.onclick=()=>{if(i>=it.chain.length)return;const d=document.createElement("div");d.className="link";d.textContent=it.chain[i++];C.appendChild(d);if(i>=it.chain.length){B.textContent="끝까지 왔어요";B.disabled=true}}}
+  const B=$("#cBtn");if(B){let i=0;const C=$("#chain");B.onclick=()=>{if(i>=it.chain.length)return;if(i>0){const ar=document.createElement("div");ar.className="flow-ar";ar.setAttribute("aria-hidden","true");C.appendChild(ar)}const d=document.createElement("div");d.className="flow-b"+(i===it.chain.length-1?" last":"");d.innerHTML=`<span class="flow-n">${i+1}</span><span>${esc(it.chain[i])}</span>`;C.appendChild(d);i++;if(i>=it.chain.length){B.textContent="끝까지 왔어요";B.disabled=true}else B.textContent=`다음 고리 보기 (${i}/${it.chain.length})`}}
   const persist=(id,key,eid)=>{const t=$(id);if(!t)return;let tm;t.oninput=()=>{$(eid).textContent="";clearTimeout(tm);tm=setTimeout(()=>{st[key]=t.value;save(it.id,st)},400)}};
   persist("#rT","role","#rE");persist("#sT","sum","#sE");persist("#vT","iv","#vE");
   const check=`<p class="small" style="margin:8px 0 0">스스로 점검해보세요. 일시적인 현상인지 구조적인 변화인지 짚었나요? 무엇과 비교한 숫자인지 따져봤나요? 한 시점이 아니라 추세를 봤나요?</p>`;
