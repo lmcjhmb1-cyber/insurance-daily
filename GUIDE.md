@@ -138,6 +138,13 @@
 - 대학생이 이해할 수 있게 쉽게 쓰되 보험 용어는 정확하게 써요. 한 문단이 너무 길지 않게 짧게 끊어요.
 - 퀴즈 오답 보기는 그럴듯하게, 해설(e)은 왜 정답인지 짧게 써요.
 
+## 7-0. 수식은 레이텍으로
+- 계산식이나 공식은 문장 속에 "170 ÷ 200 × 100 = 85%"처럼 한 줄로 쓰지 않고, 반드시 레이텍으로 써서 **$$ 와 $$ 사이**에 넣어요. 사이트가 보기 좋게 그려줘요.
+- 예: `$$\text{손해율}=\frac{\text{발생손해액}}{\text{경과보험료}}\times 100\;(\%)$$`, `$$\frac{170}{200}\times 100=85\%$$`
+- 한글 낱말은 `\text{ }`로 감싸고, 나눗셈은 `\frac`, 곱셈은 `\times`, 퍼센트는 `\%`로 써요. JavaScript·JSON 문자열 안에서는 역슬래시를 두 번(`\\frac`) 써야 해요.
+- 수식은 points, why, role.model, predict.reveal, 퀴즈 해설(e), lessons.js의 steps·why·quiz 해설에 쓸 수 있어요. 제목(title), 용어 이름, 그림(figs), 숫자 타일(numbers), 만화에는 쓰지 않아요.
+- 수식 안에는 별표 강조를 넣지 않아요. 올리기 전에 node로 불러와 $$ 개수가 짝수인지 검사해요.
+
 ## 7-1. 강조 표시
 - 문장 안에서 꼭 기억할 부분을 `**강조할 말**`처럼 별표 두 개로 감싸면 형광펜으로 칠해져요.
 - predict.reveal, points, why, role.model, summary, interview.guide, 퀴즈 해설(e), 기초 이슈, 주간 정리 big·takeaway에 쓸 수 있어요. title, tag, terms, chain, numbers, figs, comic에는 쓰지 않아요.

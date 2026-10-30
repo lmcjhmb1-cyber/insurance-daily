@@ -137,6 +137,7 @@ window.addEventListener("hashchange",()=>{
 let pop=null;
 function hidePop(){if(pop){pop.remove();pop=null}}
 function hl(text,it,used){
+  if(/\$\$/.test(text))return String(text).split(/(\$\$[\s\S]*?\$\$)/).map((part,i)=>i%2?esc(part):hl(part,it,used)).join("");
   let h=esc(text);const ts=(it.terms||[]).map(x=>x.t).filter(t=>!used.has(t)).sort((a,b)=>b.length-a.length);if(!ts.length)return h;
   const re=new RegExp(ts.map(t=>esc(t).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
   return h.replace(re,m=>{if(used.has(m))return m;used.add(m);return `<button type="button" class="term" data-t="${m}">${m}</button>`});
@@ -917,5 +918,8 @@ function showSearch(){
   render();
 }
 
+/* 수식: $$ … $$ 안의 레이텍을 보기 좋게 그려요 */
+(function(){let t=null;const run=()=>{if(!window.renderMathInElement)return;try{renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code","option","input"]})}catch(e){}};
+  new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,20)}).observe(document.body,{childList:true,subtree:true});window.addEventListener("load",run)})();
 window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#league")return showLeague();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
 track();route();afterRender();
