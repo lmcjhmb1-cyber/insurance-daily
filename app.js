@@ -709,9 +709,10 @@ function showCompany(name){
   const kindLabel={"생명":"생명보험사","손해":"손해보험사","재보험":"재보험사"}[c.kind];
   $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohead" style="${coVars(c)}">${coMono(c,"big")}<div><span class="tag">${kindLabel}${c.group?" · "+esc(c.group)+" 계열":""}</span><h1>${esc(c.name)}</h1></div></div><p class="meta">${list.length||nw.length?`회사 소식 ${nw.length}개 · 공부할 이슈 ${list.length}개${list.length?` (${done}개 끝냄)`:""}`:"아직 이 회사 소식이 없어요. 매일 아침 새 소식을 모아요."}</p>`;
   let h="";const pf=PROFILES[name];
-  if(pf){const tabs=[["about","한눈에"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
+  if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
     const P={};
     P.about=`<p class="pf-sum">${esc(pf.summary)}</p>${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ul class="points">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
+    if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div>`).join("")}</div>`;
     if(pf.talent)P.talent=`<div class="pf-talent">${pf.talent.map(t=>`<div><b>${esc(t.k)}</b><span>${esc(t.d)}</span></div>`).join("")}</div>${pf.culture?`<h3 class="pf-h">일하는 방식과 분위기</h3><ul class="points">${pf.culture.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}`;
     if(pf.results)P.results=figHTML({type:"bars",title:pf.results.title,unit:pf.results.unit,items:pf.results.items.map((x,i,a)=>({label:x.label,value:x.value,text:x.text,hi:i===a.length-1}))})+`<ul class="pf-rn">${pf.results.items.filter(x=>x.note).map(x=>`<li><b>${esc(x.label)}</b> ${esc(x.note)}</li>`).join("")}</ul>${pf.results.note?`<p class="small" style="margin:0">${esc(pf.results.note)}</p>`:""}`;
     if(pf.history)P.history=figHTML({type:"timeline",title:"",items:pf.history.map(x=>({when:x.when,label:x.label}))});
