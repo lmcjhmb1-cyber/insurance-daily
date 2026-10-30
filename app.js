@@ -270,7 +270,7 @@ function cardHTML(it){const s=status(it),st=load(it.id);
     <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
     <div class="cfoot">${it.jobs?`<div class="jobs">${it.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>`:"<span></span>"}
     <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${st.mode===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></div></div>`}
-function modeLinks(it,cur){return `<div class="modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${m}${cur===m?" on":""}">${MODE[m].label} · ${MODE[m].time}<span>${MODE[m].desc}</span></a>`).join("")}</div>`}
+function modeLinks(it,cur){return `<div class="modes"><div class="seg">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${cur===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div>${cur&&MODE[cur]?`<span class="small">${MODE[cur].desc}</span>`:""}</div>`}
 function miniList(list){return `<ul class="links">${list.map(it=>{const s=status(it);return `<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}${s==="done"?' · <span class="ok">완료</span>':""}</span></li>`}).join("")}</ul>`}
 
 /* 그림: 기사 숫자로 사이트가 직접 그려요 */
