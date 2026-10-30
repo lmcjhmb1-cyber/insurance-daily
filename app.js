@@ -573,28 +573,29 @@ function wire(it,st,mode,all){
 
 /* 기초 다지기 */
 const UCOL=["#5B4DDB","#3B82F6","#10A37A","#F59E0B","#EC4899","#14B8A6","#EF4444","#8B5CF6","#65A30D"];
+let openUnit=null;
 function showBasics(){
   const path=basicPath(),nodes=path.filter(x=>x.it),done=nodes.filter(x=>x.done).length,cur=nodes.find(x=>x.state==="cur");
-  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 한 칸씩 익혀요. 앞 칸을 끝내면 다음 칸이 열려요.</p>`;
   const pct=nodes.length?Math.round(done/nodes.length*100):0;
-  let side=`<div class="bsum"><h2>내 진도</h2>${mascotSay(cur?(done?`<b>${done}칸</b> 끝냈어요. 이어서 해볼까요?`:"첫 칸부터 시작해 보세요."):nodes.length?"열린 칸을 모두 끝냈어요. 새 칸은 채워지는 대로 열려요.":"기초 칸을 채우는 중이에요. 곧 첫 칸이 열려요.",{mood:"happy",pose:cur?"point":"cheer"},
-    `<div class="bsum-bar"><i style="width:${pct}%"></i></div><div class="bsum-row"><span class="small">${done}/${nodes.length}칸 · 흐름 ${BASICS.length}개</span>${cur?`<a class="bgo" href="#i-${esc(cur.it.id)}">${done?"이어서 하기":"시작하기"}</a>`:""}</div>`)}</div>`;
-  side+=`<ol class="bidx">${BASICS.map((b,u)=>{const it=path.filter(x=>x.it&&x.u===u),d=it.filter(x=>x.done).length;return `<li><a href="#bu-${u}" style="--u:${UCOL[u%UCOL.length]}"><i></i><span>${esc(b.name)}</span><em>${it.length?`${d}/${it.length}`:"준비 중"}</em></a></li>`}).join("")}</ol>`;
-  let h="";
+  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 한 칸씩 익혀요. 앞 칸을 끝내면 다음 칸이 열려요.</p>`;
   const units=BASICS.map((b,u)=>({b,u,items:path.filter(x=>x.it&&x.u===u)}));
-  for(const {b,u,items} of units){const col=UCOL[u%UCOL.length],d=items.filter(x=>x.done).length;
-    const ust=!items.length?"wait":d===items.length?"done":items.some(x=>x.state==="cur")?"cur":"lock";
-    const badge=ust==="done"?"완료":ust==="cur"?"지금 단계":ust==="lock"?"잠김":"준비 중";
-    const sub=items.length?`<ol class="ss">${items.map((x,k)=>{const it=x.it,st=x.state;
-        const inner=`<span class="ss-d">${st==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':st==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11"/></svg>':k+1}</span><span class="ss-t">${esc(it.title)}</span>${st==="cur"?`<span class="ss-go">${done?"이어서 하기":"시작하기"} →</span>`:""}`;
-        return `<li class="${st}">${st==="lock"?`<button type="button" data-lock="1">${inner}</button>`:`<a href="#i-${esc(it.id)}">${inner}</a>`}</li>`}).join("")}</ol>`:"";
-    h+=`<li class="st ${ust}" id="bu-${u}" style="--u:${col}"><span class="st-m">${ust==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':u+1}</span>
-      <div class="st-c"><a class="st-h" href="#b-${esc(b.id)}"><span class="st-k">${u+1}단계</span><b>${esc(b.name)}</b><span class="st-b">${badge}${items.length?` · ${d}/${items.length}`:""}</span></a><p class="st-p">${esc(b.desc)}</p>${sub}</div></li>`;
-  }
-  h=`<ol class="stp">${h}</ol>`;
-  $("#main").innerHTML=`<div class="bwrap"><aside class="bside">${side}</aside><div class="bmain">${h}<p class="small" id="pathMsg" role="status"></p></div></div>`;
-  document.querySelectorAll('.bidx a').forEach(a=>a.onclick=e=>{e.preventDefault();const t=document.getElementById(a.getAttribute("href").slice(1));if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
-  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{$("#pathMsg").innerHTML=`🔒 앞 칸을 먼저 끝내면 열려요.${cur?` <a href="#i-${esc(cur.it.id)}">지금 할 칸으로 가기 →</a>`:""}`;$("#pathMsg").scrollIntoView({block:"nearest",behavior:"smooth"})});
+  const curU=cur?cur.u:-1;if(openUnit===null)openUnit=curU;
+  const ring=(d,n,col)=>{const r=17,c=2*Math.PI*r,f=n?d/n:0;return `<svg class="bring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="22" cy="22" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 22 22)"/></svg>`};
+  let h=`<div class="bhero"><div class="bhero-l"><span class="bhero-k">내 진도</span><div class="bhero-n"><b>${pct}</b>%</div><div class="bhero-bar"><i style="width:${pct}%"></i></div><span class="bhero-s">${done} / ${nodes.length}칸 · 흐름 ${BASICS.length}개</span></div>
+    ${cur?`<a class="bhero-r" href="#i-${esc(cur.it.id)}"><span class="bhero-k">${done?"이어서 할 칸":"첫 칸"} · ${cur.u+1}단계 ${esc(cur.unit.name)}</span><b>${esc(cur.it.title)}</b><span class="bhero-go">${done?"이어서 하기":"시작하기"} →</span></a>`:`<div class="bhero-r none"><b>${nodes.length?"열린 칸을 모두 끝냈어요":"기초 칸을 채우는 중이에요"}</b><span class="bhero-k">새 칸은 채워지는 대로 열려요.</span></div>`}</div>`;
+  h+=`<div class="blist2">`;
+  for(const {b,u,items} of units){const col=UCOL[u%UCOL.length],d=items.filter(x=>x.done).length,n=items.length;
+    const ust=!n?"wait":d===n?"done":u===curU?"cur":"lock";const open=n&&openUnit===u;
+    h+=`<section class="bu2 ${ust}${open?" open":""}" style="--u:${col}"><button class="bu2-h" data-u="${u}" ${n?"":"disabled"} aria-expanded="${open}">
+      <span class="bu2-n">${ust==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':u+1}</span>
+      <span class="bu2-t"><b>${esc(b.name)}</b><span>${esc(b.desc)}</span></span>
+      <span class="bu2-r">${n?`${ring(d,n,col)}<em>${d}/${n}</em>`:`<em class="w">준비 중</em>`}${n?`<span class="bu2-c" aria-hidden="true">▾</span>`:""}</span></button>
+      ${open?`<ol class="bl2">${items.map((x,k)=>{const st=x.state;const inner=`<span class="bl2-i">${st==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':st==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11"/></svg>':k+1}</span><span class="bl2-t">${esc(x.it.title)}<em>${fmtDate(x.it.date)}</em></span>${st==="cur"?`<span class="bl2-go">${done?"이어서":"시작"}</span>`:st==="done"?`<span class="bl2-ok">완료</span>`:""}`;
+        return `<li class="${st}">${st==="lock"?`<button type="button" data-lock="1">${inner}</button>`:`<a href="#i-${esc(x.it.id)}">${inner}</a>`}</li>`}).join("")}</ol><a class="bu2-more" href="#b-${esc(b.id)}">이 흐름 자세히 보기 →</a>`:""}</section>`}
+  h+=`</div><p class="small" id="pathMsg" role="status"></p>`;
+  $("#main").innerHTML=h;
+  document.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const u=+b.dataset.u;openUnit=openUnit===u?-1:u;showBasics()});
+  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{$("#pathMsg").innerHTML=`🔒 앞 칸을 먼저 끝내면 열려요.${cur?` <a href="#i-${esc(cur.it.id)}">지금 할 칸으로 가기 →</a>`:""}`});
 }
 function showBasic(id){
   const b=BASICS.find(x=>x.id===id);if(!b)return showBasics();
@@ -707,7 +708,7 @@ const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4
 function favBtn(name,big){const on=favs().includes(name);return `<button type="button" class="favb${on?" on":""}${big?" big":""}" data-fav="${esc(name)}" aria-pressed="${on}" aria-label="${esc(name)} ${on?"지원 회사 고정 풀기":"지원 회사로 고정"}">${STAR}${big?`<span>${on?"지원 회사로 고정됨":"지원 회사로 고정"}</span>`:""}</button>`}
 function wireFav(after){document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();if(toggleFav(b.dataset.fav))after()})}
 function favNewsHTML(){const f=favs();
-  if(!f.length)return `<a class="favhint" href="#companies">${STAR}<span><b>지원할 회사를 고정해보세요</b> 회사별 보기에서 별을 누르면 그 회사 새 소식이 여기에 먼저 떠요.</span></a>`;
+  if(!f.length)return "";
   const since=ymd(Date.now()-14*DAY);
   return `<section class="favbox"><div class="sh"><h2>내 지원 회사 소식</h2><a class="chip" href="#mock">모의 면접 보기 →</a></div><div class="favgrid">${f.map(n=>{const c=COMPANIES.find(x=>x.name===n);const nw=coNews(n).filter(x=>x.date>=since).slice(0,3);const is=coIssues(n).filter(x=>x.date>=since);
     return `<div class="favc" style="${coVars(c)}"><a class="favc-h" href="#c-${encodeURIComponent(n)}">${coMono(c)}<b>${esc(n)}</b><em>${nw.length||is.length?`최근 2주 소식 ${coNews(n).filter(x=>x.date>=since).length}개${is.length?` · 이슈 ${is.length}개`:""}`:"최근 2주 새 소식 없음"}</em></a>${nw.length?`<ul>${nw.map(x=>`<li><span>${shortDate(x.date)}</span>${esc(x.title)}</li>`).join("")}</ul>`:""}</div>`}).join("")}</div></section>`}
