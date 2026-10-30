@@ -41,10 +41,17 @@
 ## 3. 네컷만화 comic (어울리는 이슈에만)
 - 모든 이슈에 넣지 않아요. 사람들의 선택과 행동이 이야기의 핵심인 이슈(역선택, 도덕적 해이, 보험사기, 갈아타기, 절판 마케팅 등)나, 소비자에게 직접 와닿는 변화, "반짝 좋아 보이지만 사실은…" 같은 반전이 있는 이슈에 넣어요. 하루 이슈 가운데 1~2개 정도가 알맞아요.
 - 형식: { title, panels: [4칸] }
-  - 칸: { caption(상황 설명, 짧게), sign(선택, 칸 위쪽 안내판 글), chars: [1~2명] }
-  - 사람: { who, mood, say(말풍선), name(선택, 기본 이름 대신) }
+  - 칸: { caption(노란 해설 상자, 짧게), bg(배경), sign(선택, 안내판에 들어갈 핵심 숫자나 문구), board(선택, 화이트보드 그래프 방향), chars: [1~2명] }
+  - bg: office(사무실), meeting(회의실 화이트보드), home(집 거실), hospital(병원), road(단풍 든 도로와 자동차), focus(강조 집중선), night(밤), plain(무늬 배경)
+  - board: up(오르는 그래프), down(내리는 그래프), flat(제자리). office나 meeting에서만 보여요. 인물이 1명이면 보드가 보이도록 인물이 오른쪽으로 비켜서요.
+  - 사람: { who, mood, pose, fx, say(말풍선), bubble, name(선택, 기본 이름 대신) }
   - who: customer(가입자), customer2(가입자 2), insurer(보험사), actuary(계리사), regulator(금융당국), doctor(병원), driver(운전자)
   - mood: happy, worried, surprised, thinking, angry, sad
+  - pose: stand(기본), point(가리키기), cheer(만세), think(턱 괴기), phone(휴대폰 보기), doc(서류 들기), worry(머리 감싸기), shrug(어깨 으쓱)
+  - fx(선택): sweat(땀방울), sparkle(반짝), question(물음표), exclaim(느낌표), gloom(우울한 그늘), heart(하트), idea(전구). worried는 따로 안 적어도 땀방울이 나와요.
+  - bubble(선택): talk(기본 말풍선), think(속마음 구름), shout(외침, 노란 상자)
+- 칸마다 장면, 손짓, 표정을 바꿔서 단조롭지 않게 해요. 예를 들어 1칸은 소식을 접하는 장면(phone, surprised), 2칸은 갈등이나 고민, 3칸은 보험사나 당국의 반응, 4칸은 계리사의 정리(doc나 point, idea)처럼 흐름을 만들어요.
+- 말풍선이 없는 사람(표정과 효과만)도 괜찮아요. 한 칸에 말풍선은 2개까지예요.
 - 말풍선은 30자 안쪽으로 짧게 써요. 휴대폰에서는 칸이 작아요.
 - 기사에 나온 사실과 숫자만 쓰고, 마지막 칸은 계리·상품개발 관점의 깨달음이나 다음에 지켜볼 점으로 마무리하면 좋아요.
 - 실존 인물이나 회사 이름을 등장인물 이름으로 쓰지 않아요.
@@ -68,7 +75,7 @@
 - 그 주 basic이 아닌 이슈가 3개 미만이면 만들지 않아요. 주간 퀴즈는 사이트가 자동으로 골라요.
 
 ## 7. 글쓰기 규칙
-- 모든 내용은 한국어로만 써요. 영어 단어와 영어 약어를 섞지 않아요. 영어 약어가 있는 개념은 한국어로 풀어 써요(예: 보험계약마진, 지급여력비율(킥스), 새 국제회계기준). thread.id, figs의 type, comic의 who와 mood 값만 예외로 영어 소문자를 써요.
+- 모든 내용은 한국어로만 써요. 영어 단어와 영어 약어를 섞지 않아요. 영어 약어가 있는 개념은 한국어로 풀어 써요(예: 보험계약마진, 지급여력비율(킥스), 새 국제회계기준). thread.id, figs의 type, comic의 bg·board·who·mood·pose·fx·bubble 값만 예외로 영어 소문자를 써요.
 - 말투는 친근한 존댓말("~해요"), summary만 반말이에요.
 - 대학생이 이해할 수 있게 쉽게 쓰되 보험 용어는 정확하게 써요. 한 문단이 너무 길지 않게 짧게 끊어요.
 - 퀴즈 오답 보기는 그럴듯하게, 해설(e)은 왜 정답인지 짧게 써요.
@@ -78,7 +85,7 @@
 2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
 3. node 스크립트로 최신 파일에 합쳐 넣어요. issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. 파일 맨 위 주석은 그대로 둬요.
 4. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요. 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
-5. 확인: node로 issues.js, frames.js, weekly.js, basics.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 who·mood가 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
+5. 확인: node로 issues.js, frames.js, weekly.js, basics.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, frames id와 jobs가 frames.js에 있는 값인지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
 6. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
 7. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 

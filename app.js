@@ -294,30 +294,6 @@ function figHTML(f){
   return "";
 }
 
-/* 네컷만화: 직접 만든 캐릭터를 사이트가 그려요 */
-const CAST={
-  customer:{name:"가입자",shirt:"#F59E0B",hair:"bob",hairC:"#3B2A1E"},
-  customer2:{name:"가입자 2",shirt:"#8B5CF6",hair:"short",hairC:"#1F2937"},
-  insurer:{name:"보험사",shirt:"#1E3A8A",hair:"side",hairC:"#111827",tie:"#DC2626"},
-  actuary:{name:"계리사",shirt:"#0E9F6E",hair:"pony",hairC:"#4B2E1E",glasses:1},
-  regulator:{name:"금융당국",shirt:"#6B7280",hair:"side",hairC:"#9CA3AF",glasses:1,tie:"#1F2937"},
-  doctor:{name:"병원",shirt:"#F3F4F6",hair:"short",hairC:"#374151",cross:1},
-  driver:{name:"운전자",shirt:"#0EA5E9",hair:"cap",hairC:"#DC2626"}};
-function face(mood){
-  const eyes={happy:'<path d="M23 31q3-4 6 0M35 31q3-4 6 0"/>',worried:'<circle cx="26" cy="31" r="1.8"/><circle cx="38" cy="31" r="1.8"/><path d="M22 26l7 2M42 26l-7 2"/>',surprised:'<circle cx="26" cy="31" r="2.6"/><circle cx="38" cy="31" r="2.6"/><path d="M22 25q4-3 7-1M35 24q3-2 7 1"/>',thinking:'<circle cx="26" cy="31" r="1.8"/><circle cx="38" cy="31" r="1.8"/><path d="M22 27h7M35 26l7-1"/>',angry:'<circle cx="26" cy="32" r="1.8"/><circle cx="38" cy="32" r="1.8"/><path d="M22 26l7 3M42 26l-7 3"/>',sad:'<circle cx="26" cy="32" r="1.8"/><circle cx="38" cy="32" r="1.8"/><path d="M23 27l6-2M41 27l-6-2"/>'}[mood]||'<circle cx="26" cy="31" r="1.8"/><circle cx="38" cy="31" r="1.8"/>';
-  const mouth={happy:'<path d="M26 39q6 6 12 0"/>',worried:'<path d="M27 41q2.5-2 5 0t5 0"/>',surprised:'<ellipse cx="32" cy="41" rx="2.6" ry="3.2"/>',thinking:'<path d="M29 41h7"/>',angry:'<path d="M27 42q5-4 10 0"/>',sad:'<path d="M27 42q5-4 10 0"/>'}[mood]||'<path d="M28 40q4 3 8 0"/>';
-  return `<g class="cf" fill="none" stroke="#1F2937" stroke-width="1.8" stroke-linecap="round">${eyes}${mouth}</g>`;
-}
-function charSVG(who,mood){
-  const c=CAST[who]||CAST.customer;
-  const hair={bob:`<path d="M13 32q-1-20 19-21q20 1 19 21l-4-1q0-12-15-13q-15 1-15 13z" fill="${c.hairC}"/>`,short:`<path d="M14 27q1-16 18-16q17 0 18 16q-6-7-18-7q-12 0-18 7z" fill="${c.hairC}"/>`,side:`<path d="M14 28q0-17 18-17q17 0 18 15q-10-1-17-8q-6 7-19 10z" fill="${c.hairC}"/>`,pony:`<path d="M14 29q0-18 18-18q18 0 18 18q-8-9-18-9q-10 0-18 9z" fill="${c.hairC}"/><path d="M49 22q9 3 6 14q-3-6-7-7z" fill="${c.hairC}"/>`,cap:`<path d="M13 25q1-14 19-14q18 0 19 14z" fill="${c.hairC}"/><path d="M11 25h36q6 0 8 2H11z" fill="${c.hairC}"/>`}[c.hair];
-  return `<svg viewBox="0 0 64 84" aria-hidden="true"><path d="M10 84q0-24 22-24q22 0 22 24z" fill="${c.shirt}" stroke="#1F2937" stroke-width="1.5"/>${c.tie?`<path d="M32 62l-3 5 3 13 3-13z" fill="${c.tie}"/>`:""}${c.cross?`<path d="M42 70h6M45 67v6" stroke="#DC2626" stroke-width="2"/>`:""}<circle cx="32" cy="33" r="19" fill="#FFDCC2" stroke="#1F2937" stroke-width="1.5"/>${hair}${face(mood)}${c.glasses?`<g fill="none" stroke="#1F2937" stroke-width="1.4"><circle cx="26" cy="31" r="4.6"/><circle cx="38" cy="31" r="4.6"/><path d="M30.6 31h2.8"/></g>`:""}<circle cx="21" cy="38" r="2.4" fill="#F9A8A8" opacity=".6"/><circle cx="43" cy="38" r="2.4" fill="#F9A8A8" opacity=".6"/></svg>`;
-}
-function comicHTML(c){
-  const panels=(c.panels||[]).slice(0,4).map((p,i)=>`<div class="cp"><div class="cp-cap"><b>${i+1}</b>${p.caption?esc(p.caption):""}</div><div class="cp-scene">${p.sign?`<div class="cp-sign">${esc(p.sign)}</div>`:""}<div class="cp-actors">${(p.chars||[]).slice(0,2).map(ch=>`<div class="cp-actor">${ch.say?`<div class="cp-bub">${esc(ch.say)}</div>`:""}${charSVG(ch.who,ch.mood)}<span class="cp-nm">${esc(ch.name||(CAST[ch.who]||CAST.customer).name)}</span></div>`).join("")}</div></div></div>`).join("");
-  return `<figure class="comic">${c.title?`<figcaption><b>${esc(c.title)}</b></figcaption>`:""}<div class="cgrid">${panels}</div></figure>`;
-}
-
 /* 이슈 화면 */
 let statsCache={};
 function showIssue(it,mode){
@@ -328,7 +304,7 @@ function showIssue(it,mode){
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
   if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
-  if(it.comic&&it.comic.panels)h+=sec("네 컷으로 보기",comicHTML(it.comic));
+  if(it.comic&&it.comic.panels&&window.comicHTML)h+=sec("네 컷으로 보기",comicHTML(it.comic));
   if(it.figs&&it.figs.length)h+=sec("한눈에 보기",it.figs.map(figHTML).join(""));
   if(it.gauge)h+=sec("숫자 감각 잡기",`<p class="q">${esc(it.gauge.q)}</p>
     <label class="small" for="gR">${esc(it.gauge.label)} <b id="gV" style="font-family:var(--f-num)"></b></label>

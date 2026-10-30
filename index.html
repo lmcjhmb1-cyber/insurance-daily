@@ -168,21 +168,36 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .report .row{margin-top:8px}
 
 /* 네컷만화 */
-.comic{margin:0;display:flex;flex-direction:column;gap:10px}
-.comic figcaption b{font-size:15px;font-weight:800}
-.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.cp{border:2px solid var(--ink);border-radius:8px;overflow:hidden;background:var(--card);display:flex;flex-direction:column;min-width:0}
-.cp-cap{font-size:12.5px;font-weight:600;padding:6px 10px;border-bottom:1.5px solid var(--ink);background:var(--paper);display:flex;gap:8px;align-items:baseline;line-height:1.4;min-height:32px}
-.cp-cap b{font-weight:800;color:var(--accent-ink)}
-.cp-scene{position:relative;flex:1;min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;padding:8px 6px 4px;background:linear-gradient(to bottom,transparent 78%,var(--paper) 78%)}
-.cp-sign{align-self:center;margin-bottom:auto;font-size:12.5px;font-weight:800;background:var(--warm-bg);color:var(--warm);border:1.5px solid var(--warm);border-radius:6px;padding:3px 9px;text-align:center}
-.cp-actors{display:flex;justify-content:space-around;align-items:flex-end;gap:4px}
-.cp-actor{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;flex:1}
-.cp-actor svg{width:66px;height:auto;display:block}
-.cp-nm{font-size:11px;color:var(--ink-2);font-weight:600}
-.cp-bub{position:relative;background:#fff;color:#111413;border:1.5px solid #111413;border-radius:12px;padding:6px 9px;font-size:12.5px;line-height:1.4;font-weight:600;max-width:min(150px,100%);text-align:center;margin-bottom:6px;overflow-wrap:anywhere}
-.cp-bub::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:#fff;border-right:1.5px solid #111413;border-bottom:1.5px solid #111413}
-@media (max-width:760px){.cp-scene{min-height:180px}.cp-actor svg{width:48px}.cp-bub{font-size:11.5px;padding:5px 7px;max-width:120px}.cp-cap{font-size:11.5px}}
+.comic{margin:0;display:flex;flex-direction:column;gap:12px}
+.comic figcaption b{font-size:16px;font-weight:800}
+.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cp{position:relative;aspect-ratio:320/300;border:2.5px solid #2B2B33;border-radius:6px;overflow:hidden;background:#F1F5FA;min-width:0;container-type:inline-size}
+.cp-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cp-o{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;padding:7px;gap:6px;pointer-events:none}
+.cp-cap{background:#FFF4B8;color:#2B2B33;border:2px solid #2B2B33;font-size:clamp(11px,4cqw,13.5px);font-weight:700;line-height:1.35;padding:4px 9px;max-width:88%;box-shadow:2px 2px 0 #2B2B33;display:flex;gap:6px}
+.cp-cap b{font-weight:900;color:#E0483E}
+.cp-cap.only{padding:2px 8px}
+.cp-sign{align-self:center;background:#fff;color:#2B2B33;border:2px solid #2B2B33;border-radius:4px;font-size:clamp(11px,4cqw,13.5px);font-weight:900;padding:3px 10px;box-shadow:2px 2px 0 #E0483E;text-align:center;max-width:92%}
+.cp-bs{align-self:stretch;display:flex;justify-content:center;gap:6px;margin-top:2px}
+.cp-bs.sd{justify-content:flex-end}
+.cp-bs.sd .cp-b{max-width:58%}
+.cp-bs.n2{justify-content:space-between}
+.cp-b{position:relative;background:#fff;color:#2B2B33;border:2.2px solid #2B2B33;border-radius:18px;padding:6px 11px;font-size:clamp(11.5px,4.4cqw,14px);font-weight:700;line-height:1.38;text-align:center;max-width:62%;overflow-wrap:anywhere}
+.cp-bs.n2 .cp-b{max-width:49%}
+.cp-b::after{content:"";position:absolute;bottom:-11px;width:14px;height:14px;background:#fff;border-right:2.2px solid #2B2B33;border-bottom:2.2px solid #2B2B33;transform:rotate(45deg) skew(8deg,8deg)}
+.cp-b.c::after{left:calc(50% - 7px)}
+.cp-b.l::after{left:34%}
+.cp-b.r::after{right:34%}
+.cp-bs.sd .cp-b.r::after{right:auto;left:calc(50% - 7px)}
+.cp-b.think{border-radius:50%/46%;padding:9px 14px}
+.cp-b.think::after{width:10px;height:10px;border:2.2px solid #2B2B33;border-radius:50%;transform:none;bottom:-15px;box-shadow:none}
+.cp-b.think::before{content:"";position:absolute;bottom:-25px;width:6px;height:6px;border:2px solid #2B2B33;border-radius:50%;background:#fff}
+.cp-b.think.c::before{left:calc(50% - 10px)}.cp-b.think.l::before{left:30%}.cp-b.think.r::before{right:30%}
+.cp-b.shout{border-radius:4px;background:#FFE24D;box-shadow:3px 3px 0 #2B2B33;font-weight:900}
+.cp-b.shout::after{background:#FFE24D}
+.cp-n{position:absolute;bottom:5px;font-size:clamp(10px,3.4cqw,12px);font-weight:800;color:#2B2B33;background:rgba(255,255,255,.85);border-radius:4px;padding:0 6px}
+.cp-n.c{left:50%;transform:translateX(-50%)}.cp-n.s{left:69%;transform:translateX(-50%)}.cp-n.l{left:16%;transform:translateX(-50%)}.cp-n.r{left:84%;transform:translateX(-50%)}
+@media (max-width:760px){.cgrid{grid-template-columns:1fr}}
 /* 그림 */
 .fig{margin:0;display:flex;flex-direction:column;gap:12px}
 .fig+.fig{border-top:1px solid var(--line);padding-top:18px}
@@ -424,11 +439,12 @@ a.cd:hover{box-shadow:inset 0 0 0 2px var(--accent)}
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202610302355"></script>
-<script src="frames.js?v=202610302355"></script>
-<script src="basics.js?v=202610302355"></script>
-<script src="weekly.js?v=202610302355"></script>
-<script src="app.js?v=202610302355"></script>
-<script type="module" src="sync.js?v=202610302355"></script>
+<script src="issues.js?v=202610310004"></script>
+<script src="frames.js?v=202610310004"></script>
+<script src="basics.js?v=202610310004"></script>
+<script src="weekly.js?v=202610310004"></script>
+<script src="comic.js?v=202610310004"></script>
+<script src="app.js?v=202610310004"></script>
+<script type="module" src="sync.js?v=202610310004"></script>
 </body>
 </html>
