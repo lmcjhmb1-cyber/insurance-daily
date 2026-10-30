@@ -13,7 +13,7 @@ const GAP=[1,3,7,14,30];
 const FEEDBACK_URL="";
 
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
-const FRAMES=window.FRAMES||[];const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
+const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
@@ -60,10 +60,10 @@ const SECS=[
   {k:"issue",label:"이슈",icon:'<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2"/><path d="M8 9h4M8 13h4"/>',tabs:[["","오늘 이슈"],["threads","이어보기"],["weekly","주간 큰 그림"],["search","찾기"]]},
   {k:"basics",label:"기초",icon:'<path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/>',tabs:[["basics","기초 다지기"]]},
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
-  {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"],["frames","생각의 틀"]]},
+  {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"]]},
   {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"],["companies","회사별 보기"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
-function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("f-"))return"frames";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
+function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
 function renderShell(){
   const k=navKey(),sec=secOf(k),due=dueList().length,u=window.Auth&&window.Auth.user;
@@ -73,7 +73,7 @@ function renderShell(){
   $("#tabs").innerHTML=sec.tabs.length>1?sec.tabs.map(([h,l])=>`<a href="#${h}" class="${k===h?"on":""}">${l}</a>`).join(""):"";
   $("#topbar").classList.toggle("single",sec.tabs.length<2);
   const h=decodeURIComponent(location.hash.slice(1));
-  document.querySelector(".page").classList.toggle("read",/^(i-|g-|f-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
+  document.querySelector(".page").classList.toggle("read",/^(i-|g-|t-|w-|b-|c-|review$|interview$|mock$)/.test(h));
 }
 function meLabel(){return ""}
 function brand(){return ""}
@@ -95,8 +95,6 @@ function route(){
   if(h.startsWith("b-"))return showBasic(h.slice(2));
   if(h==="terms")return showTerms();
   if(h.startsWith("g-"))return showTerm(h.slice(2));
-  if(h==="frames")return showFrames();
-  if(h.startsWith("f-"))return showFrame(h.slice(2));
   if(h==="threads")return showThreads();
   if(h.startsWith("t-"))return showThread(h.slice(2));
   if(h==="weekly")return showWeeklyList();
@@ -476,8 +474,6 @@ function showIssue(it,mode){
   if(it.points)h+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
   if(deep&&it.chain)h+=sec("인과 사슬 순서 맞추기",`<p class="q">뒤섞인 고리를 원인에서 결과 순서로 눌러서 사슬을 완성해보세요.</p><div class="flow" id="chain"></div><div id="ordBox"></div>`);
   if(it.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
-  const fr=(it.frames||[]).map(id=>FRAMES.find(f=>f.id===id)).filter(Boolean);
-  if(fr.length)h+=sec("이 이슈에 쓰인 생각의 틀",`<div class="frs">${fr.map(f=>`<a href="#f-${f.id}"><b>${esc(f.name)}</b><span>${esc(f.ask[0])}</span></a>`).join("")}</div>`);
   if(deep&&it.role)h+=sec("내가 담당자라면",`${roleQ(it.role.q)}<textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
     <div class="row"><button class="pri" id="rM">모범 해설과 비교하기</button>${fbBtn("r")}</div><div id="rO"></div><div id="rFO"></div>`);
   if(deep&&it.interview)h+=sec("면접에서 이렇게 묻는다면",`<p class="q">${esc(it.interview.q)}</p><textarea id="vT" placeholder="면접관에게 말하듯 2~4문장으로">${esc(st.iv||"")}</textarea><div class="err" id="vE"></div>
@@ -485,16 +481,14 @@ function showIssue(it,mode){
   const own=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
   const rev=[];
   if(deep){
-    /* 이번 이슈와 이어지는 지난 이슈만 골라요: 같은 흐름, 겹치는 용어·생각의 틀·분야·회사 */
-    const tset=new Set((it.terms||[]).map(x=>x.t)),fset=new Set(it.frames||[]),cset=new Set(coOf(it));
+    /* 이번 이슈와 이어지는 지난 이슈만 골라요: 같은 흐름, 겹치는 용어·분야·회사 */
+    const tset=new Set((it.terms||[]).map(x=>x.t)),cset=new Set(coOf(it));
     const scored=issues.filter(x=>x.id!==it.id&&(x.date<it.date||x.basic)&&x.quiz&&x.quiz.length).map(x=>{let sc=0,why="";
       if(it.thread&&x.thread&&x.thread.id===it.thread.id){sc+=5;why="같은 흐름"}
       const tt=(x.terms||[]).filter(y=>tset.has(y.t)).map(y=>y.t);sc+=tt.length*3;if(!why&&tt.length)why="같은 용어 "+tt[0];
-      const ff=(x.frames||[]).filter(f=>fset.has(f)).length;sc+=ff*1.5;
       if(x.tag&&x.tag===it.tag){sc+=2;if(!why)why="같은 분야"}
       const cc=coOf(x).filter(c=>cset.has(c));sc+=cc.length*2;if(!why&&cc.length)why=cc[0];
-      if(!why&&ff)why="같은 생각의 틀";
-      return {x,sc,why,tt}}).filter(o=>o.sc>=3&&o.why&&o.why!=="같은 생각의 틀").sort((a,b)=>b.sc-a.sc||(a.x.date<b.x.date?1:-1));
+      return {x,sc,why,tt}}).filter(o=>o.sc>=3&&o.why).sort((a,b)=>b.sc-a.sc||(a.x.date<b.x.date?1:-1));
     for(const o of scored.slice(0,2)){const qs=o.x.quiz;const pick=qs.find(q=>o.tt.some(t=>(q.q+q.o.join("")).includes(t)))||qs[0];rev.push({...pick,from:o.x.date,why:o.why,k:null})}}
   const all=[...own,...rev];
   if(matchTerms(it).length>=3)h+=sec("용어 짝 맞추기",`<div id="mBox"></div>`);
@@ -651,19 +645,6 @@ function showTerm(t){
   const g=GLOSS.find(x=>x.t===t);if(!g)return showTerms();
   $("#head").innerHTML=brand()+back("#terms","용어 사전")+`<h1>${esc(g.t)}</h1>`;
   $("#main").innerHTML=`<section class="step"><p style="margin:0;font-size:16.5px">${esc(g.d)}</p></section><section class="step"><div class="sh"><h2>이 용어가 나온 이슈</h2><span class="small">${g.issues.length}개</span></div>${miniList(g.issues)}</section>`;
-}
-
-/* 생각의 틀 */
-function framesUse(id){return issues.filter(i=>(i.frames||[]).includes(id))}
-function showFrames(){
-  $("#head").innerHTML=brand()+`<h1>생각의 틀 모음</h1><p class="meta" style="margin:0">뉴스를 볼 때마다 꺼내 쓸 질문 도구예요. 이슈가 쌓일수록 어떤 틀을 자주 쓰는지 보여요.</p>`;
-  $("#main").innerHTML=`<div class="cards">${FRAMES.map(f=>`<a class="fcard" href="#f-${f.id}"><div class="top"><b>${esc(f.name)}</b><span class="small">이슈 ${framesUse(f.id).length}개</span></div><p>${esc(f.desc)}</p><ul>${f.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></a>`).join("")}</div>`;
-}
-function showFrame(id){
-  const f=FRAMES.find(x=>x.id===id);if(!f)return showFrames();const list=framesUse(id);
-  $("#head").innerHTML=brand()+back("#frames","생각의 틀 모음")+`<h1>${esc(f.name)}</h1>`;
-  $("#main").innerHTML=`<section class="step"><p style="margin:0">${esc(f.desc)}</p><div class="sh" style="margin-top:4px"><h2>스스로 던질 질문</h2></div><ul class="points">${f.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></section>
-    <section class="step"><div class="sh"><h2>이 틀로 읽어볼 이슈</h2><span class="small">${list.length}개</span></div>${list.length?miniList(list):`<p class="small" style="margin:0">아직 이 틀을 쓴 이슈가 없어요.</p>`}</section>`;
 }
 
 /* 이어보기 */
