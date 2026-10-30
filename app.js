@@ -484,12 +484,22 @@ function showIssue(it,mode){
     <div class="row"><button class="pri" id="vM">답변 뼈대 보기</button>${fbBtn("v")}</div><div id="vO"></div><div id="vFO"></div>`);
   const own=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
   const rev=[];
-  if(deep){const pool=issues.filter(x=>x.date<it.date&&x.quiz&&x.quiz.length);
-    while(rev.length<2&&pool.length){const x=pool.splice(Math.floor(Math.random()*pool.length),1)[0];rev.push({...x.quiz[Math.floor(Math.random()*x.quiz.length)],from:x.date,k:null})}}
+  if(deep){
+    /* 이번 이슈와 이어지는 지난 이슈만 골라요: 같은 흐름, 겹치는 용어·생각의 틀·분야·회사 */
+    const tset=new Set((it.terms||[]).map(x=>x.t)),fset=new Set(it.frames||[]),cset=new Set(coOf(it));
+    const scored=issues.filter(x=>x.id!==it.id&&(x.date<it.date||x.basic)&&x.quiz&&x.quiz.length).map(x=>{let sc=0,why="";
+      if(it.thread&&x.thread&&x.thread.id===it.thread.id){sc+=5;why="같은 흐름"}
+      const tt=(x.terms||[]).filter(y=>tset.has(y.t)).map(y=>y.t);sc+=tt.length*3;if(!why&&tt.length)why="같은 용어 "+tt[0];
+      const ff=(x.frames||[]).filter(f=>fset.has(f)).length;sc+=ff*1.5;
+      if(x.tag&&x.tag===it.tag){sc+=2;if(!why)why="같은 분야"}
+      const cc=coOf(x).filter(c=>cset.has(c));sc+=cc.length*2;if(!why&&cc.length)why=cc[0];
+      if(!why&&ff)why="같은 생각의 틀";
+      return {x,sc,why,tt}}).filter(o=>o.sc>=3&&o.why&&o.why!=="같은 생각의 틀").sort((a,b)=>b.sc-a.sc||(a.x.date<b.x.date?1:-1));
+    for(const o of scored.slice(0,2)){const qs=o.x.quiz;const pick=qs.find(q=>o.tt.some(t=>(q.q+q.o.join("")).includes(t)))||qs[0];rev.push({...pick,from:o.x.date,why:o.why,k:null})}}
   const all=[...own,...rev];
   if(matchTerms(it).length>=3)h+=sec("용어 짝 맞추기",`<div id="mBox"></div>`);
-  if(all.length)h+=sec(`확인 퀴즈${rev.length?" · 지난 이슈 복습 포함":""}`,
-    all.map((q,i)=>`<div><p class="q" style="font-size:16px">${q.from?`<span class="small">${shortDate(q.from)} 복습 · </span>`:""}${esc(q.q)}</p><div class="row" data-q="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="qO${i}"></div></div>`).join(""));
+  if(all.length)h+=sec(`확인 퀴즈${rev.length?" · 이어지는 지난 이슈 복습 포함":""}`,
+    all.map((q,i)=>`<div><p class="q" style="font-size:16px">${q.from?`<span class="small">${shortDate(q.from)} 이슈 복습${q.why?` · ${esc(q.why)}`:""} · </span>`:""}${esc(q.q)}</p><div class="row" data-q="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="qO${i}"></div></div>`).join(""));
   if(it.terms)h+=sec("이 이슈의 용어",`<div class="termlist">${it.terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div><a class="more" href="#terms">용어 사전 전체 보기 →</a>`);
   if(it.thread){const th=THREADS.find(t=>t.id===it.thread.id);const others=th?th.issues.filter(x=>x.id!==it.id):[];
     h+=sec("이어보기 · "+esc(it.thread.name),others.length?miniList(others)+`<a class="more" href="#t-${esc(it.thread.id)}">흐름 전체를 시간 순서로 보기 →</a>`:`<p class="small" style="margin:0">이 흐름의 첫 이슈예요. 이어지는 소식이 올라오면 여기에 연결돼요.</p>`)}
