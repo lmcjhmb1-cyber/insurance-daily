@@ -406,14 +406,15 @@ function shuffledIdx(n){let o;do{o=shuffle([...Array(n).keys()])}while(n>2&&o.ev
 function flowStep(C,i,text,last){if(i>0){const ar=document.createElement("div");ar.className="flow-ar";ar.setAttribute("aria-hidden","true");C.appendChild(ar)}const d=document.createElement("div");d.className="flow-b"+(last?" last":"");d.innerHTML=`<span class="flow-n">${i+1}</span><span>${esc(text)}</span>`;C.appendChild(d)}
 function wireOrder(it,st){
   const box=$("#ordBox");if(!box)return;const ch=it.chain;
-  const start=()=>{let next=0,miss=0;const C=$("#chain");C.innerHTML="";
-    box.innerHTML=`<div class="ord">${shuffledIdx(ch.length).map(i=>`<button data-c="${i}">${esc(ch[i])}</button>`).join("")}</div><p class="small" id="ordMsg" style="margin:0">맨 처음 원인부터 눌러보세요.</p>`;
+  const start=()=>{let next=1,miss=0;const C=$("#chain");C.innerHTML="";flowStep(C,0,ch[0],ch.length===1);
+    const rest=shuffledIdx(ch.length-1).map(i=>i+1);
+    box.innerHTML=`<p class="ord-msg" id="ordMsg">1번 고리는 알려드릴게요. <b>그다음에 이어지는 2번 고리</b>를 아래에서 골라 눌러보세요.</p><div class="ord">${rest.map(i=>`<button data-c="${i}">${esc(ch[i])}</button>`).join("")}</div>`;
     box.querySelector(".ord").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const c=+b.dataset.c;
       if(c===next){b.remove();flowStep(C,next,ch[next],next===ch.length-1);next++;
         if(next===ch.length){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`완성했어요. 헷갈린 고리가 ${miss}번 있었어요.`:"한 번에 맞혔어요!"}</span> <button class="lnk" id="ordRe">다시 해보기</button></p>`;
           st.ch=1;save(it.id,st);addXP(`c:${it.id}`,miss?8:15,"순서 맞추기");$("#ordRe").onclick=start}
-        else $("#ordMsg").textContent=`좋아요. ${next+1}번째 고리는 무엇일까요?`}
-      else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");$("#ordMsg").innerHTML=`<span class="no">그 고리는 아직이에요.</span> 바로 앞 고리의 결과로 이어지는 걸 찾아보세요.`}}};
+        else $("#ordMsg").innerHTML=`좋아요! <b>${next+1}번 고리</b>는 무엇일까요?`}
+      else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");b.addEventListener("animationend",()=>b.classList.remove("shake"),{once:true});$("#ordMsg").innerHTML=`<span class="no">그 고리는 아직이에요.</span> 바로 앞 고리의 결과로 이어지는 걸 찾아보세요.`}}};
   if(st.ch){const C=$("#chain");ch.forEach((t,i)=>flowStep(C,i,t,i===ch.length-1));box.innerHTML=`<p class="small" style="margin:0"><span class="ok">순서 맞추기를 끝냈어요.</span> <button class="lnk" id="ordRe">다시 해보기</button></p>`;$("#ordRe").onclick=start}
   else start();
 }
@@ -428,7 +429,7 @@ function wireMatch(it,st){
         const d=+b.dataset.d,tb=box.querySelector(`[data-t="${sel}"]`);
         if(d===sel){b.classList.add("ok-m");tb.classList.remove("sel");tb.classList.add("ok-m");b.disabled=tb.disabled=true;sel=null;left--;$("#mMsg").textContent="";
           if(!left){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">${miss?`다 맞췄어요. ${miss}번 헷갈렸어요.`:"한 번에 다 맞췄어요!"}</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;st.mt=1;save(it.id,st);addXP(`m:${it.id}`,miss?8:15,"짝 맞추기");$("#mRe").onclick=start}}
-        else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");$("#mMsg").innerHTML=`<span class="no">짝이 아니에요.</span> 다시 골라보세요.`}}}};
+        else{miss++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");b.addEventListener("animationend",()=>b.classList.remove("shake"),{once:true});$("#mMsg").innerHTML=`<span class="no">짝이 아니에요.</span> 다시 골라보세요.`}}}};
   if(st.mt){box.innerHTML=`<p class="small" style="margin:0"><span class="ok">짝 맞추기를 끝냈어요.</span> <button class="lnk" id="mRe">다시 해보기</button></p>`;$("#mRe").onclick=start}else start();
 }
 /* 복습용 숫자 빈칸 문제: 이슈의 숫자 타일로 만들어요 */
