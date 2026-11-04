@@ -534,7 +534,7 @@ function numberQ(it){const ns=(it.numbers||[]).filter(x=>x.value&&x.label);if(ns
 
 /* 기초 다지기 길 */
 function basicPath(){const out=[];BASICS.forEach((b,u)=>{const list=basicIssues(b);out.push({unit:b,u});if(!list.length)out.push({unit:b,u,empty:1});list.forEach(it=>out.push({unit:b,u,it}))});
-  let open=true;for(const x of out){if(!x.it)continue;const d=status(x.it)==="done";x.done=d;x.state=d?"done":open?"cur":"lock";if(!d&&open)open=false}return out}
+  let open=true,pu=-1;for(const x of out){if(!x.it)continue;if(x.u!==pu){pu=x.u;open=true}const d=status(x.it)==="done";x.done=d;x.state=d?"done":open?"cur":"lock";if(!d&&open)open=false}return out}
 
 /* 이슈 화면 */
 let statsCache={};
@@ -664,7 +664,7 @@ let openUnit=null;
 function showBasics(){
   const path=basicPath(),nodes=path.filter(x=>x.it),done=nodes.filter(x=>x.done).length,cur=nodes.find(x=>x.state==="cur");
   const pct=nodes.length?Math.round(done/nodes.length*100):0;
-  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 한 칸씩 익혀요. 앞 칸을 끝내면 다음 칸이 열려요.</p>`;
+  $("#head").innerHTML=`<h1>기초 다지기</h1><p class="meta">오늘 뉴스의 배경이 되는 큰 흐름을 한 칸씩 익혀요. 흐름마다 첫 칸은 바로 열려 있고, 흐름 안에서는 앞 칸을 끝내면 다음 칸이 열려요.</p>`;
   const units=BASICS.map((b,u)=>({b,u,items:path.filter(x=>x.it&&x.u===u)}));
   const curU=cur?cur.u:-1;if(openUnit===null)openUnit=curU;
   const ring=(d,n,col)=>{const r=17,c=2*Math.PI*r,f=n?d/n:0;return `<svg class="bring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="22" cy="22" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 22 22)"/></svg>`};
@@ -672,17 +672,17 @@ function showBasics(){
     ${cur?`<a class="bhero-r" href="#i-${esc(cur.it.id)}"><span class="bhero-txt"><span class="bhero-k">${done?"이어서 할 칸":"첫 칸"} · ${cur.u+1}단계 ${esc(cur.unit.name)}</span><b>${esc(cur.it.title)}</b></span><span class="bhero-go">${done?"이어서 하기":"시작하기"} →</span></a>`:`<div class="bhero-r none"><b>${nodes.length?"열린 칸을 모두 끝냈어요":"기초 칸을 채우는 중이에요"}</b><span class="bhero-k">새 칸은 채워지는 대로 열려요.</span></div>`}</div>`;
   h+=`<div class="blist2">`;
   for(const {b,u,items} of units){const col=UCOL[u%UCOL.length],d=items.filter(x=>x.done).length,n=items.length;
-    const ust=!n?"wait":d===n?"done":u===curU?"cur":"lock";const open=n&&openUnit===u;
+    const ust=!n?"wait":d===n?"done":u===curU?"cur":"todo";const uc=items.find(x=>x.state==="cur");const open=n&&openUnit===u;
     h+=`<section class="bu2 ${ust}${open?" open":""}" style="--u:${col}"><button class="bu2-h" data-u="${u}" ${n?"":"disabled"} aria-expanded="${open}">
       <span class="bu2-n">${ust==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':u+1}</span>
       <span class="bu2-t"><b>${esc(b.name)}</b><span>${esc(b.desc)}</span></span>
       <span class="bu2-r">${n?`${ring(d,n,col)}<em>${d}/${n}</em>`:`<em class="w">준비 중</em>`}${n?`<span class="bu2-c" aria-hidden="true">▾</span>`:""}</span></button>
-      ${open?`<ol class="bl2">${items.map((x,k)=>{const st=x.state;const inner=`<span class="bl2-i">${st==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':st==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11"/></svg>':k+1}</span><span class="bl2-t">${esc(x.it.title)}<em>${fmtDate(x.it.date)}</em></span>${st==="cur"?`<span class="bl2-go">${done?"이어서":"시작"}</span>`:st==="done"?`<span class="bl2-ok">완료</span>`:""}`;
-        return `<li class="${st}">${st==="lock"?`<button type="button" data-lock="1">${inner}</button>`:`<a href="#i-${esc(x.it.id)}">${inner}</a>`}</li>`}).join("")}</ol><a class="bu2-more" href="#b-${esc(b.id)}">이 흐름 자세히 보기 →</a>`:""}</section>`}
+      ${open?`<ol class="bl2">${items.map((x,k)=>{const st=x.state;const inner=`<span class="bl2-i">${st==="done"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':st==="lock"?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11"/></svg>':k+1}</span><span class="bl2-t">${esc(x.it.title)}<em>${fmtDate(x.it.date)}</em></span>${st==="cur"?`<span class="bl2-go">${k?"이어서":"시작"}</span>`:st==="done"?`<span class="bl2-ok">완료</span>`:""}`;
+        return `<li class="${st}">${st==="lock"?`<button type="button" data-lock="${uc?esc(uc.it.id):""}">${inner}</button>`:`<a href="#i-${esc(x.it.id)}">${inner}</a>`}</li>`}).join("")}</ol><a class="bu2-more" href="#b-${esc(b.id)}">이 흐름 자세히 보기 →</a>`:""}</section>`}
   h+=`</div><p class="small" id="pathMsg" role="status"></p>`;
   $("#main").innerHTML=h;
   document.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const u=+b.dataset.u;openUnit=openUnit===u?-1:u;showBasics()});
-  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{$("#pathMsg").innerHTML=`🔒 앞 칸을 먼저 끝내면 열려요.${cur?` <a href="#i-${esc(cur.it.id)}">지금 할 칸으로 가기 →</a>`:""}`});
+  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{const g=b.dataset.lock;$("#pathMsg").innerHTML=`🔒 이 흐름의 앞 칸을 먼저 끝내면 열려요.${g?` <a href="#i-${g}">이 흐름에서 지금 할 칸으로 가기 →</a>`:""}`});
 }
 function showBasic(id){
   const b=BASICS.find(x=>x.id===id);if(!b)return showBasics();
