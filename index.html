@@ -369,6 +369,28 @@ a.fcard:hover{border-color:var(--ink-3)}
 .notice summary{cursor:pointer;color:var(--ink-2);font-size:13px;font-weight:600}
 .notice ul{margin:8px 0 0;padding-left:1.15em;display:flex;flex-direction:column;gap:6px;font-size:13px}
 .notice b{color:var(--ink);font-weight:700}
+.stage{display:flex;align-items:center;gap:10px;margin:22px 0 2px;padding-top:16px;border-top:1px solid var(--line)}
+.stage span{font-size:12px;font-weight:700;color:var(--accent-ink);background:var(--accent-bg);padding:2px 10px;border-radius:999px}
+.stage b{font-size:17px;font-weight:700;color:var(--ink)}
+.brief{display:flex;flex-direction:column;gap:10px}
+.br-row{display:flex;align-items:flex-start;gap:12px}
+.br-k{flex:none;min-width:64px;text-align:center;font-size:12.5px;font-weight:700;color:var(--accent-ink);background:var(--accent-bg);padding:2px 10px;border-radius:999px;margin-top:3px}
+.br-v{font-size:15.5px;min-width:0}
+@media (max-width:460px){.br-row{flex-direction:column;gap:4px}.br-k{min-width:0;align-self:flex-start}}
+.pre{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.pre-c{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.pre-c b{font-size:15.5px;color:var(--ink)}
+.pre-c p{margin:4px 0 0;font-size:14.5px;color:var(--ink-2)}
+.pre-c a{display:inline-block;margin-top:6px;font-size:13.5px;font-weight:600;color:var(--accent-ink);text-decoration:none}
+.look{margin:0;font-size:15px;font-weight:700;color:var(--ink)}
+.modepick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modepick button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer;font:inherit;line-height:1.45}
+.modepick button b{font-size:15.5px}
+.modepick button span{font-size:12.5px;color:var(--ink-2)}
+.modepick button em{font-style:normal;font-size:12.5px;color:var(--ink-2)}
+.modepick button.on{border-color:var(--accent);background:var(--accent-bg)}
+.modepick button.on b{color:var(--accent-ink)}
+@media (max-width:460px){.modepick{grid-template-columns:1fr}}
 .goalrow{display:flex;align-items:center;gap:8px;font-size:15px}
 .badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .bdg{display:flex;flex-direction:column;gap:1px;border-radius:10px;padding:11px 13px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--accent-ink)}
@@ -998,16 +1020,16 @@ button.lnk{border:0;background:none;padding:0;color:var(--accent);font-weight:70
     <main id="main"></main>
   </div>
 </div>
-<script src="issues.js?v=202611042150"></script>
-<script src="frames.js?v=202611042150"></script>
-<script src="basics.js?v=202611042150"></script>
-<script src="lessons.js?v=202611042150"></script>
-<script src="profiles.js?v=202611042150"></script>
-<script src="news.js?v=202611042150"></script>
-<script src="companies.js?v=202611042150"></script>
-<script src="weekly.js?v=202611042150"></script>
-<script src="comic.js?v=202611042150"></script>
-<script src="app.js?v=202611042150"></script>
-<script type="module" src="sync.js?v=202611042150"></script>
+<script src="issues.js?v=202611042205"></script>
+<script src="frames.js?v=202611042205"></script>
+<script src="basics.js?v=202611042205"></script>
+<script src="lessons.js?v=202611042205"></script>
+<script src="profiles.js?v=202611042205"></script>
+<script src="news.js?v=202611042205"></script>
+<script src="companies.js?v=202611042205"></script>
+<script src="weekly.js?v=202611042205"></script>
+<script src="comic.js?v=202611042205"></script>
+<script src="app.js?v=202611042205"></script>
+<script type="module" src="sync.js?v=202611042205"></script>
 </body>
 </html>

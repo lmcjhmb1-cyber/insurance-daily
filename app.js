@@ -7,7 +7,7 @@ function shortDate(d){const [,m,dd]=d.split("-");return `${+m}월 ${+dd}일`}
 const DAY=864e5;
 function ymd(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function sod(ts){const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime()}
-const MODE={light:{label:"가볍게",time:"약 5분",desc:"예측, 핵심 정리, 퀴즈"},deep:{label:"깊게",time:"약 15분",desc:"인과 사슬, 담당자 질문, 면접 질문까지"}};
+const MODE={light:{label:"가볍게",time:"약 5분",desc:"예측, 핵심 정리, 퀴즈"},deep:{label:"깊게",time:"약 15분",desc:"인과 사슬, 담당자 질문, 스스로 답해보기까지"}};
 const GAP=[1,3,7,14,30];
 // 인공지능 피드백 서버 주소 (클라우드플레어 워커). 비어 있으면 피드백 버튼이 숨겨져요.
 const FEEDBACK_URL="";
@@ -46,6 +46,7 @@ const basicOf=it=>it.basic&&it.thread?BASICS.find(b=>b.id===it.thread.id):null;
 const lightQuiz=it=>(it.quiz||[]).map((q,k)=>({...q,k})).filter(q=>!q.deep);
 function status(it){const s=load(it.id);if(s.done)return"done";if(s.pred!=null||(s.qa&&Object.keys(s.qa).length)||s.role||s.sum||s.iv)return"doing";return""}
 const cfg=()=>load("cfg");
+const defMode=()=>cfg().mode==="deep"?"deep":"light";
 const goal=()=>{const g=cfg().goal;return g===0||g==="0"?0:(+g||3)};
 
 const GLOSS=(()=>{const m=new Map();for(const it of issues)for(const x of it.terms||[]){if(!m.has(x.t))m.set(x.t,{t:x.t,d:x.d,issues:[]});m.get(x.t).issues.push(it)}return [...m.values()].sort((a,b)=>a.t.localeCompare(b.t,"ko"))})();
@@ -117,7 +118,7 @@ function route(){
     let rest=h.slice(2),mode=null;
     for(const m of ["light","deep"])if(rest.endsWith("-"+m)){mode=m;rest=rest.slice(0,-m.length-1)}
     const it=issues.find(i=>i.id===rest);
-    if(it){const st=load(it.id);if(mode&&st.mode!==mode){st.mode=mode;save(it.id,st)}return showIssue(it,mode||st.mode||"light")}
+    if(it){const st=load(it.id);if(mode&&st.mode!==mode){st.mode=mode;save(it.id,st)}return showIssue(it,mode||defMode())}
   }
   const d=h.startsWith("d-")&&dates.includes(h.slice(2))?h.slice(2):dates[0];
   showList(d);
@@ -227,7 +228,7 @@ function collectNotes(){
   for(const it of issues){const s=load(it.id);
     if(s.role&&s.role.trim()&&it.role)out.push({it,kind:"내가 담당자라면",q:it.role.q,a:s.role,model:it.role.model,t:s.t||0});
     if(s.sum&&s.sum.trim())out.push({it,kind:"한 줄 요약",q:"보험을 모르는 친구에게 한 줄로 설명한다면?",a:s.sum,model:it.summary,t:s.t||0});
-    if(s.iv&&s.iv.trim()&&it.interview)out.push({it,kind:"면접 질문",q:it.interview.q,a:s.iv,model:it.interview.guide,t:s.t||0});}
+    if(s.iv&&s.iv.trim()&&it.interview)out.push({it,kind:"스스로 답해보기",q:it.interview.q,a:s.iv,model:it.interview.guide,t:s.t||0});}
   return out.sort((x,y)=>x.it.id<y.it.id?1:x.it.id>y.it.id?-1:0);
 }
 function notesText(){
@@ -235,7 +236,7 @@ function notesText(){
   let cur=null;
   for(const n of ns){
     if(cur!==n.it.id){cur=n.it.id;lines.push("━━━━━━━━━━━━━━━━━━━━",`[${fmtDate(n.it.date)}] ${n.it.title}`,`분야: ${n.it.tag||""}${n.it.jobs?" · 관련 직무: "+n.it.jobs.join(", "):""}`,"")}
-    lines.push(`▶ ${n.kind}`,`질문: ${n.q}`,`내 답: ${n.a}`,`${n.kind==="면접 질문"?"답변 뼈대":n.kind==="한 줄 요약"?"예시 요약":"모범 해설"}: ${n.model||""}`,"");
+    lines.push(`▶ ${n.kind}`,`질문: ${n.q}`,`내 답: ${n.a}`,`${n.kind==="스스로 답해보기"?"답변 뼈대":n.kind==="한 줄 요약"?"예시 요약":"모범 해설"}: ${n.model||""}`,"");
   }
   return lines.join("\n").replace(/\*\*/g,"");
 }
@@ -256,6 +257,8 @@ function showMe(){
     <div class="goalrow"><label for="goalSel">하루에</label><select id="goalSel"><option value="0"${G===0?" selected":""}>목표 없음</option>${[1,2,3,4,5,6,7,8,10].map(n=>`<option value="${n}"${n===G?" selected":""}>${n}개</option>`).join("")}</select>${G?"<span>끝내기</span>":""}</div>
     ${G?`<div class="bar"><i style="width:${Math.min(100,todayN/G*100)}%"></i></div>
     <p class="small" style="margin:0">${todayN>=G?"오늘 목표를 채웠어요. 달력에 체크가 붙어요.":`오늘 ${G-todayN}개 더 끝내면 목표 달성이에요.`}</p>`:`<p class="small" style="margin:0">목표 없이 내 속도대로 공부하고 있어요. 언제든 목표를 다시 정할 수 있어요.</p>`}</section>`;
+  const dm=defMode();
+  P.mode=`<section class="step"><div class="sh"><h2>이슈 기본 보기</h2></div><p class="small" style="margin:0">이슈를 열 때 먼저 보여줄 보기예요. 이슈 화면 위에서 언제든 바꿀 수 있어요.</p><div class="modepick">${["light","deep"].map(m=>`<button data-dm="${m}" class="${dm===m?"on":""}" aria-pressed="${dm===m}"><b>${MODE[m].label}</b><span>${MODE[m].time}</span><em>${MODE[m].desc}</em></button>`).join("")}</div></section>`;
   P.cal=`<section class="cal" id="cal" aria-label="학습 달력"></section>`;
   P.badges=`<section class="step"><div class="sh"><h2>배지</h2><span class="small">${bs.filter(b=>b[2]).length}/${bs.length}개</span></div>
     <div class="badges">${bs.map(([n,d,ok])=>`<div class="bdg${ok?"":" off"}"><b>${n}</b><span>${d}</span></div>`).join("")}</div></section>`;
@@ -264,10 +267,11 @@ function showMe(){
     <p class="mine"><span class="no">내 답</span> ${esc(w.q.o[w.j])}</p><p class="right"><span class="ok">정답</span> ${esc(w.q.o[w.q.a])}</p><p class="small" style="margin:0">${esc(w.q.e)}</p><a class="more" href="#i-${esc(w.it.id)}">이슈 다시 보기 →</a></div>`).join("")+`<p class="small" style="margin:0">복습에서 다시 맞히면 오답 노트에서 빠져요.</p>`:`<p class="small" style="margin:0">틀린 문제가 생기면 여기에 모여요. 복습에서 다시 맞히면 빠져요.</p>`}</section>`;
   const tagRows=Object.entries(tags).filter(([,T])=>T.done||T.qN).sort((x,y)=>y[1].done-x[1].done);
   P.tags=`<section class="step"><div class="sh"><h2>분야별 기록</h2></div>${tagRows.length?`<div class="tags">${tagRows.map(([tag,T])=>{const p=T.qN?Math.round(T.qOK/T.qN*100):0;return `<div class="tg"><div class="tgh"><b>${esc(tag)}</b><span>${T.done}/${T.all}개 끝냄 · 정답률 ${T.qN?p+"%":"–"}</span></div><div class="bar"><i style="width:${T.all?T.done/T.all*100:0}%"></i></div></div>`}).join("")}</div><p class="small" style="margin:0">막대는 그 분야에 올라온 이슈 중 끝낸 비율이에요. 정답률이 낮은 분야부터 다시 보면 좋아요.</p>`:`<p class="small" style="margin:0">이슈를 풀기 시작하면 분야마다 얼마나 공부했는지 보여줘요.</p>`}</section>`;
-  P.notes=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 면접 질문에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 면접 직전 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 면접 질문에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
-  $("#main").innerHTML=P.stats+`<div class="mepane"><div>${P.cal}${P.wrong}${P.notes}</div><div>${P.account}${P.goal}${P.doing}${P.badges}${P.tags}</div></div>`;
+  P.notes=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 스스로 답해보기에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 면접 직전 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 스스로 답해보기에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
+  $("#main").innerHTML=P.stats+`<div class="mepane"><div>${P.cal}${P.wrong}${P.notes}</div><div>${P.account}${P.goal}${P.mode}${P.doing}${P.badges}${P.tags}</div></div>`;
   if(!calMonth)calMonth=ymd(Date.now()).slice(0,7);
   renderCal(null);wireAccount();
+  document.querySelectorAll("[data-dm]").forEach(b=>b.onclick=()=>{const c=cfg();c.mode=b.dataset.dm;save("cfg",c);showMe()});
   $("#goalSel").onchange=e=>{const c=cfg();c.goal=+e.target.value;save("cfg",c);showMe()};
   if($("#expBtn")){
     $("#expBtn").onclick=()=>{const blob=new Blob(["﻿"+notesText()],{type:"text/plain;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`보험이슈_생각노트_${ymd(Date.now())}.txt`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("#expMsg").textContent="파일을 내려받았어요."};
@@ -309,7 +313,7 @@ function cardHTML(it){const s=status(it),st=load(it.id);
     <div class="top"><span class="tag">${esc(it.tag||"보험 이슈")}</span><span class="stat ${s==="done"?"done":""}">${stat}</span></div>
     <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
     <div class="cfoot">${it.jobs?`<div class="jobs">${it.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>`:"<span></span>"}
-    <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${st.mode===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></div></div>`}
+    <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${defMode()===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></div></div>`}
 function modeLinks(it,cur){return `<div class="mini-modes left">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${cur===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div>`}
 function miniList(list){return `<ul class="links">${list.map(it=>{const s=status(it);return `<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}${s==="done"?' · <span class="ok">완료</span>':""}</span></li>`}).join("")}</ul>`}
 
@@ -472,42 +476,37 @@ function showIssue(it,mode){
     <span class="tag${bs?" light":""}">${bs?"기초 다지기 · ":""}${esc(it.tag||"보험 이슈")}</span><h1>${esc(it.title)}</h1><div class="meta">${fmtDate(it.date)}${it.jobs?" · "+it.jobs.map(esc).join(", "):""}</div>${coOf(it).length?`<div class="cochips">${coOf(it).map(n=>{const c=COMPANIES.find(x=>x.name===n)||{};return `<a href="#c-${encodeURIComponent(n)}" style="${coVars(c)}"><i class="codot"></i>${esc(n)} 이슈 모아보기</a>`}).join("")}</div>`:""}${modeLinks(it,mode)}`;
   let h="";let n=0;const N=()=>String(++n).padStart(2,"0");
   const sec=(title,body,cls)=>`<section class="step${cls?" "+cls:""}"><div class="sh"><span class="n">${N()}</span><h2>${title}</h2></div>${body}</section>`;
-  if(it.predict)h+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
-  if(it.comic&&it.comic.panels&&window.comicHTML)h+=sec("네 컷으로 보기",comicHTML(it.comic));
-  if(it.figs&&it.figs.length)h+=sec("한눈에 보기",it.figs.map(figHTML).join(""));
-  if(it.gauge)h+=sec("숫자 감각 잡기",`<p class="q">${esc(it.gauge.q)}</p>
+  const stg=(num,name,body)=>body?`<div class="stage"><span>${num}단계</span><b>${name}</b></div>`+body:"";
+  let s1="",s2="",s3="";
+  if(it.predict)s1+=sec("읽기 전에 예측하기",`<p class="q">${esc(it.predict.q)}</p><div class="row" id="pOpts">${it.predict.options.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="pOut"></div>`,"predict");
+  if(it.brief&&(it.brief.what||it.brief.why||it.brief.so))s1+=sec("이 이슈는 한마디로",`<div class="brief">${[["무슨 일이",it.brief.what],["왜",it.brief.why],["그래서",it.brief.so]].filter(r=>r[1]).map(r=>`<div class="br-row"><span class="br-k">${r[0]}</span><span class="br-v">${hl(r[1],it,used)}</span></div>`).join("")}</div>`);
+  {const tl=it.terms||[];const names=(it.pre&&it.pre.length?it.pre:tl.slice(0,2).map(x=>x.t));
+   const cards=names.map(nm=>tl.find(x=>x.t===nm)).filter(Boolean);
+   if(cards.length)s1+=sec("먼저 알아둘 용어",`<p class="small" style="margin:0">이 용어를 알면 이슈가 훨씬 잘 읽혀요.</p><div class="pre">${cards.map(x=>`<div class="pre-c"><b>${esc(x.t)}</b><p>${esc(x.d)}</p>${window.LESSONS&&window.LESSONS[x.t]?`<a href="#l-${encodeURIComponent(x.t)}">기본 뜻 알기 →</a>`:""}</div>`).join("")}</div>`)}
+  if(it.comic&&it.comic.panels&&window.comicHTML)s1+=sec("네 컷으로 보기",comicHTML(it.comic));
+  if(it.points)s1+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
+  if(it.figs&&it.figs.length)s2+=sec("한눈에 보기",(deep?it.figs:it.figs.slice(0,1)).map(f=>(f.look?`<p class="look">${hl(f.look,it,used)}</p>`:"")+figHTML(f)).join(""));
+  if(deep&&it.gauge)s2+=sec("숫자 감각 잡기",`<p class="q">${esc(it.gauge.q)}</p>
     <label class="small" for="gR">${esc(it.gauge.label)} <b id="gV" style="font-family:var(--f-num)"></b></label>
     <input type="range" id="gR" min="${it.gauge.min}" max="${it.gauge.max}" step="1" value="${it.gauge.value}">
     <div class="gauge"><div><span>보험금으로 나감</span><em id="g1"></em></div><div><span>운영비 (가정)</span><em>${it.gauge.cost}원</em></div><div><span>보험사에 남는 돈</span><em id="g3"></em></div></div>
     <p class="small" id="gN"></p>`);
-  if(it.numbers)h+=sec("숫자 감각 잡기",`<div class="ntiles">${it.numbers.map(x=>`<div class="nt"><span>${esc(x.label)}</span><b>${esc(x.value)}</b>${x.note?`<em>${esc(x.note)}</em>`:""}</div>`).join("")}</div>`);
-  if(it.points)h+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
-  if(deep&&it.chain)h+=sec("인과 사슬 순서 맞추기",`<p class="q">뒤섞인 고리를 원인에서 결과 순서로 눌러서 사슬을 완성해보세요.</p><div class="flow" id="chain"></div><div id="ordBox"></div>`);
-  if(it.why)h+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
-  if(deep&&it.role)h+=sec("내가 담당자라면",`${roleQ(it.role.q)}<textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
+  if(deep&&it.numbers)s2+=sec("숫자 감각 잡기",`<div class="ntiles">${it.numbers.map(x=>`<div class="nt"><span>${esc(x.label)}</span><b>${esc(x.value)}</b>${x.note?`<em>${esc(x.note)}</em>`:""}</div>`).join("")}</div>`);
+  if(deep&&it.why)s2+=sec("왜 중요할까",`<p style="margin:0;font-size:15.5px">${hl(it.why,it,used)}</p>`);
+  if(deep&&it.chain)s3+=sec("인과 사슬 순서 맞추기",`<p class="q">뒤섞인 고리를 원인에서 결과 순서로 눌러서 사슬을 완성해보세요.</p><div class="flow" id="chain"></div><div id="ordBox"></div>`);
+  if(deep&&it.role)s3+=sec("내가 담당자라면",`${roleQ(it.role.q)}<textarea id="rT" placeholder="생각나는 대로 적어보세요">${esc(st.role||"")}</textarea><div class="err" id="rE"></div>
     <div class="row"><button class="pri" id="rM">모범 해설과 비교하기</button>${fbBtn("r")}</div><div id="rO"></div><div id="rFO"></div>`);
-  if(deep&&it.interview)h+=sec("면접에서 이렇게 묻는다면",`<p class="q">${esc(it.interview.q)}</p><textarea id="vT" placeholder="면접관에게 말하듯 2~4문장으로">${esc(st.iv||"")}</textarea><div class="err" id="vE"></div>
+  if(deep&&it.interview)s3+=sec("스스로 답해보기",`<p class="q">${esc(it.interview.q)}</p><textarea id="vT" placeholder="친구에게 설명하듯 2~4문장으로">${esc(st.iv||"")}</textarea><div class="err" id="vE"></div>
     <div class="row"><button class="pri" id="vM">답변 뼈대 보기</button>${fbBtn("v")}</div><div id="vO"></div><div id="vFO"></div>`);
-  const own=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
-  const rev=[];
-  if(deep){
-    /* 이번 이슈와 이어지는 지난 이슈만 골라요: 같은 흐름, 겹치는 용어·분야·회사 */
-    const tset=new Set((it.terms||[]).map(x=>x.t)),cset=new Set(coOf(it));
-    const scored=issues.filter(x=>x.id!==it.id&&(x.date<it.date||x.basic)&&x.quiz&&x.quiz.length).map(x=>{let sc=0,why="";
-      if(it.thread&&x.thread&&x.thread.id===it.thread.id){sc+=5;why="같은 흐름"}
-      const tt=(x.terms||[]).filter(y=>tset.has(y.t)).map(y=>y.t);sc+=tt.length*3;if(!why&&tt.length)why="같은 용어 "+tt[0];
-      if(x.tag&&x.tag===it.tag){sc+=2;if(!why)why="같은 분야"}
-      const cc=coOf(x).filter(c=>cset.has(c));sc+=cc.length*2;if(!why&&cc.length)why=cc[0];
-      return {x,sc,why,tt}}).filter(o=>o.sc>=3&&o.why).sort((a,b)=>b.sc-a.sc||(a.x.date<b.x.date?1:-1));
-    for(const o of scored.slice(0,2)){const qs=o.x.quiz;const pick=qs.find(q=>o.tt.some(t=>(q.q+q.o.join("")).includes(t)))||qs[0];rev.push({...pick,from:o.x.date,why:o.why,k:null})}}
-  const all=[...own,...rev];
-  if(matchTerms(it).length>=3)h+=sec("용어 짝 맞추기",`<div id="mBox"></div>`);
-  if(all.length)h+=sec(`확인 퀴즈${rev.length?" · 이어지는 지난 이슈 복습 포함":""}`,
-    all.map((q,i)=>`<div><p class="q" style="font-size:16px">${q.from?`<span class="small">${shortDate(q.from)} 이슈 복습${q.why?` · ${esc(q.why)}`:""} · </span>`:""}${esc(q.q)}</p><div class="row" data-q="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="qO${i}"></div></div>`).join(""));
+  const all=(deep?(it.quiz||[]).map((q,k)=>({...q,k})):lightQuiz(it)).map(q=>({...q,from:null}));
+  if(matchTerms(it).length>=3)s3+=sec("용어 짝 맞추기",`<div id="mBox"></div>`);
+  if(all.length)s3+=sec("확인 퀴즈",
+    all.map((q,i)=>`<div><p class="q" style="font-size:16px">${esc(q.q)}</p><div class="row" data-q="${i}">${q.o.map((o,j)=>`<button data-j="${j}">${esc(o)}</button>`).join("")}</div><div id="qO${i}"></div></div>`).join(""));
+  h+=stg(1,"이해하기",s1)+stg(2,"숫자로 확인하기",s2)+stg(3,"생각하고 확인하기",s3);
   if(it.terms)h+=sec("이 이슈의 용어",`<div class="termlist">${it.terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div><a class="more" href="#terms">용어 사전 전체 보기 →</a>`);
   if(it.thread){const th=THREADS.find(t=>t.id===it.thread.id);const others=th?th.issues.filter(x=>x.id!==it.id):[];
     h+=sec("이어보기 · "+esc(it.thread.name),others.length?miniList(others)+`<a class="more" href="#t-${esc(it.thread.id)}">흐름 전체를 시간 순서로 보기 →</a>`:`<p class="small" style="margin:0">이 흐름의 첫 이슈예요. 이어지는 소식이 올라오면 여기에 연결돼요.</p>`)}
-  if(!deep&&(it.chain||it.role))h+=`<p class="small" style="margin:0">더 파고들고 싶으면 위에서 <a href="#i-${esc(it.id)}-deep" style="color:var(--accent)">깊게 보기</a>로 바꿔보세요. 인과 사슬, 담당자 질문, 면접 질문이 더해져요.</p>`;
+  if(!deep&&(it.chain||it.role))h+=`<p class="small" style="margin:0">더 파고들고 싶으면 위에서 <a href="#i-${esc(it.id)}-deep" style="color:var(--accent)">깊게 보기</a>로 바꿔보세요. 인과 사슬, 담당자 질문, 스스로 답해보기가 더해져요.</p>`;
   if(it.sources)h+=`<section class="src small">원문 기사: ${it.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}<br>이 페이지의 해설은 원문을 바탕으로 새로 쓴 학습용 정리예요.</section>`;
   h+=`<details class="report"><summary>내용이 틀렸나요? 알려주세요</summary><textarea id="repT" placeholder="어느 부분이 어떻게 틀렸는지 적어주세요. 개인정보는 적지 마세요." maxlength="1000"></textarea><div class="err" id="repE"></div><div class="row"><button id="repB">보내기</button></div></details>`;
   const sib=bs?basicIssues(bs):byDate(it.date);const k=sib.findIndex(x=>x.id===it.id);const nx=sib[k+1];

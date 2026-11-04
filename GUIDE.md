@@ -20,7 +20,9 @@
 | date | "YYYY-MM-DD". 기사 날짜 |
 | tag | 짧은 분야 이름(예: "실손보험", "감독·계리", "보험사 실적"). 같은 분야는 기존 이슈와 같은 이름 |
 | title | 핵심을 담은 제목. 궁금증을 일으키면 좋아요 |
-| predict | { q, options(2~3개), answer(정답 인덱스), reveal } 읽기 전에 예측해보는 질문과 정답 설명 |
+| predict | { q, options(3개), answer(정답 인덱스), reveal } 읽기 전에 예측해보는 질문과 정답 설명. 선지는 아래 "선지 쓰는 법"을 따라요 |
+| brief | { what, why, so } "이 이슈는 한마디로". 제목만 본 사람이 줄거리를 먼저 알 수 있게, 무슨 일이(what), 왜 생겼나(why), 그래서 누구에게 무엇이 달라지나(so)를 각각 한두 문장으로. 이슈 안에 있는 사실만 써요 |
+| pre | ["용어 이름" 1~2개] "먼저 알아둘 용어". 이 이슈를 이해하려면 꼭 먼저 알아야 하는 용어를 terms의 t 가운데서 골라요 |
 | comic | 네컷만화(선택, 아래 3번) |
 | figs | 그림 1~2개(아래 4번) |
 | numbers | [{ label, value, note }] 3~4개. 큰 숫자 타일로 보여요. value는 짧게(예: "−43.2%", "6,811억 원"). 숫자가 별로 없으면 생략 |
@@ -29,8 +31,8 @@
 | chain | 원인→결과 인과 사슬 5~7개 고리. 화살표 흐름도로 그려지니 고리 하나는 한 줄로 짧게 |
 | role | { q, model } "내가 담당자라면" 질문과 모범 해설. q는 "상황 설명 + 큰따옴표로 감싼 상대의 말 + 해야 할 일" 순서로 써요(예: 당신은 계리팀 신입이에요. 팀장님이 묻습니다. "…" 이것이 왜 문제인지 설명해보세요). 화면에서 큰따옴표 안의 말이 말풍선으로 강조돼요 |
 | summary | 보험 모르는 친구에게 말하듯 쓴 한 줄 요약(반말). 화면에는 따로 안 보이고 검색과 회사 묶기에 쓰여요 |
-| interview | { q, guide } 보험사 면접 질문과 답변 뼈대. guide는 "결론부터: ...\n근거: ...(기사 숫자)\n관점: ...(직무 관점)\n마무리: ..." 네 줄 |
-| quiz | [{ q, o, a, e }] 2~3개. 깊게 보기에서만 낼 개념 심화 문제는 "deep": true. 복습과 주간 퀴즈에 재사용되니 이슈 내용만으로 풀 수 있게 |
+| interview | { q, guide } 화면에서는 "스스로 답해보기"로 보여요. 이 이슈를 내 말로 정리해보는 질문과 답변 뼈대. guide는 "결론부터: ...\n근거: ...(기사 숫자)\n관점: ...(직무 관점)\n마무리: ..." 네 줄. q와 guide에 "면접", "면접관" 같은 말은 쓰지 않아요 |
+| quiz | [{ q, o(3개), a, e }] 2~3개. 선지는 아래 "선지 쓰는 법"을 따라요. 깊게 보기에서만 낼 개념 심화 문제는 "deep": true. 복습과 주간 퀴즈에 재사용되니 이슈 내용만으로 풀 수 있게 |
 | terms | [{ t, d }] 3~6개. 기존 이슈에 같은 용어가 있으면 같은 이름과 같은 뜻 |
 | thread | { id, name } 이어보기 묶음. 아래 5번 |
 | jobs | frames.js의 window.JOBS 중 1~3개 |
@@ -119,7 +121,7 @@
 - 실존 인물이나 회사 이름을 등장인물 이름으로 쓰지 않아요. 말풍선에서도 보험사는 "우리"나 "배불뚝이 보험사"로 불러요.
 
 ## 4. 그림 figs
-글만 이어지지 않게 핵심 숫자나 흐름을 그림으로 보여줘요. 사이트가 아래 데이터로 직접 그려요. 기사 숫자만 쓰고, 계산한 값이면 note에 "어림값"이라고 밝혀요.
+글만 이어지지 않게 핵심 숫자나 흐름을 그림으로 보여줘요. 그림마다 **look**(이 그림에서 볼 것)을 한 줄로 꼭 적어요. 예: "손해보험만 0.15%에서 0.50%로, 가장 많이 올라요." 그림 위에 먼저 보여서, 무엇을 봐야 하는지 알고 그림을 보게 해줘요. 사이트가 아래 데이터로 직접 그려요. 기사 숫자만 쓰고, 계산한 값이면 note에 "어림값"이라고 밝혀요.
 - bars(막대 비교): { type:"bars", title, unit(선택), items:[{ label, value(숫자), text(선택), hi(강조, 선택) }], ref:{ value, label }(기준선, 선택), note(선택) }. 음수가 있으면 0을 가운데 두고 그려요.
 - compare(전후 비교표): { type:"compare", title, left, right, rows:[{ label, left, right }], note }
 - timeline(타임라인): { type:"timeline", title, items:[{ when, label, now(이 기사 시점이면 true) }] }
@@ -140,7 +142,16 @@
 - 모든 내용은 한국어로만 써요. 영어 단어와 영어 약어를 섞지 않아요. 영어 약어가 있는 개념은 한국어로 풀어 써요(예: 보험계약마진, 지급여력비율(킥스), 새 국제회계기준). thread.id, figs의 type, comic의 bg·board·who·mood·pose·fx·bubble 값만 예외로 영어 소문자를 써요.
 - 말투는 친근한 존댓말("~해요"), summary만 반말이에요.
 - 대학생이 이해할 수 있게 쉽게 쓰되 보험 용어는 정확하게 써요. 한 문단이 너무 길지 않게 짧게 끊어요.
-- 퀴즈 오답 보기는 그럴듯하게, 해설(e)은 왜 정답인지 짧게 써요.
+- 해설(e)은 왜 정답인지 짧게 써요.
+
+## 7-2. 선지 쓰는 법 (읽기 전에 예측하기, 확인 퀴즈)
+- 누가 봐도 아닌 선지는 쓰지 않아요. 이슈를 제대로 읽어야 고를 수 있게, **틀린 선지도 모두 그럴듯하게** 만들어요.
+- 숫자 문제: 틀린 선지도 정답과 같은 단위, 비슷한 범위로 써요(예: 0.20% / 0.50% / 1.00%가 아니라 0.40% / 0.50% / 0.54%). 이슈에 나온 다른 숫자(전년 값, 다른 회사 값, 다른 업권 값)를 틀린 선지로 쓰면 헷갈리기 좋아요. 단, 그 선지도 문제의 조건에서는 확실히 틀려야 해요.
+- 개념 문제: 실제로 자주 헷갈리는 짝을 써요(해지율·손해율·사업비율, 보험계약마진·보험손익, 기본자본·지급여력비율, 금융위원회·금융감독원 등).
+- 문장 선지: 반만 맞는 문장, 원인과 결과를 뒤집은 문장, 기간이나 대상을 살짝 바꾼 문장처럼 꼼꼼히 읽어야 틀린 걸 알 수 있게 써요.
+- 쓰지 않는 선지: "회사 주소", "직원 수", "보험사가 망해서"처럼 문제와 상관없는 말, 장난스러운 말, "모두 정답", "알 수 없음".
+- 선지 길이와 말투를 비슷하게 맞춰요. 정답만 유독 길거나 자세하면 티가 나요.
+- 정답 위치(answer, a)는 문제마다 골고루 섞어요.
 
 ## 7-0. 수식은 레이텍으로
 - 계산식이나 공식은 문장 속에 "170 ÷ 200 × 100 = 85%"처럼 한 줄로 쓰지 않고, 반드시 레이텍으로 써서 **$$ 와 $$ 사이**에 넣어요. 사이트가 보기 좋게 그려줘요.
@@ -151,7 +162,7 @@
 
 ## 7-1. 강조 표시
 - 문장 안에서 꼭 기억할 부분을 `**강조할 말**`처럼 별표 두 개로 감싸면 형광펜으로 칠해져요.
-- predict.reveal, points, why, role.model, summary, interview.guide, 퀴즈 해설(e), 기초 이슈, 주간 정리 big·takeaway에 쓸 수 있어요. title, tag, terms, chain, numbers, figs, comic에는 쓰지 않아요.
+- predict.reveal, brief, points, why, role.model, summary, interview.guide, 퀴즈 해설(e), 기초 이슈, 주간 정리 big·takeaway에 쓸 수 있어요. title, tag, terms, chain, numbers, figs, comic에는 쓰지 않아요.
 - 핵심 숫자, 결론, 헷갈리기 쉬운 개념 정도만 칠해요. 한 문장에 1~2곳, 한 항목에 2~3곳을 넘지 않게 해요. 많이 칠하면 아무것도 눈에 안 들어와요.
 - 용어 사전 단어(terms)를 통째로 감싸지 말고, 그 단어가 들어간 짧은 구절을 감싸요.
 
@@ -160,7 +171,7 @@
 2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
 3. node 스크립트로 최신 파일에 합쳐 넣어요. issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. news.js의 window.NEWS도 같은 방식으로 합쳐요(같은 id나 같은 source.url은 건너뛰기). 파일 맨 위 주석은 그대로 둬요.
 4. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요. 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
-5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js, lessons.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
+5. 확인: node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js, lessons.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, brief(what·why·so)와 pre(terms의 t 안에 있는 이름 1~2개)가 있는지, figs마다 look이 있는지, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
 6. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
 7. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 
