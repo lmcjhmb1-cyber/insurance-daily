@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { ROOT, loadWindow, kstNow, normUrl } from './_lib.mjs';
+import { syncData } from './build-data.mjs';
 
 const args = process.argv.slice(2);
 const bump = args.includes('--bump');
@@ -67,6 +68,12 @@ for (const t of TARGETS) {
   if (out !== raw) fs.writeFileSync(p, out);
   console.log(`${t.label}(${t.file}): 추가 ${added}건, 건너뜀 ${skipped.length}건${out !== raw ? ' [파일 바뀜]' : ''}`);
   skipped.forEach((s) => console.log('  건너뜀: ' + s));
+}
+
+// 이슈가 바뀌었을 수 있으니 data/ 폴더도 새로 만들어요 (화면은 data/를 읽어요)
+{
+  const { stale } = syncData({ root });
+  console.log(stale.length ? `data/ 폴더를 새로 만들었어요 (바뀐 파일 ${stale.length}개).` : 'data/ 폴더는 이미 최신이에요.');
 }
 
 if (bump) {

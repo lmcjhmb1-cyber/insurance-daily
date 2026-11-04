@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { ROOT, loadWindow, normUrl } from './_lib.mjs';
+import { syncData } from './build-data.mjs';
 
 const args = process.argv.slice(2);
 const si = args.indexOf('--since');
@@ -362,6 +363,14 @@ for (const [k, v] of Object.entries(W.LESSONS || {})) {
 {
   const r = spawnSync(process.execPath, ['--check', path.join(ROOT, 'app.js')], { encoding: 'utf8' });
   if (r.status !== 0) err('app.js 문법', 'app.js', (r.stderr || r.error || '').toString().split('\n').slice(0, 4).join(' / '));
+}
+
+// ---------- data/ 폴더가 원본과 같은지 ----------
+try {
+  const { stale } = syncData({ check: true });
+  if (stale.length) err('data 폴더', 'data/', `원본보다 오래됐어요. node scripts/build-data.mjs를 실행해 다시 만드세요. (${stale.slice(0, 3).join(', ')}${stale.length > 3 ? ` 외 ${stale.length - 3}개` : ''})`);
+} catch (e) {
+  err('data 폴더', 'data/', '확인하지 못했어요: ' + e.message);
 }
 
 // ---------- 결과 ----------

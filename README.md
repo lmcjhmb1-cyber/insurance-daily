@@ -5,6 +5,7 @@
 - `index.html` 화면 구조와 디자인
 - `app.js` 화면 동작
 - `issues.js` 이슈 목록 (새 이슈는 맨 앞에 같은 모양으로 추가)
+- `data/` 화면이 불러오는 나눠진 데이터 (`scripts/build-data.mjs`가 만드는 자동 생성 파일이라 손으로 고치지 않아요. 합치기 스크립트가 만들고, `.github/workflows/build-data.yml` 액션이 안전망으로 다시 만들어요)
 - `sync.js` 구글 로그인, 학습 기록 저장, 친구들 정답률, 오류 신고 (파이어베이스)
 - `frames.js` 생각의 틀 목록과 직무 목록
 - `basics.js` 기초 다지기 흐름 목록 (기초 이슈는 issues.js에 "basic": true)

@@ -24,7 +24,7 @@
 
 ## 코드 작성 때 지킬 규칙 (PRD에 함께 넘겨요)
 - 빌드 도구 없는 순수 HTML·CSS·JavaScript 사이트예요. 스타일은 index.html 안에 있어요.
-- 스크립트 순서: issues.js, frames.js, basics.js, lessons.js, profiles.js, news.js, companies.js, weekly.js, comic.js, app.js, 그리고 sync.js(모듈).
+- 스크립트 순서: data/index.js, frames.js, basics.js, news.js, companies.js, weekly.js, comic.js, app.js, 그리고 sync.js(모듈). 이슈 상세, 용어 학습, 회사 정보는 app.js가 필요할 때 data/ 안의 파일을 불러와요.
 - 색은 index.html의 색 변수(인디고 보라 계열)를 쓰고, 밝은 화면과 어두운 화면 모두 확인해요.
 - 화면에 보이는 글은 한국어로만 써요(영어 단어와 영어 약어를 섞지 않아요).
 - 휴대폰 폭(약 400px)과 넓은 화면 모두에서 확인해요.

@@ -13,6 +13,7 @@ const GAP=[1,3,7,14,30];
 const FEEDBACK_URL="";
 
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
+const BYID=new Map(issues.map(i=>[i.id,i]));
 const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
@@ -29,14 +30,27 @@ window.coLogoNext=img=>{if(!img.parentNode||img.dataset.dead)return;img.dataset.
   const n=img.cloneNode();delete n.dataset.dead;n.removeAttribute("data-dead");n.dataset.i=i;n.src=list[i][0];img.replaceWith(n)};
 window.coLogoLoad=img=>{if(img.dataset.dead)return;const list=JSON.parse(img.dataset.srcs),min=list[+img.dataset.i][1];if(img.naturalWidth<min)return coLogoNext(img);const box=img.parentNode;box.classList.add("haslogo");if(img.naturalWidth<48)box.classList.add("small")};
 const coMono=(c,cls)=>{const srcs=c.site?logoSrcs(c.site):[];return `<span class="comono${cls?" "+cls:""}" style="${coVars(c)}" aria-hidden="true">${esc(c.mono||c.name.slice(0,2))}${srcs.length?`<img src="${srcs[0][0]}" data-srcs='${JSON.stringify(srcs)}' data-i="0" alt="" loading="lazy" referrerpolicy="no-referrer" onload="coLogoLoad(this)" onerror="coLogoNext(this)">`:""}</span>`};
-const PROFILES=window.PROFILES||{};
-const LESSONS=window.LESSONS||{};
+/* 무거운 데이터는 필요한 화면에서만 받아와요: data/ 폴더는 scripts/build-data.mjs가 만든 파일이라 손으로 고치지 않아요 */
+const PROFILES=window.PROFILES={};
+const LESSONS=window.LESSONS={};
+const LESSON_SET=new Set(window.LESSON_KEYS||[]),PROFILE_SET=new Set(window.PROFILE_KEYS||[]);
+const hasL=t=>LESSON_SET.has(t),hasP=n=>PROFILE_SET.has(n);
+const DH=window.DETAIL_H||{},LH=window.LAZY_H||{};
+const got=new Set(),inflight={};
+window.__detail=(date,arr)=>{for(const f of arr){const it=BYID.get(f.id);if(it)Object.assign(it,f)}};
+window.__lazy=(name,obj)=>{Object.assign(name==="lessons"?LESSONS:PROFILES,obj)};
+function loadOnce(key,src){if(got.has(key))return Promise.resolve();
+  return inflight[key]||(inflight[key]=new Promise((ok,no)=>{const s=document.createElement("script");s.src=src;
+    s.onload=()=>{got.add(key);delete inflight[key];ok()};s.onerror=()=>{s.remove();delete inflight[key];no(new Error(src))};document.head.appendChild(s)}))}
+function needKeys(n){const k=[];for(const d of new Set(n.dates||[]))if(DH[d])k.push(["d"+d,`data/d/${d}.js?h=${DH[d]}`]);
+  if(n.lessons)k.push(["lessons",`data/lessons.js?h=${LH.lessons}`]);if(n.profiles)k.push(["profiles",`data/profiles.js?h=${LH.profiles}`]);return k}
+const ready=n=>needKeys(n).every(([k])=>got.has(k));
+const need=n=>Promise.all(needKeys(n).map(([k,src])=>loadOnce(k,src)));
+const idle=f=>(window.requestIdleCallback||(g=>setTimeout(g,300)))(f);
 const coNews=name=>NEWS.filter(n=>(n.companies||[]).includes(name));
 /* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 */
-const coOf=(()=>{const cache=new Map();return it=>{if(cache.has(it.id))return cache.get(it.id);const set=new Set(it.companies||[]);
-  const txt=[it.title,...(it.points||[]),it.why,it.summary].join(" ").replace(/\*\*/g,"");
-  for(const c of COMPANIES)if([c.name,...(c.aka||[])].some(n=>txt.includes(n)))set.add(c.name);
-  const out=COMPANIES.map(c=>c.name).filter(n=>set.has(n));cache.set(it.id,out);return out}})();
+/* 회사별 묶기: 이슈의 companies와 본문에 나온 회사 이름으로 찾아요 (본문 검사는 data/index.js를 만들 때 미리 해둬요) */
+const coOf=it=>it.co||[];
 const coIssues=name=>issues.filter(it=>coOf(it).includes(name)).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
 const daily=issues.filter(i=>!i.basic);
 const dates=[...new Set(daily.map(i=>i.date))].sort().reverse();
@@ -49,7 +63,7 @@ const cfg=()=>load("cfg");
 const defMode=()=>cfg().mode==="deep"?"deep":"light";
 const goal=()=>{const g=cfg().goal;return g===0||g==="0"?0:(+g||3)};
 
-const GLOSS=(()=>{const m=new Map();for(const it of issues)for(const x of it.terms||[]){if(!m.has(x.t))m.set(x.t,{t:x.t,d:x.d,issues:[]});m.get(x.t).issues.push(it)}return [...m.values()].sort((a,b)=>a.t.localeCompare(b.t,"ko"))})();
+const GLOSS=(window.GLOSS_DATA||[]).map(([t,d,ids])=>({t,d,issues:ids.map(id=>BYID.get(id)).filter(Boolean)})).sort((a,b)=>a.t.localeCompare(b.t,"ko"));
 const THREADS=(()=>{const m=new Map();for(const it of issues){if(!it.thread)continue;const k=it.thread.id;if(!m.has(k))m.set(k,{id:k,name:it.thread.name,issues:[]});m.get(k).issues.push(it)}
   for(const t of m.values())t.issues.sort((a,b)=>a.id<b.id?-1:1);return [...m.values()].sort((a,b)=>{const la=a.issues[a.issues.length-1].id,lb=b.issues[b.issues.length-1].id;return la<lb?1:-1})})();
 
@@ -91,10 +105,35 @@ function back(href,label){
   return `<a class="back" href="${href}">← ${label}</a>`}
 document.addEventListener("click",e=>{const a=e.target.closest("a[data-back]");if(a&&trail.length>=2){e.preventDefault();history.back()}});
 
+/* 화면마다 먼저 받아야 할 데이터: 이슈 상세(날짜별), 용어 학습, 회사 정보 */
+const userDates=()=>[...new Set(issues.filter(it=>{const s=load(it.id);return (s.qa&&Object.keys(s.qa).length)||(s.role&&s.role.trim())||(s.iv&&s.iv.trim())}).map(i=>i.date))];
+const ivDates=name=>coIssues(name).filter(i=>i.hi).map(i=>i.date);
+function issueOfHash(h){let rest=h.slice(2),mode=null;
+  for(const m of ["light","deep"])if(rest.endsWith("-"+m)){mode=m;rest=rest.slice(0,-m.length-1)}
+  return {it:BYID.get(rest),mode}}
+function needsFor(h){
+  if(h==="me")return {dates:userDates()};
+  if(h==="review")return {dates:dueList().slice(0,10).map(i=>i.date)};
+  if(h.startsWith("l-")){const t=h.slice(2),g=GLOSS.find(x=>x.t===t);return hasL(t)?{lessons:true,dates:g?g.issues.map(i=>i.date):[]}:null}
+  if(h.startsWith("w-")){const w=WEEKLY.find(x=>x.id===h.slice(2));return w?{dates:issues.filter(i=>i.date>=w.start&&i.date<=w.end).map(i=>i.date)}:null}
+  if(h.startsWith("cr-"))return {profiles:true};
+  if(h.startsWith("c-")){const name=h.slice(2);return COMPANIES.some(c=>c.name===name)?{profiles:true,dates:ivDates(name)}:null}
+  if(h.startsWith("i-")){const {it}=issueOfHash(h);return it?{dates:[it.date]}:null}
+  return null}
+let routeSeq=0;
 function route(){
+  const seq=++routeSeq;
   hidePop();renderShell();
   const h=decodeURIComponent(location.hash.slice(1));
-  if(!issues.length){$("#head").innerHTML=brand()+`<p class="empty">첫 이슈가 아직 올라오지 않았어요.</p>`;$("#main").innerHTML="";return}
+  if(!issues.length){$("#head").innerHTML=brand()+`<p class="empty">첫 이슈가 아직 올라오지 않았어요.</p>`;$("#main").innerHTML="";return null}
+  const n=needsFor(h);
+  if(n&&!ready(n)){
+    const tm=setTimeout(()=>{if(seq===routeSeq){$("#head").innerHTML="";$("#main").innerHTML=`<p class="empty" role="status">불러오는 중이에요</p>`}},150);
+    return need(n).then(()=>true,()=>false).then(ok=>{clearTimeout(tm);if(seq!==routeSeq)return false;
+      if(!ok){$("#head").innerHTML="";$("#main").innerHTML=`<section class="step"><p style="margin:0">내용을 불러오지 못했어요. 인터넷 연결을 확인한 뒤 다시 시도해주세요.</p><div class="row"><button class="pri" id="retryB">다시 시도</button></div></section>`;$("#retryB").onclick=()=>route();return true}
+      dispatch(h);return true})}
+  dispatch(h);return null}
+function dispatch(h){
   if(h==="me")return showMe();
   if(h==="review")return showReview();
   if(h==="basics")return showBasics();
@@ -113,9 +152,7 @@ function route(){
   if(h==="search")return showSearch();
   if(h==="league")return showLeague();
   if(h.startsWith("i-")){
-    let rest=h.slice(2),mode=null;
-    for(const m of ["light","deep"])if(rest.endsWith("-"+m)){mode=m;rest=rest.slice(0,-m.length-1)}
-    const it=issues.find(i=>i.id===rest);
+    const {it,mode}=issueOfHash(h);
     if(it){const st=load(it.id);if(mode&&st.mode!==mode){st.mode=mode;save(it.id,st)}return showIssue(it,mode||defMode())}
   }
   const d=h.startsWith("d-")&&dates.includes(h.slice(2))?h.slice(2):dates[0];
@@ -130,8 +167,8 @@ function track(){
 function afterRender(){const top=trail[trail.length-1];const t=document.querySelector("#head h1");if(top&&t)top.t=t.textContent}
 window.addEventListener("hashchange",()=>{
   const prevTop=trail[trail.length-1];if(prevTop)prevTop.y=window.scrollY;
-  const back=track();route();afterRender();
-  window.scrollTo(0,back?back.y:0);
+  const back=track(),fin=()=>{afterRender();window.scrollTo(0,back?back.y:0)};
+  const p=route();if(p)p.then(r=>{if(r)fin()});else fin();
 });
 
 /* 용어 풍선 */
@@ -147,7 +184,7 @@ document.addEventListener("click",e=>{
   const b=e.target.closest(".term");
   if(b){e.preventDefault();hidePop();const t=b.dataset.t;const g=GLOSS.find(x=>x.t===t);if(!g)return;
     pop=document.createElement("div");pop.id="pop";pop.setAttribute("role","dialog");
-    pop.innerHTML=`<b>${esc(g.t)}</b><p>${esc(g.d)}</p>${LESSONS[g.t]?`<a href="#l-${encodeURIComponent(g.t)}">기본 뜻 알기 →</a> · `:""}<a href="#g-${encodeURIComponent(g.t)}">용어 사전에서 보기 →</a>`;
+    pop.innerHTML=`<b>${esc(g.t)}</b><p>${esc(g.d)}</p>${hasL(g.t)?`<a href="#l-${encodeURIComponent(g.t)}">기본 뜻 알기 →</a> · `:""}<a href="#g-${encodeURIComponent(g.t)}">용어 사전에서 보기 →</a>`;
     document.body.appendChild(pop);const r=b.getBoundingClientRect();const w=Math.min(320,innerWidth-32);pop.style.width=w+"px";
     pop.style.top=(r.bottom+scrollY+6)+"px";pop.style.left=Math.max(16,Math.min(r.left+scrollX,innerWidth-16-w))+"px";return}
   if(pop&&!e.target.closest("#pop"))hidePop();
@@ -346,6 +383,7 @@ function showList(d){
     document.addEventListener("click",function f(e){if(!document.body.contains(M)){document.removeEventListener("click",f);return}if(!e.target.closest(".areaf"))close()});
     document.addEventListener("keydown",function k(e){if(!document.body.contains(M)){document.removeEventListener("keydown",k);return}if(e.key==="Escape")close()});}
   document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{const c=cfg();c.field=b.dataset.job;save("cfg",c);showList(d)});
+  idle(()=>{if(location.hash===""||location.hash==="#d-"+d)need({dates:[d]}).catch(()=>{})});
 }
 function cardHTML(it){const s=status(it),st=load(it.id);
   const stat=s==="done"?`완료${st.doneMode?" · "+MODE[st.doneMode].label:""}`:s==="doing"?"진행 중":"";
@@ -522,7 +560,7 @@ function showIssue(it,mode){
   if(it.brief&&(it.brief.what||it.brief.why||it.brief.so))s1+=sec("이 이슈는 한마디로",`<div class="brief">${[["무슨 일이",it.brief.what],["왜",it.brief.why],["그래서",it.brief.so]].filter(r=>r[1]).map(r=>`<div class="br-row"><span class="br-k">${r[0]}</span><span class="br-v">${hl(r[1],it,used)}</span></div>`).join("")}</div>`);
   {const tl=it.terms||[];const names=(it.pre&&it.pre.length?it.pre:tl.slice(0,2).map(x=>x.t));
    const cards=names.map(nm=>tl.find(x=>x.t===nm)).filter(Boolean);
-   if(cards.length)s1+=sec("먼저 알아둘 용어",`<p class="small" style="margin:0">이 용어를 알면 이슈가 훨씬 잘 읽혀요.</p><div class="pre">${cards.map(x=>`<div class="pre-c"><b>${esc(x.t)}</b><p>${esc(x.d)}</p>${window.LESSONS&&window.LESSONS[x.t]?`<a href="#l-${encodeURIComponent(x.t)}">기본 뜻 알기 →</a>`:""}</div>`).join("")}</div>`)}
+   if(cards.length)s1+=sec("먼저 알아둘 용어",`<p class="small" style="margin:0">이 용어를 알면 이슈가 훨씬 잘 읽혀요.</p><div class="pre">${cards.map(x=>`<div class="pre-c"><b>${esc(x.t)}</b><p>${esc(x.d)}</p>${hasL(x.t)?`<a href="#l-${encodeURIComponent(x.t)}">기본 뜻 알기 →</a>`:""}</div>`).join("")}</div>`)}
   if(it.comic&&it.comic.panels&&window.comicHTML)s1+=sec("네 컷으로 보기",comicHTML(it.comic));
   if(it.points)s1+=sec("핵심 정리",`<ul class="points">${it.points.map(p=>`<li>${hl(p,it,used)}</li>`).join("")}</ul>${it.terms?`<p class="small" style="margin:0">밑줄 친 용어를 누르면 뜻이 나와요.</p>`:""}`);
   if(it.figs&&it.figs.length)s2+=sec("한눈에 보기",(deep?it.figs:it.figs.slice(0,1)).map(f=>(f.look?`<p class="look">${hl(f.look,it,used)}</p>`:"")+figHTML(f)).join(""));
@@ -686,23 +724,23 @@ function showReview(){
 /* 용어 사전 */
 const lessonDone=t=>!!load("l:"+t).done;
 function showTerms(){
-  const nL=GLOSS.filter(g=>LESSONS[g.t]).length,nD=GLOSS.filter(g=>LESSONS[g.t]&&lessonDone(g.t)).length;
+  const nL=GLOSS.filter(g=>hasL(g.t)).length,nD=GLOSS.filter(g=>hasL(g.t)&&lessonDone(g.t)).length;
   $("#head").innerHTML=brand()+`<h1>용어 사전</h1><p class="meta" style="margin:0">이슈에 나온 보험 용어 ${GLOSS.length}개가 모여 있어요. "기본 뜻 알기"로 용어 하나를 비유와 숫자 예시로 차근차근 배울 수 있어요.</p>
     ${nL?`<div class="statline"><span>기본 뜻 알기 <b>${nD}/${nL}</b>개 완료</span></div>`:""}`;
   $("#main").innerHTML=`<div class="tbar"><input type="search" id="tq" placeholder="용어 찾기" aria-label="용어 찾기"><div class="chips" role="group" aria-label="보기"><button data-tf="" class="on">전체</button><button data-tf="n">아직 안 배운 용어</button></div></div><div id="tres" class="glist2"></div>`;
   let tf="";
-  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>(!q||g.t.includes(q)||g.d.includes(q))&&(!tf||(tf==="l"&&LESSONS[g.t])||(tf==="n"&&LESSONS[g.t]&&!lessonDone(g.t)))).sort((a,b)=>(LESSONS[b.t]?1:0)-(LESSONS[a.t]?1:0));
-    $("#tres").innerHTML=list.length?list.map(g=>{const L=LESSONS[g.t],dn=L&&lessonDone(g.t);return `<div class="gi2${L?" has":""}"><a class="gi2-m" href="#g-${encodeURIComponent(g.t)}"><b>${esc(g.t)}</b><span>${esc(g.d)}</span><em>이슈 ${g.issues.length}개</em></a>${L?`<a class="gi2-l${dn?" done":""}" href="#l-${encodeURIComponent(g.t)}">${dn?"✓ 학습 완료":"기본 뜻 알기 →"}</a>`:`<span class="gi2-w">학습 준비 중</span>`}</div>`}).join(""):`<p class="empty">맞는 용어가 없어요.</p>`};
+  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>(!q||g.t.includes(q)||g.d.includes(q))&&(!tf||(tf==="l"&&hasL(g.t))||(tf==="n"&&hasL(g.t)&&!lessonDone(g.t)))).sort((a,b)=>(hasL(b.t)?1:0)-(hasL(a.t)?1:0));
+    $("#tres").innerHTML=list.length?list.map(g=>{const L=hasL(g.t),dn=L&&lessonDone(g.t);return `<div class="gi2${L?" has":""}"><a class="gi2-m" href="#g-${encodeURIComponent(g.t)}"><b>${esc(g.t)}</b><span>${esc(g.d)}</span><em>이슈 ${g.issues.length}개</em></a>${L?`<a class="gi2-l${dn?" done":""}" href="#l-${encodeURIComponent(g.t)}">${dn?"✓ 학습 완료":"기본 뜻 알기 →"}</a>`:`<span class="gi2-w">학습 준비 중</span>`}</div>`}).join(""):`<p class="empty">맞는 용어가 없어요.</p>`};
   $("#tq").oninput=render;document.querySelectorAll("[data-tf]").forEach(b=>b.onclick=()=>{tf=b.dataset.tf;document.querySelectorAll("[data-tf]").forEach(x=>x.classList.toggle("on",x===b));render()});render();
 }
 function showTerm(t){
-  const g=GLOSS.find(x=>x.t===t);if(!g)return showTerms();const L=LESSONS[t];
+  const g=GLOSS.find(x=>x.t===t);if(!g)return showTerms();const L=hasL(t);
   $("#head").innerHTML=brand()+back("#terms","용어 사전")+`<h1>${esc(g.t)}</h1>`;
   $("#main").innerHTML=`<section class="step"><p style="margin:0;font-size:16.5px">${esc(g.d)}</p></section>
     ${L?`<a class="lcta" href="#l-${encodeURIComponent(t)}"><span class="lcta-ic">📘</span><span><b>기본 뜻 알기</b><em>쉬운 한 줄 → 비유 → 차근차근 → 숫자 예시 → 헷갈리는 용어 → 퀴즈 · 약 3분</em></span><span class="lcta-go">${lessonDone(t)?"다시 보기":"시작하기"} →</span></a>`:`<section class="step pf-empty"><p class="small" style="margin:0">이 용어의 "기본 뜻 알기"를 준비하고 있어요. 곧 비유와 숫자 예시로 배울 수 있어요.</p></section>`}
     <section class="step"><div class="sh"><h2>이 용어가 나온 이슈</h2><span class="small">${g.issues.length}개</span></div>${miniList(g.issues)}</section>`;
 }
-function termSentences(t){const out=[];for(const it of issues.slice().sort((a,b)=>a.date<b.date?1:-1)){for(const p of [...(it.points||[]),it.why||""]){for(const sn of p.split(/(?<=[.요다])\s+/))if(sn.replace(/\*\*/g,"").includes(t)&&out.length<3&&!out.some(o=>o.it===it))out.push({it,sn})}}return out}
+function termSentences(t){const out=[];const g=GLOSS.find(x=>x.t===t);for(const it of (g?g.issues:[]).slice().sort((a,b)=>a.date<b.date?1:-1)){for(const p of [...(it.points||[]),it.why||""]){for(const sn of p.split(/(?<=[.요다])\s+/))if(sn.replace(/\*\*/g,"").includes(t)&&out.length<3&&!out.some(o=>o.it===it))out.push({it,sn})}}return out}
 function showLesson(t){
   const L=LESSONS[t],g=GLOSS.find(x=>x.t===t);if(!L)return showTerm(t);const st=load("l:"+t);
   $("#head").innerHTML=brand()+back(`#g-${encodeURIComponent(t)}`,"용어 사전")+`<span class="tag">기본 뜻 알기</span><h1>${esc(t)}</h1>${g?`<p class="meta">${esc(g.d)}</p>`:""}`;
@@ -734,7 +772,7 @@ function showThreads(){
 function showThread(id){
   const t=THREADS.find(x=>x.id===id);if(!t)return showThreads();
   $("#head").innerHTML=brand()+back("#threads","이슈 이어보기")+`<h1>${esc(t.name)}</h1><p class="meta" style="margin:0">이슈 ${t.issues.length}개 · ${shortDate(t.issues[0].date)}부터</p>`;
-  $("#main").innerHTML=`<ol class="tl">${t.issues.map(it=>{const s=status(it);return `<li><span class="tld">${fmtDate(it.date)}</span><a href="#i-${esc(it.id)}">${esc(it.title)}</a>${it.points?`<p>${esc(it.points[0])}</p>`:""}${s==="done"?'<span class="small ok">완료</span>':""}</li>`}).join("")}</ol>
+  $("#main").innerHTML=`<ol class="tl">${t.issues.map(it=>{const s=status(it);return `<li><span class="tld">${fmtDate(it.date)}</span><a href="#i-${esc(it.id)}">${esc(it.title)}</a>${it.p0?`<p>${esc(it.p0)}</p>`:""}${s==="done"?'<span class="small ok">완료</span>':""}</li>`}).join("")}</ol>
     <p class="small">위에서 아래로 시간 순서예요. 새 소식이 올라오면 아래에 이어 붙어요.</p>`;
 }
 
@@ -813,7 +851,7 @@ let coQ="";
 function showCompanies(){
   $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">관심 있는 회사에 관한 이슈를 한곳에 모아 봐요. 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 생각해봐요.</p>`;
   const kinds=[["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]];
-  const card0=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n||PROFILES[c.name]?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:PROFILES[c.name]?"기본 정보 있음 · 소식 모으는 중":"아직 소식 없음"}</em></a>`};
+  const card0=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n||hasP(c.name)?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:hasP(c.name)?"기본 정보 있음 · 소식 모으는 중":"아직 소식 없음"}</em></a>`};
   const card=c=>`<div class="cowrap">${card0(c)}${favBtn(c.name)}</div>`;
   $("#main").innerHTML=`<input type="search" id="coq" placeholder="회사 이름 찾기" aria-label="회사 이름 찾기" value="${esc(coQ)}"><div id="cores"></div>`;
   const render=()=>{const q=coQ.trim();let h="";
@@ -859,7 +897,7 @@ function showCompany(name){
       ${ivs.map(it=>{const s=load(it.id);return `<div class="coq"><p class="q" style="font-size:16px;margin:0">${esc(it.interview.q)}</p><span class="small">${shortDate(it.date)} · ${esc(it.title)}${s.iv&&s.iv.trim()?' · <span class="ok">답 씀</span>':""}</span>
         <details><summary class="small" style="cursor:pointer;color:var(--accent)">답변 뼈대 보기</summary><div class="reveal" style="margin-top:8px">${esc(it.interview.guide)}</div></details>
         <a class="more" href="#i-${esc(it.id)}-deep">이슈에서 내 답 써보기 →</a></div>`}).join("")}</section>`;
-    const terms=[...new Map(list.flatMap(it=>it.terms||[]).map(x=>[x.t,x])).values()].slice(0,10);
+    const gm=new Map(GLOSS.map(g=>[g.t,g]));const terms=[...new Set(list.flatMap(it=>it.tn||[]))].map(t=>gm.get(t)).filter(Boolean).slice(0,10);
     if(terms.length)h+=`<section class="step"><div class="sh"><h2>이 회사 이슈에 나온 용어</h2></div><div class="termlist">${terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div></section>`;
   }
   const common=issues.filter(it=>!coOf(it).length&&!it.basic).sort((a,b)=>a.date<b.date?1:-1).slice(0,5);
@@ -953,13 +991,13 @@ function mockEnd(){
 
 /* 최근 실적 자세히 보기 */
 function showLatest(name){
-  const c=COMPANIES.find(x=>x.name===name),pf=PROFILES[name],L=pf&&pf.latest;if(!L)return showCompany(name);
+  const c=COMPANIES.find(x=>x.name===name),pf=PROFILES[name],L=pf&&pf.latest;if(!L){const sq=routeSeq;return need({dates:ivDates(name)}).catch(()=>{}).then(()=>{if(sq===routeSeq)showCompany(name)})}
   $("#head").innerHTML=back(`#c-${encodeURIComponent(name)}`,name)+`<div class="lr-head" style="${coVars(c)}">${coMono(c)}<div><span class="tag">최근 실적 자세히 보기</span><h1>${esc(name)} ${esc(L.period)} 실적</h1><p class="meta" style="margin:0">${fmtDate(L.date)} 발표 기준</p></div></div>`;
   let n=0;const N=()=>String(++n).padStart(2,"0");const sec=(t,b)=>`<section class="step"><div class="sh"><span class="n">${N()}</span><h2>${t}</h2></div>${b}</section>`;
   let h=sec("한 줄 요약",`<p class="ls-easy">${esc(L.headline)}</p>`);
   h+=sec("핵심 숫자",`<div class="lr-kpi">${L.kpi.map(k=>`<div><span>${esc(k.label)}</span><b>${esc(k.value)}</b>${k.change?`<em class="${k.up?"up":"down"}">${esc(k.change)}</em>`:""}</div>`).join("")}</div>`);
   if(L.parts)h+=sec(esc(L.parts.title),figHTML({type:"bars",title:"",unit:L.parts.unit,items:L.parts.items})+(L.parts.note?`<p class="expl">${esc(L.parts.note)}</p>`:""));
-  if(L.csm)h+=sec("미래 이익 창고, 보험계약마진",`<div class="lr-csm">${L.csm.map(x=>`<div><span>${esc(x.label)}</span><b>${esc(x.value)}</b><p>${esc(x.note)}</p></div>`).join("")}</div>${LESSONS["보험계약마진"]?`<a class="more" href="#l-${encodeURIComponent("보험계약마진")}">보험계약마진이 뭔지 기본 뜻 알기 →</a>`:""}`);
+  if(L.csm)h+=sec("미래 이익 창고, 보험계약마진",`<div class="lr-csm">${L.csm.map(x=>`<div><span>${esc(x.label)}</span><b>${esc(x.value)}</b><p>${esc(x.note)}</p></div>`).join("")}</div>${hasL("보험계약마진")?`<a class="more" href="#l-${encodeURIComponent("보험계약마진")}">보험계약마진이 뭔지 기본 뜻 알기 →</a>`:""}`);
   if(L.good||L.watch)h+=sec("좋아진 점과 지켜볼 점",`<div class="lr-gw"><div class="g"><h3>좋아진 점</h3><ul>${(L.good||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="w"><h3>지켜볼 점</h3><ul>${(L.watch||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`);
   if(L.plan)h+=sec("회사가 밝힌 계획",`<ul class="pf-str">${L.plan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`);
   if(L.think&&L.think.length){const ts=load("cr:"+name);ts.a=ts.a||{};
@@ -977,11 +1015,11 @@ const SQ={q:"",tag:"",job:""};
 function showSearch(){
   $("#head").innerHTML=brand()+`<h1>지난 이슈 찾기</h1>`;
   const tags=[...new Set(issues.map(i=>i.tag).filter(Boolean))];
-  $("#main").innerHTML=`<input type="search" id="sq" placeholder="제목, 내용, 용어로 찾기" aria-label="이슈 찾기" value="${esc(SQ.q)}">
+  $("#main").innerHTML=`<input type="search" id="sq" placeholder="제목, 핵심, 용어로 찾기" aria-label="이슈 찾기" value="${esc(SQ.q)}">
     <div class="chips" role="group" aria-label="분야"><span class="small">분야</span>${["",...FIELD_LIST()].map(t=>`<button data-st="${esc(t)}" class="${t===SQ.tag?"on":""}">${t||"전체"}</button>`).join("")}</div>
     <p class="small" id="scount" style="margin:0"></p><div id="sres" class="cards"></div>`;
   const render=()=>{const q=SQ.q.trim();
-    const list=issues.filter(it=>(!SQ.tag||fieldsOf(it).includes(SQ.tag))&&(!q||[it.title,it.tag,...(it.points||[]),it.why,...(it.terms||[]).map(x=>x.t)].join(" ").replace(/\*\*/g,"").includes(q)));
+    const list=issues.filter(it=>(!SQ.tag||fieldsOf(it).includes(SQ.tag))&&(!q||[it.title,it.tag,it.summary,it.p0,...(it.tn||[])].join(" ").replace(/\*\*/g,"").includes(q)));
     $("#scount").textContent=`${list.length}개 이슈`;
     $("#sres").innerHTML=list.length?list.map(it=>`<div class="card"><div class="top"><span class="tag">${esc(it.tag||"")}</span><span class="stat">${shortDate(it.date)}${status(it)==="done"?' · <span class="ok">완료</span>':""}</span></div><div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div></div>`).join(""):`<p class="empty">조건에 맞는 이슈가 없어요.</p>`};
   $("#sq").oninput=e=>{SQ.q=e.target.value;render()};
@@ -990,7 +1028,12 @@ function showSearch(){
 }
 
 /* 수식: $$ … $$ 안의 레이텍을 보기 좋게 그려요 */
-(function(){let t=null;const run=()=>{if(!window.renderMathInElement)return;try{renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code","option","input"]})}catch(e){}};
+(function(){let t=null,kp=null;
+  const loadKatex=()=>kp||(kp=new Promise((ok,no)=>{const B="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/",css=document.createElement("link");css.rel="stylesheet";css.href=B+"katex.min.css";document.head.appendChild(css);
+    const add=(f,next)=>{const s=document.createElement("script");s.src=B+f;s.onload=next;s.onerror=()=>no(new Error(f));document.head.appendChild(s)};
+    add("katex.min.js",()=>add("contrib/auto-render.min.js",ok))}));
+  const run=()=>{if(!window.renderMathInElement){const tx=($("#head").textContent||"")+($("#main").textContent||"");if(tx.includes("$$")||tx.includes("\\(")){loadKatex().then(run,()=>{})}return}
+    try{renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code","option","input"]})}catch(e){}};
   new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,20)}).observe(document.body,{childList:true,subtree:true});window.addEventListener("load",run)})();
 window.App={rerender:()=>route(),authChanged(){renderShell();if(location.hash==="#league")return showLeague();if(location.hash==="#me"){const box=$("#account");if(box){box.innerHTML=accountHTML();wireAccount()}}}};
-track();route();afterRender();
+track();{const p=route();if(p)p.then(r=>{if(r)afterRender()});else afterRender()}
