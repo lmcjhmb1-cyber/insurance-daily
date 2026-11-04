@@ -283,10 +283,11 @@ function showList(d){
   const asc=[...dates].reverse(),di=asc.indexOf(d),prev=asc[di-1],next=asc[di+1];
   const WD="일월화수목금토";
   const strip=asc.map((x,k)=>{const [,mm,dd]=x.split("-");const n=byDate(x).length,dn=byDate(x).filter(i=>status(i)==="done").length;const newM=k===0||asc[k-1].slice(0,7)!==x.slice(0,7);
-    return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
+    return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"":n+"개"}</span></a>`}).join("");
   const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개</p></div></div>${sel}
-    <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span>${G?`<span>오늘 목표 <b>${todayN}/${G}</b>개</span>`:`<span>오늘 <b>${todayN}</b>개 끝냄</span>`}<span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
+  const slots=all.map(it=>{const x=status(it);return `<i${x==="done"?' class="on"':x==="doing"?' class="half"':""}></i>`}).join("");
+  const msg=all.length&&done===all.length?`<b>이날 분량을 다 끝냈어요.</b> 연속 ${sk}일째예요.`:`<b>${all.length}개 중 ${done}개</b> 끝냈어요${G?` · 오늘 목표 ${todayN}/${G}개`:""} · 연속 ${sk}일 <a class="chip" href="#me">내 기록</a>`;
+  $("#head").innerHTML=`<h1 class="dday">${fmtDate(d)}</h1><div class="slots" role="img" aria-label="이날 이슈 ${all.length}개 중 ${done}개 끝냄">${slots}</div><p class="slotmsg">${msg}</p>${sel}`;
   {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
   document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
@@ -294,7 +295,7 @@ function showList(d){
   h+=favNewsHTML();
   const wk=WEEKLY[0];if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)h+=`<a class="banner warm" href="#w-${esc(wk.id)}"><b>주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)}</b><span>${esc(wk.title)} →</span></a>`;
   h+=`<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>분야별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...FIELD_LIST()].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div>`;
-  h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 분야의 이슈가 없어요. 다른 분야나 전체를 골라보세요.</p>`;
+  h+=list.length?`<ol class="rows">${list.map(cardHTML).join("")}</ol>`:`<p class="empty">이날은 "${esc(job)}" 분야의 이슈가 없어요. 다른 분야나 전체를 골라보세요.</p>`;
   h+=`<p class="small">퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
   $("#main").innerHTML=h;
   {const B=$("#areaB"),M=$("#areaM");const close=()=>{M.hidden=true;B.setAttribute("aria-expanded","false")};
@@ -305,11 +306,11 @@ function showList(d){
 }
 function cardHTML(it){const s=status(it),st=load(it.id);
   const stat=s==="done"?`완료${st.doneMode?" · "+MODE[st.doneMode].label:""}`:s==="doing"?"진행 중":"";
-  return `<div class="card">
-    <div class="top"><span class="tag">${esc(it.tag||"보험 이슈")}</span><span class="stat ${s==="done"?"done":""}">${stat}</span></div>
-    <div class="ttl"><a href="#i-${esc(it.id)}">${esc(it.title)}</a></div>
-    <div class="cfoot">${it.jobs?`<div class="jobs">${it.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>`:"<span></span>"}
-    <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${st.mode===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></div></div>`}
+  return `<li class="row-i ${s}"><span class="mk" aria-hidden="true">${s==="done"?'<svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':""}</span>
+    <div class="rb"><span><span class="rt">${esc(it.tag||"보험 이슈")}</span>${stat?`<span class="rs">${stat}</span>`:""}</span>
+    <a class="rtl" href="#i-${esc(it.id)}">${esc(it.title)}</a>
+    ${it.jobs&&it.jobs.length?`<span class="rj">${it.jobs.map(esc).join(" ")}</span>`:""}</div>
+    <div class="mini-modes">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${st.mode===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div></li>`}
 function modeLinks(it,cur){return `<div class="mini-modes left">${["light","deep"].map(m=>`<a href="#i-${esc(it.id)}-${m}" class="${cur===m?"on":""}" title="${MODE[m].desc}">${MODE[m].label} ${MODE[m].time.replace("약 ","")}</a>`).join("")}</div>`}
 function miniList(list){return `<ul class="links">${list.map(it=>{const s=status(it);return `<li><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${shortDate(it.date)} · ${esc(it.tag||"")}${s==="done"?' · <span class="ok">완료</span>':""}</span></li>`}).join("")}</ul>`}
 
