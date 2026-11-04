@@ -472,9 +472,8 @@ function showList(d){
   {const wk=WEEKLY[0],ps=[];
     if(due)ps.push(`<a class="pill" href="#review">오늘 복습할 이슈 ${due}개 →</a>`);
     if(wk&&Date.now()-new Date(wk.end+"T00:00:00").getTime()<7*DAY)ps.push(`<a class="pill warm" href="#w-${esc(wk.id)}">주간 큰 그림 · ${shortDate(wk.start)}~${shortDate(wk.end)} →</a>`);
-    if(ps.length)h+=`<div class="pills">${ps.join("")}</div>`}
+    h+=`<div class="pills">${ps.join("")}<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>분야별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...FIELD_LIST()].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div></div>`;}
   h+=favNewsHTML();
-  h+=`<div class="areaf"><button type="button" class="areab${job?" on":""}" id="areaB" aria-expanded="false" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>분야별 보기${job?` · <b>${esc(job)}</b>`:""}<span class="caret">▾</span></button><div class="aream" id="areaM" hidden role="menu">${["",...FIELD_LIST()].map(j=>`<button role="menuitemradio" aria-checked="${j===job}" data-job="${esc(j)}" class="${j===job?"on":""}">${j||"전체"}</button>`).join("")}</div></div>`;
   h+=list.length?`<div class="cards">${list.map(cardHTML).join("")}</div>`:`<p class="empty">이날은 "${esc(job)}" 분야의 이슈가 없어요. 다른 분야나 전체를 골라보세요.</p>`;
   h+=`<p class="small">퀴즈를 모두 풀면 완료로 표시되고, 1일·3일·7일·14일·30일 뒤에 복습으로 다시 나와요. 로그인하면 기록이 계정에 저장돼요.</p>`;
   $("#main").innerHTML=h;
