@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "collectedAt": "2026-11-05T00:06:08+09:00",
+  "collectedAt": "2026-11-05T00:11:34+09:00",
   "sources": [
     {
       "name": "금융위원회",
@@ -64,19 +64,6 @@
     },
     {
       "id": "c-2026-11-04-002",
-      "source": "금감원",
-      "type": "regulator",
-      "title": "계리가정보고서 도입 등 보험업감독규정 개정안 금융위원회 의결",
-      "url": "https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=249734&menuNo=200218",
-      "date": "2026-11-04",
-      "dept": "계리리스크감독국/보험감독국/보험상품분쟁2국",
-      "companies": [],
-      "score": 9,
-      "group": 2,
-      "used": false
-    },
-    {
-      "id": "c-2026-11-04-003",
       "source": "금융위원회",
       "type": "regulator",
       "title": "계리가정보고서 도입 등 ｢보험업감독규정｣ 개정안 금융위원회 의결",
@@ -84,6 +71,19 @@
       "date": "2026-11-04",
       "dept": "보험과",
       "pdf": "https://www.fsc.go.kr/comm/getFile?srvcId=BBSTY1&upperNo=88081&fileTy=ATTACH&fileNo=2",
+      "companies": [],
+      "score": 9,
+      "group": 2,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-04-003",
+      "source": "금감원",
+      "type": "regulator",
+      "title": "계리가정보고서 도입 등 보험업감독규정 개정안 금융위원회 의결",
+      "url": "https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=249734&menuNo=200218",
+      "date": "2026-11-04",
+      "dept": "계리리스크감독국/보험감독국/보험상품분쟁2국",
       "companies": [],
       "score": 9,
       "group": 2,
