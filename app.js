@@ -279,6 +279,35 @@ function showMe(){
   }
 }
 
+/* 날짜 이동용 달력 (마이페이지의 기록 달력과는 따로 둬요) */
+let dcalM=null,dcalYV=false,dcalYr=0;
+const dcalOpen=()=>{try{const v=localStorage.getItem("bi-dcal");if(v==="1")return true;if(v==="0")return false}catch(e){}return innerWidth>=900};
+const dcalSave=o=>{try{localStorage.setItem("bi-dcal",o?"1":"0")}catch(e){}};
+const calShift=(ym,n)=>{const [y,m]=ym.split("-").map(Number),dt=new Date(y,m-1+n,1);return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")};
+const calBounds=(ds,todayStr)=>{const min=ds[ds.length-1].slice(0,7),cur=todayStr.slice(0,7),top=ds[0].slice(0,7);return{min,max:cur>top?cur:top}};
+const calClamp=(ym,min,max)=>ym<min?min:ym>max?max:ym;
+function calMonthHTML(ym,info,sel,today,bd){
+  const [y,mo]=ym.split("-").map(Number),first=new Date(y,mo-1,1).getDay(),days=new Date(y,mo,0).getDate();
+  let cells="";
+  for(let i=0;i<first;i++)cells+=`<span class="dd blank" aria-hidden="true"></span>`;
+  for(let d=1;d<=days;d++){
+    const k=`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`,x=info(k),wd=(first+d-1)%7;
+    const cls=`dd${wd===0?" sun":""}${k===today?" today":""}${k===sel?" sel":""}${x.n?(x.done===x.n?" all":x.done?" part":""):" none"}`;
+    if(!x.n){cells+=`<span class="${cls}"><b>${d}</b></span>`;continue}
+    const lab=`${mo}월 ${d}일 이슈 ${x.n}개${x.done===x.n?", 모두 완료":x.done?`, ${x.done}개 완료`:""}`;
+    cells+=`<a class="${cls}" href="#d-${k}" aria-label="${lab}"${k===sel?' aria-current="date"':""}><b>${d}</b><i>${x.done===x.n?"✓":x.n+"개"}</i></a>`;
+  }
+  const wk=["일","월","화","수","목","금","토"].map((w,i)=>`<span class="dw${i===0?" sun":""}">${w}</span>`).join("");
+  return `<div class="dch"><button type="button" data-m="-1" aria-label="이전 달"${ym<=bd.min?" disabled":""}>‹</button><button type="button" class="dtitle" id="dtitle" aria-label="연도와 달 고르기" aria-expanded="false">${y}년 ${mo}월 <span aria-hidden="true">▾</span></button><button type="button" data-m="1" aria-label="다음 달"${ym>=bd.max?" disabled":""}>›</button></div><div class="dgrid">${wk}${cells}</div>`;
+}
+
+function calYearHTML(y,info,curM,todayM,bd){
+  const y0=+bd.min.slice(0,4),y1=+bd.max.slice(0,4);let cells="";
+  for(let m=1;m<=12;m++){const k=`${y}-${String(m).padStart(2,"0")}`,ok=k>=bd.min&&k<=bd.max,n=ok?info(k):0;
+    cells+=`<button type="button" class="dm${k===curM?" sel":""}${k===todayM?" today":""}${n?"":" none"}" data-pm="${k}"${ok?"":" disabled"}${k===curM?' aria-current="true"':""} aria-label="${y}년 ${m}월${n?`, 이슈가 올라온 날 ${n}일`:""}"><b>${m}월</b><i>${n?n+"일":""}</i></button>`}
+  return `<div class="dch"><button type="button" data-y="-1" aria-label="이전 해"${y<=y0?" disabled":""}>‹</button><button type="button" class="dtitle" id="dtitle" aria-label="연도와 달 고르기" aria-expanded="true">${y}년 <span aria-hidden="true">▴</span></button><button type="button" data-y="1" aria-label="다음 해"${y>=y1?" disabled":""}>›</button></div><div class="dmgrid">${cells}</div>`;
+}
+
 /* 오늘 이슈 목록 */
 function showList(d){
   const c=cfg();const job=c.field||"";
@@ -286,13 +315,26 @@ function showList(d){
   const m=doneByDay(),G=goal(),todayN=m[ymd(Date.now())]||0,sk=streak(m),due=dueList().length;
   const asc=[...dates].reverse(),di=asc.indexOf(d),prev=asc[di-1],next=asc[di+1];
   const WD="일월화수목금토";
-  const strip=asc.map((x,k)=>{const [,mm,dd]=x.split("-");const n=byDate(x).length,dn=byDate(x).filter(i=>status(i)==="done").length;const newM=k===0||asc[k-1].slice(0,7)!==x.slice(0,7);
-    return `${newM?`<span class="dmon">${+mm}월</span>`:""}<a href="#d-${x}" class="dchip${x===d?" on":""}${n&&dn===n?" all":""}" aria-label="${fmtDate(x)} 이슈 ${n}개"${x===d?' aria-current="date"':""}><span class="dw">${WD[new Date(x+"T00:00:00").getDay()]}</span><b>${+dd}</b><span class="dn">${dn===n&&n?"✓":n+"개"}</span></a>`}).join("");
-  const sel=`<div class="dnav"><a class="darr${prev?"":" off"}" ${prev?`href="#d-${prev}"`:'aria-disabled="true"'} aria-label="이전 날짜">‹</a><div class="dstrip" id="dstrip">${strip}</div><a class="darr${next?"":" off"}" ${next?`href="#d-${next}"`:'aria-disabled="true"'} aria-label="다음 날짜">›</a></div>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${fmtDate(d)}</h1><p class="meta">이날 올라온 이슈 ${all.length}개</p></div></div>${sel}
+  const home=d===dates[0],WDN=WD[new Date(d+"T00:00:00").getDay()],realToday=ymd(Date.now());
+  const arrow=(t,dir,lab)=>t?`<a class="darr" href="#d-${t}" aria-label="${lab}">${dir}</a>`:`<a class="darr off" aria-disabled="true" aria-label="${lab}">${dir}</a>`;
+  const calOpen=dcalOpen();dcalM=d.slice(0,7);
+  const sel=`<div class="dbar">${arrow(prev,"‹","이전 이슈 날짜")}<button type="button" class="dpick" id="dpick" aria-expanded="${calOpen}" aria-controls="dcal" aria-label="달력 열고 닫기">${shortDate(d)} (${WDN}) <span class="caret" aria-hidden="true">▾</span></button>${arrow(next,"›","다음 이슈 날짜")}${home?"":`<a class="dtoday" href="#">오늘로</a>`}</div><div class="dcal" id="dcal"${calOpen?"":" hidden"}></div>`;
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${home?"오늘의 이슈":fmtDate(d)}</h1><p class="meta">${home?`${shortDate(d)} 기사 · 이슈 ${all.length}개`:`이날 올라온 이슈 ${all.length}개`}</p></div></div>${sel}
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span>${G?`<span>오늘 목표 <b>${todayN}/${G}</b>개</span>`:`<span>오늘 <b>${todayN}</b>개 끝냄</span>`}<span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
-  {const st=$("#dstrip"),on=st.querySelector(".on");if(on)st.scrollLeft=on.offsetLeft-st.clientWidth/2+on.offsetWidth/2;}
-  document.onkeydown=e=>{if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
+  const dayInfo=k=>{const l=byDate(k);return{n:l.length,done:l.filter(i=>status(i)==="done").length}};
+  const monthDays=k=>dates.filter(x=>x.startsWith(k)).length;
+  dcalYV=false;
+  const paintCal=(focusSel)=>{const box=$("#dcal");if(!box)return;const bd=calBounds(dates,realToday);dcalM=calClamp(dcalM,bd.min,bd.max);
+    box.innerHTML=dcalYV?calYearHTML(dcalYr,monthDays,dcalM,realToday.slice(0,7),bd):calMonthHTML(dcalM,dayInfo,d,realToday,bd);
+    const re=q=>{const f=box.querySelector(q);if(f&&!f.disabled)f.focus()};
+    box.querySelectorAll("[data-m]").forEach(x=>x.onclick=()=>{dcalM=calShift(dcalM,+x.dataset.m);paintCal();re(`[data-m="${x.dataset.m}"]`)});
+    box.querySelectorAll("[data-y]").forEach(x=>x.onclick=()=>{dcalYr+=+x.dataset.y;paintCal();re(`[data-y="${x.dataset.y}"]`)});
+    box.querySelectorAll("[data-pm]").forEach(x=>x.onclick=()=>{dcalM=x.dataset.pm;dcalYV=false;paintCal();re("#dtitle")});
+    const t=$("#dtitle");if(t)t.onclick=()=>{dcalYV=!dcalYV;dcalYr=+dcalM.slice(0,4);paintCal();re("#dtitle")}};
+  paintCal();
+  $("#dpick").onclick=()=>{const box=$("#dcal"),o=box.hidden;box.hidden=!o;$("#dpick").setAttribute("aria-expanded",String(o));dcalSave(o);if(o){dcalM=d.slice(0,7);dcalYV=false;paintCal()}};
+  document.onkeydown=e=>{if(e.key==="Escape"){const box=$("#dcal");if(box&&!box.hidden&&dcalYV){dcalYV=false;paintCal();const t=$("#dtitle");if(t)t.focus()}else if(box&&!box.hidden){box.hidden=true;$("#dpick").setAttribute("aria-expanded","false");dcalSave(false);$("#dpick").focus()}return}
+    if(!/^#?(d-.*)?$/.test(location.hash)||e.target.closest("input,textarea,select"))return;if(e.key==="ArrowLeft"&&prev)location.hash="d-"+prev;if(e.key==="ArrowRight"&&next)location.hash="d-"+next};
   let h="";
   if(due)h+=`<a class="banner" href="#review"><b>오늘 복습할 이슈 ${due}개</b><span>잊기 전에 다시 꺼내볼 때예요 →</span></a>`;
   h+=favNewsHTML();
