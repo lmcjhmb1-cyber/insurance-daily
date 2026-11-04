@@ -265,7 +265,7 @@ function showMe(){
     <p class="mine"><span class="no">내 답</span> ${esc(w.q.o[w.j])}</p><p class="right"><span class="ok">정답</span> ${esc(w.q.o[w.q.a])}</p><p class="small" style="margin:0">${esc(w.q.e)}</p><a class="more" href="#i-${esc(w.it.id)}">이슈 다시 보기 →</a></div>`).join("")+`<p class="small" style="margin:0">복습에서 다시 맞히면 오답 노트에서 빠져요.</p>`:`<p class="small" style="margin:0">틀린 문제가 생기면 여기에 모여요. 복습에서 다시 맞히면 빠져요.</p>`}</section>`;
   const tagRows=Object.entries(tags).filter(([,T])=>T.done||T.qN).sort((x,y)=>y[1].done-x[1].done);
   P.tags=`<section class="step"><div class="sh"><h2>분야별 기록</h2></div>${tagRows.length?`<div class="tags">${tagRows.map(([tag,T])=>{const p=T.qN?Math.round(T.qOK/T.qN*100):0;return `<div class="tg"><div class="tgh"><b>${esc(tag)}</b><span>${T.done}/${T.all}개 끝냄 · 정답률 ${T.qN?p+"%":"–"}</span></div><div class="bar"><i style="width:${T.all?T.done/T.all*100:0}%"></i></div></div>`}).join("")}</div><p class="small" style="margin:0">막대는 그 분야에 올라온 이슈 중 끝낸 비율이에요. 정답률이 낮은 분야부터 다시 보면 좋아요.</p>`:`<p class="small" style="margin:0">이슈를 풀기 시작하면 분야마다 얼마나 공부했는지 보여줘요.</p>`}</section>`;
-  P.notes=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 스스로 답해보기에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 면접 직전 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 스스로 답해보기에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
+  P.notes=`<section class="step"><div class="sh"><h2>내가 쓴 답</h2><span class="small">${notes.length}개</span></div>${notes.length?notes.map(n=>`<details class="note"><summary><span class="small">${shortDate(n.it.date)} · ${n.kind}</span><br>${esc(n.it.title)}</summary><p class="small" style="margin:8px 0 4px">${esc(n.q)}</p><p class="ans">${esc(n.a)}</p><a class="more" href="#i-${esc(n.it.id)}-deep">이슈에서 모범 해설과 비교하기 →</a></details>`).join("")+`<div class="row"><button class="pri" id="expBtn">노트 파일로 받기</button><button id="cpyBtn">전체 복사</button></div><p class="small" id="expMsg" style="margin:0">담당자 질문, 한 줄 요약, 스스로 답해보기에 쓴 답을 모범 해설과 함께 한 파일로 정리해줘요. 나중에 복습 노트로 쓰기 좋아요.</p>`:`<p class="small" style="margin:0">깊게 보기에서 담당자 질문, 한 줄 요약, 스스로 답해보기에 답을 쓰면 여기에 모여요. 모은 답은 파일로 내보낼 수 있어요.</p>`}</section>`;
   $("#main").innerHTML=P.stats+`<div class="mepane"><div>${P.cal}${P.wrong}${P.notes}</div><div>${P.account}${P.goal}${P.mode}${P.doing}${P.badges}${P.tags}</div></div>`;
   if(!calMonth)calMonth=ymd(Date.now()).slice(0,7);
   renderCal(null);wireAccount();
@@ -392,7 +392,7 @@ function addXP(key){const x=xpData();if(key&&x.ev[key]!=null)return 0;if(key){x.
 /* 안내 상자 */
 function mascot(o){return window.mascotSVG?window.mascotSVG(o):""}
 function mascotSay(text,o,extra){return `<div class="mnote"><p>${text}</p>${extra||""}</div>`}
-const CHEERS=["숫자 뒤의 이유까지 봤어요.","이런 게 쌓이면 면접에서 바로 나와요.","오늘도 한 걸음 나아갔어요.","깔끔하게 끝냈어요.","이 흐름, 다음 뉴스에서 또 만날 거예요."];
+const CHEERS=["숫자 뒤의 이유까지 봤어요.","이런 게 쌓이면 뉴스가 다르게 보여요.","오늘도 한 걸음 나아갔어요.","깔끔하게 끝냈어요.","이 흐름, 다음 뉴스에서 또 만날 거예요."];
 
 /* 완료 축하 화면 */
 function celebrate(o){
@@ -591,7 +591,7 @@ function wire(it,st,mode,all){
   const check=`<p class="small" style="margin:8px 0 0">스스로 점검해보세요. 일시적인 현상인지 구조적인 변화인지 짚었나요? 무엇과 비교한 숫자인지 따져봤나요? 한 시점이 아니라 추세를 봤나요?</p>`;
   if($("#rM"))$("#rM").onclick=()=>{if(!needText("#rT","#rE"))return;st.role=$("#rT").value;save(it.id,st);addXP(`r:${it.id}`,10,"담당자 답 쓰기");$("#rO").innerHTML=`<div class="reveal"><strong>모범 해설</strong>\n${esc(it.role.model)}</div>${check}`};
   if($("#sM"))$("#sM").onclick=()=>{if(!needText("#sT","#sE"))return;st.sum=$("#sT").value;save(it.id,st);addXP(`s:${it.id}`,10,"한 줄 요약 쓰기");$("#sO").innerHTML=`<div class="reveal"><strong>예시 요약</strong>\n${esc(it.summary)}</div><p class="small" style="margin:8px 0 0">내 요약에 핵심 숫자나 원인이 빠지진 않았는지, 보험을 모르는 사람도 알아들을 말인지 비교해보세요.</p>`};
-  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);addXP(`v:${it.id}`,10,"면접 답 쓰기");$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요.</p>`};
+  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);addXP(`v:${it.id}`,10,"스스로 답 쓰기");$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요.</p>`};
   if($("#rF"))$("#rF").onclick=()=>{st.role=$("#rT").value;save(it.id,st);askFeedback(it,"role","r")};
   if($("#sF"))$("#sF").onclick=()=>{st.sum=$("#sT").value;save(it.id,st);askFeedback(it,"sum","s")};
   if($("#vF"))$("#vF").onclick=()=>{st.iv=$("#vT").value;save(it.id,st);askFeedback(it,"iv","v")};
