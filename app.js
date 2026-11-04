@@ -728,8 +728,8 @@ function showTerms(){
   $("#head").innerHTML=brand()+`<h1>용어 사전</h1><p class="meta" style="margin:0">이슈에 나온 보험 용어 ${GLOSS.length}개가 모여 있어요. "기본 뜻 알기"로 용어 하나를 비유와 숫자 예시로 차근차근 배울 수 있어요.</p>
     ${nL?`<div class="statline"><span>기본 뜻 알기 <b>${nD}/${nL}</b>개 완료</span></div>`:""}`;
   $("#main").innerHTML=`<div class="tbar"><input type="search" id="tq" placeholder="용어 찾기" aria-label="용어 찾기"><div class="chips" role="group" aria-label="보기"><button data-tf="" class="on">전체</button><button data-tf="n">아직 안 배운 용어</button></div></div><div id="tres" class="glist2"></div>`;
-  let tf="";
-  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>(!q||g.t.includes(q)||g.d.includes(q))&&(!tf||(tf==="l"&&hasL(g.t))||(tf==="n"&&hasL(g.t)&&!lessonDone(g.t)))).sort((a,b)=>(hasL(b.t)?1:0)-(hasL(a.t)?1:0));
+  let tf="";const rk=g=>!hasL(g.t)?1:lessonDone(g.t)?2:0;
+  const render=()=>{const q=$("#tq").value.trim();const list=GLOSS.filter(g=>(!q||g.t.includes(q)||g.d.includes(q))&&(!tf||(tf==="l"&&hasL(g.t))||(tf==="n"&&hasL(g.t)&&!lessonDone(g.t)))).sort((a,b)=>rk(a)-rk(b));
     $("#tres").innerHTML=list.length?list.map(g=>{const L=hasL(g.t),dn=L&&lessonDone(g.t);return `<div class="gi2${L?" has":""}"><a class="gi2-m" href="#g-${encodeURIComponent(g.t)}"><b>${esc(g.t)}</b><span>${esc(g.d)}</span><em>이슈 ${g.issues.length}개</em></a>${L?`<a class="gi2-l${dn?" done":""}" href="#l-${encodeURIComponent(g.t)}">${dn?"✓ 학습 완료":"기본 뜻 알기 →"}</a>`:`<span class="gi2-w">학습 준비 중</span>`}</div>`}).join(""):`<p class="empty">맞는 용어가 없어요.</p>`};
   $("#tq").oninput=render;document.querySelectorAll("[data-tf]").forEach(b=>b.onclick=()=>{tf=b.dataset.tf;document.querySelectorAll("[data-tf]").forEach(x=>x.classList.toggle("on",x===b));render()});render();
 }
