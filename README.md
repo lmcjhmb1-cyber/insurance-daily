@@ -9,6 +9,8 @@
 - `frames.js` 생각의 틀 목록과 직무 목록
 - `basics.js` 기초 다지기 흐름 목록 (기초 이슈는 issues.js에 "basic": true)
 - `weekly.js` 주간 큰 그림 (매주 일요일 추가)
+- `candidates/` 매일 새벽 깃허브 액션이 모은 기사 후보 (`scripts/collect.mjs`, `.github/workflows/collect.yml`)
+- `scripts/merge.mjs` 새 이슈·회사 소식·주간 정리 합치기, `scripts/check.mjs` 데이터 검사
 - `backfill.json` 과거 이슈 채우기 작업의 진행 기록
 - `worker/feedback.js` 인공지능 피드백 서버 코드 (클라우드플레어 워커에 붙여넣어 사용, 비밀값 없음)
 
