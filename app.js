@@ -68,7 +68,6 @@ const SECS=[
   {k:"review",label:"복습",icon:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',tabs:[["review","오늘의 복습"]]},
   {k:"study",label:"사전",icon:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',tabs:[["terms","용어 사전"]]},
   {k:"company",label:"회사",icon:'<path d="M4 21V7l6-3v17"/><path d="M10 9h8a2 2 0 0 1 2 2v10"/><path d="M3 21h18"/><path d="M7 10h.01M7 14h.01M14 13h2M14 17h2"/>',tabs:[["companies","회사별 보기"]]},
-  {k:"interview",label:"면접",icon:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',tabs:[["interview","면접 연습"],["mock","모의 면접"]]},
   {k:"me",label:"마이",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',tabs:[["me","마이페이지"],["league","친구 리그"]]}];
 function navKey(){const h=decodeURIComponent(location.hash.slice(1));if(!h||h.startsWith("d-")||h.startsWith("i-"))return"";if(h.startsWith("g-")||h.startsWith("l-"))return"terms";if(h.startsWith("t-"))return"threads";if(h.startsWith("w-"))return"weekly";if(h.startsWith("b-"))return"basics";if(h.startsWith("c-")||h.startsWith("cr-"))return"companies";return h}
 function secOf(k){return SECS.find(s=>s.tabs.some(t=>t[0]===k))||SECS[0]}
@@ -107,9 +106,8 @@ function route(){
   if(h.startsWith("t-"))return showThread(h.slice(2));
   if(h==="weekly")return showWeeklyList();
   if(h.startsWith("w-"))return showWeek(h.slice(2));
-  if(h==="interview")return showInterview();
+  if(h==="interview"||h==="mock"){history.replaceState(null,"","#");return showList(dates[0])}
   if(h==="companies")return showCompanies();
-  if(h==="mock")return showMock();
   if(h.startsWith("cr-"))return showLatest(h.slice(3));
   if(h.startsWith("c-"))return showCompany(h.slice(2));
   if(h==="search")return showSearch();
@@ -790,7 +788,7 @@ function wireFav(after){document.querySelectorAll("[data-fav]").forEach(b=>b.onc
 function favNewsHTML(){const f=favs();
   if(!f.length)return "";
   const since=ymd(Date.now()-14*DAY);
-  return `<section class="favbox"><div class="sh"><h2>내 지원 회사 소식</h2><a class="chip" href="#mock">모의 면접 보기 →</a></div><div class="favgrid">${f.map(n=>{const c=COMPANIES.find(x=>x.name===n);const nw=coNews(n).filter(x=>x.date>=since).slice(0,3);const is=coIssues(n).filter(x=>x.date>=since);
+  return `<section class="favbox"><div class="sh"><h2>내 지원 회사 소식</h2></div><div class="favgrid">${f.map(n=>{const c=COMPANIES.find(x=>x.name===n);const nw=coNews(n).filter(x=>x.date>=since).slice(0,3);const is=coIssues(n).filter(x=>x.date>=since);
     return `<div class="favc" style="${coVars(c)}"><a class="favc-h" href="#c-${encodeURIComponent(n)}">${coMono(c)}<b>${esc(n)}</b><em>${nw.length||is.length?`최근 2주 소식 ${coNews(n).filter(x=>x.date>=since).length}개${is.length?` · 이슈 ${is.length}개`:""}`:"최근 2주 새 소식 없음"}</em></a>${nw.length?`<ul>${nw.map(x=>`<li><span>${shortDate(x.date)}</span>${esc(x.title)}</li>`).join("")}</ul>`:""}</div>`}).join("")}</div></section>`}
 
 /* 회사 기본 정보 아이콘 */
@@ -968,7 +966,7 @@ function showLatest(name){
     h+=sec("스스로 생각해볼 거리",`<p class="small" style="margin:0 0 4px">정답이 정해진 문제가 아니에요. 내 생각을 짧게 적어보고, 막히면 생각의 실마리를 열어보세요. 적은 내용은 이 기기${window.Auth&&window.Auth.user?"와 계정":""}에 저장돼요.</p>${L.think.map((t,i)=>`<div class="tk"><p class="tk-q"><span>Q${i+1}</span>${esc(t.q)}</p><textarea data-tk="${i}" placeholder="내 생각을 적어보세요">${esc(ts.a[i]||"")}</textarea>${t.hint?`<details class="tk-h"><summary>생각의 실마리 보기</summary><p>${esc(t.hint)}</p></details>`:""}</div>`).join("")}`)}
   if(L.tips)h+=sec("면접에서 이렇게 써보세요",`<ol class="pf-tips">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`);
   if(L.sources)h+=`<section class="src small">출처: ${L.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ")}<br>기사 숫자를 바탕으로 새로 정리한 학습용 분석이에요.</section>`;
-  h+=`<nav class="next"><a href="#c-${encodeURIComponent(name)}">← ${esc(name)} 페이지로</a><a href="#mock">이 회사로 모의 면접 보기 →</a></nav>`;
+  h+=`<nav class="next"><a href="#c-${encodeURIComponent(name)}">← ${esc(name)} 페이지로</a></nav>`;
   $("#main").innerHTML=`<div class="lr-wrap" style="${coVars(c)}">${h}</div>`;
   document.querySelectorAll("[data-tk]").forEach(t=>{let tm;t.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{const ts=load("cr:"+name);ts.a=ts.a||{};ts.a[t.dataset.tk]=t.value;save("cr:"+name,ts)},400)}});
   const mk=document.querySelector('.next a[href="#mock"]');if(mk)mk.onclick=()=>{MK=null;MKSET.co=name};
