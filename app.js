@@ -187,7 +187,7 @@ function badges(){
     ["첫 걸음","이슈 1개 끝내기",done>=1],["사흘 연속","3일 연속 공부하기",L>=3],["일주일 연속","7일 연속 공부하기",L>=7],["한 달 연속","30일 연속 공부하기",L>=30],
     ["이슈 10개","이슈 10개 끝내기",done>=10],["이슈 50개","이슈 50개 끝내기",done>=50],["이슈 100개","이슈 100개 끝내기",done>=100],
     ["깊이 파기","깊게 보기로 5개 끝내기",deep>=5],["복습 장인","복습 10번 하기",rv>=10],["분야 탐험가","5개 분야에서 이슈 끝내기",tags.size>=5],
-    ["목표 달인","하루 목표 7번 채우기",met>=7],["면접 준비생","면접 질문 5개에 답 쓰기",iv>=5]];
+    ["목표 달인","하루 목표 7번 채우기",met>=7]];
 }
 
 /* 개인정보 안내와 계정 */
@@ -591,7 +591,7 @@ function wire(it,st,mode,all){
   const check=`<p class="small" style="margin:8px 0 0">스스로 점검해보세요. 일시적인 현상인지 구조적인 변화인지 짚었나요? 무엇과 비교한 숫자인지 따져봤나요? 한 시점이 아니라 추세를 봤나요?</p>`;
   if($("#rM"))$("#rM").onclick=()=>{if(!needText("#rT","#rE"))return;st.role=$("#rT").value;save(it.id,st);addXP(`r:${it.id}`,10,"담당자 답 쓰기");$("#rO").innerHTML=`<div class="reveal"><strong>모범 해설</strong>\n${esc(it.role.model)}</div>${check}`};
   if($("#sM"))$("#sM").onclick=()=>{if(!needText("#sT","#sE"))return;st.sum=$("#sT").value;save(it.id,st);addXP(`s:${it.id}`,10,"한 줄 요약 쓰기");$("#sO").innerHTML=`<div class="reveal"><strong>예시 요약</strong>\n${esc(it.summary)}</div><p class="small" style="margin:8px 0 0">내 요약에 핵심 숫자나 원인이 빠지진 않았는지, 보험을 모르는 사람도 알아들을 말인지 비교해보세요.</p>`};
-  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);addXP(`v:${it.id}`,10,"면접 답 쓰기");$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요. 면접 연습 메뉴에서 다른 질문도 모아볼 수 있어요.</p>`};
+  if($("#vM"))$("#vM").onclick=()=>{if(!needText("#vT","#vE"))return;st.iv=$("#vT").value;save(it.id,st);addXP(`v:${it.id}`,10,"면접 답 쓰기");$("#vO").innerHTML=`<div class="reveal"><strong>답변 뼈대</strong>\n${esc(it.interview.guide)}</div><p class="small" style="margin:8px 0 0">결론 → 근거(숫자) → 내 직무 관점 → 마무리 순서로 말했는지 비교해보세요.</p>`};
   if($("#rF"))$("#rF").onclick=()=>{st.role=$("#rT").value;save(it.id,st);askFeedback(it,"role","r")};
   if($("#sF"))$("#sF").onclick=()=>{st.sum=$("#sT").value;save(it.id,st);askFeedback(it,"sum","s")};
   if($("#vF"))$("#vF").onclick=()=>{st.iv=$("#vT").value;save(it.id,st);askFeedback(it,"iv","v")};
@@ -811,7 +811,7 @@ function cultIcon(t){
 /* 회사별 보기 */
 let coQ="";
 function showCompanies(){
-  $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">지원할 회사에 관한 이슈를 한곳에 모아 봐요. 면접 전에 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 말할 준비를 해요.</p>`;
+  $("#head").innerHTML=`<h1>회사별 보기</h1><p class="meta" style="margin:0">관심 있는 회사에 관한 이슈를 한곳에 모아 봐요. 그 회사가 최근 어떤 일을 겪었는지 훑고, 업계 전체 흐름과 함께 연결해서 생각해봐요.</p>`;
   const kinds=[["생명","생명보험사"],["손해","손해보험사"],["재보험","재보험사"]];
   const card0=c=>{const list=coIssues(c.name),nw=coNews(c.name),dates=[...list,...nw].map(x=>x.date).sort().reverse(),n=list.length+nw.length;return `<a class="cocard${n||PROFILES[c.name]?"":" off"}" style="${coVars(c)}" href="#c-${encodeURIComponent(c.name)}">${coMono(c)}<b>${esc(c.name)}</b><span>${c.group?esc(c.group)+" 계열":"독립 보험사"}</span><em>${n?`${nw.length?`소식 ${nw.length}개`:""}${nw.length&&list.length?" · ":""}${list.length?`이슈 ${list.length}개`:""} · 최근 ${shortDate(dates[0])}`:PROFILES[c.name]?"기본 정보 있음 · 소식 모으는 중":"아직 소식 없음"}</em></a>`};
   const card=c=>`<div class="cowrap">${card0(c)}${favBtn(c.name)}</div>`;
@@ -820,7 +820,7 @@ function showCompanies(){
     for(const [k,label] of kinds){const cs=COMPANIES.filter(c=>c.kind===k&&(!q||[c.name,c.group,...(c.aka||[])].some(x=>x&&x.includes(q)))).sort((a,b)=>(coIssues(b.name).length+coNews(b.name).length)-(coIssues(a.name).length+coNews(a.name).length));
       if(cs.length)h+=`<section class="cosec"><h2>${label}</h2><div class="cogrid">${cs.map(card).join("")}</div></section>`}
     const fv=favs().map(n=>COMPANIES.find(c=>c.name===n));
-    if(!q)h=(fv.length?`<section class="cosec"><h2>내 지원 회사</h2><div class="cogrid">${fv.map(card).join("")}</div></section>`:`<p class="small favtip">${STAR} 카드 오른쪽 위 별을 누르면 지원 회사로 고정돼요(최대 3곳). 오늘 이슈 화면에 그 회사 새 소식이 먼저 뜨고, 모의 면접도 그 회사로 볼 수 있어요.</p>`)+h;
+    if(!q)h=(fv.length?`<section class="cosec"><h2>내 지원 회사</h2><div class="cogrid">${fv.map(card).join("")}</div></section>`:`<p class="small favtip">${STAR} 카드 오른쪽 위 별을 누르면 지원 회사로 고정돼요(최대 3곳). 오늘 이슈 화면에 그 회사 새 소식이 먼저 뜨고요.</p>`)+h;
     if(!q&&NEWS.length)h=`<section class="step"><div class="sh"><h2>최근 회사 소식</h2><span class="small">전체 ${NEWS.length}개</span></div><ul class="nwl">${NEWS.slice(0,8).map(n=>newsLi(n)).join("")}</ul></section>`+h;
     $("#cores").innerHTML=h||`<p class="empty">"${esc(q)}"에 맞는 회사가 없어요.</p>`;wireFav(render)};
   $("#coq").oninput=e=>{coQ=e.target.value;render()};render();
@@ -834,7 +834,7 @@ function showCompany(name){
   $("#head").innerHTML=back("#companies","회사별 보기")+`<div class="cohero" style="${coVars(c)}"><div class="cohero-top">${coMono(c,"big")}<div class="cohero-t"><div class="cohero-tags"><span>${kindLabel}</span>${c.group?`<span>${esc(c.group)} 계열</span>`:""}</div><h1>${esc(c.name)}</h1></div>${favBtn(c.name,true)}</div>
     ${pf0&&pf0.summary?`<p class="cohero-sum">${esc(pf0.summary)}</p>`:""}<div class="cohero-kpi">${kpi.map(([l,v])=>`<div><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join("")}</div></div>`;
   let h="";const pf=PROFILES[name];
-  if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","면접 팁"]].filter(Boolean);
+  if(pf){const tabs=[["about","한눈에"],pf.products&&["products","주력 상품"],pf.talent&&["talent","인재상·문화"],pf.results&&["results","실적"],pf.history&&["history","걸어온 길"],pf.tips&&["tips","알아둘 점"]].filter(Boolean);
     const P={};
     P.about=`${pf.facts?`<dl class="pf-facts">${pf.facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>`:""}${pf.strengths?`<h3 class="pf-h">이 회사의 특징</h3><ol class="pf-str">${pf.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`;
     if(pf.products)P.products=`<div class="pf-prod">${pf.products.map(x=>`<div class="pp"><span class="pp-ic">${prodIcon(x.name)}</span><div><b>${esc(x.name)}</b><p>${esc(x.d)}</p></div></div>`).join("")}</div>`;
@@ -854,8 +854,8 @@ function showCompany(name){
   if(list.length){
     h+=`<section class="step"><div class="sh"><h2>깊게 공부할 이슈</h2><span class="small">최신순</span></div><ol class="cotl">${list.map(it=>{const s=status(it);return `<li class="${s}"><span class="cotl-d">${fmtDate(it.date)}</span><a href="#i-${esc(it.id)}">${esc(it.title)}</a><span class="small">${esc(it.tag||"")}${s==="done"?' · <span class="ok">끝냄</span>':s==="doing"?" · 진행 중":""}</span></li>`}).join("")}</ol></section>`;
     const ivs=list.filter(it=>it.interview);
-    if(ivs.length)h+=`<section class="step"><div class="sh"><h2>${esc(c.name)} 면접에서 나올 수 있는 질문</h2><span class="small">${ivs.length}개</span></div>
-      <p class="small" style="margin:0">이 회사가 나온 이슈의 면접 질문이에요. "우리 회사의 이 일을 어떻게 보나요?"처럼 회사 이름을 넣어 물어본다고 생각하고 답해보세요.</p>
+    if(ivs.length)h+=`<section class="step"><div class="sh"><h2>${esc(c.name)}에 대해 생각해볼 질문</h2><span class="small">${ivs.length}개</span></div>
+      <p class="small" style="margin:0">이 회사가 나온 이슈의 생각해볼 질문이에요. "우리 회사의 이 일을 어떻게 보나요?"처럼 회사 이름을 넣어 물어본다고 생각하고 답해보세요.</p>
       ${ivs.map(it=>{const s=load(it.id);return `<div class="coq"><p class="q" style="font-size:16px;margin:0">${esc(it.interview.q)}</p><span class="small">${shortDate(it.date)} · ${esc(it.title)}${s.iv&&s.iv.trim()?' · <span class="ok">답 씀</span>':""}</span>
         <details><summary class="small" style="cursor:pointer;color:var(--accent)">답변 뼈대 보기</summary><div class="reveal" style="margin-top:8px">${esc(it.interview.guide)}</div></details>
         <a class="more" href="#i-${esc(it.id)}-deep">이슈에서 내 답 써보기 →</a></div>`}).join("")}</section>`;
@@ -863,7 +863,7 @@ function showCompany(name){
     if(terms.length)h+=`<section class="step"><div class="sh"><h2>이 회사 이슈에 나온 용어</h2></div><div class="termlist">${terms.map(x=>`<details><summary>${esc(x.t)}</summary><p>${esc(x.d)}</p></details>`).join("")}</div></section>`;
   }
   const common=issues.filter(it=>!coOf(it).length&&!it.basic).sort((a,b)=>a.date<b.date?1:-1).slice(0,5);
-  if(common.length)h+=`<section class="step"><div class="sh"><h2>업계 전체 흐름도 함께</h2></div><p class="small" style="margin:0">특정 회사가 아니라 업계 모두에 영향을 주는 최근 이슈예요. 면접에서 "업계 흐름 속에서 우리 회사는?"으로 이어지기 좋아요.</p>${miniList(common)}</section>`;
+  if(common.length)h+=`<section class="step"><div class="sh"><h2>업계 전체 흐름도 함께</h2></div><p class="small" style="margin:0">특정 회사가 아니라 업계 모두에 영향을 주는 최근 이슈예요. "업계 흐름 속에서 이 회사는?"으로 이어서 생각해보기 좋아요.</p>${miniList(common)}</section>`;
   const sib=COMPANIES.filter(x=>x.name!==c.name&&((c.group&&x.group===c.group)||x.kind===c.kind)).sort((a,b)=>((b.group&&b.group===c.group)?1:0)-((a.group&&a.group===c.group)?1:0)).slice(0,8);
   h+=`<section class="step"><div class="sh"><h2>함께 비교해볼 회사</h2></div><div class="cochips">${sib.map(x=>`<a href="#c-${encodeURIComponent(x.name)}" style="${coVars(x)}"><i class="codot"></i>${esc(x.name)}${x.group&&x.group===c.group?" · 같은 그룹":""}</a>`).join("")}</div></section>`;
   $("#main").innerHTML=h;
@@ -873,7 +873,7 @@ function showCompany(name){
 }
 function newsLi(n,cur){const others=(n.companies||[]).filter(x=>x!==cur);
   return `<li data-k="${esc(n.kind||"")}"><div class="nw-top"><span class="nw-d">${shortDate(n.date)}</span>${n.kind?`<span class="nw-k">${esc(n.kind)}</span>`:""}${!cur?(n.companies||[]).map(c=>`<a class="nw-c" href="#c-${encodeURIComponent(c)}">${esc(c)}</a>`).join(""):""}</div>
-    <b class="nw-t">${esc(n.title)}</b>${n.text?`<p class="nw-x">${esc(n.text)}</p>`:""}${n.point?`<p class="nw-p"><span>면접 포인트</span>${esc(n.point)}</p>`:""}
+    <b class="nw-t">${esc(n.title)}</b>${n.text?`<p class="nw-x">${esc(n.text)}</p>`:""}${n.point?`<p class="nw-p"><span>생각해볼 점</span>${esc(n.point)}</p>`:""}
     <div class="nw-f">${n.source&&n.source.url?`<a href="${esc(n.source.url)}" target="_blank" rel="noopener">${esc(n.source.name||"원문 기사")} ↗</a>`:""}${n.issue&&issues.find(i=>i.id===n.issue)?`<a href="#i-${esc(n.issue)}">이슈로 깊게 공부하기 →</a>`:""}${cur&&others.length?others.map(c=>`<a href="#c-${encodeURIComponent(c)}">${esc(c)}</a>`).join(""):""}</div></li>`}
 
 /* 모의 면접 */
@@ -964,7 +964,7 @@ function showLatest(name){
   if(L.plan)h+=sec("회사가 밝힌 계획",`<ul class="pf-str">${L.plan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`);
   if(L.think&&L.think.length){const ts=load("cr:"+name);ts.a=ts.a||{};
     h+=sec("스스로 생각해볼 거리",`<p class="small" style="margin:0 0 4px">정답이 정해진 문제가 아니에요. 내 생각을 짧게 적어보고, 막히면 생각의 실마리를 열어보세요. 적은 내용은 이 기기${window.Auth&&window.Auth.user?"와 계정":""}에 저장돼요.</p>${L.think.map((t,i)=>`<div class="tk"><p class="tk-q"><span>Q${i+1}</span>${esc(t.q)}</p><textarea data-tk="${i}" placeholder="내 생각을 적어보세요">${esc(ts.a[i]||"")}</textarea>${t.hint?`<details class="tk-h"><summary>생각의 실마리 보기</summary><p>${esc(t.hint)}</p></details>`:""}</div>`).join("")}`)}
-  if(L.tips)h+=sec("면접에서 이렇게 써보세요",`<ol class="pf-tips">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`);
+  if(L.tips)h+=sec("알아둘 점",`<ol class="pf-tips">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`);
   if(L.sources)h+=`<section class="src small">출처: ${L.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ")}<br>기사 숫자를 바탕으로 새로 정리한 학습용 분석이에요.</section>`;
   h+=`<nav class="next"><a href="#c-${encodeURIComponent(name)}">← ${esc(name)} 페이지로</a></nav>`;
   $("#main").innerHTML=`<div class="lr-wrap" style="${coVars(c)}">${h}</div>`;
