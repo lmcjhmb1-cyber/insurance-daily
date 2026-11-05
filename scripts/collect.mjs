@@ -147,6 +147,48 @@ const SOURCES = [
   ].map(([name, url, general]) => ({ name, url, type: 'press', general, run: async () => parseRss(await get(url), name) })),
 ];
 
+// ---------- 네이버 뉴스 (키가 있을 때만) ----------
+// 새 API HUB 주소를 먼저 쓰고, 예전 개발자센터 키면 예전 주소로 받아요.
+const NAVER_ID = process.env.NAVER_CLIENT_ID;
+const NAVER_SECRET = process.env.NAVER_CLIENT_SECRET;
+const NAVER_ENDPOINTS = [
+  { url: 'https://naverapihub.apigw.ntruss.com/search/v1/news', headers: { 'X-NCP-APIGW-API-KEY-ID': NAVER_ID, 'X-NCP-APIGW-API-KEY': NAVER_SECRET } },
+  { url: 'https://openapi.naver.com/v1/search/news.json', headers: { 'X-Naver-Client-Id': NAVER_ID, 'X-Naver-Client-Secret': NAVER_SECRET } },
+];
+let naverEp = null;
+// 네이버는 검색어를 <b>로 감싸서 줘요. 공백으로 바꾸면 단어가 끊겨요.
+const naverText = (s) => squash(decode(String(s || '').replace(/<[^>]*>/g, '')));
+async function naverQuery(query, display) {
+  const eps = naverEp ? [naverEp] : NAVER_ENDPOINTS;
+  let last = '';
+  for (const ep of eps) {
+    const res = await fetch(`${ep.url}?query=${encodeURIComponent(query)}&display=${display}&sort=date`, { headers: ep.headers, signal: AbortSignal.timeout(20000) });
+    if (res.ok) { naverEp = ep; return (await res.json()).items || []; }
+    last = 'HTTP ' + res.status;
+  }
+  throw new Error(last);
+}
+async function naverRun() {
+  const queries = [['보험', 100], ['생명보험', 100], ['손해보험', 100], ['보험사', 100], ['보험업', 50], ...comp.map((c) => [c.name, 30])];
+  const out = [];
+  let okCount = 0, lastErr = '';
+  for (const [q, n] of queries) {
+    try {
+      for (const it of await naverQuery(q, n)) {
+        const pub = parsePub(it.pubDate || '');
+        const title = naverText(it.title);
+        const url = it.originallink || it.link;
+        if (pub && title && url) out.push({ title, url, date: pub.date, time: pub.time, summary: naverText(it.description).slice(0, 300) || undefined });
+      }
+      okCount++;
+    } catch (e) { lastErr = e.message; }
+  }
+  if (!okCount) throw new Error('모든 검색 실패: ' + lastErr);
+  return out;
+}
+if (NAVER_ID && NAVER_SECRET) SOURCES.push({ name: '네이버 뉴스', url: 'https://naverapihub.apigw.ntruss.com/search/v1/news', type: 'press', general: true, strict: true, run: naverRun });
+else console.log('네이버 키가 없어서 네이버 뉴스는 건너뛰어요.');
+
 // ---------- 묶기 ----------
 const normTitle = (t) => t.replace(/\[[^\]]*\]|\([^)]*\)/g, '').replace(/[^0-9A-Za-z가-힣]/g, '');
 const bigrams = (s) => { const r = new Set(); for (let i = 0; i < s.length - 1; i++) r.add(s.slice(i, i + 2)); return r; };
@@ -168,7 +210,7 @@ async function main() {
         const list = await s.run();
         const rec = { name: s.name, url: s.url, count: 0, ok: true, _list: list };
         sources.push(rec);
-        for (const it of list) raw.push({ ...it, source: s.name, type: s.type, general: !!s.general });
+        for (const it of list) raw.push({ ...it, source: s.name, type: s.type, general: !!s.general, strict: !!s.strict });
       } catch (e) {
         const msg = (e && e.cause && e.cause.code) || (e && e.message) || String(e);
         sources.push({ name: s.name, url: s.url, count: 0, ok: false });
@@ -179,6 +221,8 @@ async function main() {
   // 출처 순서를 정의된 순서로
   sources.sort((a, b) => SOURCES.findIndex((x) => x.name === a.name) - SOURCES.findIndex((x) => x.name === b.name));
 
+  // 같은 기사는 전문지와 당국 출처를 네이버보다 먼저 남겨요
+  raw.sort((a, b) => a.strict - b.strict);
   // 날짜 거르기, 주소 중복 없애기
   const byUrl = new Map();
   for (const it of raw) {
@@ -200,6 +244,8 @@ async function main() {
       if (!(deptIns || allKw.length)) continue; // 보험과 관련 없는 보도자료는 버려요
     } else if (it.general) {
       if (!(allKw.some((x) => !x.weak) || companies.length)) continue; // 종합 금융지는 보험 기사만
+      // 네이버는 범위가 넓어서 제목에 보험 말이나 보험사 이름이 있어야 해요
+      if (it.strict && !(kw.some((x) => !x.weak) || tagCompanies(it.title).length)) continue;
     }
     const score = (it.type === 'regulator' ? 3 : 0) + 2 * Math.min(kw.length, 3) + companies.length + (deptIns ? 2 : 0);
     const o = { id: '', source: it.source, type: it.type, title: it.title, url: it.url, date: it.date };
