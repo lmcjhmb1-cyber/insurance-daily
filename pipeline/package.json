@@ -1,0 +1,14 @@
+{
+  "name": "insurance-daily-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "기사 후보를 이슈로 만드는 매일 파이프라인 (결정적인 코드 + 클로드 API 호출)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  }
+}

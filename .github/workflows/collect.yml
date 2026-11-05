@@ -1,8 +1,7 @@
 name: 기사 후보 모으기
+# 매일 자동 실행은 "매일 이슈 올리기"(daily.yml)가 맡아요. 여기는 직접 눌러서 모을 때만 써요.
 
 on:
-  schedule:
-    - cron: "30 20 * * *" # 한국 시간 05:30
   workflow_dispatch:
     inputs:
       date:
