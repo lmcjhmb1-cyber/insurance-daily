@@ -51,7 +51,7 @@ export function buildParams({ model, system, user, schema, effort, maxTokens, us
 }
 
 export class LLMClient {
-  constructor({ transport, budgetUsd = 5, onCall } = {}) {
+  constructor({ transport, budgetUsd = 0.8, onCall } = {}) {
     this.transport = transport;
     this.budgetUsd = budgetUsd;
     this.usage = new Map(); // 모델 -> { calls, input, output, cacheRead, cacheWrite, cost, refusals }
@@ -80,7 +80,7 @@ export class LLMClient {
     this.usage.set(model, u);
   }
 
-  // role: select, write, repair, news, weekly, verify (effort를 정하는 데 써요)
+  // role: triage, select, write, repair, news, weekly, verify, lesson (effort를 정하는 데 써요)
   async call({ model, role, label, system, user, schema, maxTokens = 32000, json = true }) {
     modelInfo(model);
     if (this.spent >= this.budgetUsd) {

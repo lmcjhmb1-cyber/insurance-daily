@@ -1,7 +1,7 @@
 // 글쓰기 단계: 이슈, 회사 소식, 주간 정리. 모델이 쓴 id, 출처 주소는 믿지 않고 코드가 덮어써요.
 import { OutputParseError, BudgetExceededError, FatalApiError } from './llm.mjs';
-import { NEWS_WRITE_SCHEMA, validateIssue, validateNews, validateWeekly } from './schema.mjs';
-import { issuePrompt, repairPrompt, newsPrompt, weeklyPrompt } from './prompts.mjs';
+import { NEWS_WRITE_SCHEMA, NEWS_KINDS, validateIssue, validateNews, validateWeekly, validateLesson } from './schema.mjs';
+import { issuePrompt, repairPrompt, newsPrompt, weeklyPrompt, lessonPrompt } from './prompts.mjs';
 import { clip } from './util.mjs';
 
 export class WriteFailure extends Error {}
@@ -40,14 +40,14 @@ async function callChecked(llm, { buildUser, check, ...params }) {
   throw new WriteFailure('검사를 통과하지 못했어요: ' + errors.slice(0, 4).join(' / '));
 }
 
-export function toArts(ids, cands, bodies, maxChars = 12000) {
+export function toArts(ids, cands, bodies, maxChars = 8000) {
   const byId = new Map(cands.map((c) => [c.id, c]));
   return ids.map((id) => ({ ...byId.get(id), text: clip(bodies.get(id).text, maxChars) }));
 }
 
 export async function writeIssue(llm, { model, system, date, assign, arts, termNames, ctx }) {
   const res = await callChecked(llm, {
-    model, role: 'write', label: `write:${assign.key}`, system, maxTokens: 32000,
+    model, role: 'write', label: `write:${assign.key}`, system, maxTokens: 20000,
     buildUser: (errors) => issuePrompt({ date, assign: publicAssign(assign), arts, termNames, errors }),
     check: (json) => {
       const issue = finalizeIssue(json, assign, arts, date);
@@ -63,7 +63,7 @@ const publicAssign = (a) => ({ id: a.id, title: a.title, tag: a.tag, thread: a.t
 // 검토에서 지적받은 부분만 고치기 (소넷 등 글쓰기 모델)
 export async function repairIssue(llm, { model, system, date, issue, problems, assign, arts, ctx }) {
   const res = await callChecked(llm, {
-    model, role: 'repair', label: `repair:${assign.key}`, system, maxTokens: 32000,
+    model, role: 'repair', label: `repair:${assign.key}`, system, maxTokens: 20000,
     buildUser: (errors) => repairPrompt({ date, issue, problems: errors ? [...problems, ...errors.map((e) => ({ field: '-', claim: '-', problem: e, fix: '-' }))] : problems, arts }),
     check: (json) => {
       const fixed = finalizeIssue(json, assign, arts, date);
@@ -79,7 +79,7 @@ export async function writeNews(llm, { model, system, date, items, cands, bodies
   const out = [];
   for (let i = 0; i < items.length; i += chunk) {
     const part = items.slice(i, i + chunk);
-    const arts = toArts(part.map((x) => x.articleId), cands, bodies, 3500);
+    const arts = toArts(part.map((x) => x.articleId), cands, bodies, 2500);
     try {
       const res = await callChecked(llm, {
         model, role: 'news', label: `news:${i / chunk + 1}`, system, schema: NEWS_WRITE_SCHEMA, maxTokens: 16000,
@@ -91,7 +91,7 @@ export async function writeNews(llm, { model, system, date, items, cands, bodies
             const w = got.get(sel.articleId);
             const c = arts.find((a) => a.id === sel.articleId);
             if (!w) { errors.push(`${sel.articleId}: 결과에 없어요.`); continue; }
-            const n = { date, companies: sel.companies, kind: sel.kind, title: String(w.title).trim(), text: String(w.text).trim(), source: { name: c.source, url: c.url }, _articleId: sel.articleId, _issueKey: sel.issueKey };
+            const n = { date, companies: sel.companies, kind: NEWS_KINDS.includes(w.kind) ? w.kind : '기타', title: String(w.title).trim(), text: String(w.text).trim(), source: { name: c.source, url: c.url }, _articleId: sel.articleId, _issueKey: sel.issueKey };
             const v = validateNews(n, ctx);
             if (v.errors.length) errors.push(`${sel.articleId}: ${v.errors.join(', ')}`); else value.push(n);
           }
@@ -117,6 +117,16 @@ export async function writeWeekly(llm, { model, system, start, end, issues, thre
       const w = { ...json, id: end, start, end };
       return { errors: validateWeekly(w, { threadIds: new Set(threadIds), start, end }).errors, value: w };
     },
+  });
+  return res.value;
+}
+
+// 용어 학습 하나 쓰기 (GUIDE 2-4번). 모양이 틀리면 문제를 알려주고 한 번만 다시 써요.
+export async function writeLesson(llm, { model, system, term, d, issueTitle }) {
+  const res = await callChecked(llm, {
+    model, role: 'lesson', label: `lesson:${term}`, system, maxTokens: 8000,
+    buildUser: (errors) => lessonPrompt({ term, d, issueTitle, errors }),
+    check: (json) => ({ errors: validateLesson(json).errors, value: json }),
   });
   return res.value;
 }

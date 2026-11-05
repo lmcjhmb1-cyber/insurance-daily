@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const TRACKED = ['issues.js', 'news.js', 'weekly.js', 'index.html', 'data'];
+const TRACKED = ['issues.js', 'news.js', 'weekly.js', 'lessons.js', 'index.html', 'data'];
 
 // 합치기 전 상태를 임시 폴더에 복사해 둬요 (git이 없는 복사본에서도 돌아가도록 git restore 대신 직접 되돌려요)
 export function snapshot(root) {
@@ -70,7 +70,7 @@ export async function publish({ root, payload, date, payloadFile, repair, log = 
       if (r.ok) { log(`  합치기와 검사 통과 (${round}번째 시도)`); return { ok: true, payload, removed, out: r.out }; }
       log(`  ${r.stage} 실패 (${round}번째 시도)`);
       const bad = new Set(r.errors.map((e) => e.id));
-      const mine = (id) => payload.issues?.some((i) => i.id === id) || payload.news?.some((n) => n.id === id) || payload.weekly?.some((w) => w.id === id);
+      const mine = (id) => payload.issues?.some((i) => i.id === id) || payload.news?.some((n) => n.id === id) || payload.weekly?.some((w) => w.id === id) || Object.hasOwn(payload.lessons || {}, id);
       if (![...bad].some(mine)) {
         log('  새 항목과 관련 없는 오류예요. 올리지 않아요.\n' + r.out.split('\n').filter((l) => /오류|^ {5}/.test(l)).slice(0, 12).join('\n'));
         restore(root, snap);
@@ -88,12 +88,14 @@ export async function publish({ root, payload, date, payloadFile, repair, log = 
       }
       // 고쳐도 안 되면 문제 항목을 빼요
       for (const id of bad) if (mine(id)) removed.push(id);
+      const keepLessons = Object.fromEntries(Object.entries(payload.lessons || {}).filter(([k]) => !bad.has(k))); // 검사에서 걸린 용어는 빼요
       const dropIssue = new Set((payload.issues || []).filter((i) => bad.has(i.id)).map((i) => i.id));
       payload = {
         ...payload,
         issues: (payload.issues || []).filter((i) => !dropIssue.has(i.id)),
         news: (payload.news || []).filter((n) => !bad.has(n.id)).map((n) => (dropIssue.has(n.issue) ? (({ issue, ...rest }) => rest)(n) : n)),
         weekly: dropIssue.size ? [] : (payload.weekly || []).filter((w) => !bad.has(w.id)),
+        lessons: keepLessons,
       };
       if (!payload.issues.length && !payload.news.length) break;
     }

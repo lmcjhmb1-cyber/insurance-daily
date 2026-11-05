@@ -18,19 +18,19 @@ on:
         required: false
         default: ""
       writer_model:
-        description: "글쓰기 모델 (고르기, 쓰기, 고치기). 비우면 아래 기본값"
+        description: "글쓰기 모델 (고르기, 쓰기, 고치기, 주간, 용어). 비우면 아래 기본값"
         required: false
         default: ""
       verifier_model:
-        description: "검토 모델. 비우면 아래 기본값"
+        description: "이슈 검토 모델. 비우면 아래 기본값"
+        required: false
+        default: ""
+      cheap_model:
+        description: "값싼 모델 (거르기, 회사 소식 쓰기·검토). 비우면 아래 기본값"
         required: false
         default: ""
       budget_usd:
-        description: "하루 예산(달러). 비우면 저장소 변수 DAILY_BUDGET_USD, 그것도 없으면 5"
-        required: false
-        default: ""
-      monthly_note:
-        description: "메모 (월 예산 같은 것을 적어두는 칸이에요. 동작에는 쓰이지 않아요)"
+        description: "하루 예산(달러). 비우면 저장소 변수 DAILY_BUDGET_USD, 그것도 없으면 0.8"
         required: false
         default: ""
 
@@ -43,10 +43,12 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # 모델을 바꾸려면 아래 두 줄의 기본값만 고치면 돼요 (claude-sonnet-5-5, claude-opus-5-5, claude-haiku-5-5)
+  # 모델을 바꾸려면 아래 세 줄의 기본값만 고치면 돼요 (claude-sonnet-5-5, claude-opus-5-5, claude-haiku-5-5)
   WRITER_MODEL: ${{ inputs.writer_model || 'claude-sonnet-5-5' }}
-  VERIFIER_MODEL: ${{ inputs.verifier_model || 'claude-opus-5-5' }}
-  DAILY_BUDGET_USD: ${{ inputs.budget_usd || vars.DAILY_BUDGET_USD || '5' }}
+  VERIFIER_MODEL: ${{ inputs.verifier_model || 'claude-sonnet-5-5' }}
+  CHEAP_MODEL: ${{ inputs.cheap_model || 'claude-haiku-5-5' }}
+  # 한 달 예산 약 20달러, 하루 약 0.7달러에 맞춰 0.8달러로 두었어요
+  DAILY_BUDGET_USD: ${{ inputs.budget_usd || vars.DAILY_BUDGET_USD || '0.8' }}
 
 jobs:
   daily:
@@ -82,7 +84,7 @@ jobs:
             exit 1
           fi
           echo "DATE=$D" >> "$GITHUB_ENV"
-          echo "날짜 $D, 글쓰기 모델 $WRITER_MODEL, 검토 모델 $VERIFIER_MODEL, 하루 예산 $DAILY_BUDGET_USD 달러, 연습 실행 $INPUT_DRY_RUN"
+          echo "날짜 $D, 글쓰기 모델 $WRITER_MODEL, 검토 모델 $VERIFIER_MODEL, 값싼 모델 $CHEAP_MODEL, 하루 예산 $DAILY_BUDGET_USD 달러, 연습 실행 $INPUT_DRY_RUN"
 
       - name: 비밀값 확인
         env:
@@ -98,6 +100,9 @@ jobs:
         working-directory: pipeline
 
       - name: 기사 후보 모으기
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
         run: node scripts/collect.mjs "$DATE"
 
       - name: 후보 올리기
@@ -138,12 +143,13 @@ jobs:
         env:
           ISSUES: ${{ steps.pipeline.outputs.issues }}
           NEWS: ${{ steps.pipeline.outputs.news }}
+          LESSONS: ${{ steps.pipeline.outputs.lessons }}
         run: |
           PAYLOAD="pipeline/out/$DATE/payload.json"
-          MSG="이슈 올리기: ${DATE} (이슈 ${ISSUES}개, 회사 소식 ${NEWS}건)"
+          MSG="이슈 올리기: ${DATE} (이슈 ${ISSUES}개, 회사 소식 ${NEWS}건, 새 용어 ${LESSONS:-0}개)"
           git config user.name "lmcjhmb1-cyber"
           git config user.email "lmcjhmb1@gmail.com"
-          FILES="issues.js news.js weekly.js index.html data"
+          FILES="issues.js news.js weekly.js lessons.js index.html data"
           git add $FILES
           if git diff --cached --quiet; then
             echo "바뀐 것이 없어요."

@@ -1,4 +1,4 @@
-// 새 내용을 이슈, 회사 소식, 주간 정리 파일에 합쳐 넣어요.
+// 새 내용을 이슈, 회사 소식, 주간 정리, 용어 학습 파일에 합쳐 넣어요.
 // 사용법: node scripts/merge.mjs 새내용.json [--bump]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -68,6 +68,36 @@ for (const t of TARGETS) {
   if (out !== raw) fs.writeFileSync(p, out);
   console.log(`${t.label}(${t.file}): 추가 ${added}건, 건너뜀 ${skipped.length}건${out !== raw ? ' [파일 바뀜]' : ''}`);
   skipped.forEach((s) => console.log('  건너뜀: ' + s));
+}
+
+// 용어 학습(lessons.js): { "용어": {...} } 모양이고, 이미 있는 용어는 절대 덮어쓰지 않아요
+{
+  const p = path.join(root, 'lessons.js');
+  const add = input.lessons && typeof input.lessons === 'object' && !Array.isArray(input.lessons) ? input.lessons : {};
+  if (Object.keys(add).length) {
+    const raw = fs.readFileSync(p, 'utf8');
+    const crlf = raw.includes('\r\n');
+    const text = raw.replace(/\r\n/g, '\n');
+    const marker = 'window.LESSONS = ';
+    const at = text.indexOf('\n' + marker) >= 0 ? text.indexOf('\n' + marker) + 1 : text.indexOf(marker);
+    if (at < 0) { console.error(`lessons.js: ${marker}를 찾지 못했어요.`); process.exit(1); }
+    const head = text.slice(0, at); // 맨 위 주석 그대로
+    const cur = loadWindow('lessons.js', root).LESSONS;
+    const skipped = [];
+    let added = 0;
+    for (const [k, v] of Object.entries(add)) {
+      if (!k.trim() || !v || typeof v !== 'object' || Array.isArray(v)) { skipped.push(`${k || '(이름 없음)'} (내용이 올바르지 않아요)`); continue; }
+      if (Object.prototype.hasOwnProperty.call(cur, k)) { skipped.push(`${k} (이미 있는 용어)`); continue; }
+      cur[k] = v; added++;
+    }
+    if (added) {
+      let out = head + marker + JSON.stringify(cur, null, 2) + ';\n';
+      if (crlf) out = out.replace(/\n/g, '\r\n');
+      if (out !== raw) fs.writeFileSync(p, out);
+    }
+    console.log(`용어 학습(lessons.js): 추가 ${added}건, 건너뜀 ${skipped.length}건${added ? ' [파일 바뀜]' : ''}`);
+    skipped.forEach((s) => console.log('  건너뜀: ' + s));
+  }
 }
 
 // 이슈가 바뀌었을 수 있으니 data/ 폴더도 새로 만들어요 (화면은 data/를 읽어요)

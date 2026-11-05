@@ -13,7 +13,7 @@ export function createMockFetch(cands) {
     let html;
     if (/fsc\.go\.kr/.test(url)) html = `<html><body><div class="content-body x"><p>${para(1)}</p><p>${para(2)}</p></div><div class="board-btn"></div></body></html>`;
     else if (/fss\.or\.kr/.test(url)) html = `<html><body><div class="dbdata"><p>${MOCK_SENTINEL}-${c.id} 짧은 모의 보도자료 본문이에요. 시험용 문장입니다. 금감원 자료는 원래 짧아서 이 정도 길이로 만들었어요.</p></div></div></body></html>`;
-    else html = `<html><head><meta property="og:title" content="${c.title.replace(/"/g, '&quot;')}"></head><body><article><div id="article-view-content-div"><p>${para(1)}</p><p>${para(2)}</p><p>${para(3)}</p></div></article></body></html>`;
+    else html = `<html><head><meta property="og:title" content="${c.title.replace(/"/g, '&quot;')}"><meta property="og:site_name" content="모의신문"></head><body><article><div id="article-view-content-div"><p>${para(1)}</p><p>${para(2)}</p><p>${para(3)}</p></div></article></body></html>`;
     return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   };
 }
@@ -76,10 +76,32 @@ export function fixtureIssue(assign) {
   return issue;
 }
 
+// ---------- 가짜 용어 학습 (GUIDE 2-4번 형식을 지키는 견본) ----------
+export function fixtureLesson(term) {
+  return {
+    easy: `${term}은 모의 자료에서 쓰는 **보험 용어**예요. 시험을 위한 설명이에요.`,
+    analogy: '용돈을 미리 받아 한 달에 나눠 쓰는 것과 비슷해요. 시험을 위한 비유예요.',
+    steps: [
+      { h: '먼저 정해요', t: '기준이 되는 숫자를 정해요.' },
+      { h: '나눠서 반영해요', t: '정한 숫자를 기간으로 나눠요. $$\\frac{100}{10} = 10$$' },
+      { h: '결과를 확인해요', t: '해마다 반영되는 몫을 확인해요.' },
+    ],
+    example: { title: '예시 숫자로 계산해보기', rows: [{ label: '전체 금액', value: '100' }, { label: '기간', value: '10년' }, { label: '해마다 몫', value: '10', hi: true }], note: '100을 10년으로 나누면 해마다 10이에요. 설명을 위한 예시 숫자예요.' },
+    vs: [{ t: '비슷한 말', d: '비슷하지만 **기준이 달라요**.' }],
+    why: '숫자의 근거를 설명할 때 꼭 필요한 용어라서 계리와 상품개발에서 자주 만나요.',
+    quiz: [
+      { q: '100을 10년으로 나누면 해마다 얼마일까요?', o: ['5', '10', '20'], a: 1, e: '100을 10으로 나누면 10이에요.' },
+      { q: '이 용어를 설명할 때 가장 알맞은 것은?', o: ['기간에 걸쳐 나눠 반영해요', '한 번에 모두 반영해요', '반영하지 않아요'], a: 0, e: '나눠서 반영하는 개념이에요.' },
+    ],
+    related: ['계리가정', '보험부채', '검증'],
+  };
+}
+
 // ---------- 가짜 모델 ----------
 const tagText = (s, name) => (s.match(new RegExp(`<${name}>([\\s\\S]*?)</${name}>`)) || [])[1];
 
-// opts: { failVerify(label, n) -> bool, refuse(label) -> bool, badWriteOnce(label) -> bool }
+// opts: { failVerify(label, n) -> bool, refuse(label) -> bool, badWriteOnce(label) -> bool, extraOutput(label) -> 출력 토큰 추가,
+//         triageGroups(거르기에서 고를 사건 수), triageExtraIds(거르기가 덧붙일 id), failLesson(label) -> bool, badLessonOnce(label) -> bool }
 export function createMockTransport(opts = {}) {
   const seen = new Map(); // 라벨별 호출 횟수
   const cached = new Set();
@@ -94,7 +116,7 @@ export function createMockTransport(opts = {}) {
       content: [{ type: 'thinking', thinking: '' }, { type: 'text', text }],
       usage: {
         input_tokens: Math.ceil(params.messages[0].content.length / 2),
-        output_tokens: Math.ceil(text.length / 2),
+        output_tokens: Math.ceil(text.length / 2) + (opts.extraOutput?.(label) || 0), // 시험에서 비싼 호출을 흉내 낼 때
         cache_creation_input_tokens: hit ? 0 : Math.ceil(systemLen / 2),
         cache_read_input_tokens: hit ? Math.ceil(systemLen / 2) : 0,
       },
@@ -107,6 +129,15 @@ export function createMockTransport(opts = {}) {
     seen.set(label, n);
     const user = params.messages[0].content;
     if (opts.refuse?.(label)) return reply(params, label, '', { stop_reason: 'refusal', content: [], stop_details: { category: 'general_harms' } });
+    if (label === 'triage') {
+      const cands = JSON.parse(tagText(user, '후보목록'));
+      const groups = new Map();
+      for (const c of cands) groups.set(c.group, [...(groups.get(c.group) || []), c]);
+      const pickedGroups = [...groups.values()].filter((g) => g.some((c) => c.type === 'press')).sort((a, b) => Math.max(...b.map((c) => c.score)) - Math.max(...a.map((c) => c.score))).slice(0, opts.triageGroups ?? 4);
+      const issue_ids = pickedGroups.map((g) => g.slice().sort((a, b) => b.score - a.score)[0].id);
+      const news_ids = cands.filter((c) => c.companies?.length).slice(0, 12).map((c) => c.id);
+      return reply(params, label, { issue_ids: [...issue_ids, ...(opts.triageExtraIds || [])], news_ids });
+    }
     if (label === 'select') {
       const cands = JSON.parse(tagText(user, '후보목록'));
       const groups = new Map();
@@ -116,9 +147,7 @@ export function createMockTransport(opts = {}) {
         key: `i${i + 1}`, title: `모의 이슈 ${i + 1}: ${g[0].title.slice(0, 20)}`, article_ids: g.map((c) => c.id), tag: '감독·계리',
         thread: { id: 'mock-thread', name: '모의 흐름' }, companies: [], jobs: ['계리'], comic: { include: i === 0, outline: '모의 4칸' }, angle: '모의 관점',
       }));
-      const inIssue = new Set(picked.flat().map((c) => c.id));
-      const news = cands.filter((c) => c.companies?.length).slice(0, 12).map((c) => ({ article_id: c.id, companies: c.companies, kind: '기타', issue_ref: inIssue.has(c.id) ? 'i1' : '' }));
-      return reply(params, label, { issues, news, note: '모의 선택' });
+      return reply(params, label, { issues, note: '모의 선택' });
     }
     if (label.startsWith('write:')) {
       const assign = JSON.parse(tagText(user, '배정'));
@@ -133,11 +162,20 @@ export function createMockTransport(opts = {}) {
     }
     if (label.startsWith('news:')) {
       const ids = [...user.matchAll(/<기사 id="([^"]+)"/g)].map((m) => m[1]);
-      return reply(params, label, { items: ids.map((id) => ({ article_id: id, title: `모의 회사 소식 ${id.slice(-3)}`, text: '모의 요약이에요. 시험용 문장입니다.' })) });
+      return reply(params, label, { items: ids.map((id) => ({ article_id: id, kind: '상품', title: `모의 회사 소식 ${id.slice(-3)}`, text: '모의 요약이에요. 시험용 문장입니다.' })) });
     }
     if (label.startsWith('newsverify:')) {
       const ids = [...(tagText(user, '회사 소식') ? JSON.parse(tagText(user, '회사 소식')) : [])].map((x) => x.article_id);
       return reply(params, label, { results: ids.map((id) => ({ article_id: id, ok: true, problem: '' })) });
+    }
+    if (label.startsWith('lesson:')) {
+      const t = JSON.parse(tagText(user, '용어')).t;
+      if (opts.badLessonOnce?.(label) && n === 1) return reply(params, label, '이건 JSON이 아니에요');
+      return reply(params, label, fixtureLesson(t));
+    }
+    if (label.startsWith('lessonverify:')) {
+      const bad = opts.failLesson?.(label);
+      return reply(params, label, bad ? { ok: false, problems: [{ field: 'example', claim: '모의 계산', problem: '계산이 맞지 않아요', fix: '다시 계산하세요' }] } : { ok: true, problems: [] });
     }
     if (label === 'weekly') {
       const m = user.match(/id:"(\d{4}-\d{2}-\d{2})", start:"(\d{4}-\d{2}-\d{2})"/);

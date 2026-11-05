@@ -1,12 +1,12 @@
 // 검토 단계: 기사 원문과 대조해서 맞지 않으면 한 번 고치고, 그래도 안 되면 버려요. 의심스러우면 올리지 않아요.
 import { BudgetExceededError, FatalApiError, RefusalError } from './llm.mjs';
 import { VERIFY_SCHEMA, NEWS_VERIFY_SCHEMA } from './schema.mjs';
-import { verifyIssuePrompt, verifyNewsPrompt, verifyWeeklyPrompt } from './prompts.mjs';
+import { verifyIssuePrompt, verifyNewsPrompt, verifyWeeklyPrompt, verifyLessonPrompt } from './prompts.mjs';
 import { repairIssue, writeIssue } from './write.mjs';
 
 export async function verifyIssue(llm, { model, system, issue, arts, hints }) {
   const { json } = await llm.call({
-    model, role: 'verify', label: `verify:${issue.id}`, system, schema: VERIFY_SCHEMA, maxTokens: 16000,
+    model, role: 'verify', label: `verify:${issue.id}`, system, schema: VERIFY_SCHEMA, maxTokens: 10000,
     user: verifyIssuePrompt({ issue, arts, hints }),
   });
   const problems = Array.isArray(json.problems) ? json.problems : [];
@@ -48,7 +48,7 @@ export async function verifyNewsBatch(llm, { model, system, news, bodies, chunk 
   const passed = [], dropped = [];
   for (let i = 0; i < news.length; i += chunk) {
     const part = news.slice(i, i + chunk);
-    const arts = part.map((n) => ({ id: n._articleId, source: n.source.name, type: 'press', text: bodies.get(n._articleId).text.slice(0, 3500) }));
+    const arts = part.map((n) => ({ id: n._articleId, source: n.source.name, type: 'press', text: bodies.get(n._articleId).text.slice(0, 2500) }));
     try {
       const { json } = await llm.call({
         model, role: 'verify', label: `newsverify:${i / chunk + 1}`, system, schema: NEWS_VERIFY_SCHEMA, maxTokens: 16000,
@@ -76,4 +76,14 @@ export async function verifyWeekly(llm, { model, system, weekly, issues }) {
     user: verifyWeeklyPrompt({ weekly, issues: issues.map((i) => ({ id: i.id, title: i.title, brief: i.brief, points: i.points, thread: i.thread })) }),
   });
   return json.ok === true && (json.problems || []).length === 0;
+}
+
+// 용어 학습 검토: 기사 대조 없이 일반 정의, 예시 계산, 퀴즈 정답만 확인해요
+export async function verifyLesson(llm, { model, system, term, lesson }) {
+  const { json } = await llm.call({
+    model, role: 'verify', label: `lessonverify:${term}`, system, schema: VERIFY_SCHEMA, maxTokens: 6000,
+    user: verifyLessonPrompt({ term, lesson }),
+  });
+  const problems = Array.isArray(json.problems) ? json.problems : [];
+  return { ok: json.ok === true && problems.length === 0, problems };
 }

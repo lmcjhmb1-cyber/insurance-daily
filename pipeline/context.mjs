@@ -27,6 +27,7 @@ export function loadContext(root, date) {
     companies,
     jobs,
     terms: [...terms],
+    lessonKeys: new Set(Object.keys(loadWindow('lessons.js', root).LESSONS || {})),
     recentTitles,
     lastIssueN: maxN(issues.filter((i) => i.date === date), new RegExp(`^${date}-(\\d+)$`)),
     lastNewsN: maxN(news.filter((n) => n.date === date), new RegExp(`^n-${date}-(\\d+)$`)),

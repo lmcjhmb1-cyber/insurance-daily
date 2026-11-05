@@ -100,15 +100,13 @@ test('선택 결과를 걸러낸다: 다른 묶음, 얇은 자료만 있는 묶�
       { key: 'i1', title: 'A', article_ids: [cands[1].id, cands[0].id, cands[2].id], tag: 't', thread: { id: 'x', name: 'y' }, companies: ['없는회사', '삼성화재'], jobs: ['계리', '없는직무'], comic: { include: false, outline: '' }, angle: '' },
       { key: 'i2', title: '얇음', article_ids: [cands[4].id], tag: 't', thread: { id: 'x', name: 'y' }, companies: [], jobs: ['계리'], comic: { include: false, outline: '' }, angle: '' },
     ],
-    news: [{ article_id: cands[2].id, companies: ['삼성화재'], kind: '이상한종류', issue_ref: 'i1' }, { article_id: 'nope', companies: ['삼성화재'], kind: '기타', issue_ref: '' }],
   };
   const out = sanitizeSelection(sel, { cands, bodies, ctx, limitIssues: 7 });
   assert.equal(out.issues.length, 1, '얇은 자료만 있는 이슈는 건너뛰어요');
   assert.deepEqual(out.issues[0].articleIds, [cands[0].id, cands[1].id], '같은 묶음만, 보도자료가 먼저');
   assert.deepEqual(out.issues[0].companies, ['삼성화재']);
   assert.deepEqual(out.issues[0].jobs, ['계리']);
-  assert.equal(out.news.length, 1);
-  assert.equal(out.news[0].kind, '기타');
+  assert.ok(!('news' in out), '고르기는 이슈만 골라요');
   const lim = sanitizeSelection({ ...sel, issues: [sel.issues[0]] }, { cands, bodies, ctx, limitIssues: 0 });
   assert.equal(lim.issues.length, 0, '--limit-issues를 넘지 않아요');
 });

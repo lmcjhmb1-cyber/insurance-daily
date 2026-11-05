@@ -28,12 +28,15 @@ export function decodeEntities(s) {
 export function htmlToText(html) {
   return decodeEntities(
     String(html)
+      .replace(/\r\n?/g, '\n')
       .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
       .replace(/<br\s*\/?>/gi, '\n')
       .replace(/<\/(p|div|li|h\d|tr)>/gi, '\n')
       .replace(/<[^>]*>/g, ' ')
   )
     .replace(/[ \t ]+/g, ' ')
+    .replace(/\p{Cf}/gu, '') // 보이지 않는 글자(너비 없는 공백 등)
+    .replace(/[\t\p{Zs}]+/gu, ' ')
     .replace(/ *\n */g, '\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim();

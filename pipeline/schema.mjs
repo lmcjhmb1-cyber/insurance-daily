@@ -19,6 +19,8 @@ const arr = (items) => ({ type: 'array', items });
 const str = { type: 'string' };
 const bool = { type: 'boolean' };
 
+// 거르기: 제목과 요약만 보고 이슈 후보 기사와 회사 소식 후보 기사의 id를 골라요
+export const TRIAGE_SCHEMA = obj({ issue_ids: arr(str), news_ids: arr(str) });
 export const SELECT_SCHEMA = obj({
   issues: arr(obj({
     key: str, // 뉴스와 이어줄 때 쓰는 짧은 이름(i1, i2...)
@@ -31,14 +33,13 @@ export const SELECT_SCHEMA = obj({
     comic: obj({ include: bool, outline: str }),
     angle: str,
   })),
-  news: arr(obj({ article_id: str, companies: arr(str), kind: { type: 'string', enum: NEWS_KINDS }, issue_ref: str })),
   note: str,
 });
 export const VERIFY_SCHEMA = obj({
   ok: bool,
   problems: arr(obj({ field: str, claim: str, problem: str, fix: str })),
 });
-export const NEWS_WRITE_SCHEMA = obj({ items: arr(obj({ article_id: str, title: str, text: str })) });
+export const NEWS_WRITE_SCHEMA = obj({ items: arr(obj({ article_id: str, kind: { type: 'string', enum: NEWS_KINDS }, title: str, text: str })) });
 export const NEWS_VERIFY_SCHEMA = obj({ results: arr(obj({ article_id: str, ok: bool, problem: str })) });
 
 // ---------- 코드 검사 ----------
@@ -143,6 +144,34 @@ export function validateNews(n, { companies = [] } = {}) {
   if (!n.source || !/^https?:\/\//.test(n.source.url || '') || !isStr(n.source.name)) errors.push('source가 없어요.');
   if ('point' in n) errors.push('point 항목은 넣지 않아요.');
   for (const [pth, s] of strings({ title: n.title, text: n.text })) if (/면접/.test(s) || s.includes('**')) errors.push(`${pth}: 면접이나 ** 표시는 쓰지 않아요.`);
+  return { errors };
+}
+
+// 용어 학습 하나 (GUIDE 2-4번): { easy, analogy, steps, example, vs, why, quiz, related }
+export function validateLesson(l) {
+  const errors = [];
+  const err = (m) => errors.push(m);
+  if (!l || typeof l !== 'object' || isArr(l)) return { errors: ['용어 학습이 객체가 아니에요.'] };
+  for (const k of ['easy', 'analogy', 'why']) if (!isStr(l[k])) err(`${k}가 없어요.`);
+  if (!isArr(l.steps) || l.steps.length < 3 || l.steps.length > 4 || !l.steps.every((s) => s && isStr(s.h) && isStr(s.t))) err('steps는 { h, t } 3~4단계예요.');
+  const ex = l.example;
+  if (!ex || !isStr(ex.title) || !isStr(ex.note)) err('example에 title과 note가 필요해요.');
+  else if (!ex.note.includes('예시 숫자')) err('example.note에 "예시 숫자"라는 말로 설명용 숫자임을 밝혀요.');
+  if (ex) {
+    if (!isArr(ex.rows) || !ex.rows.length || !ex.rows.every((r) => r && isStr(r.label) && isStr(r.value) && (r.hi === undefined || r.hi === true))) err('example.rows는 { label, value(문자열), hi(선택, true) } 목록이에요.');
+  }
+  if (!isArr(l.vs) || l.vs.length < 1 || l.vs.length > 3 || !l.vs.every((v) => v && isStr(v.t) && isStr(v.d))) err('vs는 { t, d } 1~3개예요.');
+  if (!isArr(l.quiz) || l.quiz.length < 2 || l.quiz.length > 3) err('quiz는 2~3개예요.');
+  else l.quiz.forEach((q, i) => {
+    if (!q || !isStr(q.q) || !isStr(q.e) || !isArr(q.o) || q.o.length !== 3 || !q.o.every(isStr) || !Number.isInteger(q.a) || q.a < 0 || q.a > 2) err(`quiz ${i + 1}: q, o(3개), a(0~2), e가 필요해요.`);
+  });
+  if (!isArr(l.related) || l.related.length < 3 || l.related.length > 5 || !l.related.every(isStr)) err('related는 용어 3~5개예요.');
+  const clean = (s) => s.replace(/\$\$[\s\S]*?\$\$/g, '');
+  for (const [pth, s] of strings(l)) {
+    if (/면접/.test(s)) err(`${pth}: "면접"이라는 말은 쓰지 않아요.`);
+    if (count(s, '$$') % 2) err(`${pth}: $$ 개수가 홀수예요.`);
+    if (count(clean(s), '**') % 2) err(`${pth}: ** 개수가 홀수예요.`);
+  }
   return { errors };
 }
 
