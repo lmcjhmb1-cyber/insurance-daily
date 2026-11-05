@@ -173,12 +173,12 @@
 
 ## 8. 올리는 방법 (두 예약 작업이 동시에 고칠 수 있어서 꼭 이 순서로)
 1. 새로 만든 내용은 작업 중에 저장소 밖의 임시 JSON 파일에 모아둬요.
-2. 올리기 직전에 `git fetch origin main` 후 `git reset --hard origin/main`으로 최신 상태를 받아요.
+2. 올리기 직전에 `git fetch origin main` 후 `git merge --ff-only origin/main`으로 최신 상태를 받아요. `git reset --hard`는 예약 실행에서 막혀요.
 3. **`node scripts/merge.mjs 임시파일.json --bump`로 합쳐요.** 임시 파일 모양은 `{ "issues": [...], "news": [...], "weekly": [...] }`(필요한 것만)이에요. 이 스크립트가 아래 규칙대로 합치고 4번의 버전 숫자도 바꿔줘요. 합치기 스크립트를 새로 짜지 마세요. (규칙: issues.js의 window.ISSUES는 date 기준 최신순(같은 날은 번호순)으로 정렬해서 다시 쓰고, 같은 id가 있으면 건너뛰어요. news.js의 window.NEWS도 같은 방식으로 합쳐요(같은 id나 같은 source.url은 건너뛰기). 파일 맨 위 주석은 그대로 둬요.) lessons.js와 profiles.js는 이 스크립트가 다루지 않으니 직접 합쳐요.
 4. 합치기 스크립트는 `data/` 폴더도 새로 만들어요. `data/`는 issues.js, lessons.js, profiles.js를 화면이 필요한 만큼만 받도록 나눈 자동 생성 파일이라 **손으로 고치지 마세요**(원본은 그대로 issues.js 등이에요). 이슈나 lessons.js, profiles.js를 직접 고쳤다면 `node scripts/build-data.mjs`를 실행해 다시 만들고 `data/`도 같이 커밋해요. 깜빡해도 푸시하면 깃허브 액션(데이터 나누기)이 `data/`를 다시 만들어 올려줘요.
 5. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요(3번의 `--bump`가 해줘요). 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
 6. **확인: `node scripts/check.mjs --since 오늘날짜`를 실행해 "검사 통과"가 나와야 올려요.** 오류가 나오면 고치고 다시 검사해요. 검사기가 하는 일은 다음과 같아요: `data/`가 원본과 같은지(오래됐으면 오류),  node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js, lessons.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, brief(what·why·so)와 pre(terms의 t 안에 있는 이름 1~2개)가 있는지, figs마다 look이 있는지, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
-7. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 2번부터 다시 해요(최대 3번).
+7. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 `git fetch origin main` 후 `git worktree add --detach 임시폴더 origin/main`으로 새 폴더를 만들어 그 안에서 3번부터 다시 해요(최대 3번).
 8. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 
 ## 9. 건드리지 않는 파일

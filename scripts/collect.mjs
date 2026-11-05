@@ -156,6 +156,8 @@ const NAVER_ENDPOINTS = [
   { url: 'https://openapi.naver.com/v1/search/news.json', headers: { 'X-Naver-Client-Id': NAVER_ID, 'X-Naver-Client-Secret': NAVER_SECRET } },
 ];
 let naverEp = null;
+// 네이버는 검색어를 <b>로 감싸서 줘요. 공백으로 바꾸면 단어가 끊겨요.
+const naverText = (s) => squash(decode(String(s || '').replace(/<[^>]*>/g, '')));
 async function naverQuery(query, display) {
   const eps = naverEp ? [naverEp] : NAVER_ENDPOINTS;
   let last = '';
@@ -174,9 +176,9 @@ async function naverRun() {
     try {
       for (const it of await naverQuery(q, n)) {
         const pub = parsePub(it.pubDate || '');
-        const title = stripTags(it.title || '');
+        const title = naverText(it.title);
         const url = it.originallink || it.link;
-        if (pub && title && url) out.push({ title, url, date: pub.date, time: pub.time, summary: stripTags(it.description || '').slice(0, 300) || undefined });
+        if (pub && title && url) out.push({ title, url, date: pub.date, time: pub.time, summary: naverText(it.description).slice(0, 300) || undefined });
       }
       okCount++;
     } catch (e) { lastErr = e.message; }
