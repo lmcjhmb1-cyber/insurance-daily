@@ -1,3 +1,7 @@
 name = "insurance-feedback"
 main = "feedback.js"
 compatibility_date = "2026-10-01"
+
+[[kv_namespaces]]
+binding = "LIMIT"
+id = "4cb50ed15a9448ba8b8df0bd570c0854"

@@ -10,7 +10,7 @@ function sod(ts){const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime()}
 const MODE={light:{label:"가볍게",time:"약 5분",desc:"예측, 핵심 정리, 퀴즈"},deep:{label:"깊게",time:"약 15분",desc:"인과 사슬, 담당자 질문, 스스로 답해보기까지"}};
 const GAP=[1,3,7,14,30];
 // 인공지능 피드백 서버 주소 (클라우드플레어 워커). 비어 있으면 피드백 버튼이 숨겨져요.
-const FEEDBACK_URL="";
+const FEEDBACK_URL="https://insurance-feedback.insurance-daily.workers.dev";
 
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const BYID=new Map(issues.map(i=>[i.id,i]));
@@ -238,6 +238,7 @@ const NOTICE=`<details class="notice"><summary>무엇을 저장하나요?</summa
   <li><b>친구 리그:</b> 참가하면 직접 정한 별명과 이번 주에 끝낸 이슈 개수만 순위표에 올라가고, 로그인한 사람은 순위표를 볼 수 있어요. 나가면 순위표에서 빠져요.</li>
   <li><b>오류 신고:</b> 신고한 내용은 누가 보냈는지 없이 운영자에게만 전달돼요.</li>
   <li><b>보관 위치:</b> 서울에 있는 구글 서버(파이어베이스)예요. 다른 사용자는 내 기록을 볼 수 없어요.</li>
+  <li><b>인공지능 피드백:</b> 피드백 받기를 누른 답만 피드백을 만들려고 해외의 인공지능 서비스(앤트로픽의 클로드)로 보내요. 하루 사용 횟수를 세려고 계정 고유 번호를 이틀 동안 클라우드플레어에 보관해요. 답에 개인정보를 적지 마세요.</li>
   <li><b>알아둘 점:</b> 사이트 운영자는 관리 화면에서 로그인한 사람의 이메일과 저장된 기록을 볼 수 있어요. 직접 쓰는 답에는 개인적인 내용을 적지 마세요.</li>
   <li><b>지우는 법:</b> 로그인한 뒤 "내 기록 지우기"를 누르면 저장된 기록과 로그인 정보가 모두 지워져요. 이미 숫자로 합쳐진 정답률 집계는 누구 것인지 알 수 없어서 따로 빠지지 않아요.</li></ul></details>`;
 function accountHTML(){
