@@ -2,6 +2,10 @@ name = "insurance-feedback"
 main = "feedback.js"
 compatibility_date = "2026-10-01"
 
+# 무료 플랜은 한국 요청을 홍콩에서 처리할 때가 있는데, 홍콩에서는 클로드 API를 쓸 수 없어서 서울로 고정해요.
+[placement]
+region = "aws:ap-northeast-2"
+
 [[kv_namespaces]]
 binding = "LIMIT"
 id = "4cb50ed15a9448ba8b8df0bd570c0854"

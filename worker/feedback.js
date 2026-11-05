@@ -123,7 +123,7 @@ export default {
     });
     if (!r.ok) {
       const t = await r.text();
-      console.log("Claude 오류", r.status, t.slice(0, 300));
+      console.log("Claude 오류", r.status, "실행 지역", request.cf && request.cf.colo, t.slice(0, 300).replace(/\s+/g, " "));
       if (t.includes("usage limits") || t.includes("credit")) return json({ error: "이번 달 피드백 예산을 다 썼어요. 운영자에게 알려주세요." }, 503);
       return json({ error: "피드백을 받아오지 못했어요. 잠시 뒤 다시 시도해주세요." }, 502);
     }
