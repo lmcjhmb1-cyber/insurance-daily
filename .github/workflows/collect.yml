@@ -24,6 +24,8 @@ jobs:
       - name: 기사 후보 모으기
         env:
           INPUT_DATE: ${{ github.event.inputs.date }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
         run: node scripts/collect.mjs $INPUT_DATE
       - name: 바뀐 것이 있으면 올리기
         run: |
