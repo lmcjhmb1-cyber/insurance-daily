@@ -5,10 +5,11 @@
 // 이 코드에는 비밀값이 들어 있지 않아요. 공개 저장소에 둬도 괜찮아요.
 
 const SITE = "https://lmcjhmb1-cyber.github.io";
-const ISSUES_URL = "https://lmcjhmb1-cyber.github.io/insurance-daily/issues.js";
+const DETAIL_BASE = "https://lmcjhmb1-cyber.github.io/insurance-daily/data/d/";
 const PROJECT_ID = "insurance-daily-34b00";
 const MODEL = "claude-haiku-5-5";
 const DAILY_LIMIT = 10;      // 한 사람이 하루에 받을 수 있는 피드백 횟수
+const TOTAL_DAILY_LIMIT = 100; // 사이트 전체가 하루에 받을 수 있는 피드백 횟수 (비용 안전장치)
 const MAX_ANSWER = 2000;     // 답 글자 수 한도
 
 const cors = {
@@ -44,19 +45,22 @@ async function verifyToken(token) {
   return payload.sub;
 }
 
-// 사이트의 이슈 데이터 읽기 (질문과 모범 해설은 서버가 직접 가져와요)
-async function loadIssues() {
-  const r = await fetch(ISSUES_URL, { cf: { cacheTtl: 600, cacheEverything: true } });
-  const t = await r.text();
-  const start = t.indexOf("["), end = t.lastIndexOf("]");
-  return JSON.parse(t.slice(start, end + 1));
+// 이슈 하나 읽기 (질문과 모범 해설은 서버가 직접 가져와요). 전체 파일 대신 그 날짜 파일만 읽어요.
+async function loadIssue(id) {
+  if (!/^\d{4}-\d{2}-\d{2}-b?\d+$/.test(String(id))) return null;
+  const r = await fetch(DETAIL_BASE + id.slice(0, 10) + ".js", { cf: { cacheTtl: 600, cacheEverything: true } });
+  if (!r.ok) return null;
+  const t = await r.text(); // 모양: window.__detail("날짜",[...]);
+  const start = t.indexOf(",[") + 1, end = t.lastIndexOf("]");
+  if (start < 1 || end < start) return null;
+  return JSON.parse(t.slice(start, end + 1)).find(x => x.id === id) || null;
 }
 
 function buildPrompt(it, kind, answer) {
   let task, ref;
   if (kind === "role") { task = `"내가 담당자라면" 질문: ${it.role.q}`; ref = it.role.model; }
   else if (kind === "sum") { task = "보험을 모르는 친구에게 이 이슈를 한 줄로 설명하기"; ref = it.summary; }
-  else { task = `면접 질문: ${it.interview.q}`; ref = it.interview.guide; }
+  else { task = `스스로 답해보기 질문: ${it.interview.q}`; ref = it.interview.guide; }
   const facts = [...(it.points || []), it.why || ""].join("\n");
   return `너는 보험계리·보험상품개발을 지망하는 대학생을 가르치는 다정하지만 솔직한 튜터다.
 반드시 한국어로만 답하고 영어 단어를 섞지 마라. 마크다운 기호(별표, 샵, 표)는 쓰지 마라.
@@ -99,19 +103,23 @@ export default {
     if (!answer) return json({ error: "먼저 답을 적어주세요." }, 400);
     if (!["role", "sum", "iv"].includes(kind)) return json({ error: "잘못된 요청이에요." }, 400);
 
-    const issues = await loadIssues();
-    const it = issues.find(x => x.id === issueId);
+    let it;
+    try { it = await loadIssue(issueId); }
+    catch (e) { return json({ error: "이슈를 읽지 못했어요. 잠시 뒤 다시 시도해주세요." }, 502); }
     if (!it || (kind === "role" && !it.role) || (kind === "sum" && !it.summary) || (kind === "iv" && !it.interview)) return json({ error: "이슈를 찾지 못했어요." }, 404);
 
     const day = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
     const key = `${uid}:${day}`;
     const used = +(await env.LIMIT.get(key)) || 0;
     if (used >= DAILY_LIMIT) return json({ error: `오늘 피드백 ${DAILY_LIMIT}회를 다 썼어요. 내일 다시 받을 수 있어요.`, left: 0 }, 429);
+    const totalKey = `total:${day}`;
+    const total = +(await env.LIMIT.get(totalKey)) || 0;
+    if (total >= TOTAL_DAILY_LIMIT) return json({ error: "오늘 사이트 전체 피드백 횟수를 다 썼어요. 내일 다시 받을 수 있어요.", left: 0 }, 429);
 
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 900, messages: [{ role: "user", content: buildPrompt(it, kind, answer) }] })
+      body: JSON.stringify({ model: MODEL, max_tokens: 1000, thinking: { type: "disabled" }, messages: [{ role: "user", content: buildPrompt(it, kind, answer) }] })
     });
     if (!r.ok) {
       const t = await r.text();
@@ -120,8 +128,12 @@ export default {
       return json({ error: "피드백을 받아오지 못했어요. 잠시 뒤 다시 시도해주세요." }, 502);
     }
     const data = await r.json();
+    // 내용을 읽기 전에 멈춘 이유부터 확인해요. 실패한 답은 횟수에서 빼요.
+    if (data.stop_reason === "refusal") return json({ error: "이 답에는 피드백을 만들지 못했어요. 내용을 바꿔서 다시 시도해주세요." }, 422);
     const text = (data.content || []).filter(c => c.type === "text").map(c => c.text).join("\n").trim();
+    if (!text) return json({ error: "피드백을 받아오지 못했어요. 잠시 뒤 다시 시도해주세요." }, 502);
     await env.LIMIT.put(key, String(used + 1), { expirationTtl: 2 * 86400 });
+    await env.LIMIT.put(totalKey, String(total + 1), { expirationTtl: 2 * 86400 });
     return json({ text, left: DAILY_LIMIT - used - 1 });
   }
 };
