@@ -1,0 +1,64 @@
+name: 매일 이슈 자동 합치기
+# 예약 작업이 claude/daily-날짜 브랜치에 올리면, 검사를 통과한 내용만 main에 합쳐요.
+# 이슈 관련 파일 말고 다른 파일이 바뀌어 있으면 합치지 않아요.
+
+on:
+  push:
+    branches:
+      - "claude/daily-*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-merge
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BRANCH: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 브랜치와 바뀐 파일 확인
+        run: |
+          if ! echo "$BRANCH" | grep -Eq '^claude/daily-[0-9]{4}-[0-9]{2}-[0-9]{2}(-[0-9]+)?$'; then
+            echo "::error::브랜치 이름이 claude/daily-YYYY-MM-DD 모양이 아니에요: $BRANCH"
+            exit 1
+          fi
+          echo "DATE=$(echo "$BRANCH" | sed -E 's#^claude/daily-([0-9]{4}-[0-9]{2}-[0-9]{2}).*#\1#')" >> "$GITHUB_ENV"
+          git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
+          BAD=$(git diff --name-only "$(git merge-base HEAD "origin/$BRANCH")" "origin/$BRANCH" | grep -vE '^(issues\.js|news\.js|weekly\.js|lessons\.js|index\.html|data/.*)$' || true)
+          if [ -n "$BAD" ]; then
+            echo "::error::합칠 수 없는 파일이 바뀌었어요: $BAD"
+            exit 1
+          fi
+
+      - name: 합치고 검사하고 올리기
+        run: |
+          git config user.name "lmcjhmb1-cyber"
+          git config user.email "lmcjhmb1@gmail.com"
+          git merge --no-edit "origin/$BRANCH"
+          node scripts/check.mjs --since "$DATE"
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              git push origin --delete "$BRANCH" || echo "브랜치는 남았어요."
+              exit 0
+            fi
+            echo "푸시 거절, 최신 main 위에서 다시 합쳐요 ($i/3)"
+            git fetch origin main
+            git merge --no-edit origin/main
+            node scripts/check.mjs --since "$DATE"
+          done
+          echo "::error::main에 올리지 못했어요."
+          exit 1

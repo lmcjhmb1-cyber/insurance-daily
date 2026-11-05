@@ -55,7 +55,7 @@
 
 ## 2-2. 회사 소식 (news.js) — 주요 보험사 소식은 사소한 것까지 빠짐없이
 - 이슈(issues.js)는 공부할 가치가 큰 것만 하루 4~7개 고르지만, 회사 소식은 다르게 해요. 관심 있는 회사를 빠짐없이 따라가기 위해 companies.js의 모든 회사에 대해 그 기간에 나온 소식을 **사소한 것까지 빠짐없이** 짧게 모아요.
-- 찾는 법: 먼저 `candidates/날짜.json`에서 `companies`가 붙은 후보를 모두 확인해요. 그다음 companies.js의 회사마다 하나씩 웹 검색해요(예: "삼성생명 보험", "현대해상 출시", "메리츠화재 실적"처럼 회사 이름이 들어간 검색). 한 회사도 건너뛰지 말고 23개 회사를 모두 확인해요. 검색 결과에서 그 기간의 기사만 골라요.
+- 찾는 법: `candidates/날짜.json`에서 `companies`가 붙은 후보를 처음부터 끝까지 모두 확인해요. 수집기가 네이버 뉴스에서 회사마다 이미 검색해서 모아둔 목록이에요. 회사별 웹 검색은 따로 하지 않아요(사용량을 아끼려는 결정이에요). 기사를 열 때만 제목으로 검색해요.
 - 넣는 것: 실적 발표, 신상품·특약 출시와 개정, 보험료 조정, 배당·자본 조달·후순위채, 지급여력비율 변화, 금융당국 제재·검사·과징금, 인수합병·지분 투자·해외 진출, 대표 선임·조직 개편·인사, 판매채널 변화(자회사형 판매법인, 설계사 수수료 등), 디지털·인공지능 도입, 소송·분쟁, 사회공헌·상 수상, 노사 이슈 등. 작아 보여도 그 회사의 최근 흐름을 이해하는 데 도움이 되면 넣어요.
 - 빼는 것: 광고성 보도자료를 그대로 옮긴 것 중 내용이 전혀 없는 것(단순 행사 사진 등), 같은 사건을 다룬 중복 기사(하나만 넣어요).
 - 형식: { id:"n-날짜-번호", date:"기사 날짜", companies:[companies.js의 name], kind, title, text, source:{ name: 언론사, url: 실제로 연 기사 주소 }, issue(선택) }
@@ -178,7 +178,7 @@
 4. 합치기 스크립트는 `data/` 폴더도 새로 만들어요. `data/`는 issues.js, lessons.js, profiles.js를 화면이 필요한 만큼만 받도록 나눈 자동 생성 파일이라 **손으로 고치지 마세요**(원본은 그대로 issues.js 등이에요). 이슈나 lessons.js, profiles.js를 직접 고쳤다면 `node scripts/build-data.mjs`를 실행해 다시 만들고 `data/`도 같이 커밋해요. 깜빡해도 푸시하면 깃허브 액션(데이터 나누기)이 `data/`를 다시 만들어 올려줘요.
 5. index.html 안의 모든 "?v=숫자"를 현재 시각(YYYYMMDDHHmm)으로 바꿔요(3번의 `--bump`가 해줘요). 안 바꾸면 방문자 브라우저가 예전 파일을 써서 화면이 멈춰요.
 6. **확인: `node scripts/check.mjs --since 오늘날짜`를 실행해 "검사 통과"가 나와야 올려요.** 오류가 나오면 고치고 다시 검사해요. 검사기가 하는 일은 다음과 같아요: `data/`가 원본과 같은지(오래됐으면 오류),  node로 issues.js, frames.js, weekly.js, basics.js, companies.js, news.js, profiles.js, lessons.js를 불러와(global.window={} 뒤 require) 정상인지 검사해요. 새 이슈마다 필수 항목, brief(what·why·so)와 pre(terms의 t 안에 있는 이름 1~2개)가 있는지, figs마다 look이 있는지, 퀴즈 a와 predict.answer의 범위, figs type(bars·compare·timeline·split)과 bars value가 숫자인지, comic의 bg·board·who·mood·pose·fx·bubble이 위 목록 안의 값이고 칸이 4개인지, jobs가 frames.js의 JOBS에 있는 값인지, frames 항목은 넣지 않았는지(생각의 틀은 사이트에서 뺐어요), companies의 이름이 companies.js의 name에 있는지, 회사 소식마다 id·date·companies·title·source.url이 있고 companies 이름이 companies.js에 있는지, 주간 정리의 flows.thread가 실제 thread id인지, basics.js order의 id가 issues.js에 있는지 검사해요. node --check app.js도 실행해요.
-7. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. main에 푸시하고, 거절되면 `git fetch origin main` 후 `git worktree add --detach 임시폴더 origin/main`으로 새 폴더를 만들어 그 안에서 3번부터 다시 해요(최대 3번).
+7. 커밋 작성자는 user.name "lmcjhmb1-cyber", user.email "lmcjhmb1@gmail.com", 커밋 메시지는 한국어로 써요. **예약 작업은 main에 직접 올리지 않고 `claude/daily-날짜` 브랜치에 올려요.** 깃허브 액션 "매일 이슈 자동 합치기"가 검사한 뒤 main에 합쳐요. 그 브랜치가 이미 있으면 뒤에 `-2`, `-3`을 붙여요. 이 액션은 issues.js, news.js, weekly.js, lessons.js, index.html, data/ 말고 다른 파일이 바뀌어 있으면 합치지 않아요.
 8. `gh run list -R lmcjhmb1-cyber/insurance-daily -L 1`로 "pages build and deployment"가 성공으로 끝났는지 확인하고, 실패하면 원인을 고쳐 다시 올려요.
 
 ## 9. 건드리지 않는 파일
