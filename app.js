@@ -15,6 +15,7 @@ const FEEDBACK_URL="https://insurance-feedback.insurance-daily.workers.dev";
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const BYID=new Map(issues.map(i=>[i.id,i]));
 const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
+const weekIssues=w=>w.issues?issues.filter(i=>w.issues.includes(i.id)):issues.filter(i=>i.date>=w.start&&i.date<=w.end);
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
@@ -116,7 +117,7 @@ function needsFor(h){
   if(h==="settings")return null;
   if(h==="review")return {dates:dueList().slice(0,10).map(i=>i.date)};
   if(h.startsWith("l-")){const t=h.slice(2),g=GLOSS.find(x=>x.t===t);return hasL(t)?{lessons:true,dates:g?g.issues.map(i=>i.date):[]}:null}
-  if(h.startsWith("w-")){const w=WEEKLY.find(x=>x.id===h.slice(2));return w?{dates:issues.filter(i=>i.date>=w.start&&i.date<=w.end).map(i=>i.date)}:null}
+  if(h.startsWith("w-")){const w=WEEKLY.find(x=>x.id===h.slice(2));return w?{dates:weekIssues(w).map(i=>i.date)}:null}
   if(h.startsWith("cr-"))return {profiles:true};
   if(h.startsWith("c-")){const name=h.slice(2);return COMPANIES.some(c=>c.name===name)?{profiles:true,dates:ivDates(name)}:null}
   if(h.startsWith("i-")){const {it}=issueOfHash(h);return it?{dates:[it.date]}:null}
@@ -885,7 +886,7 @@ function showWeeklyList(){
 }
 function showWeek(id){
   const w=WEEKLY.find(x=>x.id===id);if(!w)return showWeeklyList();
-  const wi=issues.filter(i=>i.date>=w.start&&i.date<=w.end).sort((a,b)=>a.id<b.id?-1:1);
+  const wi=weekIssues(w).sort((a,b)=>a.id<b.id?-1:1);
   const qs=[];wi.forEach(it=>(it.quiz||[]).forEach((q,k)=>{if(!q.deep)qs.push({...q,it})}));const quiz=qs.filter((_,i)=>i%Math.max(1,Math.ceil(qs.length/10))===0).slice(0,10);
   const st=load("wk-"+w.id);st.qa=st.qa||{};
   $("#head").innerHTML=brand()+back("#weekly","주간 큰 그림")+`<span class="tag light">${shortDate(w.start)} ~ ${shortDate(w.end)}</span><h1>${esc(w.title)}</h1>`;
