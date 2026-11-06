@@ -453,7 +453,7 @@ function showList(d){
   const arrow=(t,dir,lab)=>t?`<a class="darr" href="#d-${t}" aria-label="${lab}">${dir}</a>`:`<a class="darr off" aria-disabled="true" aria-label="${lab}">${dir}</a>`;
   const calOpen=dcalOpen();dcalM=d.slice(0,7);
   const sel=`<div class="dbar">${arrow(prev,"‹","이전 이슈 날짜")}<button type="button" class="dpick" id="dpick" aria-expanded="${calOpen}" aria-controls="dcal" aria-label="달력 열고 닫기">${shortDate(d)} (${WDN}) <span class="caret" aria-hidden="true">▾</span></button>${arrow(next,"›","다음 이슈 날짜")}${home?"":`<a class="dtoday" href="#">오늘로</a>`}</div><div class="dcal" id="dcal"${calOpen?"":" hidden"}></div>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${home?"오늘의 이슈":fmtDate(d)}</h1><p class="meta">${home?`${shortDate(d)} 기사 · 이슈 ${all.length}개`:`이날 올라온 이슈 ${all.length}개`}</p></div></div>${sel}
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${home?"오늘의 이슈":fmtDate(d)}</h1><p class="meta">${home?`${shortDate(d)} · 이슈 ${all.length}개`:`이날 올라온 이슈 ${all.length}개`}</p></div></div>${sel}
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span>${G?`<span>오늘 목표 <b>${todayN}/${G}</b>개</span>`:`<span>오늘 <b>${todayN}</b>개 끝냄</span>`}<span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   const dayInfo=k=>{const l=byDate(k);return{n:l.length,done:l.filter(i=>status(i)==="done").length}};
   const monthDays=k=>dates.filter(x=>x.startsWith(k)).length;
