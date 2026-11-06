@@ -15,7 +15,6 @@ const FEEDBACK_URL="https://insurance-feedback.insurance-daily.workers.dev";
 const issues=(window.ISSUES||[]).map((x,i)=>({id:x.date+"-"+(i+1),...x}));
 const BYID=new Map(issues.map(i=>[i.id,i]));
 const JOBS=window.JOBS||[];const WEEKLY=(window.WEEKLY||[]).slice().sort((a,b)=>a.id<b.id?1:-1);
-const weekIssues=w=>w.issues?issues.filter(i=>w.issues.includes(i.id)):issues.filter(i=>i.date>=w.start&&i.date<=w.end);
 const BASICS=window.BASICS||[];
 const COMPANIES=window.COMPANIES||[];
 const NEWS=(window.NEWS||[]).slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(a.id<b.id?1:-1));
@@ -117,7 +116,7 @@ function needsFor(h){
   if(h==="settings")return null;
   if(h==="review")return {dates:dueList().slice(0,10).map(i=>i.date)};
   if(h.startsWith("l-")){const t=h.slice(2),g=GLOSS.find(x=>x.t===t);return hasL(t)?{lessons:true,dates:g?g.issues.map(i=>i.date):[]}:null}
-  if(h.startsWith("w-")){const w=WEEKLY.find(x=>x.id===h.slice(2));return w?{dates:weekIssues(w).map(i=>i.date)}:null}
+  if(h.startsWith("w-")){const w=WEEKLY.find(x=>x.id===h.slice(2));return w?{dates:issues.filter(i=>i.date>=w.start&&i.date<=w.end).map(i=>i.date)}:null}
   if(h.startsWith("cr-"))return {profiles:true};
   if(h.startsWith("c-")){const name=h.slice(2);return COMPANIES.some(c=>c.name===name)?{profiles:true,dates:ivDates(name)}:null}
   if(h.startsWith("i-")){const {it}=issueOfHash(h);return it?{dates:[it.date]}:null}
@@ -454,7 +453,7 @@ function showList(d){
   const arrow=(t,dir,lab)=>t?`<a class="darr" href="#d-${t}" aria-label="${lab}">${dir}</a>`:`<a class="darr off" aria-disabled="true" aria-label="${lab}">${dir}</a>`;
   const calOpen=dcalOpen();dcalM=d.slice(0,7);
   const sel=`<div class="dbar">${arrow(prev,"‹","이전 이슈 날짜")}<button type="button" class="dpick" id="dpick" aria-expanded="${calOpen}" aria-controls="dcal" aria-label="달력 열고 닫기">${shortDate(d)} (${WDN}) <span class="caret" aria-hidden="true">▾</span></button>${arrow(next,"›","다음 이슈 날짜")}${home?"":`<a class="dtoday" href="#">오늘로</a>`}</div><div class="dcal" id="dcal"${calOpen?"":" hidden"}></div>`;
-  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${home?"오늘의 이슈":fmtDate(d)}</h1><p class="meta">${home?`${shortDate(d)} · 이슈 ${all.length}개`:`이날 올라온 이슈 ${all.length}개`}</p></div></div>${sel}
+  $("#head").innerHTML=`<div class="hrow"><div class="hl"><h1>${home?"오늘의 이슈":fmtDate(d)}</h1><p class="meta">${home?`${shortDate(d)} 기사 · 이슈 ${all.length}개`:`이날 올라온 이슈 ${all.length}개`}</p></div></div>${sel}
     <div class="statline"><span>이 날 <b>${done}/${all.length}</b>개 완료</span>${G?`<span>오늘 목표 <b>${todayN}/${G}</b>개</span>`:`<span>오늘 <b>${todayN}</b>개 끝냄</span>`}<span>연속 <b>${sk}</b>일</span><a class="chip" href="#me">내 기록 보기 →</a></div>`;
   const dayInfo=k=>{const l=byDate(k);return{n:l.length,done:l.filter(i=>status(i)==="done").length}};
   const monthDays=k=>dates.filter(x=>x.startsWith(k)).length;
@@ -886,7 +885,7 @@ function showWeeklyList(){
 }
 function showWeek(id){
   const w=WEEKLY.find(x=>x.id===id);if(!w)return showWeeklyList();
-  const wi=weekIssues(w).sort((a,b)=>a.id<b.id?-1:1);
+  const wi=issues.filter(i=>i.date>=w.start&&i.date<=w.end).sort((a,b)=>a.id<b.id?-1:1);
   const qs=[];wi.forEach(it=>(it.quiz||[]).forEach((q,k)=>{if(!q.deep)qs.push({...q,it})}));const quiz=qs.filter((_,i)=>i%Math.max(1,Math.ceil(qs.length/10))===0).slice(0,10);
   const st=load("wk-"+w.id);st.qa=st.qa||{};
   $("#head").innerHTML=brand()+back("#weekly","주간 큰 그림")+`<span class="tag light">${shortDate(w.start)} ~ ${shortDate(w.end)}</span><h1>${esc(w.title)}</h1>`;
