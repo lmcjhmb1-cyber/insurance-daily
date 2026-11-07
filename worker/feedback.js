@@ -4,7 +4,8 @@
 //   KV 연결 LIMIT           : 하루 사용 횟수를 세는 저장소
 // 이 코드에는 비밀값이 들어 있지 않아요. 공개 저장소에 둬도 괜찮아요.
 
-const SITE = "https://lmcjhmb1-cyber.github.io";
+// 피드백을 요청할 수 있는 사이트 주소
+const SITES = ["https://insurance-daily.pages.dev", "https://lmcjhmb1-cyber.github.io"];
 const DETAIL_BASE = "https://lmcjhmb1-cyber.github.io/insurance-daily/data/d/";
 const PROJECT_ID = "insurance-daily-34b00";
 const MODEL = "claude-haiku-5-5";
@@ -12,14 +13,14 @@ const DAILY_LIMIT = 10;      // 한 사람이 하루에 받을 수 있는 피드
 const TOTAL_DAILY_LIMIT = 100; // 사이트 전체가 하루에 받을 수 있는 피드백 횟수 (비용 안전장치)
 const MAX_ANSWER = 2000;     // 답 글자 수 한도
 
-const cors = {
-  "Access-Control-Allow-Origin": SITE,
+const corsFor = origin => ({
+  "Access-Control-Allow-Origin": SITES.includes(origin) ? origin : SITES[0],
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
   "Access-Control-Max-Age": "86400",
   "Vary": "Origin"
-};
-const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json; charset=utf-8" } });
+});
+const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8" } });
 
 // 파이어베이스 로그인 확인
 let jwkCache = { keys: null, at: 0 };
@@ -86,11 +87,9 @@ ${answer}
 다음에 써먹을 생각 틀: 한 문장`;
 }
 
-export default {
-  async fetch(request, env) {
-    if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
+async function handle(request, env) {
     if (request.method !== "POST") return json({ error: "잘못된 요청이에요." }, 405);
-    if (request.headers.get("Origin") !== SITE) return json({ error: "허용되지 않은 곳에서 온 요청이에요." }, 403);
+    if (!SITES.includes(request.headers.get("Origin"))) return json({ error: "허용되지 않은 곳에서 온 요청이에요." }, 403);
 
     let uid;
     try { uid = await verifyToken((request.headers.get("Authorization") || "").replace(/^Bearer /, "")); }
@@ -135,5 +134,15 @@ export default {
     await env.LIMIT.put(key, String(used + 1), { expirationTtl: 2 * 86400 });
     await env.LIMIT.put(totalKey, String(total + 1), { expirationTtl: 2 * 86400 });
     return json({ text, left: DAILY_LIMIT - used - 1 });
+}
+
+export default {
+  async fetch(request, env) {
+    const cors = corsFor(request.headers.get("Origin"));
+    if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
+    const res = await handle(request, env);
+    const headers = new Headers(res.headers);
+    for (const [k, v] of Object.entries(cors)) headers.set(k, v);
+    return new Response(res.body, { status: res.status, headers });
   }
 };
