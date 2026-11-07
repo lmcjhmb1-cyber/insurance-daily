@@ -9,7 +9,7 @@ const SITES = ["https://insurance-daily.pages.dev", "https://lmcjhmb1-cyber.gith
 const DETAIL_BASE = "https://lmcjhmb1-cyber.github.io/insurance-daily/data/d/";
 const PROJECT_ID = "insurance-daily-34b00";
 const MODEL = "claude-haiku-5-5";
-const DAILY_LIMIT = 10;      // 한 사람이 하루에 받을 수 있는 피드백 횟수
+const DAILY_LIMIT = 20;      // 한 사람이 하루에 받을 수 있는 피드백 횟수
 const TOTAL_DAILY_LIMIT = 100; // 사이트 전체가 하루에 받을 수 있는 피드백 횟수 (비용 안전장치)
 const MAX_ANSWER = 2000;     // 답 글자 수 한도
 
