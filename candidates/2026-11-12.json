@@ -1,0 +1,5419 @@
+{
+  "date": "2026-11-12",
+  "collectedAt": "2026-11-13T10:24:44+09:00",
+  "sources": [
+    {
+      "name": "금융위원회",
+      "url": "https://www.fsc.go.kr/no010101",
+      "count": 0,
+      "ok": true
+    },
+    {
+      "name": "금감원",
+      "url": "https://www.fss.or.kr/fss/bbs/B0000188/list.do?menuNo=200218",
+      "count": 0,
+      "ok": true
+    },
+    {
+      "name": "한국보험신문",
+      "url": "https://www.insnews.co.kr/rss/allArticle.xml",
+      "count": 11,
+      "ok": true
+    },
+    {
+      "name": "보험저널",
+      "url": "https://www.insjournal.co.kr/rss/allArticle.xml",
+      "count": 27,
+      "ok": true
+    },
+    {
+      "name": "보험매일",
+      "url": "https://www.insweek.co.kr/rss/allArticle.xml",
+      "count": 10,
+      "ok": true
+    },
+    {
+      "name": "대한금융신문",
+      "url": "https://www.kbanker.co.kr/rss/allArticle.xml",
+      "count": 7,
+      "ok": true
+    },
+    {
+      "name": "네이버 뉴스",
+      "url": "https://naverapihub.apigw.ntruss.com/search/v1/news",
+      "count": 279,
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "items": [
+    {
+      "id": "c-2026-11-12-001",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"전속 설계사 5만명 목전\"...메리츠화재, '비대면 N잡' 업고 본업 수익성...",
+      "url": "https://www.joongangenews.com/news/articleView.html?idxno=563457",
+      "date": "2026-11-12",
+      "time": "17:06",
+      "summary": "뒤이어 삼성화재가 작년 말보다 약 4300명(16.9%) 늘어난 2만9718명을 기록했고, DB손해보험(2만2420명), 한화손보(1만5430명), 현대해상(1만4140명), KB손해보험(1만2872명) 순으로 나타났다. 메리츠화재의 폭발적인 조직 확대...",
+      "companies": [
+        "삼성화재",
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험",
+        "메리츠화재",
+        "한화손해보험"
+      ],
+      "score": 10,
+      "group": 1,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-002",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명·한화손보 순이익 늘었는데…삼성화재 줄고 한화생명 적자",
+      "url": "https://news.mtn.co.kr/article/2026111216401965060",
+      "date": "2026-11-12",
+      "time": "16:50",
+      "summary": "3분기 누적 순이익은 1조8676억원으로 전년 동기보다 4.6% 증가했다.한화에서는 손해보험 계열사가 생명보험사보다 좋은 실적을 냈다. 한화손보의 3분기 별도 당기순이익은 961억원으로 지난해 같은 기간보다 34.1...",
+      "companies": [
+        "삼성생명",
+        "한화생명",
+        "삼성화재",
+        "한화손해보험"
+      ],
+      "score": 10,
+      "group": 2,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-003",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 자동차보험 평판 1위 탈환…현대해상 21% 급락에 삼성화재도 '뒷...",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503630",
+      "date": "2026-11-13",
+      "time": "08:38",
+      "summary": "KB손해보험이 2026년 11월 자동차보험 브랜드평판 조사에서 1위에 올랐다. 지난달 3위에서 두 계단 뛰어오르며 선두 자리를 차지했다. 브랜드평판지수가 한 달 새 33% 넘게 상승한 반면 현대해상과 삼성화재...",
+      "companies": [
+        "삼성화재",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 9,
+      "group": 3,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-004",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험家소식] KB손보·NH농협생명·현대해상",
+      "url": "https://www.ezyeconomy.com/news/articleView.html?idxno=241793",
+      "date": "2026-11-12",
+      "time": "14:54",
+      "summary": "KB손해보험 관계자는 \"2030세대가 일상 속 건강관리의 중요성을 친근하고 재미있게 접할 수 있도록 기획했다\"고 말했다. NH농협생명, 서울시와 노숙인 농촌 자활 프로그램 운영 NH농협생명은 서울시와 함께 주거취약계층의...",
+      "companies": [
+        "NH농협생명",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 9,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-005",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "사망보험금, 연금으로 당겨받기…신청자 절반이 55~64세 [H-EXCLUSIVE]",
+      "url": "https://biz.heraldcorp.com/article/10935014?ref=naver",
+      "date": "2026-11-12",
+      "time": "11:45",
+      "summary": "12일 헤럴드경제가 박성훈 국민의힘 의원실이 금융감독원으로부터 받은 ‘5대 생명보험사(삼성생명·한화생명·교보생명·신한라이프·KB라이프) 사망보험금 유동화 통계’ 3257건을 전수분석한 결과, 제도가...",
+      "companies": [
+        "삼성생명",
+        "한화생명",
+        "교보생명",
+        "신한라이프",
+        "KB라이프"
+      ],
+      "score": 9,
+      "group": 5,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-006",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화 보험 계열사 순익 희비…손보 '웃고'·생명 '울고'",
+      "url": "https://weekly.hankooki.com/news/articleView.html?idxno=7193671",
+      "date": "2026-11-12",
+      "time": "18:00",
+      "summary": "서울 영등포구 여의도 한화생명·한화손해보험 본사. 사진=각 사 한화 보험 계열사들이 올 3분기 엇갈린 순익 성적을 냈다. 한화손해보험은 순익이 증가했으나 한화생명은 적자를 내면서 희비가 갈렸다. 12일...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 8,
+      "group": 6,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-007",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "투자 한파에 갈린 보험 형제…삼성생명·한화손보는 웃었다",
+      "url": "https://www.ajunews.com/view/20261112161147984",
+      "date": "2026-11-12",
+      "time": "16:30",
+      "summary": "이번 실적은 생명보험과 손해보험이라는 업권 구분보다 회사별 보험손익 개선 폭과 투자 부문 변동성이 중요하다는 점을 보여준다. 보험 본업에서 이익을 늘리더라도 환율과 주식시장 변동 등에 따른 투자손익...",
+      "companies": [
+        "삼성생명",
+        "한화손해보험"
+      ],
+      "score": 8,
+      "group": 7,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-008",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험브리핑] 교보생명, 3분기 퇴직연금 DC∙IRP 수익률 1위 외",
+      "url": "https://www.seoulfn.com/news/articleView.html?idxno=642611",
+      "date": "2026-11-12",
+      "time": "10:06",
+      "summary": "ABL생명은 고객 참여형 게임 콘텐츠 'ABL생명 FC 챌린지'를 출시했다고 12일 밝혔다. 이 서비스는 고객이 게임을 통해 FC(재무컨설턴트)의 업무와 성장 과정을 체험할 수 있도록 구성됐다. ABL생명 모바일 홈페이지와...",
+      "companies": [
+        "교보생명",
+        "ABL생명"
+      ],
+      "score": 8,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-009",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "자동차보험 2026년 11월 브랜드평판...KB손해보험, DB손해보험, 현대해상...",
+      "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=229754",
+      "date": "2026-11-13",
+      "time": "10:04",
+      "summary": "자동차보험 브랜드평판 2026년 11월 빅데이터 분석결과, 1위 KB손해보험 자동차보험 2위 DB손해보험 자동차보험 3위 현대해상 자동차보험 순으로 분석됐다. ​ 자동차보험은 자동차 사고에 대비하기 위한...",
+      "companies": [
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 7,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-010",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 11월 자동차보험 브랜드평판 1위… DB·현대해상 뒤이어",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139969",
+      "date": "2026-11-13",
+      "time": "09:56",
+      "summary": "KB손해보험이 올해 11월 자동차보험 브랜드 빅데이터 평판분석 결과 1위를 차지했다. 이어 DB손해보험이 2위에 현대해상이 3위에 각각 오르며 상위권을 형성했다. 한국기업평판연구소는 13일 12개 국내...",
+      "companies": [
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 7,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-011",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 2.3조 英보험사 인수에 K-ICS 최대 25%p 하락…'사모대출·풋...",
+      "url": "https://www.greened.kr/news/articleView.html?idxno=354573",
+      "date": "2026-11-13",
+      "time": "08:57",
+      "summary": "삼성화재 본사 전경에 영국 보험사 캐노피우스 로고를 합성한 이미지. 사진=삼성화재 제공 삼성화재가 약 2조3000억원을 투입해 영국 특수보험사 캐노피우스(Canopius)의 경영권 인수에 나선 가운데, 거래가 완료되면...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 7,
+      "group": 10,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-012",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손해보험, 보험손익 개선·CSM 조정 부담 완화…기초체력 강화",
+      "url": "http://www.newsprime.co.kr/news/article.html?no=754819",
+      "date": "2026-11-13",
+      "time": "08:48",
+      "summary": "한국투자증권은 13일 DB손해보험(005830)에 대해 3분기 순이익이 시장 기대치를 밑돌았지만 보험손익 개선과 보험계약마진(CSM) 조정 규모 축소 등 수익성 회복 흐름이 나타나고 있다며 투자의견 '매수(Buy)'와 목표주가...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 7,
+      "group": 11,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-013",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 11월 자동차보험 브랜드평판 빅데이터 1위…DB손해보험·현...",
+      "url": "https://www.thebigdata.co.kr/view.php?ud=20261113073946303d0a8833aad_23",
+      "date": "2026-11-13",
+      "time": "08:28",
+      "summary": "KB손해보험이 최근 한 달간을 대상으로 실시된 자동차보험 브랜드평판 빅데이터 분석에서 1위를 차지했다. DB손해보험과 현대해상이 뒤를 이었다. 13일 한국기업평판연구소(소장 구창환)는 지난 10월 13일부터...",
+      "companies": [
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 7,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-014",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 자동차보험 브랜드평판 2026년 11월...1위",
+      "url": "http://www.beyondpost.co.kr/view.php?ud=20261113072805665446a9e4dd7f_30",
+      "date": "2026-11-13",
+      "time": "07:32",
+      "summary": "2026년 11월 자동차보험 브랜드평판 빅데이터 분석 결과, KB손해보험 자동차보험이 1위를 차지했다. 이어 DB손해보험 자동차보험이 2위, 현대해상 자동차보험이 3위에 올랐다. 한국기업평판연구소는 2026년 10월...",
+      "companies": [
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 7,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-015",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[브랜드평판] KB손해보험, 자동차보험 11월 1위... DB손해보험, 현대해상...",
+      "url": "https://www.enetnews.co.kr/news/articleView.html?idxno=56301",
+      "date": "2026-11-13",
+      "time": "06:12",
+      "summary": "자동차보험 브랜드 빅데이터가 0.47% 소폭 증가한 가운데, KB손해보험 자동차보험이 33.61% 급등하며 1위를 지켰다. DB손해보험 자동차보험은 2.92% 상승하며 2위를 유지했고, 현대해상 자동차보험은 21.30% 하락해...",
+      "companies": [
+        "DB손해보험",
+        "현대해상",
+        "KB손해보험"
+      ],
+      "score": 7,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-016",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 신계약 CSM 2조 돌파…보험 본업 성장에 속도낸다",
+      "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=258795",
+      "date": "2026-11-12",
+      "time": "17:48",
+      "summary": "올해 3분기 말 한화생명의 자회사형 법인보험대리점(GA) 소속 설계사는 총 3만8034명으로 지난해 말보다 증가했다. 13회차 계약 유지율도 89.6%로 지난해 말보다 0.5%포인트 높아졌다. 해외법인 순익 74.5% 증가…K-ICS...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 7,
+      "group": 12,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-017",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명·화재 순익 4.5조…3분기 투자손익은 ‘뚝’",
+      "url": "https://www.sedaily.com/article/20113644?ref=naver",
+      "date": "2026-11-12",
+      "time": "17:37",
+      "summary": "삼성생명과 삼성화재가 올해 3분기까지 4조 5000억 원이 넘는 순이익을 거뒀다. 다만 3분기만 떼어놓으면... DB손해보험도 보험 본업의 개선으로 투자손익 감소를 메웠다. 3분기 누적 연결 지배주주 순이익은 1조...",
+      "companies": [
+        "삼성생명",
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 7,
+      "group": 13,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-018",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[오늘의 보험] 교보생명·현대해상·iM라이프·AIA생명·ABL생명",
+      "url": "http://www.financialreview.co.kr/news/articleView.html?idxno=46259",
+      "date": "2026-11-12",
+      "time": "16:40",
+      "summary": "ABL생명 관계자는 \"이번 서비스는 보험을 자칫 어렵고 복잡하게 느끼는 고객들도 게임이라는 친숙한 콘텐츠를 통해 보험과 FC의 역할을 쉽고 재미있게 경험할 수 있도록 기획했다\"며 \"앞으로도 디지털 기술과 다양한...",
+      "companies": [
+        "교보생명",
+        "ABL생명",
+        "현대해상"
+      ],
+      "score": 7,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-019",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[더밸류 브리핑] 오늘의 보험 소식…현대해상·교보생명·ABL생명",
+      "url": "http://www.thevaluenews.co.kr/news/view.php?idx=203232",
+      "date": "2026-11-12",
+      "time": "16:14",
+      "summary": "교보생명이 3분기 기준 퇴직연금 원리금비보장형 상품의 장단기 수익률 모두 1위에 올랐다. 또 ABL생명은 게이미피케이션 요소를 접목한 고객 참여형 게임 콘텐츠를 선보였다. ◆ 현대해상, 다이렉트 암보험 출시...",
+      "companies": [
+        "교보생명",
+        "ABL생명",
+        "현대해상"
+      ],
+      "score": 7,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-020",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "손보 GA채널 상위사 쏠림 심화…중위권 판매경쟁 변화",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110538",
+      "date": "2026-11-12",
+      "time": "15:56",
+      "summary": "메리츠화재는 10월 18.7%의 점유율로 1위를 유지했으며 삼성화재 16.0%, KB손해보험 15.8% 순으로 집계됐다. 이들 3개사의 합산 점유율은 50.5%로 전월 49.2%보다 1.3%포인트 상승했다. 다만 상위 3개사의 판매실적이 모두...",
+      "companies": [
+        "삼성화재",
+        "KB손해보험",
+        "메리츠화재"
+      ],
+      "score": 7,
+      "group": 14,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-021",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험 손익 개선됐지만 투자 손익 ‘뚝’… DB손보 웃고, 삼성·메리츠 뒷...",
+      "url": "https://www.dt.co.kr/article/12094868?ref=naver",
+      "date": "2026-11-12",
+      "time": "15:51",
+      "summary": "DB손해보험은 보험손익이 대폭 개선되며 실적을 견인한 반면 삼성화재와 메리츠화재는 순이익이 감소하며 부진한 모습을 보였다. 12일 보험업계에 따르면 메리츠화재의 3분기 별도 기준 당기순이익은 3285억원으로...",
+      "companies": [
+        "삼성화재",
+        "DB손해보험",
+        "메리츠화재"
+      ],
+      "score": 7,
+      "group": 15,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-022",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험트렌드] DB손해보험, 소방공무원에 감사 전하는 ‘마음을 잇다’ ...",
+      "url": "https://www.ibabynews.com/news/articleView.html?idxno=156843",
+      "date": "2026-11-12",
+      "time": "15:08",
+      "summary": "동양생명 성대규 대표의 지목을 받아 캠페인에 참여한 곽희필 대표이사는 다음 주자로 박경원 iM라이프 대표를 추천했다. ABL생명은 보험의 사회적 책임을 실천하고 고객의 경제적 부담을 완화하기 위해 고령자 고객...",
+      "companies": [
+        "동양생명",
+        "ABL생명",
+        "DB손해보험"
+      ],
+      "score": 7,
+      "group": 16,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-023",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 게임으로 보험설계사 체험하는 'FC 챌린지' 출시",
+      "url": "https://daily.hankooki.com/news/articleView.html?idxno=1424550",
+      "date": "2026-11-12",
+      "time": "15:08",
+      "summary": "사진=ABL생명. ABL생명이 게임을 통해 보험설계사의 업무와 성장 과정을 체험할 수 있는 디지털 서비스를 선보였다. 고객 참여를 유도하는 게임 요소를 보험 마케팅에 접목해 보험에 대한 이해도를 높이는 동시에 설계사...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 7,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-024",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 게임으로 보험·설계사 역할 가상 체험",
+      "url": "http://www.newscape.co.kr/news/articleView.html?idxno=125780",
+      "date": "2026-11-12",
+      "time": "14:02",
+      "summary": "ABL생명이 게임을 통해 보험과 FC 직무를 쉽고 친근하게 접할 수 있는 서비스를 선보였다. 디지털을 활용한 'ABL생명 FC 챌린지'로 고객이 직접 FC(설계사·재무컨설턴트)의 업무와 성장 과정을 게임으로 체험할 수 있다....",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 7,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-025",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화證 \"한화손해보험, 보험 수익성·CSM 성장세 긍정적…보험업 최선호...",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139794",
+      "date": "2026-11-12",
+      "time": "11:56",
+      "summary": "투자의견 '매수'와 목표주가 9700원을 유지하고 보험업종 최선호주로 제시했다. 김도하 한화투자증권 연구원은 이날 발간한 보고서를 통해 \"보험금과 이자·배당수익 등 지속적인 이익 창출에 영향을 주는 지표가...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 7,
+      "group": 18,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-026",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, '게임'으로 보험설계사 업무 알린다",
+      "url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=325695",
+      "date": "2026-11-12",
+      "time": "10:32",
+      "summary": "사진=ABL생명 ABL생명이 게임을 통해 보험설계사(FC)의 업무와 성장 과정을 체험할 수 있는 고객 참여형 서비스를 선보였다. 게임 참여를 포인트 적립과 FC 지원, 보험 보장분석 상담으로 연결한 것이 특징이다. ABL생명은...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 7,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-027",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "'게임으로 설계사 직무 체험'…ABL생명, FC 모집·보험 상담 연계",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211244",
+      "date": "2026-11-12",
+      "time": "09:06",
+      "summary": "라이센스뉴스 = 이소라 기자 | ABL생명이 보험설계사(FC)의 업무를 게임으로 체험하고 실제 설계사 지원이나 보험 상담까지 신청할 수 있는 디지털 서비스를 도입했다. 게임을 통해 보험설계사 직무를 소개하는 동시에...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 7,
+      "group": 17,
+      "used": true
+    },
+    {
+      "id": "c-2026-11-12-028",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명 '웃고' 삼성화재 '울고'…3Q 순익 8.3%의 명암",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86206",
+      "date": "2026-11-13",
+      "time": "08:40",
+      "summary": "삼성생명은 보험금·사업비 예실차 개선으로 이익을 끌어올린 데 비해 삼성화재는 장기·일반보험의 수익성 저하로 순이익이 뒷걸음질쳤다. 삼성생명·삼성화재의 2025~2026년 3분기 연결 당기순이익 비교. 자료제공...",
+      "companies": [
+        "삼성생명",
+        "삼성화재"
+      ],
+      "score": 6,
+      "group": 19,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-029",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 삼성화재 턱밑 추격…순익 격차 501억원",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110544",
+      "date": "2026-11-13",
+      "time": "07:58",
+      "summary": "손해보험업계의 순이익 경쟁 구도가 달라지고 있다. 삼성화재가 3분기 금융시장 변동성 등의 영향으로 이익이 감소한 사이 DB손해보험은 장기보험 수익성 개선과 자동차보험 흑자 전환에 힘입어 실적을 끌어올렸다....",
+      "companies": [
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 6,
+      "group": 20,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-030",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화 보험家, 신계약 CSM '껑충'…연간 4兆 달성 도전",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313627",
+      "date": "2026-11-13",
+      "time": "07:00",
+      "summary": "한화그룹 보험계열사 한화생명, 한화손해보험의 올해 3분기 누적 신계약 보험계약마진(CSM)이 나란히 증가해 총 3조원을 넘어섰다. 두 회사 모두 연간 사상 최대 신계약 CSM을 기록할 것으로 예상되는 가운데...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 6,
+      "group": 21,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-031",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험사 투자손익 희비… 삼성만 웃었다",
+      "url": "https://www.mt.co.kr/industry/2026/11/13/2026111219552268652",
+      "date": "2026-11-13",
+      "time": "04:00",
+      "summary": "12일 보험업계에 따르면 이날 3분기 실적을 발표한 삼성생명과 삼성화재, DB손보, 한화생명 주요 보험사 4곳의 누적 순이익은 모두 전년 동기 대비 증가했다. 다만 투자손익은 보험사별 자산운용 구조와 해외투자...",
+      "companies": [
+        "삼성생명",
+        "한화생명",
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 6,
+      "group": 22,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-032",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 내년 상반기 밸류업 공표…건강보험·중장기납 확대",
+      "url": "https://www.kukinews.com/article/view/kuk202611120163",
+      "date": "2026-11-12",
+      "time": "18:36",
+      "summary": "한화손해보험과 GA 자회사, 해외 자회사 이익이 늘어난 결과다. 인수를 추진 중인 에큐온캐피탈은 금융당국 인가를 준비하고 있다. 에큐온캐피탈은 2025년 456억원, 올해 상반기 253억원 순이익을 냈다. 이 전무는 “금융...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 6,
+      "group": 23,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-033",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "생보협, '숨은보험금 찾아주기' 캠페인 시작",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2484784",
+      "date": "2026-11-12",
+      "time": "18:28",
+      "summary": "생명보험협회가 서민금융진흥원과 함께 '숨은보험금 찾아주기' 대국민 공동캠페인을 실시한다. 숨은보험금이란 보험금 지급금액이 확정됐지만 청구되지 않은 보험금을 뜻한다. 생명보험협회는 27일 이날 부터...",
+      "companies": [],
+      "score": 6,
+      "group": 24,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-034",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험사 풍향계] 교보생명, DC·IRP 수익률 ‘굳건’ 外",
+      "url": "https://www.ekn.kr/web/view.php?key=20261112021409040",
+      "date": "2026-11-12",
+      "time": "18:08",
+      "summary": "ABL생명 관계자는 “보험을 자칫 어렵고 복잡하게 느끼는 고객들도 게임이라는 친숙한 콘텐츠를 통해 보험과 FC의 역할을 쉽고 재미있게 경험할 수 있도록 기획했다\"며 “앞으로도 디지털 기술과 다양한 콘텐츠를...",
+      "companies": [
+        "교보생명",
+        "ABL생명"
+      ],
+      "score": 6,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-035",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명·화재, 나란히 호실적… 해외시장 공략 드라이브 건다",
+      "url": "https://www.asiatoday.co.kr/kn/view.php?key=20261113010005002",
+      "date": "2026-11-12",
+      "time": "17:58",
+      "summary": "삼성생명은 보험 본업의 수익성 개선이 무엇보다 중요할 것으로 관측된다. 투자손익 급증에 힘입어 올해 역대급 실적을 냈지만, 보험손익은 오히려 감소했기 때문이다. 삼성화재는 캐노피우스 인수에 따른 자본건전성...",
+      "companies": [
+        "삼성생명",
+        "삼성화재"
+      ],
+      "score": 6,
+      "group": 25,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-036",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "‘보험손익 176% 급증’…한화생명, 3분기 누적 순익 8656억",
+      "url": "https://www.ekn.kr/web/view.php?key=20261112021339020",
+      "date": "2026-11-12",
+      "time": "17:44",
+      "summary": "앞서 실적을 발표한 한화손해보험의 누적 순이익은 961억원으로 전년 동기 대비 34.1% 확대됐고, 해외 자회사는 1466억원의 손익을 기록했다. 베트남법인은 467억원, 노부은행은 461억원, 벨로시티는 388억원으로...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 6,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-037",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험사 3분기 실적 가른 '투자손익'…삼성만 나홀로 선전",
+      "url": "https://www.mt.co.kr/finance/2026/11/13/2026111216231680479",
+      "date": "2026-11-12",
+      "time": "17:08",
+      "summary": "삼성생명은 배당수익과 자회사 실적 개선에 힘입어 투자손익이 40% 급증한 반면 DB손해보험과 한화생명은 금융시장 변동성 확대로 투자 부문에서 부진한 실적을 거뒀다. 삼성화재는 영국 보험사 캐노피우스의 지분...",
+      "companies": [
+        "삼성생명",
+        "한화생명",
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 6,
+      "group": 27,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-038",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기 순익 35%↑…1위 삼성화재 분기 격차 '500억원' 추격",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503496",
+      "date": "2026-11-12",
+      "time": "16:48",
+      "summary": "회사는 실적 자료에서 연결 순익에 수익증권이 약 570억원을 보탰고, 생명보험 자회사 영향은 약 220억원의 차감 요인이었다고 설명했다. 포테그라는 미국과 유럽에서 특화보험과 보증 사업을 한다. 포테그라의...",
+      "companies": [
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 6,
+      "group": 20,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-039",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험硏 \"사망 개선율, 계리가정보다 0.5%P 높아지면 연금 지급기간 10% 초...",
+      "url": "https://view.asiae.co.kr/article/2026111209215989697",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "summary": "이날 세미나에는 김헌수 보험연구원장, 이광표 한국생명공학연구원 노화연구센터장, 서근희 삼성증권 팀장, 석승훈 서울대 경영대학 교수, 구도현 신한라이프 자산운용그룹장, 노중필 교보생명 상무, 윤지연 중앙대...",
+      "companies": [
+        "교보생명",
+        "신한라이프"
+      ],
+      "score": 6,
+      "group": 28,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-040",
+      "source": "보험저널",
+      "type": "press",
+      "title": "[12일 마감시황] 보험 관련 14종목 중 13개 하락…메리츠금융 13.05% 급락",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33896",
+      "date": "2026-11-12",
+      "time": "15:53",
+      "summary": "12일 국내 증시에서 보험 관련 상장 종목들이 일제히 약세를 보였다. 메리츠금융지주가 3분기 실적 부진 여파로 13% 넘게 급락했고, 삼성화재와 현대해상 등 주요 손해보험주도 큰 폭으로 하락했다. 전날 8% 넘게 급등했던 미래에셋생명은 하루 만에 상승분을 반납했으며, 삼성생명만 유일하게 상승세를 이어갔다. 이날 국내 증시는 전날 급등 이후 코스피와 코스닥이 엇갈린 흐름을 보였다. 코스피는 반도체 대형주를 중심으로 강세를 보이며 장중 5400선을 넘어섰지만, 코스닥은 외국인과 기관의 매도세 속에 700선 아래로 내려갔다. 보험 관련",
+      "author": "최은빈 기자",
+      "companies": [
+        "삼성생명",
+        "미래에셋생명",
+        "삼성화재",
+        "현대해상"
+      ],
+      "score": 6,
+      "group": 29,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-041",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험 NOW] 교보생명·라이나생명·현대해상·iM라이프",
+      "url": "https://www.wikileaks-kr.org/news/articleView.html?idxno=194559",
+      "date": "2026-11-12",
+      "time": "15:52",
+      "summary": "■ 교보생명, 퇴직연금 DC·IRP 수익률 1위…DC 1년 수익률 23.30% 교보생명이 퇴직연금 원리금비보장형 상품에서 확정기여형(DC)과 개인형퇴직연금(IRP)의 단기·장기 수익률 모두 업계 최상위권을 기록했다. 교보생명은...",
+      "companies": [
+        "교보생명",
+        "현대해상"
+      ],
+      "score": 6,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-042",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험업계 동향] 현대해상ㆍNH농협생명ㆍiM라이프(11.12)",
+      "url": "http://www.weeklytoday.com/news/articleView.html?idxno=801870",
+      "date": "2026-11-12",
+      "time": "15:28",
+      "summary": "■ NH농협생명·서울시, 노숙인 자활지원 '같이 일해, 가치 더해' 첫 운영 - 노숙인 구직자 20명 김포 농가서 고추·가지 수확···자활장려금 지급 - 농협생명 농가 연결·운영비 지원, 서울시 참여자 선발···후속 지원방안...",
+      "companies": [
+        "NH농협생명",
+        "현대해상"
+      ],
+      "score": 6,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-043",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재 인보험 '신계약 이익' 23%↓…메리츠와 1년 새 격차 반토막",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503294",
+      "date": "2026-11-12",
+      "time": "15:22",
+      "summary": "1년 전과 비교하면 인보험 신계약 이익이 23% 감소해 업권 2위 메리츠화재와의 격차도 절반 아래로 좁아졌다. 당기 실적에선 자동차보험의 흑자 전환이 보험손익을 받쳤으나 투자손익 감소로 순이익은 줄었다. 12일...",
+      "companies": [
+        "삼성화재",
+        "메리츠화재"
+      ],
+      "score": 6,
+      "group": 30,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-044",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 1~3분기 누적 순이익 3114억…신계약 CSM 1兆 육박",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503394",
+      "date": "2026-11-12",
+      "time": "15:22",
+      "summary": "3분기 신계약 CSM은 메리츠화재의 4220억원에 못 미쳤지만, 전년 동기 대비로는 메리츠화재가 0.3%가량 줄고 한화손보는 8% 늘었다. 보유 CSM을 연말까지 유지하려면 기존 계약에서 이익으로 인식하거나 계약 해지...",
+      "companies": [
+        "메리츠화재",
+        "한화손해보험"
+      ],
+      "score": 6,
+      "group": 31,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-045",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 60번째 ‘KB희망의집’ 선사…아동 주거안전성 제고",
+      "url": "https://www.inthenews.co.kr/news/article.html?no=94477",
+      "date": "2026-11-13",
+      "time": "10:22",
+      "summary": "인더뉴스 문승현 기자ㅣKB손해보험(대표이사 사장 구본욱)은 13일 충북 제천 옹달샘그룹홈에서 'KB희망의집60호' 완공식을 했다고 밝혔습니다. KB 희망의 집짓기는 2005년 시작된 KB손해보험 대표 사회공헌사업으로...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-046",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 60번째 'KB 희망의 집' 선물...사회공헌 확대",
+      "url": "http://www.choicenews.co.kr/news/articleView.html?idxno=173163",
+      "date": "2026-11-13",
+      "time": "10:20",
+      "summary": "보험사들의 사회공헌이 취약계층 지원과 청소년 교육프로그램 등으로 다양화하는 가운데 KB손해보험이 그룹홈 아동들을 대상으로 주거환경 개선 지원에 나섰다. KB손해보험(대표이사 사장 구본욱)은 \"지난 12일 충청북도...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-047",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[포토] KB손해보험, 공동생활가정 아이들에게 60번째 'KB 희망의 집'",
+      "url": "https://www.cnbnews.com/news/articleView.html?idxno=1023667",
+      "date": "2026-11-13",
+      "time": "10:16",
+      "summary": "KB손해보험은 여자 아동 6명이 생활하는 공동생활가정인 옹달샘그룹홈(충청북도 제천시)에 60번째 'KB... 'KB 희망의 집짓기'는 2005년부터 이어져 온 KB손해보험의 대표 사회공헌사업으로, 주거환경이 열악한 그룹홈의...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-048",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "'삼성화재 투자' 베트남 손보사 피지코 실적 'Good'…금융수익 49% 급증",
+      "url": "https://www.theguru.co.kr/news/article.html?no=109703",
+      "date": "2026-11-13",
+      "time": "10:10",
+      "summary": "손해보험사 피지코(PJICO)가 두 자릿수 이익 성장세를 보였다. 보험사업 성장과 은행 예금 중심의 자산 운용에 따른 금융수익 확대가 실적 개선을 이끌었다. 피지코는 12일(현지시간) 올해 3분기 실적 발표...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 5,
+      "group": 33,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-049",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 취약계층 아동 주거환경 개선…희망의 집 60호 완공",
+      "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065575274355981",
+      "date": "2026-11-13",
+      "time": "10:10",
+      "summary": "KB손해보험이 기후재난에 취약한 아동들의 주거 안전을 강화하기 위해 친환경 리모델링을 지원하며 사회공헌 활동을 확대하고 있다. KB손해보험은 충북 제천시 옹달샘그룹홈에 60번째 ‘KB 희망의 집’을 선물하고...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-050",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명 7000원 껑충 25만7000원…보험주 주목, 3분기 호실적에 삼성전...",
+      "url": "https://www.cbci.co.kr/news/articleView.html?idxno=626495",
+      "date": "2026-11-13",
+      "time": "10:08",
+      "summary": "국내 대표 생명보험사인 삼성생명이 3분기 시장 기대치를 웃도는 실적을 기록한 가운데 증권사의 긍정적인... 이날 25만7000원까지 올라서면서 보험업종 내 주요 종목으로 주목받고 있다. 키움증권은 삼성생명의 3분기...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 5,
+      "group": 34,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-051",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[카드] KB손해보험, 제천 옹달샘그룹홈에 '희망의 집' 60호 완공",
+      "url": "http://www.newsprime.co.kr/news/article.html?no=754847",
+      "date": "2026-11-13",
+      "time": "10:06",
+      "summary": "KB손해보험은 충청북도 제천시에 위치한 옹달샘그룹홈에 60번째 'KB 희망의 집'을 선물하며 아동들이 보다 안전하고 쾌적한 환경에서 생활할 수 있도록 주거환경 개선을 지원했다고 13일 밝혔다.",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-052",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 기후취약 아동에 '희망의 집' 지원… 친환경 리모델링으로...",
+      "url": "https://www.ilyoseoul.co.kr/news/articleView.html?idxno=525043",
+      "date": "2026-11-13",
+      "time": "10:06",
+      "summary": "KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게 단장된 시설에서 기념촬영을 하고 있다. [KB손해보험] KB손해보험...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 35,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-053",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 그룹홈에 60번째 'KB 희망의 집' 조성",
+      "url": "https://www.womentimes.co.kr/news/articleView.html?idxno=107887",
+      "date": "2026-11-13",
+      "time": "10:04",
+      "summary": "KB손해보험은 충북 제천시 옹달샘그룹홈에 60번째 'KB 희망의 집'을 조성했다고 13일 밝혔다. 'KB 희망의 집짓기'는 2005년 시작된 KB손해보험의 사회공헌 사업이다. 임직원이 조성한 'KB희망나눔기금'으로 그룹홈 시설...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-054",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 옹달샘그룹홈에 60번째 'KB 희망의 집' 선물",
+      "url": "https://www.getnews.co.kr/news/articleView.html?idxno=887045",
+      "date": "2026-11-13",
+      "time": "10:04",
+      "summary": "KB손해보험이 취약계층 아동들의 주거환경 개선을 위한 사회공헌 활동을 이어가고 있다. 충북 제천시... KB손해보험은 충청북도 제천시에 위치한 옹달샘그룹홈에 60번째 'KB 희망의 집'을 선물했다고 13일 밝혔다. 전날...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-055",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 'KB 희망의 집' 60호 조성… 아동 주거환경 개선",
+      "url": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=89188",
+      "date": "2026-11-13",
+      "time": "09:58",
+      "summary": "KB손해보험이 취약 아동의 주거 지원에 나섰다. KB손해보험은 충북 제천시 옹달샘그룹홈에 'KB 희망의 집' 60호를 조성하고, 아동 6명이 생활하는 공동생활가정의 주거환경을 개선했다고 13일 밝혔다. 'KB 희망의 집짓기'는...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-056",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교권보호위 결론 전에도 90만원…한화손보 교사보험, '신고 단계'에 주...",
+      "url": "https://www.greened.kr/news/articleView.html?idxno=354578",
+      "date": "2026-11-13",
+      "time": "09:58",
+      "summary": "[사진=한화손보] 한화손해보험이 이달 초 내놓은 교직원 전용 보험은 교권침해를 신고한 교직원에게 교권보호위원회 결론이 나오기 전에 보험금부터 지급한다. 지급 요건에 맞는 신고서를 내면 위원회 개최 여부나 심의...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 36,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-057",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 옹달샘그룹홈에 60번째 'KB 희망의 집' 선물",
+      "url": "http://www.newsdream.kr/news/articleView.html?idxno=122095",
+      "date": "2026-11-13",
+      "time": "09:54",
+      "summary": "KB손해보험(대표이사 사장 구본욱)은 충청북도 제천시 소재 아동 공동생활가정 '옹달샘그룹홈'의 주거환경 개선 공사를 마치고 60번째 'KB 희망의 집'을 완공했다고 13일 밝혔다. 'KB 희망의 집짓기'는 KB손해보험이 지난...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-058",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 'KB 희망의 집' 60호 완공",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86238",
+      "date": "2026-11-13",
+      "time": "09:50",
+      "summary": "KB손해보험이 충북 제천의 아동 공동생활가정 '옹달샘그룹홈'을 새롭게 단장해 60번째 'KB 희망의 집'을... KB손해보험은 문·창호 교체와 도배·타일 공사, 화장실 샤워부스 설치 등을 통해 주거환경을 개선했다. 전기...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-059",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 옹달샘그룹홈에 60번째 ‘희망의 집’ 조성",
+      "url": "https://www.socialvalue.kr/news/view/1065573113292212",
+      "date": "2026-11-13",
+      "time": "09:34",
+      "summary": "KB손해보험이 충북 제천시 옹달샘그룹홈의 주거환경을 개선하고 60번째 ‘KB 희망의 집’을 완공했다. 노후 시설의 단열 성능을 높이고 화재 예방 설비를 설치해 아동들의 생활환경과 안전성을 개선했다. KB손해보험은...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-060",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 투자손실에도 순익 8656억…보험이익 176% 급증",
+      "url": "http://www.joseilbo.com/news/news_read.php?uid=579571&class=18&grp=",
+      "date": "2026-11-13",
+      "time": "09:31",
+      "summary": "3분기 말 예상 지급여력비율(K-ICS)은 171%로 상반기 말보다 3%포인트 상승했다. 한편, 한화생명은 건강보험과 중·장기납 상품 중심으로 판매 구성을 조정하고, 투자자산의 변동성을 낮춰 이익 안정성을 높일 방침이다.",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-061",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 11월 자동차보험 브랜드평판 1위…전월 대비 33% 급등",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281193",
+      "date": "2026-11-13",
+      "time": "09:20",
+      "summary": "자동차보험 시장에서 KB손해보험이 소비자들의 가장 높은 관심을 받으며 브랜드평판 1위에 올랐다. 한국기업평판연구소가 실시한 2026년 11월 빅데이터 분석 결과에 따르면 KB손해보험은 참여, 미디어, 소통...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 9,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-062",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 악사손보 인수 검토 본격화…지난달 실사 완료",
+      "url": "https://www.g-enews.com/view.php?ud=202611130902345629e30fcb1ba8_1",
+      "date": "2026-11-13",
+      "time": "09:16",
+      "summary": "악사손보 인수가 성사되면 생명·손해보험을 비롯해 증권, 자산운용, 저축은행을 아우르는 사업 포트폴리오를 갖추면서 금융지주 전환에도 힘이 실릴 전망이다. 다만 악사손보의 수익성은 변수다. 악사손보는 지난해...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 37,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-063",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 옹달샘그룹홈에 60번째 'KB 희망의 집' 선물",
+      "url": "https://www.etnews.com/20261113000033",
+      "date": "2026-11-13",
+      "time": "09:14",
+      "summary": "KB손해보험(사장 구본욱)은 충청북도 제천시에 위치한 옹달샘그룹홈에 60번째 'KB 희망의 집'을 선물하며, 아동들이 보다 안전하고 쾌적한 환경에서 생활할 수 있도록 주거환경 개선을 지원했다고 13일 밝혔다. 'KB 희망의...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-064",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천에 60번째 '희망의 집' 지원",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139940",
+      "date": "2026-11-13",
+      "time": "09:14",
+      "summary": "KB손해보험이 충북 제천시 아동 공동생활가정에 60번째 'KB 희망의 집'을 조성했다. 13일 KB손해보험에 따르면 회사는 제천시 옹달샘그룹홈의 주거환경 개선을 마치고 지난 12일 'KB 희망의 집 60호' 완공식을 개최했다....",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-065",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손해보험, 제천 옹달샘그룹홈에 60번째 'KB 희망의 집' 조성",
+      "url": "http://www.econonews.co.kr/news/articleView.html?idxno=447151",
+      "date": "2026-11-13",
+      "time": "09:10",
+      "summary": "고성원 밀알복지재단 본부장(왼쪽부터), 진상수 KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게 단장된 시설에서...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 5,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-066",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[단독] DB손해보험, 괌·사이판 법인세 84억 환급소송 대법서 최종 패소",
+      "url": "http://www.fieldnews.kr/news/articleView.html?idxno=33052",
+      "date": "2026-11-13",
+      "time": "09:00",
+      "summary": "DB손해보험이 미국 본토와 괌·사이판에서 납부한 법인세를 합산해 외국납부세액공제 한도를 계산해야 한다며 제기한 약 84억원 규모의 세금 환급소송에서 최종 패소했다. 대법원은 괌과 사이판이 미국의 영토에...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 38,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-067",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기까지 영업익 2.2조…보험손익 55.8%↑",
+      "url": "http://www.newscape.co.kr/news/articleView.html?idxno=125784",
+      "date": "2026-11-13",
+      "time": "08:56",
+      "summary": "서울 강남구 대치동에 위치한 DB손해보험 본사 야경. (사진=DB손해보험) DB손해보험이 올해 들어 3분기까지 거둬들인 영업이익이 2조원을 넘어섰다. 주력인 보험손익의 가파른 성장세가 전체 실적 개선을...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 39,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-068",
+      "source": "보험저널",
+      "type": "press",
+      "title": "한화생명, 보험손익 176% 급증에도 3분기 적자…'투자손실'이 발목",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33903",
+      "date": "2026-11-13",
+      "time": "08:51",
+      "summary": "한화생명이 보장성보험 중심의 상품 포트폴리오 재편에 힘입어 올해 3분기까지 보험손익을 전년 동기 대비 176% 늘렸다. 신계약 보험계약마진(CSM)도 40% 증가하며 보험 본업의 수익성이 개선됐지만, 3분기 단독으로는 환율과 주식시장 변동에 따른 투자손실이 확대되면서 적자로 돌아섰다.한화생명은 지난 12일 실적발표회를 열고 올해 3분기 누적 연결 당기순이익이 8656억원으로 전년 동기 7690억원 대비 12.6% 증가했다고 밝혔다. 다만 상반기까지 9045억원이었던 누적 순이익이 3분기 말 8656억원으로 감소하면서 7~9월 단독으",
+      "author": "최지호 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-069",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 보험이익 224% 급증의 힘…한화證 '최선호주' 유지",
+      "url": "https://www.fnnews.com/news/202611130842134226",
+      "date": "2026-11-13",
+      "time": "08:46",
+      "summary": "DB손해보험이 투자손실에도 보험 본업의 수익성을 크게 개선하면서 증권가의 긍정적인 평가를 받고 있다. 특히 장기·자동차보험 수익성 회복에 해약환급금준비금 부담까지 줄어들면서 배당 확대에 대한 기대감도...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 40,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-070",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[더벨][이슈 & 보드] 삼성화재 이사회 \"캐노피우스, 선진 금융시장 진출...",
+      "url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202611101446006280102451",
+      "date": "2026-11-13",
+      "time": "08:12",
+      "summary": "한화생명은 2012년 인도네시아 생명보험사를 인수했고 DB손해보험도 베트남 손해보험사들의 경영권을 확보했다. 다만 기존 해외 M&A가 동남아시아 시장에 집중됐던 것과 달리 영국 로이즈 시장을 기반으로 글로벌...",
+      "companies": [
+        "한화생명",
+        "삼성화재",
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 41,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-071",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 고가치 상품 판매 확대에 수익성 '쑥'...3분기 보험손익 197%↑",
+      "url": "https://www.greened.kr/news/articleView.html?idxno=354576",
+      "date": "2026-11-13",
+      "time": "08:02",
+      "summary": "[사진=한화손보] 한화손해보험이 고가치 보장성보험 중심 전략을 앞세워 3분기 호실적을 이어가고 있다. 최근에는 여성 건강보험에서 쌓은 차별적 담보 개발 역량을 어린이보험과 자동차보험으로 넓히며 상품...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 42,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-072",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화證 \"DB손해보험, 보험 수익성 개선·배당 가시성 확대…보험업 최선...",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139919",
+      "date": "2026-11-13",
+      "time": "07:50",
+      "summary": "한화투자증권은 13일 DB손해보험에 대해 \"자산 매매·평가손실로 실적이 시장 기대치를 밑돌았지만, 핵심 투자 요인인 보험 수익성 개선을 재확인했다\"고 평가했다. 투자의견 '매수'와 목표주가 24만 7000원을 유지하고...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 43,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-073",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "영업이익 40% 급증한 DB손보, 자동차보험 적자도 턴어라운드",
+      "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=67627",
+      "date": "2026-11-13",
+      "time": "07:30",
+      "summary": "DB손해보험이 올해 3분기 두 자릿수 성장세를 이어가며 수익성을 크게 끌어올렸다. 자동차보험 손해율 개선과 보험 손익의 급증이 실적을 이끌었고, 해외 인수로 미래 성장동력 확보에도 속도를 내고 있다....",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 44,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-074",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[데이터&뉴스] 생보사 보장성 신계약 14% '뚝'…농협생명, 삼성·한화 제...",
+      "url": "http://www.consumernews.co.kr/news/articleView.html?idxno=768020",
+      "date": "2026-11-13",
+      "time": "06:10",
+      "summary": "올 들어 생명보험사의 보장성보험 신계약 건수가 큰 폭 감소한 것으로 나타났다. 생명보험업계에서는 단기납 종신보험 판매 둔화와 가계의 보험료 지출 여력 감소 등을 신규 계약 부담 요인으로 꼽고 있다....",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 5,
+      "group": 45,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-075",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 상위 15곳 중 1위",
+      "url": "http://www.bizwnews.com/news/articleView.html?idxno=151747",
+      "date": "2026-11-13",
+      "time": "03:48",
+      "summary": "서울 종로구에 있는 교보생명빌딩 전경. 사진=교보생명 교보생명은 3분기 말 기준 확정기여형(DC)과 개인형퇴직연금(IRP)의 원리금비보장형 상품 수익률이 적립금 상위 15개 사업자 가운데 각각 1위를...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-076",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3Q 순익 12.6%↑…신계약 CSM 2조 돌파 '본업' 빛났다",
+      "url": "https://www.apnews.kr/news/articleView.html?idxno=3053101",
+      "date": "2026-11-13",
+      "time": "01:46",
+      "summary": "CSM은 보험계약에서 미래에 발생할 것으로 예상되는 이익을 나타내는 지표로, 보험사의 중장기 수익성을 가늠하는 핵심 지표다. 분기별 신계약 CSM도 꾸준히 증가했다. 1분기 6109억원에서 2분기 6892억원으로 늘어난 데...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 12,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-077",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손해보험, 3분기 영업이익 6천183억원…40.1% 증가",
+      "url": "http://www.kjdaily.com/article.php?aid=1794496325692043276",
+      "date": "2026-11-13",
+      "time": "00:16",
+      "summary": "이미지=아이클릭아트-보험손익 302.6% 급증…투자손익은 53.6% 감소 -누적 순이익 1조5천605억원…전년比 10.5% 증가 -자동차보험 흑자 전환…지급여력비율 212% DB손해보험이 올해 3분기 보험사업 수익성 개선에...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 46,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-078",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 1위",
+      "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=54680",
+      "date": "2026-11-12",
+      "time": "23:46",
+      "summary": "교보생명이 올해 3분기 말 기준 퇴직연금 확정기여형(DC)과 개인형퇴직연금(IRP)의 원리금비보장형 상품 수익률에서 각각 적립금 상위 15개 사업자 가운데 1위를 기록했다. 최근 1년 수익률과 3·5·7·10년 연평균...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-079",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 보험손익 303%↑…정종표 픽 '포테그라'도 489억 보탰다",
+      "url": "https://www.apnews.kr/news/articleView.html?idxno=3053099",
+      "date": "2026-11-12",
+      "time": "23:22",
+      "summary": "정종표 DB손해보험 대표이사 사장. [사진 = DB손해보험] DB손해보험(005830)이 보험업계의 수익성 악화와 금융시장 불확실성 속에서도 견조한 실적 성장세를 이어갔다. 정종표 대표이사 사장이 주도한 보험 본업의...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 47,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-080",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기 순익 35.3% 증가…보험손익 4배",
+      "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=54670",
+      "date": "2026-11-12",
+      "time": "21:38",
+      "summary": "DB손해보험의 3분기 연결 순이익이 전년 동기보다 35.3% 증가했다. 투자손익이 절반 넘게 줄었지만, 장기보험 이익이 두 배로 늘고 자동차보험이 흑자로 돌아서면서 보험손익이 개선됐다. 미국 특수보험사...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 48,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-081",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손해보험 3분기 순익 4440억…전분기보다 49.4% 감소",
+      "url": "https://www.vegannews.co.kr/news/article.html?no=404170",
+      "date": "2026-11-12",
+      "time": "21:18",
+      "summary": "전년 동기 대비 35.3% 증가한 연결 잠정실적 DB손해보험(005830)의 2026년 3분기 연결 기준 당기순이익은 4440억원으로 전년 동기보다 35.3% 증가했다. 직전 분기와 비교하면 49.4% 감소했다. DB손해보험이 12일 공시한...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 49,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-082",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명 보험손익 감소에도 3분기 누적 순이익 27% 증가 : 배당금 수익...",
+      "url": "https://www.huffingtonpost.kr/article/262044",
+      "date": "2026-11-12",
+      "time": "20:30",
+      "summary": "삼성생명은 \"보험계약마진(CSM) 손실 증가로 보험손익이 소폭 감소했다\"고 설명했다. 다만 미래이익인 CSM은 신계약이 늘면서 연초보다 불어났다. 3분기 누적 신계약 CSM은 2조6260억 원으로 1년 전보다 14.3...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 5,
+      "group": 50,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-083",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 투자손익 반토막에도 순익 35%↑… 보험 본업이 실적 견인",
+      "url": "https://www.s-journal.co.kr/news/articleView.html?idxno=45302",
+      "date": "2026-11-12",
+      "time": "20:14",
+      "summary": "DB손해보험 3분기 연결 당기순이익이 4440억원으로 전년 동기보다 35.3% 증가했다. 투자손익이 절반 넘게 줄었지만 보험손익이 4배 이상 늘면서 전체 실적 개선을 이끌었다. 투자 부진을 보험 본업 수익성 개선으로...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 51,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-084",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기 누적 순익 10.5% 증가… 보험손익 개선에 실적 성장 견인",
+      "url": "http://www.biztribune.co.kr/news/articleView.html?idxno=362429",
+      "date": "2026-11-12",
+      "time": "19:32",
+      "summary": "ㅣDB손해보험 DB손해보험의 올해 3분기 누적 순이익이 전년 동기 대비 10.5% 증가했다. 투자손익 감소에도 장기보험의 수익성 개선과 자동차·일반보험의 흑자 전환에 힘입어 보험손익이 큰 폭으로 늘면서 전체...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-085",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 동반 1위… 장단기 운용 두각",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93820",
+      "date": "2026-11-12",
+      "time": "19:22",
+      "summary": "교보생명이 퇴직연금 원리금비보장형(실적배당형) 상품 수익률 부문에서 확정기여형 퇴직연금(DC)과 개인형 퇴직연금(IRP) 모두 1위에 올랐다. 최근 1년뿐 아니라 장기 수익률에서도 적립금 규모 상위 사업자들을 앞서며 장단기 운용 경쟁력을 나타냈다.교보생명은 올해 3분기 말 기준 DC와 IRP 각각의 적립금 상위 15개 퇴직연금사업자를 비교한 결과, 원리금비보장형 상품의 1년·3년·5년·7년·10년 수익률에서 모두 1위를 기록했다고 12일 밝혔다.■ TDF 활용한 장기 자산배분 집중… 생애주기별 노후자산 관리 지원 교보생명의 최근 1",
+      "author": "손민아 기자",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-086",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"보험·투자손익 나란히 증가\" 삼성화재, 3분기 누적 순익 1조8655억...전...",
+      "url": "https://www.thepublic.kr/news/articleView.html?idxno=326455",
+      "date": "2026-11-12",
+      "time": "19:22",
+      "summary": "삼성화재는 최근 글로벌 사모펀드 KKR, 한국투자공사와 영국 특수보험사 캐노피우스의 잔여 지분 60%를 인수하기로 했다. 내년 3월 말 거래 종결을 기준으로 전체 인수금액은 약 24억7000만달러다. 삼성화재는 약...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-087",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[업앤다운]보험 10종목 하락…삼성화재 7.24%↓",
+      "url": "https://www.nspna.com/news/?mode=view&newsid=835924",
+      "date": "2026-11-12",
+      "time": "18:48",
+      "summary": "손해보험 분류 12종목은 1종목이 오르고 11종목이 내렸으며 손해보험 업종은 5.16% 하락했다.생명보험 3종목은 1종목이 오르고 2종목이 내렸다. 생명보험 업종은 0.37% 상승했다. [업계 브리핑] 11월 12일...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 5,
+      "group": 52,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-088",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "수수료 개편 맞선 한화생명, '건강보험'으로 승부수",
+      "url": "https://dealsite.co.kr/articles/172685",
+      "date": "2026-11-12",
+      "time": "18:42",
+      "summary": "한화생명은 보험 본업과 자산운용, 글로벌 사업, 디지털 혁신 등 중장기 성장 전략과 함께 배당 등 주주환원 방안을 검토하고 있다. 이한샘 경영기획실장은 “당국의 배당 관련 제도 개선이 추진되고 있어 이를 감안해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 53,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-089",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[현장] \"길어진 노후에 종신연금 필요한데\"…생보사·설계사 판매 유인...",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503510",
+      "date": "2026-11-12",
+      "time": "18:36",
+      "summary": "반면, 생명보험사 현업 실무자들은 판매 유인이 낮고, 평생 지급을 약속한 연금을 뒷받침할 장기 운용자산을 확보하기도 어렵다고 지적했다. 노중필 교보생명 상무는 12일 서울 종로구 그랑서울에서 열린 보험연구원...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 54,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-090",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "나채범 한화손보 대표, 고가치 상품 중심 영업 강화 보험손익 제고…미...",
+      "url": "https://www.fntimes.com/html/view.php?ud=2026111209305598349efc5ce4ae_18",
+      "date": "2026-11-12",
+      "time": "18:20",
+      "summary": "나채범 한화손해보험 대표가 고가치 보장성보험 중심의 영업 전략을 강화하며 미래 수익 기반 확대에 주력하고 있다. 장기보험을 비롯한 주요 보험 종목의 수익성 개선에 힘입어 투자손익 감소에도 실적 성장세를...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 55,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-091",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명 3분기 순이익 9.6% 늘어, 보험손익 2배로 투자손익 감소 메워",
+      "url": "https://www.businesspost.co.kr/BP?command=article_view&num=451899",
+      "date": "2026-11-12",
+      "time": "17:56",
+      "summary": "삼성생명이 보험손익을 2배로 키워 투자손익 감소를 메우며 3분기 순이익을 늘렸다. 삼성생명은 12일 3분기 연결기준 지배주주 순이익 7924억 원을 냈다고 밝혔다. 지난해 같은 기간 7230억 원보다 9.6% 늘었다....",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 5,
+      "group": 56,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-092",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손해보험, 3분기 누적 순이익 1조5605억…전년比 10.5% 증가",
+      "url": "https://www.mediapen.com/news/view/1137159",
+      "date": "2026-11-12",
+      "time": "17:54",
+      "summary": "경쟁력을 강화하고, 포테그라를 발판으로 미국과 유럽에서 이익원을 확보하고 안정적인 운영과 시너지 확보를 우선하겠다\"고 밝혔다. DB손보는 올해 국내 보험사 최초로 미국 전문 특화 보험사 포테그라를 인수했다.",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-093",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 보험손익 1조5103억원…전년 대비 9.8% 증가",
+      "url": "http://www.kdfnews.com/news/articleView.html?idxno=190854",
+      "date": "2026-11-12",
+      "time": "17:48",
+      "summary": "한편 삼성화재는 지난 9일 글로벌 사모펀드 KKR, 한국투자공사와 함께 영국 보험사 캐노피우스의 잔여 지분 60%를 인수하기로 결정했다. 삼성화재는 약 16억7000만달러를 투자해 지분율을 80.6%로 확대할 계획이다....",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-094",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 게임으로 설계사 체험 'FC 챌린지' 오픈",
+      "url": "http://www.newslock.co.kr/news/articleView.html?idxno=140008",
+      "date": "2026-11-12",
+      "time": "17:46",
+      "summary": "보험사 영업 조직의 세계를 가상의 공간에서 직접 경험하며 상품 기획부터 계약 체결까지 체험할 수 있는 이색적인 디지털 플랫폼이 등장했다. 우리금융그룹 계열사인 ABL생명(대표 곽희필)은 게임화(Gamification) 방식을...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-095",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3Q 보험손익 3851억…고수익 보장성 재편에 작년치 추월",
+      "url": "https://www.bloter.net/news/articleView.html?idxno=678478",
+      "date": "2026-11-12",
+      "time": "17:44",
+      "summary": "한화생명이 수익성 높은 보장성보험 판매를 늘리며 3분기 누적 보험손익 3851억원을 기록했다. 환율과 주가 변동에 따라 투자 부문은 적자를 냈지만 해외 법인과 판매 자회사의 이익 성장으로 연결 당기순이익은 두...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 57,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-096",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명·화재 순익 1.3조 … 시중은행 맞먹어",
+      "url": "https://www.mk.co.kr/article/12206716",
+      "date": "2026-11-12",
+      "time": "17:41",
+      "summary": "특히 삼성생명은 보험 본업의 수익성 개선이 두드러졌다. 3분기 보험서비스손익은 5290억원으로 전년 동기 대비 102.4% 급증했다. 보험금과 사업비의 실제 발생액이 예상액과 얼마나 차이 나는지를 보여주는 예실차가...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 5,
+      "group": 58,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-097",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[단독] 교보생명, 악사손보 지분 51% 인수 추진",
+      "url": "https://www.hankyung.com/article/2026111235531",
+      "date": "2026-11-12",
+      "time": "17:29",
+      "summary": "지난 9월에는 인터넷 생명보험 자회사 교보라이프플래닛생명보험을 흡수합병하는 방안을 의결했다. 악사손보의 낮은 수익성은 변수로 거론된다. 이 회사는 올해 상반기 52억원의 순손실을 냈다. 지난해에도 338억원...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 59,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-098",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억…보험손익 176% 급증(종합)",
+      "url": "https://www.newsis.com/view/NISX20261112_0003866133",
+      "date": "2026-11-12",
+      "time": "17:23",
+      "summary": "한화생명은 기존 종신보험 중심의 영업 물량 감소가 불가피한 상황에서 정기보험과 건강보험을 통해 수요를 흡수한다는 방침이다. 내년부터 판매수수료 분급제 등 제도 변화가 예정된 만큼 상품 포트폴리오와 영업...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-099",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[금융레이더]교보생명/NH농협생명/iM라이프/현대해상/현대카드/카카오페...",
+      "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611121631515930871",
+      "date": "2026-11-12",
+      "time": "17:22",
+      "summary": "◆교보생명, 퇴직연금 DC·IRP 수익률 1위 교보생명은 12일 올해 3분기 말 기준 적립금 상위 15개 퇴직연금사업자 가운데 원리금비보장형 상품의 확정기여형(DC)과 개인형퇴직연금(IRP) 장단기 수익률이 모두 1위를...",
+      "companies": [
+        "교보생명",
+        "NH농협생명",
+        "현대해상"
+      ],
+      "score": 5,
+      "group": 4,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-100",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 1위…1년 수익률 20%대",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211307",
+      "date": "2026-11-12",
+      "time": "17:16",
+      "summary": "라이센스뉴스 = 이소라 기자 | 교보생명이 퇴직연금 원리금비보장형 상품의 확정기여(DC)형과 개인형퇴직연금(IRP) 수익률에서 적립금 상위 15개 사업자 중 1위를 기록했다. 최근 1년 수익률은 모두 20%를 넘었으며...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-101",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 보험손익 개선에 3분기 누계 순익 전년比 12.6%↑",
+      "url": "https://weekly.hankooki.com/news/articleView.html?idxno=7193659",
+      "date": "2026-11-12",
+      "time": "17:12",
+      "summary": "아울러 한화생명의 국내 법인보험대리점(GA) 자회사 한화생명금융서비스의 누적 손익은 883억원이다. 이는 지난해 같은 기간보다 10.2% 오른 수치다. 보험사의 건전성을 나타내는 지표인 지급여력비율(K-ICS·킥스)은...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-102",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 3분기 순익 961억원...보험손익 2배 늘었다",
+      "url": "https://www.asiaa.co.kr/news/articleView.html?idxno=270870",
+      "date": "2026-11-12",
+      "time": "17:08",
+      "summary": "한화손해보험이 장기보험을 중심으로 보험 본업의 수익성을 개선하며 3분기 순이익을 끌어올렸다. 투자손익 감소에도 보험손익 증가 폭이 이를 웃돌면서 분기 기준 실적 개선을 이뤘다. 12일 한화손해보험에...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 60,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-103",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "불어난 예실차 손실···삼성화재, 3분기 실적 '쇼크'",
+      "url": "https://www.sisajournal-e.com/news/articleView.html?idxno=424991",
+      "date": "2026-11-12",
+      "time": "17:02",
+      "summary": "5대 손보사 중 하나인 메리츠화재와 KB손해보험은 3분기 보험이익이 전 분기 대비 각각 11.5%, 17% 급증했다. 하지만 삼성화재는 보험이익도 크게 줄어든 것이다. 예실차 손실 규모가 크게 늘어난 탓이다. 3분기...",
+      "companies": [
+        "삼성화재",
+        "KB손해보험",
+        "메리츠화재"
+      ],
+      "score": 5,
+      "group": 61,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-104",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 3분기 순이익 961억원…보험손익 개선에 전년 대비 34.1% 증가",
+      "url": "https://www.polinews.co.kr/news/articleView.html?idxno=748324",
+      "date": "2026-11-12",
+      "time": "16:49",
+      "summary": "한화손해보험이 장기보험과 자동차보험 등 보험 부문의 수익성 개선에 힘입어 올해 3분기 당기순이익이 전년 동기 대비 34.1% 증가했다. 투자손익은 감소했지만 보험손익이 크게 늘면서 전체 실적 개선을 이끌었다....",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 60,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-105",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명 1~3분기 누적순익 8656억 전년비 12.6%↑",
+      "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503495",
+      "date": "2026-11-12",
+      "time": "16:48",
+      "summary": "지난 9월 말 신규 판매가 사실상 중단된 '700종신보험'은 중단 직전 GA 판매가 동양생명·한화생명·신한라이프에 집중됐다. 한화생명의 지난 9월 말 보유 CSM은 9조4140억원이다. 상반기 보유 CSM에서 한화생명이 2위...",
+      "companies": [
+        "한화생명",
+        "신한라이프",
+        "동양생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-106",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 6685억…신계약 CSM 2兆",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313614",
+      "date": "2026-11-12",
+      "time": "16:40",
+      "summary": "한화생명 관계자는 \"보험이익은 지난해부터 지속해 온 상품 포트폴리오 재편과 수익성 중심 판매 전략이 성과로 이어지면서 성장세가 두드러졌다\"고 설명했다. 이어 \"투자손익은 환율과 주식시장 변동 등에...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 62,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-107",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[Invest]삼성생명·화재, 누적 순익 4.5조에도…주주환원 확대는 '신중'",
+      "url": "https://www.investchosun.com/site/data/html_dir/2026/11/12/2026111280191.html",
+      "date": "2026-11-12",
+      "time": "16:34",
+      "summary": "반면 3분기 단일 분기 합산 순이익은 1조2856억원으로 전년 동기(1조2610억원)보다 2.0% 늘어나는 데 그치며 상반기 대비 성장 폭이 둔화됐다.삼성생명은 보험손익 개선에 힘입어 순익 증가세를 유지했다. 삼성생명의...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 5,
+      "group": 63,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-108",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 보험 본업 수익성 강화…3분기 누적 순익 12.6% 성장",
+      "url": "https://www.ziksir.com/news/articleView.html?idxno=153136",
+      "date": "2026-11-12",
+      "time": "16:32",
+      "summary": "[한화생명] 한화생명이 보험 본업의 수익성 개선과 해외 자회사 성장에 힘입어 올해 3분기 누적 순이익을 두 자릿수 확대했다. 지난해부터 추진한 상품 포트폴리오 재편이 성과를 내면서 보험손익은 전년 동기...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-109",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 원리금비보장형 수익률 1위…DC형·IRP 장단기 모두...",
+      "url": "https://www.gukjenews.com/news/articleView.html?idxno=3750228",
+      "date": "2026-11-12",
+      "time": "16:22",
+      "summary": "서울 종로구 교보생명 빌딩(사진=교보생명) 교보생명이 확정기여(DC)형과 개인형퇴직연금(IRP) 원리금비보장형(실적배당형) 상품 수익률 부문에서 모두 1위를 차지했다. 교보생명은 2026년 3분기 말 기준, 적립금...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-110",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 1위…10년 성과도 선두",
+      "url": "https://daily.hankooki.com/news/articleView.html?idxno=1424616",
+      "date": "2026-11-12",
+      "time": "16:22",
+      "summary": "사진=교보생명. 교보생명이 퇴직연금 원리금비보장형 상품의 단기·중장기 수익률에서 확정기여(DC)형과 개인형퇴직연금(IRP) 모두 1위를 기록했다. 글로벌 분산투자와 상장지수펀드(ETF) 투자 서비스 고도화, 고객...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-111",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 보험손익 176% 급증... 연결 누적순익 8656억",
+      "url": "https://www.newsworks.co.kr/news/articleView.html?idxno=902912",
+      "date": "2026-11-12",
+      "time": "16:20",
+      "summary": "한화생명의 이번 실적은 보험 본업의 수익성이 개선되더라도 금융시장 변동성에 따라 전체 실적이 영향을 받을 수 있다는 점을 보여준다. 앞으로 투자손익의 변동성을 얼마나 줄이느냐가 보험손익 개선 효과를 실제...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-112",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 수익률 1위…1년간 23% 안팎 성과",
+      "url": "https://www.ziksir.com/news/articleView.html?idxno=153130",
+      "date": "2026-11-12",
+      "time": "16:16",
+      "summary": "서울 종로구 교보생명 빌딩 전경. [교보생명] 교보생명이 퇴직연금 원리금비보장형 상품 운용에서 확정기여형(DC)과 개인형퇴직연금(IRP) 모두 최근 1년 수익률 1위를 기록했다. DC형은 23.30%, IRP는 22.81%의 수익률을...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-113",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 적립금 98% '외부 고객' 몫…DC·IRP 성장 견인",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86170",
+      "date": "2026-11-12",
+      "time": "16:10",
+      "summary": "교보생명 퇴직연금 적립금의 약 98%가 외부 가입자 자금으로 채워졌다. 비계열 적립금만 14조원을 웃도는 가운데 최근 1년간 확정기여형(DC)과 개인형퇴직연금(IRP)이 성장세를 이끌었다. 기업 퇴직연금을 중심으로...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 64,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-114",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 수익률 '전 구간 1위'…DC·IRP 동반 선두",
+      "url": "http://www.thefirstmedia.net/news/articleView.html?idxno=213482",
+      "date": "2026-11-12",
+      "time": "16:07",
+      "summary": "사진=교보생명 교보생명이 퇴직연금 원리금비보장형 상품 수익률에서 확정기여(DC)형과 개인형퇴직연금(IRP) 모두 선두를 기록했다. 최근 1년 수익률뿐 아니라 3년부터 10년까지의 연평균 수익률에서도 각각 1위를...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-115",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "메리츠화재 보험손익 증가분 72%는 일반·車보험서…장기보험은 2% 성장",
+      "url": "https://www.wikileaks-kr.org/news/articleView.html?idxno=194557",
+      "date": "2026-11-12",
+      "time": "15:52",
+      "summary": "메리츠화재의 올해 보험손익 증가분 70%가량은 주력인 장기보험이 아닌 일반보험과 자동차보험에서 나온 것으로 확인됐다. 장기보험의 이익 규모는 여전히 압도적이지만 실적을 끌어올린 부문은 달랐던 셈이다....",
+      "companies": [
+        "메리츠화재"
+      ],
+      "score": 5,
+      "group": 65,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-116",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 DC·IRP 장단기 수익률 1위",
+      "url": "https://www.cnbnews.com/news/articleView.html?idxno=1023537",
+      "date": "2026-11-12",
+      "time": "15:28",
+      "summary": "교보생명이 퇴직연금 원리금비보장형 상품 수익률 부문에서 확정기여(DC)형과 개인형퇴직연금(IRP) 모두 단기부터 중장기까지 전 구간 1위를 기록했다. 교보생명은 2026년 3분기 말 기준 DC형과 IRP 적립금 상위 15개...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-117",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 설계사 업무 가상 체험 게임 'FC 챌린지' 선봬",
+      "url": "https://www.cnbnews.com/news/articleView.html?idxno=1023548",
+      "date": "2026-11-12",
+      "time": "15:28",
+      "summary": "ABL생명이 재무컨설턴트(FC)의 직업과 업무 과정을 가상으로 체험할 수 있는 디지털 게이미피케이션 콘텐츠를 선보였다. ABL생명은 마케팅 전문 기업 플레이키키와 협업해 고객 참여형 게임 콘텐츠 'FC 챌린지'를...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-118",
+      "source": "보험저널",
+      "type": "press",
+      "title": "DB손보, 3분기 보험손익 4배 급증…투자이익 감소에도 순익 35.3% 증가",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33894",
+      "date": "2026-11-12",
+      "time": "15:14",
+      "summary": "DB손해보험이 올해 3분기 보험손익을 크게 늘리며 실적 개선에 성공했다. 투자손익이 전년 동기 대비 절반 이상 감소했지만 보험영업에서 발생한 이익이 이를 상쇄하면서 분기 순이익은 35% 넘게 증가했다. 특히 보험손익은 지난해 같은 기간의 4배 수준으로 확대됐다.DB손해보험의 2026년 3분기 연결 기준 당기순이익은 4440억원으로 전년 동기 대비 35.3% 증가했다. 같은 기간 영업이익은 6183억원으로 40.1% 늘었으며, 매출액은 7조1751억원으로 38.7% 증가했다.실적 개선을 주도한 것은 보험손익이다. 3분기 보험손익은 4",
+      "author": "최지호 기자",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 5,
+      "group": 48,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-119",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 퇴직연금 원리금비보장형 상품 DC·IRP 수익률 1위 달성",
+      "url": "https://www.ngonews.kr/news/articleView.html?idxno=243008",
+      "date": "2026-11-12",
+      "time": "15:04",
+      "summary": "교보생명이 퇴직연금 원리금비보장형 상품의 확정기여(이하 DC)형과 개인형퇴직연금(이하 IRP) 수익률에서 모두 1위를 기록했다. 퇴직연금 원리금비보장형 상품은 DC형과 IRP 제도에서 가입자가 직접 펀드, 주식형...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-120",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "메리츠화재, 신계약 늘었지만 신계약 CSM 감소",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86176",
+      "date": "2026-11-12",
+      "time": "14:10",
+      "summary": "메리츠화재가 올해 3분기 보장성보험 신계약 판매를 확대했지만 보험계약마진(CSM) 전환배수는 지난해 같은 기간보다 하락한 것으로 나타났다. 신계약 보험료는 증가했지만 미래 예상이익을 나타내는 신계약 CSM은...",
+      "companies": [
+        "메리츠화재"
+      ],
+      "score": 5,
+      "group": 66,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-121",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 설계사 업무 체험 게임 'FC 챌린지' 출시",
+      "url": "https://www.newspim.com/news/view/20261112000886",
+      "date": "2026-11-12",
+      "time": "13:56",
+      "summary": "ABL생명은 게임 요소를 접목한 고객 참여형 콘텐츠 'ABL생명 FC 챌린지'를 선보였다고 12일 밝혔다. 이 서비스는 고객이 보험설계사·재무컨설턴트(FC)의 업무와 성장 과정을 게임으로 체험할 수 있는 디지털 서비스다....",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-122",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재 누적 순익 1조8천억원",
+      "url": "https://www.naeil.com/news/read/608566?ref=naver",
+      "date": "2026-11-12",
+      "time": "13:06",
+      "summary": "전날에는 메리츠화재와 한화손해보험의 실적 발표가 있었다. 메리츠화재 3분기 누적 당기순이익은 지난해 3분기와 비교해 6.8% 감소한 1조3528억원으로 집계됐다. 매출액은 같은 기간과 비교해 8.6% 증가한...",
+      "companies": [
+        "삼성화재",
+        "메리츠화재",
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-123",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"보험이 게임이 된다\"… 우리금융그룹 ABL생명, 가상 FC 체험형 게이미...",
+      "url": "http://www.dailysmart.co.kr/news/articleView.html?idxno=132425",
+      "date": "2026-11-12",
+      "time": "11:04",
+      "summary": "우리금융그룹 계열사인 ABL생명은 12일 게이미피케이션(Gamification) 요소를 전면 접목한 고객 참여형 게임 콘텐츠 'ABL생명 FC 챌린지'를 공식 출시했다고 밝혔다. 이번에 선보인 'ABL생명 FC 챌린지'는 고객이 직접 보험...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 67,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-124",
+      "source": "보험매일",
+      "type": "press",
+      "title": "교보생명, 3분기 퇴직연금 DC·IRP 수익률 1위",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72966",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "summary": "[보험신보 오윤환 기자] 교보생명은 2026년 3분기 기준 DC형과 IRP 각각의 적립금 상위 15개 퇴직연금사업자 가운데 원리금비보장형 상품의 장단기 수익률 모두 1위에 올랐다고 12일 밝혔다. 최근 1년 수익률과 3년, 5년, 7년, 10년 연평균 수익률에서도 1위를 기록했다.퇴직연금 원리금비보장형 상품의 최근 1년 수익률은 DC형이 23.30%로 상위 15개 사업자 중 1위에 올랐으며 IRP도 22.81%로 1위에 올랐다.3년 연평균 수익률은 DC형 18.51%, IRP 17.81%로 각각 1위를 기록했다. 5년 연평균 수익률",
+      "author": "오윤환 기자",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 5,
+      "group": 8,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-125",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"게임으로 설계사 업무체험\" 우리금융 ABL생명 'FC 챌린지' 론칭",
+      "url": "https://www.catchnews.kr/news/articleView.html?idxno=130411",
+      "date": "2026-11-12",
+      "time": "10:22",
+      "summary": "우리금융그룹 계열사인 ABL생명이 게이미피케이션(Gamification) 요소를 결합한 디지털 고객 참여형 서비스 'ABL생명 FC 챌린지'를 선보였다. [이미지 ABL생명] 우리금융그룹 계열사인 ABL생명이 게이미피케이션(Gamification)...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-126",
+      "source": "보험저널",
+      "type": "press",
+      "title": "‘인턴에서 보험왕까지’ 2주간의 도전…ABL생명, FC 직무 체험 콘텐츠 선보여",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33886",
+      "date": "2026-11-12",
+      "time": "09:17",
+      "summary": "보험설계사(FC)의 업무와 성장 과정을 게임으로 체험하고, 실제 설계사 지원이나 보험 보장분석 상담까지 신청할 수 있는 디지털 서비스가 등장했다. 가상으로 자격시험을 치르고 고객에게 보험을 설계해 주면서 인턴에서 '보험왕'으로 성장하는 과정을 경험하는 방식이다.우리금융그룹 계열사인 ABL생명은 고객 참여형 게임 콘텐츠 ‘ABL생명 FC 챌린지’를 선보였다고 12일 밝혔다. 이번 서비스는 게임의 재미와 보상 요소를 접목한 게이미피케이션(Gamification) 방식으로, 고객이 FC(재무컨설턴트)의 업무를 쉽고 친근하게 이해할 수 있",
+      "author": "최지호 기자",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 5,
+      "group": 68,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-127",
+      "source": "보험저널",
+      "type": "press",
+      "title": "한화손보, 3분기 순익 961억원…보험손익 196.7% 증가",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33885",
+      "date": "2026-11-12",
+      "time": "09:14",
+      "summary": "한화손해보험이 올해 3분기 당기순이익 961억원을 기록하며 전년 동기 대비 34.1% 증가했다. 투자손익은 감소했지만 장기보험을 중심으로 보험손익이 개선되면서 전체 이익 증가를 이끌었다.한화손보는 11일 공시한 2026년 3분기 별도 기준 잠정실적에서 당기순이익 960억6100만원을 기록했다. 지난해 같은 기간 716억3000만원보다 34.1% 증가한 규모다. 같은 기간 매출액은 1조9379억원으로 전년 동기 대비 21.2% 증가했다. 영업이익은 1147억원으로 23.6% 늘었다.실적 개선을 이끈 것은 보험손익이다. 3분기 보험손익",
+      "author": "최지호 기자",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 5,
+      "group": 60,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-128",
+      "source": "보험저널",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 순익 1조8676억원…보험·투자손익 동반 증가",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33884",
+      "date": "2026-11-12",
+      "time": "09:13",
+      "summary": "삼성화재가 올해 3분기 누적 당기순이익 1조8676억원을 기록하며 전년 동기 대비 4.6% 증가했다. 장기·일반보험 손익 개선과 자동차보험 누적 흑자에 힘입어 보험손익이 증가했고, 투자손익도 성장세를 유지했다. 다만 3분기 단일 실적에서는 매출이 늘어난 반면 영업이익과 순이익은 감소했다.삼성화재는 12일 발표한 2026년 3분기 경영실적에서 누적 연결 기준 세전이익 2조5030억원, 지배주주지분 순이익 1조8655억원을 기록했다고 밝혔다. 전년 동기 대비 각각 5.5%, 4.6% 증가한 규모다. 누적 보험손익은 1조5103억원으로",
+      "author": "최지호 기자",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 5,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-129",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "‘신종’ 발행에도…하나생명, 킥스 권고치 턱걸이",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226417",
+      "date": "2026-11-12",
+      "time": "06:00",
+      "summary": "하나생명의 건전성이 좀처럼 개선되지 않고 있다. 1500억원 규모의 자본확충에도 지급여력(K-ICS·킥스)비율은 내리막길을 탔다. 향후 제도화될 기본자본비율 부담도 더욱 커질 전망이다.11일 하나금융그룹에 따르면 올 3분기 말 기준 하나생명의 경과조치 적용 후 킥스비율은 134.6%(잠정)다. 직전분기 대비 3.6%포인트(p) 악화했다.이 기간 가용자본과 요구자본은 각각 1조590억원과 7870억원으로 14.3%(1320억원), 17.4%(1160억원)씩 늘었다.지난 9월 1500억원 규모의 신종자본증권 발행으로 분자인 가용자본이",
+      "author": "한지한 기자",
+      "companies": [
+        "하나생명"
+      ],
+      "score": 5,
+      "group": 69,
+      "used": true
+    },
+    {
+      "id": "c-2026-11-12-130",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈, 연말까지 신입 보험설계사 육성지원…\"교육수료 후 위촉 시 ...",
+      "url": "https://view.asiae.co.kr/article/2026111309233849825",
+      "date": "2026-11-13",
+      "time": "09:23",
+      "summary": "지원 조건을 충족하기 위해서는 우선 보험업감독규정에 따라 직전 3년간 모집 경력이 없어야 한다. 여기에 지난달부터 다음 달까지 토스인슈어런스 직영 신입 교육에 입과해 수료를 마치고, 지난달부터 내년 1월까지...",
+      "companies": [],
+      "score": 4,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-131",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 연말까지 신입 보험설계사 육성 지원…위촉시 500만원...",
+      "url": "https://www.etnews.com/20261113000035",
+      "date": "2026-11-13",
+      "time": "09:17",
+      "summary": "지원 조건을 충족하기 위해서는 우선 보험업감독규정에 따라 직전 3년간 모집 경력이 없어야 한다. 여기에 2026년 10월~2026년 12월까지 토스인슈어런스 직영 신입 교육에 입과해 수료를 마치고, 2026년 10월~2027년 1월까지...",
+      "companies": [],
+      "score": 4,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-132",
+      "source": "보험저널",
+      "type": "press",
+      "title": "'단기납 종신보험' 7년납 환급률…10년 시점 메트라이프 124.8%·처브 120.0%·동양 등 6개사 117.6%",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33900",
+      "date": "2026-11-13",
+      "time": "08:56",
+      "summary": "11월 주요 생명보험사 14곳의 단기납 종신보험(일반심사형 7년납)을 분석한 결과, 10년 시점 해약환급률은 달러보험인 메트라이프생명이 124.8%로 가장 높은 것으로 확인됐다. 원화 상품 중에서는 체감납입형인 처브라이프가 120.0%를 기록했으며, 일반 원화 상품군에서는 동양생명·라이나생명·하나생명 등 6개사가 117.6%로 공동 최고치를 나타냈다. 납입 완료 시점인 7년 시점 환급률은 8개 생보사가 100.0%로 원금 도달 수준을 맞췄다.이번 비교는 40세 남성, 저해약·체증형, 가입금액 1000만원(메트라이프는 1만달러, 체감",
+      "author": "최은빈 기자",
+      "companies": [
+        "동양생명",
+        "하나생명"
+      ],
+      "score": 4,
+      "group": 71,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-133",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "종신보험의 귀환…생보사, 사망보장 넘어 노후자금 경쟁",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110545",
+      "date": "2026-11-13",
+      "time": "08:04",
+      "summary": "생명보험업계가 종신보험의 역할을 다시 설계하고 있다. 사망 이후 유가족에게 보험금을 지급하는 전통적인 보장 방식에서 벗어나 가입자가 살아 있는 동안 생활자금과 노후자금으로 활용할 수 있는 기능을 확대하는...",
+      "companies": [],
+      "score": 4,
+      "group": 72,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-134",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "종신보험의 '귀환'…생보업계, 수익 다변화 속 상품 경쟁 확대",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211278",
+      "date": "2026-11-13",
+      "time": "07:00",
+      "summary": "라이센스뉴스 = 이소라 기자 | 생명보험사들이 종신보험 상품군을 확대하고 있다. 사망보장에 생활자금 인출과 노후자금 활용 기능을 결합한 상품을 잇따라 선보이면서다. 건강보험에 집중됐던 상품 구성을 넓히고...",
+      "companies": [],
+      "score": 4,
+      "group": 73,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-135",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "본업 선방한 '삼성 보험형제'…\"4분기 실적 개선세 이어갈 것\"",
+      "url": "https://www.hankyung.com/article/2026111236841",
+      "date": "2026-11-12",
+      "time": "18:09",
+      "summary": "국내 생명·손해보험업계 1위인 삼성생명과 삼성화재의 올해 3분기 실적이 엇갈렸다. 삼성생명은 3분기 순이익이 증가하면서 누적 순이익이 지난해 연간 실적을 넘어섰다. 반면 삼성화재는 투자 부문 부진으로...",
+      "companies": [
+        "삼성생명",
+        "삼성화재"
+      ],
+      "score": 4,
+      "group": 74,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-136",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[Invest]한화생명, 3분기 누적 순익 8656억…자회사 호조로 적자 방어",
+      "url": "https://www.investchosun.com/site/data/html_dir/2026/11/12/2026111280220.html",
+      "date": "2026-11-12",
+      "time": "18:02",
+      "summary": "한화손해보험과 해외법인 등 주요 자회사들의 실적 호조에 힘입어 3분기 누적 연결 순이익은 증가했지만, 단기납 종신보험 판매 중단 이후 신계약 관리와 주주환원 정상화 등 과제는 여전히 남아 있다.한화생명은...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 4,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-137",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화계열 보험 수익방어 성공… 김동원, 글로벌 사업도 힘 보태",
+      "url": "https://www.asiatoday.co.kr/kn/view.php?key=20261113010005008",
+      "date": "2026-11-12",
+      "time": "17:58",
+      "summary": "한화생명과 한화손해보험 모두 보험 본업에서의 성공이 전체 실적을 이끌었다. 특히 한화생명은 투자손익이 적자 전환했지만 보험손익이 급증하며 실적 방어에 성공했다. 다만 내년 보험 영업환경 악화가 예상되는...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 4,
+      "group": 75,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-138",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험 뉴스브리핑] 현대해상 다이렉트 건강보험 2종 개편·출시",
+      "url": "https://www.asiatime.co.kr/article/20261112500472",
+      "date": "2026-11-12",
+      "time": "17:48",
+      "summary": "□ ABL생명 고객 참여형 게임 'FC 챌린지' 서비스 출시 ABL생명은 고객이 보험설계사의 업무와 성장 과정을 가상으로 체험할 수 있는 게임 콘텐츠 'ABL생명 FC 챌린지'를 선보였다. 이 서비스는 마케팅 전문기업...",
+      "companies": [
+        "ABL생명",
+        "현대해상"
+      ],
+      "score": 4,
+      "group": 76,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-139",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성·한화 보험 4사, 3분기 실적 희비… 누적 순익은 모두 증가",
+      "url": "https://www.seoul.co.kr/news/economy/2026/11/12/20261112500319?wlog_tag3=naver",
+      "date": "2026-11-12",
+      "time": "17:38",
+      "summary": "한화생명은 보험영업 개선에도 투자 부진이 부담으로 작용했다. 환율 변동에 따른 외화 자본증권의 평가손실과 주식시장 변동 등이 영향을 미쳤다. 한화손보는 투자이익이 38.3% 감소했지만 보험영업 이익이 약 세...",
+      "companies": [
+        "한화생명",
+        "한화손해보험"
+      ],
+      "score": 4,
+      "group": 77,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-140",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명, M&A '가속페달'…\"이익 5분의 1 해외서 번다\"",
+      "url": "https://dealsite.co.kr/articles/172671",
+      "date": "2026-11-12",
+      "time": "17:22",
+      "summary": "앞서 지난 1분기 경영실적 발표 당시 글로벌 M&A 구상을 공개한 데 이어, 지난 6월에는 국내 생명보험사인 KDB생명 인수 예비입찰에 등판해 시장의 주목을 받았다. 하지만 실사 후 본입찰에는 참여하지 않았다. 삼성생명이...",
+      "companies": [
+        "삼성생명",
+        "DB생명"
+      ],
+      "score": 4,
+      "group": 78,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-141",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[열도로 간 K금융-下] 일본으로 눈 돌린 K보험...새 성장동력 찾는다",
+      "url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=325793",
+      "date": "2026-11-12",
+      "time": "17:00",
+      "summary": "◇교보생명·한화생명, 영업 대신 투자·운용에 집중 교보생명과 한화생명은 직접적인 보험 상품 판매 대신 일본 현지 법인을 매개로 자산운용과 대체투자 사업을 활발히 펼치고 있다. 교보생명은 지난 2016년 일본...",
+      "companies": [
+        "한화생명",
+        "교보생명"
+      ],
+      "score": 4,
+      "group": 79,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-142",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“상품기사 읽고, 바로 가입설계”…보험저널, 설계사 맞춤 가입설계 연동 서비스 오픈",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33898",
+      "date": "2026-11-12",
+      "time": "16:31",
+      "summary": "보험상품 기사를 읽고 상품정보를 확인한 뒤 곧바로 가입설계까지 진행할 수 있는 새로운 서비스가 등장했다. 보험전문언론 보험저널이 설계사들의 정보 탐색 시간을 줄이고 영업 편의성을 높이기 위해 ‘가입설계 연동 서비스’를 새롭게 선보였다.이번 서비스는 보험저널에서 보험사의 신상품이나 보장 내용, 특약별 특징 등을 확인한 뒤 기사에 삽입된 ‘가입설계 바로가기’ 링크를 클릭하면 해당 보험사의 가입설계 시스템으로 곧바로 이동할 수 있도록 한 것이 핵심이다.설계사들이 바쁜 영업 현장에서 상품정보를 찾고 별도로 가입설계 시스템에 접속해야 했던",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 4,
+      "group": 80,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-143",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험사 투자이익 3분기 급감…4분기 회복도 불투명",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110533",
+      "date": "2026-11-12",
+      "time": "15:28",
+      "summary": "신한라이프는 2분기 1,432억원의 금융이익을 거뒀으나 3분기에는 154억원 적자로 돌아섰다. 금융손익이 한 분기 만에 1,586억원 줄어들면서 순이익도 31.3% 감소한 1,288억원을 기록했다. KB라이프의 투자손익은 상반기...",
+      "companies": [
+        "신한라이프",
+        "KB라이프"
+      ],
+      "score": 4,
+      "group": 81,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-144",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"순익도 CSM도 2배\"...신한라이프가 부러운 KB라이프",
+      "url": "http://www.nongaek.com/news/articleView.html?idxno=97457",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "summary": "보험업법상 모든 보험사는 법정 최저 기준인 100%를 유지해야 하며, 금융당국은 건전성 관리 강화를 위해 통상 보험사에 130% 이상의 비율을 유지하도록 권고하고 있다. ◆︎ 신한·KB금융 통합 생보사로 재탄생......",
+      "companies": [
+        "신한라이프",
+        "KB라이프"
+      ],
+      "score": 4,
+      "group": 82,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-145",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "생명보험 한 건에 4270억원…홍콩서 세계 최고액 기록",
+      "url": "https://view.asiae.co.kr/article/2026111208175372249",
+      "date": "2026-11-12",
+      "time": "08:21",
+      "summary": "부유층 몰리는 홍콩 보험시장…中 과세는 복병 홍콩 보험업 감독국에 따르면 지난해 홍콩의 총보험료는 8270억홍콩달러(약 142조원)로 전년보다 29.7% 늘었다. 올해 상반기 생명보험 판매액은 전년 같은 기간보다 58...",
+      "companies": [],
+      "score": 4,
+      "group": 83,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-146",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[금융지주 임원 인사 전망] [농협금융] '영업통' 박병희 농협생명 대표...",
+      "url": "https://dealsite.co.kr/articles/172450",
+      "date": "2026-11-12",
+      "time": "07:02",
+      "summary": "신계약 CSM 확대에도 순익 급감…내부통제 책임·짧은 대표 교체 주기 부담 박병희 NH농협생명 대표가... 같은 시기 농협손해보험도 보험 실무와 부사장 경력을 갖춘 송춘수 대표를 선임했다. 범농협 내부 인사를...",
+      "companies": [
+        "NH농협생명",
+        "NH농협손해보험"
+      ],
+      "score": 4,
+      "group": 84,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-147",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "기금형 퇴직연금 도입 앞두고…보험권, 상품 활용 확대 요구",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110505",
+      "date": "2026-11-12",
+      "time": "06:06",
+      "summary": "보험업계가 기금형 퇴직연금 도입을 앞두고 원리금보장상품과 연금보험의 활용 기회 확대를 요구했다.... ◇ 기금형 운용에 보험상품 활용 확대 요구 11일 보험업계에 따르면 보험권은 정부의 기금형 퇴직연금 도입과...",
+      "companies": [],
+      "score": 4,
+      "group": 85,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-148",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "[컨콜노트] 한화생명 “기본자본비율 56.8% 하회 전망”",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226436",
+      "date": "2026-11-13",
+      "time": "10:18",
+      "summary": "한화생명이 올 3분기 기본자본비율이 지난 6월 말 56.8%보다 하락할 것으로 예상했다.해외 금리 상승에 따른 채권 가치 하락과 이익잉여금 감소가 영향을 미쳤다는 설명이다.지난 12일 한화생명 3분기 실적발표회(IR)에서는 기본자본비율 전망과 기업가치 제고 계획 발표 시점, 700종신 판매 중단에 따른 신계약 매출 영향 등이 주요 질의로 다뤄졌다.JP모건증권 김줄리아 연구위원은 내년 기본자본비율 제도 도입을 앞두고 3분기 기본자본비율과 연말 및 중장기 관리 목표를 물었다.이에 박수원 한화생명 리스크관리팀장은 “9월 말에는 6월 말",
+      "author": "장서현 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 86,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-149",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, ‘보조기기 지원금특약’ 6개월 배타적사용권 획득",
+      "url": "https://www.thepowernews.co.kr/view.php?ud=202611131016596723de3f0aa1be_7",
+      "date": "2026-11-13",
+      "time": "10:18",
+      "summary": "한화생명이 장애 발생 이후 건강보험이나 의료급여를 통해 보조기기를 이용하는 고객에게 보험금을 지급하는 특약으로 6개월 배타적사용권을 획득했다. 공적 급여가 적용된 뒤에도 발생할 수 있는 보조기기 구매·유지...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-150",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, '보조기기 지원금 특약' 6개월 배타적사용권 획득",
+      "url": "https://www.kfenews.co.kr/news/articleView.html?idxno=668059",
+      "date": "2026-11-13",
+      "time": "10:18",
+      "summary": "13일 한화생명에 따르면 생명보험협회는 '보조기기지원금특약(연1회)'에 대해 6개월 배타적사용권을 부여했다. 해당 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험이나 의료급여를 통해 보조기기를...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-151",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "iM증권 \"삼성생명, 삼성전자 특별배당이 주가 방향 핵심…주주환원 계획...",
+      "url": "https://www.newsworks.co.kr/news/articleView.html?idxno=902976",
+      "date": "2026-11-13",
+      "time": "10:16",
+      "summary": "설용진 iM증권 연구원은 \"이익 추정치와 CSM(보험계약마진) 등 전반적인 본업 가치는 대체로 안정적인 수준을... 보험손익은 퇴직급여충당금 환입과 일시납 판매 증가 등 일회성 요인에 따른 사업비 예실차 개선으로 전년...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 88,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-152",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 제천 옹달샘그룹홈에 60번째 '희망의 집' 완공",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211325",
+      "date": "2026-11-13",
+      "time": "10:10",
+      "summary": "라이센스뉴스 = 이소라 기자 | KB손해보험이 충북 제천시 아동 공동생활가정인 옹달샘그룹홈의 노후 시설을 보수하고 60번째 'KB 희망의 집'을 완공했다. KB손해보험은 지난 12일 옹달샘그룹홈에서 'KB 희망의 집 60호...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-153",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 제천 옹달샘그룹홈에 60번째 희망의 집' 선물",
+      "url": "http://www.whitepaper.co.kr/news/articleView.html?idxno=268738",
+      "date": "2026-11-13",
+      "time": "10:08",
+      "summary": "KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게 단장된 시설에서 기념촬영을 하고 있다. (사진=KB손해보험)...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-154",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 60번째 '희망의 집' 선물... 아동 주거환경 개선",
+      "url": "https://www.joongangenews.com/news/articleView.html?idxno=563607",
+      "date": "2026-11-13",
+      "time": "10:08",
+      "summary": "KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게 단장된 시설에서 기념촬영을 하고 있다. [사진=KB손해보험]...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-155",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억…전년比 12.6%↑",
+      "url": "https://biz.heraldcorp.com/article/10935996?ref=naver",
+      "date": "2026-11-13",
+      "time": "10:07",
+      "summary": "그중에서도 보험손익의 성장세가 두드러졌다고 한화생명은 강조했다. 3분기 누적 보험손익은 3851억원으로 같은 기간 176% 늘었다. 지난해 연간 보험손익(3444억원)도 12% 웃돌았다. 지난해부터 이어온 상품 포트폴리오...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-156",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 본업 경쟁력 강화…3분기 누적 순익 12.6%↑",
+      "url": "https://www.ntoday.co.kr/news/articleView.html?idxno=130836",
+      "date": "2026-11-13",
+      "time": "10:06",
+      "summary": "한화생명이 수익성 중심의 상품 전략을 앞세워 보험 본업의 경쟁력을 높이고 있다. 보험손익이 지난해 연간 실적을 3분기 만에 넘어선 가운데, 투자 부진에도 누적 순이익 증가세를 이어갔다. 13일 한화생명에...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-157",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 피프티피프티와 웹예능 'Z-톡스' 공개",
+      "url": "http://www.koreastocknews.com/news/articleView.html?idxno=122254",
+      "date": "2026-11-13",
+      "time": "10:02",
+      "summary": "KB손해보험(대표 구본욱)은 신규 웹 예능 'Z-톡스'를 공개했다고 13일 밝혔다. 이는 걸그룹 피프티피프티 멤버 키나와 아테나가 도심 속 웰니스 공간을 찾아 다양한 프로그램을 체험하는 콘텐츠다. 첫 에피소드에서는 호흡...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 89,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-158",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[롯데손보 통합 과제④] 신한금융, 투자 포트폴리오 재편으로 수익률 개...",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86246",
+      "date": "2026-11-13",
+      "time": "09:58",
+      "summary": "신한금융지주가 롯데손해보험 인수 이후 투자 포트폴리오를 재편해 자산운용 수익성을 개선해야 한다는... 같은 기간 보험손익은 537억원으로 전년 동기 대비 321억원 개선됐지만 투자 부문의 손실을 만회하지 못했다....",
+      "companies": [
+        "롯데손해보험"
+      ],
+      "score": 3,
+      "group": 90,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-159",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"주거열악 취약아동에 안전한 보금자리\" KB손보, 제천 옹달샘그룹홈에 ...",
+      "url": "https://www.catchnews.kr/news/articleView.html?idxno=130469",
+      "date": "2026-11-13",
+      "time": "09:58",
+      "summary": "KB손해보험 충청호남본부장(가운데)와 고성원 밀알복지재단 본부장(왼쪽), 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 'KB 희망의 집 60호' 완공식을 했다. [사진 KB손보] KB손해보험이...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 91,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-160",
+      "source": "보험매일",
+      "type": "press",
+      "title": "한화생명, ‘보조기기 지원금특약’ 배타적사용권 6개월 획득",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72986",
+      "date": "2026-11-13",
+      "time": "09:57",
+      "summary": "[보험신보 정두영 기자] 한화생명은 ‘보조기기 지원금특약’이 생명보험협회 신상품심의위원회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다.이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여 보조기기를 이용할 경우 보험금을 지급한다. 건강보험과 의료급여 보조기기 이용을 각각 연 1회 한도로 보장한다.기존 노인장기요양보험의 복지용구 중심 보장과 비교해 이용 가능 대상과 품목의 범위를 넓힌 것도 특징이다. 장기요양 복지용구는 주로 장기요양등급 판정을 받은 65세 이상 고령자를 대상으로 25개 품목을",
+      "author": "정두영 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-161",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 제천에 60번째 '희망의 집' 선물",
+      "url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=325876",
+      "date": "2026-11-13",
+      "time": "09:52",
+      "summary": "KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 기념촬영을 하고 있다. 사진=KB손해보험 KB손해보험이 취약 아동들의...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-162",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[현장] 삼성생명 '보안요원'·토스증권 '정보 검증'···AI로 신뢰 높이...",
+      "url": "https://www.womaneconomy.co.kr/news/articleView.html?idxno=261036",
+      "date": "2026-11-13",
+      "time": "09:50",
+      "summary": "삼성생명의 보안 시스템에서 수상한 접속이 감지되면 인공지능(AI) '코난'이 분석에 나선다. 해킹 여부를 판단하기 어려우면 또 다른 AI '스컬리'가 과거 기록과 외부 위협 정보를 대조해 재검증한다. 토스증권은 AI가...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 92,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-163",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, '보조기기 지원금특약' 6개월 배타적사용권 획득",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139961",
+      "date": "2026-11-13",
+      "time": "09:48",
+      "summary": "13일 한화생명에 따르면 한화생명의 '보조기기지원금특약(연1회)'은 생명보험협회로부터 6개월 배타적사용권을 받았다. 이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-164",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 2.3조 '메가딜'에도 최고 신용등급 유지…AM베스트 \"재무 부담...",
+      "url": "https://www.theguru.co.kr/news/article.html?no=109690",
+      "date": "2026-11-13",
+      "time": "09:48",
+      "summary": "英 보험사 캐노피우스 지분 80.6% 확보…신용등급 'A++' 유지 자본 부담 제한적 평가…해외사업 이익 기여도 20% 이상 전망 삼성화재가 영국 보험사 캐노피우스의 경영권 인수에도 최고 신용등급을 유지했다....",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 93,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-165",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 보조기기 특약 배타적사용권 6개월 획득",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86237",
+      "date": "2026-11-13",
+      "time": "09:46",
+      "summary": "한화생명이 '보조기기지원금특약(연1회)'으로 생명보험협회로부터 6개월 배타적사용권을 획득했다. 이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여 보조기기를 이용하면...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-166",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 장애인 보조기기 비용 보장 특약 6개월 배타적사용권 획득",
+      "url": "https://daily.hankooki.com/news/articleView.html?idxno=1424801",
+      "date": "2026-11-13",
+      "time": "09:44",
+      "summary": "한화생명은 '보조기기지원금특약(연 1회)'이 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여를 통해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-167",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, ‘보조기기 지원금특약’ 배타적사용권 6개월 획득",
+      "url": "https://www.socialvalue.kr/news/view/1065573733747439",
+      "date": "2026-11-13",
+      "time": "09:44",
+      "summary": "한화생명이 장애인의 보조기기 이용에 따른 경제적 부담을 줄이기 위해 개발한 ‘보조기기지원금특약(연1회)’으로 생명보험협회로부터 6개월 배타적사용권을 획득했다. 한화생명은 건강보험과 의료급여를 통한 장애인...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-168",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 장애인 보조기기 보장 확대…배타적사용권 6개월",
+      "url": "http://www.ftoday.co.kr/news/articleView.html?idxno=369623",
+      "date": "2026-11-13",
+      "time": "09:44",
+      "summary": "한화생명은 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 배타적사용권을 획득한 특약은 '보조기기지원금특약(연1회)'이다. 이 특약은 보험기간 중 장애가 발생해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-169",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“65세 미만도, 96개 품목까지 보장”… 한화생명, ‘보조기기 지원금 특약’ 배타적사용권 획득",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33906",
+      "date": "2026-11-13",
+      "time": "09:43",
+      "summary": "한화생명이 ‘보조기기 지원금 특약’에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다.배타적사용권을 획득한 특약은 ‘보조기기지원금특약(연1회)’이다. 이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여 보조기기를 이용할 경우 각각 연 1회 한도로 보험금을 지급한다.현재 정부는 건강보험과 의료급여를 통해 휠체어, 보청기 등 다양한 보조기기의 구입 비용을 지원하고 있다. 다만 보조기기별로 급여 기준액과 내구연한이 정해져 있어 실제 구매 과정에서 본인부담금이 발생하며, 사용 중 수리",
+      "author": "최지호 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-170",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, ‘보조기기 지원금특약’ 배타적사용권 6개월 획득",
+      "url": "https://www.seoultimes.news/news/article.html?no=2000102153",
+      "date": "2026-11-13",
+      "time": "09:42",
+      "summary": "대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 건강보험이나 의료급여 지원을 받더라도 추가로 발생할 수 있는 비용에 대비하도록 개발한 상품이다. 이 특약은 보험기간 중 장애가 발생해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-171",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "‘10월 종료' 예고 뒤 연장…보험사 절판 마케팅 연말까지 반복",
+      "url": "https://www.raonnews.com/news/article.html?no=62728",
+      "date": "2026-11-13",
+      "time": "09:42",
+      "summary": "종료 시점을 앞세운 절판 마케팅이 기한을 달리하며 생명보험과 손해보험 양쪽에서 되풀이되고 있다. 13일 보험업계에 따르면 삼성생명은 뇌·심장질환 이력자의 암 보장 가입을 받는 '암Pass플랜'을 지난달 말...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 94,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-172",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, '보조기기 지원금특약' 배타적사용권 획득",
+      "url": "https://www.joongangenews.com/news/articleView.html?idxno=563572",
+      "date": "2026-11-13",
+      "time": "09:34",
+      "summary": "|중앙이코노미뉴스 문혜원 기자|한화생명은 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다. [사진=한화생명] 한화생명은 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-173",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, ‘보조기기 지원금특약’ 배타적사용권 6개월 획득",
+      "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065572820080658",
+      "date": "2026-11-13",
+      "time": "09:32",
+      "summary": "한화생명은 ‘보조기기지원금특약(연1회)’에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. ▲ 한화생명 63빌딩 모습 [사진=한화생명 제공] 배타적사용권은 보험상품의 독창성과 혁신성 등을...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-174",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명 '보조기기 지원 특약', 6개월 배타적사용권 획득",
+      "url": "https://www.pointe.co.kr/news/articleView.html?idxno=87692",
+      "date": "2026-11-13",
+      "time": "09:26",
+      "summary": "한화생명이 생명보험협회로부터 '보조기기지원금특약'에 대해 6개월간의 배타적사용권을 얻어냈다고 13일 밝혔다. 해당 상품은 보험 가입 기간 내에 장애 판정을 받고 등록을 마친 고객이 건강보험이나 의료급여가...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-175",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, '장애인 보조기기 지원금' 배타적 사용권 획득",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313640",
+      "date": "2026-11-13",
+      "time": "09:26",
+      "summary": "한화생명은 생명보험협회 신상품심의위원회로부터 '보조기기 지원금 특약'에 대한 6개월 배타적 사용권을 획득했다고 13일 밝혔다. 배타적 사용권은 보험상품의 독창성, 유용성, 진보성 등을 평가해 부여하는 독점 판매...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-176",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 60번째 '희망의 집' 선물…아동 주거환경 개선",
+      "url": "http://www.ftoday.co.kr/news/articleView.html?idxno=369620",
+      "date": "2026-11-13",
+      "time": "09:26",
+      "summary": "KB손해보험이 임직원들의 자발적인 기금으로 추진하는 'KB 희망의 집짓기' 사업을 통해 60번째 아동 주거시설 개선을 마쳤다. KB손해보험은 충청북도 제천시에 위치한 옹달샘그룹홈에 60번째 'KB 희망의 집'을 선물하며...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-177",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "인력난 풀고 자립 돕고… NH농협생명·서울시, '상생 프로젝트' 가동",
+      "url": "http://www.newscape.co.kr/news/articleView.html?idxno=125789",
+      "date": "2026-11-13",
+      "time": "09:26",
+      "summary": "NH농협생명이 서울시와 함께 농촌 일손 부족 문제를 해소하고 노숙인 등 주거취약계층의 자활을 지원하기 위한 체험형 프로그램을 시작했다. NH농협생명은 지난 11일 경기 김포시 농가에서 체험형 자활지원 프로그램 '같이...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 95,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-178",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, '보조기기 지원금특약' 배타적사용권 획득",
+      "url": "https://www.etnews.com/20261113000045",
+      "date": "2026-11-13",
+      "time": "09:25",
+      "summary": "한화생명은 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 배타적사용권을 획득한 특약은 '보조기기지원금특약(연 1회)'이다. 이 특약은 보험기간 중 장애가 발생해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-179",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 사각지대 메운 '보조기기 지원금특약' 독창성 인정",
+      "url": "https://www.asiaa.co.kr/news/articleView.html?idxno=270921",
+      "date": "2026-11-13",
+      "time": "09:24",
+      "summary": "한화생명은 '보조기기 지원금특약(연1회)'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 이번 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험이나 의료급여를 통해...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-180",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 전 연령 장애인 보조기기 보장 특약 개발…배타적사용권 6개...",
+      "url": "https://www.globalepic.co.kr/view.php?ud=2026111309214787277cc35ccc5c_29",
+      "date": "2026-11-13",
+      "time": "09:24",
+      "summary": "생보협회 심의 통과…6개월 ‘보험 특허권’ 확보 13일 보험업계에 따르면 한화생명은 최근 개발한 ‘보조기기지원금특약(연1회)’에 대해 생명보험협회 신상품심의위원회로부터 6개월 배타적사용권을 획득했다....",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-181",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 보조기기 지원금특약 6개월 배타적사용권 획득",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4444574",
+      "date": "2026-11-13",
+      "time": "09:22",
+      "summary": "한화생명이 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 이 특약은 보험기간 중 장애가 발생해 장애인으로 등록된 고객이 건강보험 또는 의료급여 보조기기를 이용할...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-182",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 60번째 '희망의 집' 제천 옹달샘그룹홈에 선물",
+      "url": "http://www.finomy.com/news/articleView.html?idxno=266586",
+      "date": "2026-11-13",
+      "time": "09:22",
+      "summary": "현대경제신문 함동희 기자 | KB손해보험이 주거환경이 열악한 아동 공동생활가정에 60번째 'KB 희망의 집'을 선물했다. 노후 시설을 친환경적으로 개선하고 에너지 효율을 높여 기후재난과 화재 위험에 취약한 아동들의...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-183",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한국투자증권 \"삼성화재, 안정적인 손익 방어력\"… 목표가 70만원 유지",
+      "url": "https://www.g-enews.com/view.php?ud=20261113084633154344093b5d4e_1",
+      "date": "2026-11-13",
+      "time": "09:22",
+      "summary": "김 연구원은 \"자산시장 부진에 따른 매매·평가손실에도 삼성화재의 손익 변동성이 보험사 가운데 가장 낮았다\"면서 \"장기보험과 자동차보험 수익성이 예상보다 개선되는 흐름도 긍정적으로 평가했다\"고 짚었다. 또...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 96,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-184",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "공적 지원 사각지대 메운다…한화생명 '보조기기 지원금특약' 배타적사...",
+      "url": "https://www.thefairnews.co.kr/news/articleView.html?idxno=94048",
+      "date": "2026-11-13",
+      "time": "09:20",
+      "summary": "한화생명은 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 이번에 배타적사용권을 획득한 '보조기기지원금특약(연1회)'은 보험기간 중 장애 판정을 받아 등록된 고객이...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-185",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "기후위기 막아주는 '60번째 보금자리'… KB손보 제천 희망의 집 선물",
+      "url": "https://www.newsclaim.co.kr/news/articleView.html?idxno=3082501",
+      "date": "2026-11-13",
+      "time": "09:20",
+      "summary": "KB손해보험,구본욱 (왼쪽부터)고성원 밀알복지재단 본부장, 진상수 KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-186",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 장애인 보조기기 비용 보장 확대…배타적사용권 획득",
+      "url": "https://view.asiae.co.kr/article/2026111309194647072",
+      "date": "2026-11-13",
+      "time": "09:19",
+      "summary": "한화생명이 '보조기기 지원금특약'에 대해 생명보험협회로부터 6개월 배타적사용권을 획득했다고 13일 밝혔다. 배타적사용권을 획득한 특약은 '보조기기지원금특약(연1회)'이다. 보험기간 중 장애가 발생해 장애인으로...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-187",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 제천 옹달샘그룹홈 주거환경 개선…'KB 희망의 집' 60호 완공",
+      "url": "http://www.issuenbiz.com/news/articleView.html?idxno=81558",
+      "date": "2026-11-13",
+      "time": "09:16",
+      "summary": "고성원 밀알복지재단 본부장, 진상수 KB손해보험 충청호남본부장, 문순국 옹달샘그룹홈 시설장이 지난 12일 충청북도 제천시 옹달샘그룹홈에서 열린 'KB 희망의 집 60호' 완공식에서 새롭게 단장된 시설에서 기념촬영을...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-188",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[포토] KB손보, 제천 공동생활가정 '희망의 집' 60호 완공",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313635",
+      "date": "2026-11-13",
+      "time": "09:12",
+      "summary": "KB손해보험은 지난 12일 충북 제천시에 위치한 공동생활가정 옹달샘그룹홈에서 'KB 희망의 집' 60호 완공식을 진행했다. KB손보는 열악한 주거환경에서 생활하는 아동들을 위한 'KB 희망의 집짓기' 사업으로 일환으로...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-189",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 700종신 판매 중단에 영업전략 재편…투자손익 변동성도 줄인...",
+      "url": "https://www.financialpost.co.kr/news/articleView.html?idxno=300656",
+      "date": "2026-11-13",
+      "time": "09:08",
+      "summary": "한화생명은 보험계약 해지 시 지급할 환급금 등을 고려한 해약환급금준비금 적립 부담으로 주주배당에 제약을 받아왔다. 이에 배당 관련 제도 개선이 진행 중인 점을 고려해 구체적인 주주환원 방안을 마련하겠다는...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 97,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-190",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "KB손보, 제천 아동 보호시설에 60번째 '희망의 집' 완공",
+      "url": "https://www.pointe.co.kr/news/articleView.html?idxno=87687",
+      "date": "2026-11-13",
+      "time": "09:02",
+      "summary": "KB손해보험이 충북 제천에 자리한 옹달샘그룹홈을 새롭게 단장해 60번째 KB 희망의 집을 완공했다고 13일 밝혔다. 옹달샘그룹홈은 여자 아동 6명이 거주하는 공동생활가정으로 시설 노후화와 낡은 단열재 탓에 한파와...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-191",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 포테그라 인수 효과 본격화-LS證",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86228",
+      "date": "2026-11-13",
+      "time": "09:00",
+      "summary": "LS증권은 13일 DB손해보험이 포테그라 인수 효과와 보험 본업의 수익성 개선에 힘입어 주주환원을 확대할 것으로 전망했다. 전배승 LS증권 연구원은 보고서에서 \"매년 10%의 주당배당금 상승 및 주주환원율 상향\"의...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 98,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-192",
+      "source": "보험저널",
+      "type": "press",
+      "title": "KB손보, 제천 옹달샘그룹홈에 60번째 'KB 희망의 집' 선물",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33904",
+      "date": "2026-11-13",
+      "time": "08:57",
+      "summary": "KB손해보험(대표이사 사장 구본욱)은 충청북도 제천시에 위치한 옹달샘그룹홈에 60번째 ‘KB 희망의 집’을 선물하며, 아동들이 보다 안전하고 쾌적한 환경에서 생활할 수 있도록 주거환경 개선을 지원했다고 13일 밝혔다.‘KB 희망의 집짓기’는 2005년부터 이어져 온 KB손해보험의 대표 사회공헌사업으로, 주거환경이 열악한 그룹홈의 시설 개선과 주거환경 정비를 지원하고 있다. 특히 임직원들이 자발적으로 조성한 ‘KB희망나눔기금’을 바탕으로 운영되고 있어 더욱 의미가 깊다. 최근에는 친환경 리모델링과 에너지 효율 개선을 접목해 기후위기에",
+      "author": "최지호 기자",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 32,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-193",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "신진서, 양딩신 꺾고 삼성화재배 8강 진출",
+      "url": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2374034",
+      "date": "2026-11-13",
+      "time": "08:52",
+      "summary": "12일 경기도 고양시 삼성화재 글로벌캠퍼스에서 열린 삼성화재배 16강전에서 신 9단은 중국 양딩신 9단을 193수 만에 흑 불계로 이겨 8강에 올랐다. 초반부터 앞서 나간 뒤 대국 종료 때까지 한번도 우위를 뺏기지...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 99,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-194",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 실적 부진에 목표가 하향…해외 사업은 기대[애널리스트의 시...",
+      "url": "https://www.newsway.co.kr/news/view?ud=2026111308081756335",
+      "date": "2026-11-13",
+      "time": "08:50",
+      "summary": "투자손익 부진으로 시장 기대치를 밑돌았으나 보험 본업의 수익성 지표가 개선되고 영국 보험사... 다만 보험사업의 안정적인 수익 창출 능력과 해외사업 성장 가능성은 긍정적으로 평가했다. 삼성화재의 3분기 연결...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 100,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-195",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화證 “삼성화재, 자산시장 부진 속 변동성 가장 낮아… 투자의견 ‘...",
+      "url": "https://biz.chosun.com/stock/stock_general/2026/11/13/RCAUJNHPGFB2LLAYASK66TPP2Q/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-11-13",
+      "time": "08:48",
+      "summary": "김도하 한화투자증권 연구원은 “자산 시장 부진에 따라 매매·평가 손실이 반영되었으나 삼성화재의 이익 변동성은 보험사 가운데 가장 낮게 나타났다”며 “장기·자동차보험의 수익성이 개선되는 경로는 긍정적”...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 101,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-196",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 자산손실 방어력 부각-한화證",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86222",
+      "date": "2026-11-13",
+      "time": "08:48",
+      "summary": "한화투자증권은 13일 삼성화재가 자산시장 부진 속에서도 보험사 중 가장 낮은 손익 변동성을 보였다며 실적 방어력을 긍정적으로 평가했다. 김도하 한화투자증권 연구원은 보고서에서 \"금융사 전반이 자산시장...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 102,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-197",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화證 \"한화생명, 환·헤지 손실에 적자 전환…목표가↓\"",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139924",
+      "date": "2026-11-13",
+      "time": "08:10",
+      "summary": "김 연구원은 \"환손실과 변액보험 헤지 손실을 제외하면 다른 보험사와 비슷한 수준의 투자손익 변동성을 보였다\"고 분석했다. 이자·배당수익에서 부담이자를 차감한 본질적인 투자수익 스프레드는 마이너스 0.1%로...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 103,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-198",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 3분기 순익 4932억…목표가 70만원 유지-한투",
+      "url": "https://www.edaily.co.kr/News/Read?newsId=02318966645645392&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-11-13",
+      "time": "08:08",
+      "summary": "한국투자증권은 자산시장 부진에 따른 매매·평가손실에도 삼성화재의 손익 변동성이 보험사 가운데 가장 낮았다는 점에 주목했다. 장기보험과 자동차보험 수익성이 예상보다 개선되는 흐름도 긍정적으로 평가했다. 김...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 104,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-199",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화투자증권 \"삼성화재, 주가 하락에 상승 여력 확대…투자의견↑\"",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139921",
+      "date": "2026-11-13",
+      "time": "08:00",
+      "summary": "김도하 한화투자증권 연구원은 이날 발간한 보고서를 통해 \"자산시장 부진으로 이익이 감소했지만, 보험사 가운데 상대적으로 낮은 실적 변동성을 보였다\"고 평가했다. 장기보험과 자동차보험의 수익성 개선 흐름도...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 105,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-200",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[삼성화재의 글로벌 확장④] 캐노피우스 인수에도 '환원율 50%' 유지…성...",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139910",
+      "date": "2026-11-13",
+      "time": "08:00",
+      "summary": "삼성화재가 캐노피우스 경영권 인수를 추진하면서도 2028년 주주환원율 50% 목표를 유지한다. 약 2조3000억 원을 투입해 해외사업을 키우는 동시에 배당 확대 등 기존 환원계획도 이어가겠다는 방침이다. 13일...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 106,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-201",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[Invest]국내 PEF 이어 삼성화재까지…투자 보폭 넓히는 KIC, 인력·지방...",
+      "url": "https://www.investchosun.com/site/data/html_dir/2026/11/12/2026111280168.html",
+      "date": "2026-11-13",
+      "time": "07:02",
+      "summary": "국내 사모펀드(PEF) 운용사에 대한 출자와 바이오 분야 투자에 이어 삼성화재의 영국 보험사 인수에도... KIC는 10일 삼성화재가 주도하는 영국 보험사 캐노피우스(Canopius) 인수 거래에 약 3억달러를 투자하기로 했다고...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 107,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-202",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명·서울시, 농촌 일손 돕는 자활 프로그램 운영",
+      "url": "http://www.bizwnews.com/news/articleView.html?idxno=151770",
+      "date": "2026-11-13",
+      "time": "05:50",
+      "summary": "NH농협생명과 서울시가 지난 11일 경기 김포시 농가에서 자활지원 프로그램을 진행했다. 사진=NH농협생명 NH농협생명은 서울시와 지난 11일 경기 김포시 농가에서 농작업을 체험하는 자활지원 프로그램 '같이 일해, 가치...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-203",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "농협중앙회·NH농협은행·농협손보, 채용 신체검사 절차 개선 '면접전형...",
+      "url": "https://weeklytrade.co.kr/news/view.html?section=1&category=6&item=&no=102204",
+      "date": "2026-11-13",
+      "time": "02:18",
+      "summary": "개선된 기준은 현재 채용을 진행 중인 농협중앙회, NH농협은행, NH농협손해보험에 먼저 적용된다. 이후 범농협 계열사와 전국 농축협 채용으로 확대될 예정이다.박영훈 농협중앙회 인사총무부장은 \"채용 과정에서...",
+      "companies": [
+        "NH농협손해보험"
+      ],
+      "score": 3,
+      "group": 109,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-204",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "현대해상, 다이렉트 암보험 출시·어린이보험 개정",
+      "url": "http://www.bizwnews.com/news/articleView.html?idxno=151741",
+      "date": "2026-11-12",
+      "time": "23:52",
+      "summary": "현대해상 다이렉트 보험 상품 안내. 사진=현대해상 현대해상은 지난 11일 '다이렉트 퍼펙트건강보험 암플랜'을 선보이고 '다이렉트 굿앤굿어린이종합보험'의 보장을 확대했다고 12일 밝혔다. 암플랜은 암 진단비와 수술...",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 110,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-205",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명·서울시, 농촌 일손 돕고 취약계층 자활 돕는 '같이 일해, 가...",
+      "url": "https://www.newstnt.com/news/articleView.html?idxno=728208",
+      "date": "2026-11-12",
+      "time": "20:38",
+      "summary": "NH농협생명은 서울시와 함께 추진하는 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 지난 11일 경기 김포시 농가에서 처음으로 운영했다고 밝혔다. 농촌의 일손 부족 문제를 해소하고 동시에 주거취약계층의 자활...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-206",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명 \"단기납 종신 비중 낮추고 중장기 중심 재편\"",
+      "url": "http://www.inews24.com/view/2025719",
+      "date": "2026-11-12",
+      "time": "20:36",
+      "summary": "한화생명이 단기납 종신보험의 비중을 낮추고 건강보험과 중장기 납입 중심으로 상품 포트폴리오를 재편해나갈 계획을 밝혔다. 송종혁 마케팅추진팀장은 12일 컨퍼런스콜에서 \"700 종신 상품 판매 중지에 따라 기존...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 111,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-207",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 세전이익 2.5조...글로벌 B2B 영토로 체질 개선",
+      "url": "https://www.insidevina.com/news/articleView.html?idxno=44497",
+      "date": "2026-11-12",
+      "time": "20:36",
+      "summary": "이와 함께 삼성화재는 글로벌 사모펀드 KKR 및 한국투자공사와 손을 잡고 영국 로이즈 보험사 캐노피우스의 잔여 지분 매입을 단행했다. 총 24억 달러 규모의 이번 딜을 통해 삼성화재는 지분율을 80.6%까지 대폭...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 112,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-208",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 3분기 순익 8.3% 감소…누적 4.6% 증가",
+      "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=54662",
+      "date": "2026-11-12",
+      "time": "20:36",
+      "summary": "◆ 캐노피우스에 16억7천만달러…2028년 환원율 50% 목표 삼성화재는 지난 9일 이사회에서 콜버그 크래비스 로버츠(KKR), 한국투자공사와 함께 영국 특수보험사 캐노피우스의 잔여 지분 60%를 인수하기로 결정했다....",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-209",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "퍼스트렌터카 \"대차료보다 수리기간 산정이 더 문제\"…보험사 보상기준...",
+      "url": "https://sateconomy.co.kr/news/view/1065610660579384",
+      "date": "2026-11-12",
+      "time": "20:06",
+      "summary": "지난 11일 토요경제가 KB손해보험과 대차료 소송을 벌인 퍼스트렌터카를 취재한 결과, 업체 측은 대차료 지급단가보다 보험사가 인정하는 통상 수리기간의 산정방식이 더 시급한 문제라고 지적했다. 퍼스트렌터카...",
+      "companies": [
+        "KB손해보험"
+      ],
+      "score": 3,
+      "group": 113,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-210",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기 누적 순익 1조5605억원…전년比 10.5%↑",
+      "url": "https://view.asiae.co.kr/article/2026111219454875220",
+      "date": "2026-11-12",
+      "time": "19:45",
+      "summary": "DB손해보험이 올해 3분기 누적 당기순이익으로 1조5605억원을 기록해 전년 동기 대비 10.5% 증가했다고 12일 밝혔다. 3분기 누적 보험손익은 1조3008억원으로 전년 동기 대비 55.8% 증가했다. 투자손익은 9044억원으로...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-211",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "현대해상, 온라인 '다이렉트 건강보험' 2종 출시",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2491973",
+      "date": "2026-11-12",
+      "time": "19:45",
+      "summary": "현대해상이 홈페이지 및 앱을 통해 고객이 필요한 보장을 챙기고 가입절차까지 간편하게 마칠 수 있도록 다이렉트 보험 상품 2종을 개편·출시했다. 현대해상은 12일 '다이렉트 퍼펙트건강보험 암플랜'을 새로 선보인다고...",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 76,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-212",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명 “10년 내 해외사업 이익 비중 20% 이상 목표”",
+      "url": "https://www.fntimes.com/html/view.php?ud=202611121702248066ed56b8e1f8_18",
+      "date": "2026-11-12",
+      "time": "19:36",
+      "summary": "해외 자산운용사와 보험사에 대한 투자를 검토하는 한편, 투자에 따른 자본 부담에 대비해 해외... 이완삼 CFO는 \"자산운용 수익성을 높이고 성장 동력을 확보하기 위해 해외 운용사와 보험사 M&A를 검토하고 있다\"라고...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 114,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-213",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "한화생명 3분기 누적 순익 8656억원, 전년 比 12.6% 증가… 분기는 적자 전환",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93817",
+      "date": "2026-11-12",
+      "time": "19:19",
+      "summary": "한화생명의 올해 3분기 누적 연결 당기순이익이 8656억원을 기록하며 전년 동기 대비 12.6% 성장했다. 보험손익 개선과 신계약 보험계약서비스마진(CSM) 확대가 실적을 뒷받침했지만, 3분기 단독으로는 환율·주가 변동에 따른 투자손실이 커지면서 적자 전환했다. 종신보험 중심으로 신계약 수익성이 개선된 가운데 건강보험 판매 확대와 투자손익 안정화가 향후 과제로 떠올랐다.■ 보험손익 개선에도 3분기 적자… 투자손실 확대한화생명이 12일 콘퍼런스콜에서 발표한 경영실적에 따르면 3분기 누적 연결 당기순이익은 8656억원으로 전년 동기(7",
+      "author": "손민아 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-214",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 순익 1조8655억원…전년비 4.6%↑",
+      "url": "https://www.getnews.co.kr/news/articleView.html?idxno=887013",
+      "date": "2026-11-12",
+      "time": "19:10",
+      "summary": "글로벌 보험사 캐노피우스의 경영권 확보를 추진하며 국내 중심의 사업 구조를 글로벌 시장으로 확대하는 데도 속도를 내고 있다. 삼성화재는 12일 기업설명회를 통해 3분기 누적 연결 지배주주지분 순이익이 1조...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-215",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 3분기 순익 961억원…전년比 34.1% 증가",
+      "url": "https://www.econovill.com/news/articleView.html?idxno=757025",
+      "date": "2026-11-12",
+      "time": "19:08",
+      "summary": "보험금 예실차는 보험사가 예상한 보험금·사업비와 실제 지출한 금액의 차이를 뜻한다. 자동차보험과... 보험사의 자본 건전성을 나타내는 지급여력비율(K-ICS)은 9월 말 기준 경과조치 적용 전 186%, 적용 후 231%로...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 3,
+      "group": 60,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-216",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성화재 \"캐노피우스 인수로 해외 이익 비중 26%로 확대…ROE 1~2%p 개선...",
+      "url": "https://www.fntimes.com/html/view.php?ud=2026111215273490519efc5ce4ae_18",
+      "date": "2026-11-12",
+      "time": "18:34",
+      "summary": "삼성화재가 글로벌 보험사 캐노피우스 경영권 인수를 통해 해외사업의 이익 기여도를 26%까지 높이고... 글로벌 보험사다. 로이즈 시장에서 신디케이트 기준 1위, 매니징에이전트 기준 4위에 올라 있으며 영국을...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 115,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-217",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[컨콜] 한화생명 “밸류업 계획 발표, 내년 상반기 목표”",
+      "url": "https://www.ekn.kr/web/view.php?key=20261112029209050",
+      "date": "2026-11-12",
+      "time": "18:30",
+      "summary": "또한 보장한도·손해율 가이드라인 변화를 비롯한 제도 변화가 내년 생명보험 영업환경에 악영향을 끼칠 것으로 판단하고 있으며, 1200%룰 확대 적용과 판매수수료 분급제 시행으로 시책 중심이었던 영업 현장의 관행이...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 116,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-218",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보 3분기 영업이익 6183억원…작년보다 40.1%↑",
+      "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1731492",
+      "date": "2026-11-12",
+      "time": "18:30",
+      "summary": "강화하고, 포테그라를 발판으로 미국과 유럽에서 이익원을 확보하고 안정적인 운영과 시너지 확보를 우선하겠다\"고 밝혔다. 한편 DB손보는 올해 국내 보험사 최초로 미국 전문 특화 보험사 포테그라를 인수했다.",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 46,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-219",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "노숙인 20명, 농작물 수확자로 전환…농협생명 ‘같이 일해, 가치 더해...",
+      "url": "https://www.g-enews.com/view.php?ud=202611121706132583a6e8311f64_1",
+      "date": "2026-11-12",
+      "time": "18:28",
+      "summary": "NH농협생명이 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕고자 나섰다. 농협생명은 경기 김포시 농가에서 체험형 자활지원 프로그램 ‘같이 일해, 가치 더해’를 운영했다고 12일 밝혔다. 협생명은 농촌...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-220",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, '20초 내 응대율' 90%로 향상",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2488780",
+      "date": "2026-11-12",
+      "time": "18:27",
+      "summary": "교보생명이 고객센터의 상담 접근성을 높이고 보험 안내와 민원 처리 절차를 개선하는 등 금융소비자 보호 체계를 강화하고 있다. 교보생명은 지난달 28일 금융감독원이 주최한 '금융회사 민원·분쟁업무 모범관행...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 3,
+      "group": 117,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-221",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명, IT 재해복구 훈련 진행",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2487098",
+      "date": "2026-11-12",
+      "time": "18:26",
+      "summary": "NH농협생명이 IT 재해 발생 상황에 대비한 재해복구(Disaster Recovery, DR) 훈련을 실시했다. NH농협생명은 2일 IT 재해 발생 상황에 대비한 재해복구 훈련을 지난달 29일 실시했다고 밝혔다. 이번 훈련은 화재 등 실제 재해...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 118,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-222",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "이문화 삼성화재 대표, 수익성 중심 경영 성과…글로벌 성장동력 확보 ...",
+      "url": "https://www.fntimes.com/html/view.php?ud=2026111214543237589efc5ce4ae_18",
+      "date": "2026-11-12",
+      "time": "18:22",
+      "summary": "아울러 글로벌 보험사 캐노피우스의 지분 추가 인수를 추진하며 해외사업 확대와 신규 수익원 확보에도 속도를 내고 있다. 12일 금융감독원 전자공시시스템에 따르면, 올해 3분기 누적 기준 삼성화재의 당기순이익은...",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 119,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-223",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[컨콜] 삼성생명 \"해외 이익 비중 20% 목표…美·亞 M&A 검토\"",
+      "url": "https://www.kfenews.co.kr/news/articleView.html?idxno=668048",
+      "date": "2026-11-12",
+      "time": "18:14",
+      "summary": "사진=삼성생명 한국금융경제신문=김선재 기자 | 삼성생명이 해외 보험사와 자산운용사 M&A를 통해 글로벌 사업 확대에 나선다. 미국 등 선진시장을 중심으로 대체자산운용사 투자를 확대하고, 보험사업에서는 아시아...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 114,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-224",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "DB손보, 3분기 당기순이익 4440억원⋯전년 동기 대비 35.3% ↑",
+      "url": "http://www.inews24.com/view/2025710",
+      "date": "2026-11-12",
+      "time": "17:58",
+      "summary": "미국 특화보험사 포테그라는 올해 누적 합산비율과 자기자본이익률(ROE)이 각각 88.9%와 18.9%로 안정적인 수익성을 유지 중이다. 미국 회계 기준으로 3분기 매출과 영업이익은 전년 동기보다 5.4%와 9.3% 증가한...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 120,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-225",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명, 서울시와 노숙인 20명 농촌 일자리 지원 나서",
+      "url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=325830",
+      "date": "2026-11-12",
+      "time": "17:52",
+      "summary": "사진=NH농협생명 NH농협생명이 농촌 인력난 해소와 주거취약계층의 자활 지원을 위해 민관협력 사업을 시작했다. NH농협생명은 서울시와 함께 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 지난 11일 경기 김포시...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-226",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "포테그라 품은 DB손보, 3분기 누적 순익 1.6조…손익 55.8% 증가",
+      "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=258794",
+      "date": "2026-11-12",
+      "time": "17:50",
+      "summary": "장기보험을 중심으로 보험 본업의 수익성이 높아진 데다 미국 특화보험사 포테그라의 실적이 처음으로... 국내 보험사업을 보여주는 별도 기준 실적도 개선됐다. 3분기 누적 당기순이익은 약 1조3120억원으로...",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 121,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-227",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "[컨콜노트] 삼성생명 “삼전 배당 활용법 내년 공개한다”",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226434",
+      "date": "2026-11-12",
+      "time": "17:46",
+      "summary": "삼성생명이 삼성전자의 특별배당이 포함된 주주환원책을 내년 초에 발표할 전망이다.12일 삼성생명은 이날 오후 2026년 3분기 실적발표회(IR)를 개최하고 이같이 밝혔다.이 자리에서 이완삼 삼성생명 경영지원실장 부사장(CFO)은 “아직 연간 손익이 확정되지 않았으나 삼성전자의 주주환원 감안 시 상당 규모의 추가 손익이 발생할 것으로 전망된다”며 “이를 주주가치 제고와 미래 성장을 위해 효율적으로 배분하는 방안을 검토 중”이라고 말했다.그러면서 그는 “단순히 올해 이익에 대한 주주환원만이 아닌 앞으로 회사가 지속적으로 추진할 주주가치",
+      "author": "한지한 기자",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 122,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-228",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "DB손보, 3분기 누적 순익 1조5605억원… 전년比 10.5% 증가",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93816",
+      "date": "2026-11-12",
+      "time": "17:43",
+      "summary": "DB손해보험의 올해 3분기 누적 당기순이익이 보험손익 개선에 힘입어 전년 동기 대비 10.5% 증가했다. 투자손익이 감소했지만 장기보험의 수익성이 개선되고 자동차보험과 일반보험이 분기 흑자로 전환하면서 실적을 뒷받침했다.DB손보는 12일 올해 3분기 누적 당기순이익이 1조5605억원으로 전년 동기(1조4118억원) 대비 10.5% 증가했다고 밝혔다. 같은 기간 매출액은 20조9595억원으로 20.0%, 영업이익은 2조2052억원으로 18.6% 늘었다. 누적 보험손익은 1조3008억원으로 전년 동기(8352억원) 대비 55.8% 증가",
+      "author": "주옥진 기자",
+      "companies": [
+        "DB손해보험"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-229",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 해외법인 성장에 연결 순익 12.6%↑…3분기는 적자",
+      "url": "https://news.bizwatch.co.kr/article/finance/2026/11/12/0047",
+      "date": "2026-11-12",
+      "time": "17:41",
+      "summary": "한화생명은 변액보험의 위험관리 방식을 개선하고 신규 투자 수익률을 높여 투자손익 변동성을 줄인다는 방침이다. 3분기 말 예상 지급여력제도(K-ICS·킥스) 비율은 171.0%로 상반기 말 168.0%보다 3.0%포인트(p)...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 123,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-230",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순이익 8656억원…전년比 12.6% 증가",
+      "url": "http://www.4th.kr/news/articleView.html?idxno=2121755",
+      "date": "2026-11-12",
+      "time": "17:38",
+      "summary": "한화생명은 향후 변액보험 계정의 헤지 정합성을 높이고 신규 투자 수익률을 개선해 투자손익 변동성을 줄인다는 계획이다. 한화생명 관계자는 \"환율과 주가 등 금융시장 변동에 따른 비경상적 요인이 반영됐지만...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-231",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억…전년比 12.6% 증가",
+      "url": "https://www.mediapen.com/news/view/1137102",
+      "date": "2026-11-12",
+      "time": "17:32",
+      "summary": "사진=한화생명 3분기 누적 보험손익은 3851억원으로 176% 늘었다. 지난해부터 이어진 상품 포트폴리오 재편 작업과 수익성 중심의 판매 전략이 성과로 이어졌다고 자평했다. 3분기 누적 신계약 보험계약마진(CSM)은...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-232",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "현대해상, 중입자치료 보장 암보험 출시…어린이보험도 개정",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211310",
+      "date": "2026-11-12",
+      "time": "17:30",
+      "summary": "라이센스뉴스 = 이소라 기자 | 현대해상이 중입자치료와 CAR-T 항암치료 등을 보장하는 다이렉트 암보험을 출시했다. 어린이보험에는 태아 정밀검사비와 특정질병 치료비 보장을 추가했다. 12일 현대해상에 따르면 지난...",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 110,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-233",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "농협생명, 서울시와 '생산적 사회공헌'…노숙인을 농촌 일꾼으로",
+      "url": "https://www.straightnews.co.kr/news/articleView.html?idxno=315267",
+      "date": "2026-11-12",
+      "time": "17:28",
+      "summary": "[사진=NH농협생명] 농협생명이 서울시와 손잡고 농촌 인력난 해소와 주거취약계층의 자활을 지원하는 사업을 시작했다. NH농협생명은 서울시와 함께 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 지난 11일 경기...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 124,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-234",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명·서울시, \"같이 일해, 가치 더해\" 운영 실시",
+      "url": "http://www.sisacast.kr/news/articleView.html?idxno=101886",
+      "date": "2026-11-12",
+      "time": "17:24",
+      "summary": "사진=NH농협생명 NH농협생명은 서울시와 함께 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕기 위한 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 지난 11일 경기 김포시 농가에서 처음 운영했다고 12일...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-235",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억…투자부문선 1073억 손실",
+      "url": "https://www.edaily.co.kr/News/Read?newsId=04365686645645064&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-11-12",
+      "time": "17:05",
+      "summary": "지난해 1~3분기 1390억원이었던 한화생명 보험손익은 올해 3850억원으로 세 배 가까이 뛰었다. 지난해 연간 손익(3440억원)도 넘어서는 성과다. 미래 성장 지표인 신계약 CSM(계약서비스마진·미래에 얻을 수 있는 보험...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-236",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험, 장수리스크 직면…제도·투자 다각화 필요",
+      "url": "https://www.straightnews.co.kr/news/articleView.html?idxno=315254",
+      "date": "2026-11-12",
+      "time": "17:04",
+      "summary": "그는 \"3~4년 전 교보생명의 연금보험 포트폴리오 비중은 25% 정도였지만 지금은 11%\"라며 \"연금보험에 대한 고객 수요와 보험사가 판매해서 얻는 이익 사이에 괴리가 있다\"고 설명했다. 이어 \"연금보험은 장수위험에 따른...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 3,
+      "group": 125,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-237",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "본업 살아나도 못 웃는 손보사…실적 떠받치던 투자이익 급감",
+      "url": "https://www.edaily.co.kr/News/Read?newsId=04352566645645064&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-11-12",
+      "time": "17:02",
+      "summary": "iM증권 리서치본부에 따르면 13일 실적발표를 앞둔 현대해상도 투자손익이 적자 전환할 것으로 전망된다. 현대해상의 지난해 3분기 투자손익은 894억원이었다. 본업인 보험영업에서는 대체로 지난해보다 개선된...",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 126,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-238",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "여수시, 시민안전보험으로 일상 속 안전망 강화",
+      "url": "http://www.netongs.com/news/articleView.html?idxno=336430",
+      "date": "2026-11-12",
+      "time": "16:56",
+      "summary": "보험금 청구서 등 관련 서식은 여수시 누리집에서 확인할 수 있으며, 자세한 사항은 NH농협손해보험 고객센터(☎1644-9666)를 통해 안내받을 수 있다. 시 관계자는 \"시민안전보험이 재난과 각종 사고로 피해를 입은...",
+      "companies": [
+        "NH농협손해보험"
+      ],
+      "score": 3,
+      "group": 127,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-239",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화손보, 3분기 누적 순익 3,114억…전년 比 5.8%↑",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110543",
+      "date": "2026-11-12",
+      "time": "16:52",
+      "summary": "한화손해보험이 올해 3분기 누적 순이익 3,114억원을 기록, 전년 동기 대비 5,8% 증가했다고 12일 공시했다. 3분기(7~9월) 순익만 961억원을 달성하며, 지난해 같은 기간대비 34.1% 끌어올렸다. 같은 기간...",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 3,
+      "group": 31,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-240",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억…전년比 12.6%↑",
+      "url": "https://www.g-enews.com/view.php?ud=202611121621322669cd0bfacc1c_1",
+      "date": "2026-11-12",
+      "time": "16:50",
+      "summary": "운영과 예실차 관리를 통해 보험손익의 기초체력을 높이고, 국내외 종속법인과의 시너지를 확대해 기업가치를 지속적으로 제고하겠다”고 말했다. #한화생명, #보험손익, #자본건전성 최한결 글로벌이코노믹 기자",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-241",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억원…전년대비 12.6% ↑",
+      "url": "https://daily.hankooki.com/news/articleView.html?idxno=1424641",
+      "date": "2026-11-12",
+      "time": "16:46",
+      "summary": "한화생명이 보장성보험 중심의 상품 포트폴리오 재편을 바탕으로 올해 3분기 누적 순이익을 끌어올렸다. 금융시장 변동성에 따른 투자손실에도 보험 본업의 수익성이 개선되면서 순이익 증가세를 이어갔다....",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-242",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명·서울시 '같이 일해, 가치 더해' 첫 운영… 노숙인 20명 농가...",
+      "url": "https://www.tournews21.com/news/articleView.html?idxno=148246",
+      "date": "2026-11-12",
+      "time": "16:46",
+      "summary": "NH농협생명은 서울시와 손잡고 마련한 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 11일 경기 김포 지역 농가에서 처음 진행했다고 12일 밝혔다. 첫 현장에는 일자리를 찾고 있는 노숙인 20명이 나섰다. 참가자들은...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-243",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 누적 순익 8656억원 … 전년比 12.6% 증가",
+      "url": "https://biz.newdaily.co.kr/site/data/html/2026/11/12/2026111200332.html",
+      "date": "2026-11-12",
+      "time": "16:40",
+      "summary": "뉴데일리 박정연 기자 = 한화생명이 보험손익 개선과 해외 자회사 실적 호조에 힘입어 올해 3분기까지 8600억원이 넘는 순이익을 거뒀다. 한화생명은 올해 3분기 누적 연결 당기순이익이 8656억원으로 전년 동기 대비...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-244",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 3분기 순익 8656억 전년비 12.6%↑..투자손익은 적자전환",
+      "url": "https://www.mt.co.kr/finance/2026/11/12/2026111216120083050",
+      "date": "2026-11-12",
+      "time": "16:39",
+      "summary": "한화생명이 보험손익 개선에 힘입어 올해 3분기 누적 8600억원이 넘는 순이익을 거뒀다. 환율과 주식시장 변동성 확대로 투자손익은 적자를 기록했지만 보장성보험 중심의 수익성 개선으로 보험손익이 176...",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-245",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명·하나은행·한국투자증권, 연말 앞두고 연금 투자 서비스 내놔",
+      "url": "http://www.dailypop.kr/news/articleView.html?idxno=104501",
+      "date": "2026-11-12",
+      "time": "16:30",
+      "summary": "연말을 앞두고 퇴직연금과 연금 자산 운용을 돕는 금융사 서비스가 은행·증권·보험업권에서 잇따라 나왔다. 보험사는 실적배당형 상품의 장단기 수익률을, 은행은 퇴직연금 계좌의 ETF 매매 속도를 앞세웠다....",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 3,
+      "group": 128,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-246",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명, 3분기 누적 순익 2조6859억원…전년대비 26.9% ↑",
+      "url": "https://daily.hankooki.com/news/articleView.html?idxno=1424621",
+      "date": "2026-11-12",
+      "time": "16:28",
+      "summary": "한편, 삼성생명은 보험 본업의 수익성과 투자 부문의 운용 성과를 바탕으로 실적을 관리하는 한편, 신계약 CSM 확대를 통해 미래 이익 기반을 강화하고 있다. 향후에도 신규 계약의 수익성 확보와 투자손익의...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-247",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명, 3분기 영업익 9377억···투자손익 개선에 전년比 14.9%↑",
+      "url": "http://www.whitepaper.co.kr/news/articleView.html?idxno=268714",
+      "date": "2026-11-12",
+      "time": "16:20",
+      "summary": "삼성생명은 보험 본업과 투자 부문 모두 성장했다. 3분기 누적 보험서비스손익은 1조626억 원을 기록했다. 투자손익은 배당금 수익과 자회사 및 연결 손익 증가 영향으로 2조3985억 원으로 집계됐다. 보험계약의 장기...",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 129,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-248",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "연금으로 생활비 쓴다면…뜻밖의 치료비는? [보험 200% 활용법]",
+      "url": "https://www.mk.co.kr/article/12206496",
+      "date": "2026-11-12",
+      "time": "16:07",
+      "summary": "교보생명의 '교보다시채움건강종신보험(무배당)'은 치료비 통합 보장 한도인 '헬스어카운트'를 통해 암·뇌·심장·치매 관련 주요 치료를 보장한다. 암 주요 치료와 카티(CAR-T) 항암약물허가치료, 뇌·심장 순환계질환 주요...",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 3,
+      "group": 130,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-249",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협손보, 지역사회공헌 인정기업 6년 연속 선정… \"농촌·지역사회와...",
+      "url": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=89180",
+      "date": "2026-11-12",
+      "time": "16:02",
+      "summary": "NH농협손해보험이 그동안 추진해온 지역사회공헌 활동의 성과를 인정받았다. NH농협손해보험은 보건복지부와 한국사회복지협의회가 공동 주관하는 '지역사회공헌 인정제'에서 6년 연속 인정기업으로 선정됐다고 밝혔다....",
+      "companies": [
+        "NH농협손해보험"
+      ],
+      "score": 3,
+      "group": 131,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-250",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명, 서울시와 '같이 일해, 가치 더해'",
+      "url": "http://www.metroseoul.co.kr/article/20261112500413",
+      "date": "2026-11-12",
+      "time": "15:52",
+      "summary": "NH농협생명과 서울시 관계자들이 11일 경기 김포시 소재 농가에서 노숙인 구직자들과 기념촬영을 하고 있다./NH농협생명 NH농협생명은 지난 11일 경기 김포시 농가에서 서울시와 함께 '같이 일해, 가치 더해' 프로그램을...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-251",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "농촌 일손 부족·취약계층 자활 동시에…NH농협생명, 서울시와 맞손",
+      "url": "http://www.ftoday.co.kr/news/articleView.html?idxno=369568",
+      "date": "2026-11-12",
+      "time": "15:50",
+      "summary": "NH농협생명이 서울시와 함께 노숙인 구직자 20명을 대상으로 농촌 일자리 체험 프로그램을 진행했다. NH농협생명은 서울시와 함께 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕기 위한 체험형 자활지원...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-252",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[프로배구 전망] '무패 질주' 화성 IBK기업은행, 흥국생명 상대로 4연승...",
+      "url": "https://www.kgnews.co.kr/news/article.html?no=919323",
+      "date": "2026-11-12",
+      "time": "15:48",
+      "summary": "13일, 화성종합체육관에서 맞대결 현대건설, 한국도로공사와 격돌 개막 후 전승 행진을 이어가고 있는 여자 프로배구 화성 IBK기업은행이 인천 흥국생명을 상대로 연승에 도전한다. IBK기업은행은 13일...",
+      "companies": [
+        "흥국생명"
+      ],
+      "score": 3,
+      "group": 132,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-253",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "교보생명, 계약을 지키는 경쟁력... 분급제 앞서 쌓은 15년",
+      "url": "http://www.lkp.news/news/articleView.html?idxno=86051",
+      "date": "2026-11-12",
+      "time": "15:42",
+      "summary": "보험 판매수수료 분급제 시행을 앞두고 보험업계에서 장기 계약관리의 중요성이 커지고 있다. 내년부터... 금융위원회는 올해 1월 보험업감독규정을 개정해 기존 선지급수수료와 별도로 유지관리수수료를 신설했다....",
+      "companies": [
+        "교보생명"
+      ],
+      "score": 3,
+      "group": 133,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-254",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "[컨콜노트] 삼성화재에 쏟아진 캐노피우스 ‘말말말’",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226430",
+      "date": "2026-11-12",
+      "time": "15:40",
+      "summary": "12일 삼성화재의 2026년 3분기 경영실적 발표(IR)에서는 최근 캐노피우스 인수와 관련된 질문이 쏟아졌다.이날 삼성화재는 캐노피우스 투자에 대해 “국내 B2C 중심의 사업구조에서 글로벌 B2B 사업으로 포트폴리오를 다변화하는 전략적 전환점”이라고 말했다.그 배경으로는 “단순한 지분 확대를 넘어 로이즈 시장의 우량 자산을 통해 안정적 수익원을 확보하고 글로벌 최고 수준의 전문 인력과 사업 인프라를 내재화할 것”이라고 말했다.삼성화재는 지난 9일 글로벌 투자회사 KKR이 운용하는 펀드, 한국투자공사(KIC)와 함께 영국 로이즈 보험",
+      "author": "장서현·박영준 기자",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 134,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-255",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[포토뉴스] NH농협생명, 노숙인 자활지원 '같이 일해, 가치 더해' 운영",
+      "url": "https://www.cnbnews.com/news/articleView.html?idxno=1023538",
+      "date": "2026-11-12",
+      "time": "15:28",
+      "summary": "NH농협생명이 서울시와 함께 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕기 위한 체험형 자활지원 프로그램 '같이 일해, 가치 더해'를 지난 11일 경기 김포시 농가에서 처음 운영했다고 12일 밝혔다. 이날...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-256",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "삼성생명, 투자 성과에 이익 체력 키웠다…3분기 누적 순익 2.69조",
+      "url": "https://www.ziksir.com/news/articleView.html?idxno=153111",
+      "date": "2026-11-12",
+      "time": "15:26",
+      "summary": "보험업 외 계열사의 실적 기여가 확대되며 연결 이익 증가에 힘을 보탰다. 보험영업 부문에서는 3분기 실적 개선이 두드러졌다. 3분기 보험서비스손익은 5290억원으로 전년 동기 2620억원보다 102.4% 증가했다....",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 135,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-257",
+      "source": "보험저널",
+      "type": "press",
+      "title": "삼성생명, 3분기 영업익 9000억원대 회복…누적 순익 2조6859억원",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33895",
+      "date": "2026-11-12",
+      "time": "15:25",
+      "summary": "삼성생명이 올해 3분기 영업이익을 9000억원대로 끌어올리며 실적 반등에 성공했다. 2분기 6000억원대로 내려갔던 영업이익이 한 분기 만에 50% 이상 증가했다. 올해 3분기까지 누적 지배주주지분 순이익도 전년 동기 대비 26.9% 늘어나며 이익 성장세를 이어갔다.12일 삼성생명이 공시한 2026년 3분기 연결 기준 잠정실적에 따르면 3분기 영업이익은 9377억원으로 직전 분기 6226억원보다 50.6% 증가했다. 지난해 같은 기간 8158억원과 비교해도 14.9% 늘었다.3분기 연결 당기순이익은 8239억원으로 전년 동기 대비",
+      "author": "최지호 기자",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-258",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "NH농협생명, 서울시와 손잡고 '같이 일해, 가치 더해' 운영",
+      "url": "https://www.newsmap.co.kr/news/articleView.html?idxno=5160",
+      "date": "2026-11-12",
+      "time": "15:24",
+      "summary": "NH농협생명이 서울시와 손잡고 일손이 부족한 농가에 인력을 연결하는 동시에 노숙인 등 주거취약계층의 경제적 자립을 돕는 체험형 상생 프로그램을 처음 선보였다. NH농협생명은 서울시와 함께 농촌 인력난 해소와...",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-259",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "11월 12일 신한 슈퍼SOL 출석퀴즈 정답…보험 보장 분석 서비스 문항",
+      "url": "https://www.vegannews.co.kr/news/article.html?no=404037",
+      "date": "2026-11-12",
+      "time": "15:10",
+      "summary": "11월 12일 신한 슈퍼SOL 출석퀴즈는 가입한 보험의 질병별 보장 내용을 보여주는 신한라이프 서비스의 이름을 묻는다. 해당 문항의 정답은 ‘보장에너지’다. 앱에 표시된 문제와 선택지를 확인한 뒤 해당 답을...",
+      "companies": [
+        "신한라이프"
+      ],
+      "score": 3,
+      "group": 136,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-260",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "삼성생명, 3분기 누적 순익 2조6859억원… 전년比 26.9%↑",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93812",
+      "date": "2026-11-12",
+      "time": "13:23",
+      "summary": "삼성생명이 투자 부문에서 수익을 확대하며 올해 3분기까지 양호한 실적을 거뒀다. 자회사 및 연결 효과가 투자손익 증가를 뒷받침했으며, 신계약 보험계약서비스마진(CSM)도 두 자릿수 성장률을 기록했다.12일 삼성생명은 올해 1~3분기 지배주주지분 연결 순이익이 2조6859억원을 기록하며, 전년 동기 2조1170억원보다 26.9% 증가했다고 공시했다.실적을 견인한 것은 투자손익이다. 3분기 누적 투자손익은 2조3990억원으로 전년 동기 1조7130억원보다 40.0% 늘었다. 일반보험 투자손익은 9040억원으로 49.3% 증가했으며, 자",
+      "author": "박성용 기자",
+      "companies": [
+        "삼성생명"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-261",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "우리금융 ABL생명, 고객 참여형 'FC 챌린지' 서비스 출시",
+      "url": "http://www.finomy.com/news/articleView.html?idxno=266465",
+      "date": "2026-11-12",
+      "time": "13:20",
+      "summary": "현대경제신문 함동희 기자 | 우리금융그룹 계열사 ABL생명이 게임을 통해 보험설계사(FC)의 업무와 성장 과정을 체험할 수 있는 고객 참여형 디지털 서비스를 선보였다. ABL생명은 게이미피케이션 요소를 접목한 디지털...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 3,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-262",
+      "source": "보험매일",
+      "type": "press",
+      "title": "NH농협생명, 서울시와 자활지원 프로그램 ‘같이 일해, 가치 더해’ 실시",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72968",
+      "date": "2026-11-12",
+      "time": "13:00",
+      "summary": "[보험신보 오윤환 기자] NH농협생명은 지난 11일 경기 김포시에 위치한 농가에서 서울시와 함께 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕기 위한 체험형 자활지원 프로그램 ‘같이 일해, 가치 더해’를 운영했다고 12일 밝혔다.이 프로그램에는 자활 의지와 건강 상태 등을 고려해 선발한 노숙인 구직자 20명이 참여했다. 이들은 농협생명과 서울시, 서울노숙인일자리지원센터 관계자와 김포농협 조합원 농가에서 고추와 가지를 직접 수확하는 등 농작업을 함께 했으며 이에 따른 자활장려금을 받았다.이번 사업은 인력난을 겪는 농가를",
+      "author": "오윤환 기자",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-263",
+      "source": "보험저널",
+      "type": "press",
+      "title": "NH농협생명·서울시, 농촌 일손 돕고 노숙인 자립 이끄는 ‘같이 일해, 가치 더해’ 첫 가동",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33892",
+      "date": "2026-11-12",
+      "time": "12:01",
+      "summary": "NH농협생명(대표이사 박병희)은 서울시와 함께 농촌 일손 부족 해소와 노숙인 등 주거취약계층의 자활을 돕기 위한 체험형 자활지원 프로그램 ‘같이 일해, 가치 더해’를 지난 11일 경기 김포시 농가에서 처음 운영했다고 12일 밝혔다.이날 프로그램에는 자활 의지와 건강 상태 등을 고려해 선발한 노숙인 구직자 20명이 참여했다. 이들은 김포농협 조합원 농가에서 고추와 가지를 직접 수확하는 등 농작업에 참여했으며 이에 따른 자활장려금을 지급받는다.NH농협생명과 서울시, 서울노숙인일자리지원센터 관계자들도 현장을 찾아 농가의 일손을 거들었다.",
+      "author": "최지호 기자",
+      "companies": [
+        "NH농협생명"
+      ],
+      "score": 3,
+      "group": 108,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-264",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "ABL생명, 고객 참여형 게임 콘텐츠 ‘FC 챌린지’ 공개",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93810",
+      "date": "2026-11-12",
+      "time": "11:40",
+      "summary": "ABL생명이 고객이 FC(Financial Consultant·재무컨설턴트)의 업무와 성장 과정을 게임으로 체험할 수 있는 디지털 서비스를 선보였다.ABL생명은 고객 참여형 게임 콘텐츠 ‘ABL생명 FC 챌린지’를 공개했다고 12일 밝혔다.이번 서비스는 게이미피케이션(Gamification) 요소를 접목한 것으로, 고객이 게임을 통해 보험과 FC 직무를 쉽고 친근하게 경험할 수 있도록 기획됐다. 체험 이후 FC 지원이나 보험 보장분석 상담 신청으로도 연결할 수 있다.ABL생명은 마케팅 전문 기업 플레이키키와 협업해 ‘인턴에서 보험왕",
+      "author": "박성용 기자",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 3,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-265",
+      "source": "보험매일",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 순이익 1조8655억원···전년비 4.6% 증가",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72969",
+      "date": "2026-11-12",
+      "time": "11:10",
+      "summary": "[보험신보 박동우 기자] 삼성화재는 수익성 중심 경영 전략을 꾸준히 추진한 결과 3분기 누적 연결 세전이익 2조5030억원을 기록했으며 지배주주지분 순이익은 1조8655억원으로 전년 동기 대비 4.6% 증가했다고 12일 밝혔다.보험손익은 1조5103억원으로 전년 동기 대비 9.8% 늘었고 투자손익은 시장 변동성 확대에 따른 실적 둔화에도 1조434억원으로 6.7% 성장했다.장기보험은 밸류체인 전반을 내실 성장 중심으로 운영하며 3분기 누적 신계약 CSM 1조8400억원을 확보했다. CSM 총량은 전년 말 대비 6674억원 증가한 1",
+      "author": "박동우 기자",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-266",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "삼성화재, 3분기 누적 순익 1조8655억원… 전년比 4.6% 증가",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93806",
+      "date": "2026-11-12",
+      "time": "10:38",
+      "summary": "삼성화재가 올해 3분기 누적 기준 1조8655억원의 순이익을 기록하며 전년 동기 대비 성장세를 이어갔다. 장기·일반보험의 손익 개선, 자동차보험의 누적 흑자 등에 힘입어 보험손익과 투자손익이 모두 증가했다. 글로벌 재보험사 캐노피우스의 잔여 지분 인수도 결정하며 해외 사업 확대에 나선다.삼성화재는 12일 기업설명회를 통해 ‘2026년 3분기 경영실적’을 발표했다. 3분기 누적 연결 세전이익은 2조5030억원, 지배주주지분 순이익은 1조8655억원으로 집계됐다. 순이익은 전년 동기 대비 4.6% 증가했다.보험손익은 1조5103억원으로",
+      "author": "박성용 기자",
+      "companies": [
+        "삼성화재"
+      ],
+      "score": 3,
+      "group": 26,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-267",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "농협손보, ‘지역사회공헌 인정기업’ 6년 연속 선정",
+      "url": "https://www.g-enews.com/view.php?ud=202611111707387030a6e8311f64_1",
+      "date": "2026-11-12",
+      "time": "10:06",
+      "summary": "NH농협손해보험이 농촌 지원부터 지역 복지까지 상생을 실천한 점을 인정받았다. 농협손보는 보건복지부와 한국사회복지협의회가 공동 주관하는 ‘지역사회공헌 인정제’에서 6년 연속 선정됐다고 11일 밝혔다. 이...",
+      "companies": [
+        "NH농협손해보험"
+      ],
+      "score": 3,
+      "group": 131,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-268",
+      "source": "보험매일",
+      "type": "press",
+      "title": "현대해상, 다이렉트 암플랜·어린이보험 개정",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72960",
+      "date": "2026-11-12",
+      "time": "10:00",
+      "summary": "[보험신보 박동우 기자] 현대해상은 다이렉트채널 전용 보험상품 2종을 개편·출시했다고 12일 밝혔다.먼저 ‘다이렉트 퍼펙트건강보험 암플랜’을 선보였다. 이 상품은 암 진단비는 물론, 수술, 항암약물·방사선 치료, 전이암까지 암 치료 관련 다양한 보장을 모은 것이 핵심이다.특히, 중입자치료, CAR-T 항암약물허가치료, 로봇암수술 등 최신 암 치료 보장을 강화했으며 고객이 보장 범위와 보험료 수준에 맞춰 선택할 수 있도록 4가지 맞춤형 플랜을 제공한다.이와 함께 손해보험협회 신상품심의위원회로부터 6개월 배타적사용권을 획득한 신담보 2",
+      "author": "박동우 기자",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 110,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-269",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, FC 업무 체험형 게임 콘텐츠 선봬",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139742",
+      "date": "2026-11-12",
+      "time": "09:56",
+      "summary": "ABL생명이 보험설계사(FC)의 업무와 성장 과정을 게임으로 체험할 수 있는 고객 참여형 콘텐츠를 선보였다. 12일 ABL생명에 따르면 회사는 게이미피케이션 요소를 적용한 'ABL생명 FC 챌린지'를 출시했다. ABL생명 FC...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 3,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-270",
+      "source": "보험저널",
+      "type": "press",
+      "title": "현대해상, 최신 '암 치료'·'배타적사용권 신담보' 탑재 다이렉트 보험 2종 선보여",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33888",
+      "date": "2026-11-12",
+      "time": "09:45",
+      "summary": "현대해상(대표이사 이석현)은 홈페이지와 앱을 통해 고객이 필요한 보장을 챙기고 가입 절차까지 간편하게 마칠 수 있도록 다이렉트 보험 상품 2종을 개편해 출시했다고 밝혔다.지난 11일 새로 선보인 ‘다이렉트 퍼펙트건강보험 암플랜’은 암 진단비는 물론 수술, 항암약물·방사선 치료, 전이암까지 암 치료 관련 다양한 보장을 모은 상품이다. 특히 중입자치료, CAR-T 항암약물허가치료, 로봇암수술 등 최신 암 치료 보장을 강화했으며 고객이 보장 범위와 보험료 수준에 맞춰 선택할 수 있도록 4가지 맞춤형 플랜을 제공한다.이와 함께 독창성을 인",
+      "author": "최지호 기자",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 3,
+      "group": 137,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-271",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "ABL생명, 게임 콘텐츠 'FC 챌린지' 선봬",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2491536",
+      "date": "2026-11-12",
+      "time": "09:42",
+      "summary": "우리금융그룹 계열사인 ABL생명이 게이미피케이션(Gamification) 요소를 접목한 고객 참여형 게임 콘텐츠 'ABL생명 FC 챌린지'를 선보였다. 게임을 통해 보험과 FC(설계사·재무컨설턴트) 직무를 쉽고 친근하게 접할 수...",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 3,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-272",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "한화손보, 3분기 순이익 961억원… 전년比 34.1% 증가",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93801",
+      "date": "2026-11-12",
+      "time": "09:36",
+      "summary": "한화손보가 올해 3분기 보험손익 개선에 힘입어 순이익 증가세를 기록했다. 투자손익은 감소했지만 장기보험을 중심으로 보험손익이 크게 늘면서 전체 실적을 끌어올렸다.한화손보는 지난 11일 ‘2026년 3분기 경영실적’ 발표를 통해 올해 3분기 당기순이익은 961억원으로 전년 동기 716억원보다 34.1% 증가했다고 밝혔다. 영업이익은 1140억원으로 21.2% 늘었으며, 세전이익은 1144억원으로 23.8% 증가했다.실적 개선은 보험손익이 이끌었다. 3분기 보험손익은 1321억원으로 전년 동기 445억원보다 196.7% 증가했다. 손해",
+      "author": "박성용 기자",
+      "companies": [
+        "한화손해보험"
+      ],
+      "score": 3,
+      "group": 60,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-273",
+      "source": "보험매일",
+      "type": "press",
+      "title": "ABL생명, 고객 참여형 게임 콘텐츠 ‘ABL생명 FC 챌린지’ 론칭",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72962",
+      "date": "2026-11-12",
+      "time": "09:30",
+      "summary": "[보험신보 오윤환 기자] ABL생명은 게이미피케이션(Gamification) 요소를 접목한 고객 참여형 게임 콘텐츠 ‘ABL생명 FC 챌린지’를 선보였다고 12일 밝혔다.이 콘텐츠는 고객이 직접 보험설계사(FC)의 업무와 성장 과정을 게임으로 체험할 수 있는 디지털 서비스다. 게임을 통해 보험과 FC 직무를 쉽고 친근하게 접할 수 있도록 구성했으며 체험 이후 FC 지원이나 보장분석 상담 신청으로도 연결할 수 있는 것이 특징이다.마케팅 전문기업 플레이키키와 협업해 ‘인턴에서 보험왕까지, 2주간의 FC 라이프’를 콘셉트로 기획했다. 참",
+      "author": "오윤환 기자",
+      "companies": [
+        "ABL생명"
+      ],
+      "score": 3,
+      "group": 17,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-274",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[롯데손보 통합 과제③] 신한금융, 롯데손보 자본 정상화 선결 과제",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86106",
+      "date": "2026-11-12",
+      "time": "09:12",
+      "summary": "신한금융지주가 롯데손해보험 인수를 추진하면서 자본건전성 정상화가 주요 과제로 떠오르고 있다. 롯데손보의 기본자본 지급여력(K-ICS)비율이 마이너스 수준에 머물고 있는 만큼 인수 이후 자본확충과 자본구조...",
+      "companies": [
+        "롯데손해보험"
+      ],
+      "score": 3,
+      "group": 138,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-275",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "한화생명, 7800억원 후순위채 발행 실적 공시",
+      "url": "https://www.vegannews.co.kr/news/article.html?no=403921",
+      "date": "2026-11-12",
+      "time": "07:56",
+      "summary": "한화생명의 11월 5일 정정 공시에 따르면 발행 5년 뒤부터 보험업감독규정상 요건을 충족하는 경우 조기상환할 수 있다. 한화생명은 조달 자금을 지급여력비율을 높여 자본건전성을 확보하는 데 사용할 계획이다....",
+      "companies": [
+        "한화생명"
+      ],
+      "score": 3,
+      "group": 139,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-276",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "제주형 기후보험, COP31 국제무대서 소개 \"눈길\"",
+      "url": "https://www.newsjeju.net/news/articleView.html?idxno=428365",
+      "date": "2026-11-13",
+      "time": "10:16",
+      "summary": "제주특별자치도가 제31차 유엔기후변화협약 당사국총회(COP31)에서 국내 지방정부 최초로 시행 중인 '지수형 기후보험' 운영 사례를 국제사회에 소개해 전세계 이목이 집중됐다. 지수형 기후보험은 공공건설현장 일용직...",
+      "companies": [],
+      "score": 2,
+      "group": 140,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-277",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "서영석 의원, 무보험 구급차 운행 막는 '응급의료법' 개정안 발의",
+      "url": "https://view.asiae.co.kr/article/2026111310041650486",
+      "date": "2026-11-13",
+      "time": "10:04",
+      "summary": "서영석 더불어민주당 의원(경기 부천시갑)은 병원급 의료기관의 적정인력기준 마련과 구급차 보험가입 관리... 응급의료법 개정안은 구급차 운용자의 책임보험과 종합보험 가입 의무를 법률에 명시하고, 보험가입 상태를...",
+      "companies": [],
+      "score": 2,
+      "group": 141,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-278",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "웰컴저축, 고령층 금융사기 예방교육…500만원 보상보험 지원",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313653",
+      "date": "2026-11-13",
+      "time": "10:02",
+      "summary": "웰컴저축은행이 고령층을 대상으로 금융사기 예방교육을 실시하고 피해 보상보험을 무상 지원한다고 13일... 금융사기 피해에 대비한 보상보험도 무상 제공한다. 교육 참석자를 포함한 늘푸름학교 학생 약 200명은 향후...",
+      "companies": [],
+      "score": 2,
+      "group": 142,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-279",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "예금보험공사, 해군 제2함대서 군 장병 금융교육진행",
+      "url": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=89191",
+      "date": "2026-11-13",
+      "time": "10:00",
+      "summary": "예금보험공사가 군 장병을 대상으로 금융교육을 진행했다. 예보는 지난 12일 해군 제2함대에서 장병 대상 경제금융교육을 진행하고 군 관계자들과 금융교육 지원 방안을 논의했다. 예보는 2010년부터 금융사고 예방과...",
+      "companies": [],
+      "score": 2,
+      "group": 143,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-280",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "무보험 구급차 꼼수 차단…응급의료법 개정안 등장",
+      "url": "https://www.medicaltimes.com/Main/News/NewsView.html?ID=1171809&ref=naverpc",
+      "date": "2026-11-13",
+      "time": "10:00",
+      "summary": "구급차 운용자가 정기점검 시에만 보험에 가입하는 꼼수를 막고 가입 상태를 상시 확인하도록 하는 법안이... 이 법안은 구급차의 책임·종합보험 가입을 의무화해 가입 상태를 상시 점검하는 한편, 새로운 규격에 적합한...",
+      "companies": [],
+      "score": 2,
+      "group": 141,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-281",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "웰컴저축은행, 어르신 200명에 금융사기 보험 1년 무상 제공…최대 500만...",
+      "url": "http://www.ftoday.co.kr/news/articleView.html?idxno=369624",
+      "date": "2026-11-13",
+      "time": "09:52",
+      "summary": "있는 보험도 무상 지원한다. 웰컴저축은행은 지난 10일부터 11일까지 서울 영등포구 소재 문해교육기관인... 웰컴저축은행은 교육과 함께 늘푸름학교 학생 약 200명에게 금융사기 보상보험을 무상 제공한다. 가입자는...",
+      "companies": [],
+      "score": 2,
+      "group": 144,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-282",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "미국 소아 알레르기·천식 치료제, 보험 승인 신청 39% 거절",
+      "url": "https://www.mdtoday.co.kr/news/articleView.html?idxno=624947",
+      "date": "2026-11-13",
+      "time": "09:52",
+      "summary": "미국에서 중증 천식이나 아토피피부염 등 알레르기질환을 앓는 어린이들이 보험사의 사전 승인 지연과... 처방과 보험 승인 실태를 분석한 연구 결과를 발표했다. 생물학적 제제는 면역계의 특정 염증 경로를 표적으로...",
+      "companies": [],
+      "score": 2,
+      "group": 145,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-283",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "서영석 의원, 구급차 보험가입 관리 강화 응급의료법 개정안 발의",
+      "url": "https://www.medigatenews.com/news/2149227481",
+      "date": "2026-11-13",
+      "time": "09:50",
+      "summary": "구급차의 보험가입 관리를 강화하고 새 구급차 규격에 맞는 대체 차량 확보 기간을 마련하는 응급의료에 관한 법률 일부개정법률안을 대표 발의했다고 13일 밝혔다. 현행 법령은 구급차 사고에 대비해 책임보험과...",
+      "companies": [],
+      "score": 2,
+      "group": 141,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-284",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "함대건 시의원 \"도림브라보 41세대 보증보험 미갱신\"",
+      "url": "https://www.newspim.com/news/view/20261113000301",
+      "date": "2026-11-13",
+      "time": "09:49",
+      "summary": "함 부위원장은 \"도림브라보의 경우 민간임대 81세대 중 41세대가 보증보험을 갱신하지 않은 사실이 확인됐다\"며 서울시가 보증보험 가입 및 갱신 현황을 제대로 관리하고 있는지 근본적인 점검이 필요하다고 지적했다. 함...",
+      "companies": [],
+      "score": 2,
+      "group": 146,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-285",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "제주 지수형 기후보험, 국제사회에 소개돼",
+      "url": "https://www.jejudomin.co.kr/news/articleView.html?idxno=402310",
+      "date": "2026-11-13",
+      "time": "09:40",
+      "summary": "또 보험사의 위험관리와 투자 정책을 통한 에너지 전환 지원 방안 등을 논의했다. 제주도 조 국장은 토론에서 국내 지방정부 최초로 시행 중인 제주도의 지수형 기후보험 도입 배경과 운영 사례를 소개했다. 제주도의...",
+      "companies": [],
+      "score": 2,
+      "group": 147,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-286",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 무경력 신입 설계사 조기정착 지원",
+      "url": "http://www.popcornnews.net/news/articleView.html?idxno=139948",
+      "date": "2026-11-13",
+      "time": "09:26",
+      "summary": "지원 대상은 보험업감독규정에 따라 직전 3년간 보험 모집 경력이 없는 설계사다. 올해 10~12월 토스인슈어런스 직영 신입 교육에 입과해 수료하고 올해 10월부터 내년 1월까지 직영 소속으로 위촉돼야 한다. 신입 설계사...",
+      "companies": [],
+      "score": 2,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-287",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 신입 설계사에 육성지원금 500만원 지급",
+      "url": "http://www.ftoday.co.kr/news/articleView.html?idxno=369617",
+      "date": "2026-11-13",
+      "time": "09:20",
+      "summary": "법인보험대리점(GA) 토스인슈어런스가 보험업계 무경력자를 대상으로 신입 설계사 육성 프로그램을... 지원 조건을 충족하기 위해서는 우선 보험업감독규정에 따라 직전 3년간 모집 경력이 없어야 한다. 여기에 10월부터...",
+      "companies": [],
+      "score": 2,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-288",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 신입 설계사에 500만원 지원",
+      "url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=325861",
+      "date": "2026-11-13",
+      "time": "09:18",
+      "summary": "지원 대상은 보험업감독규정에 따라 직전 3년간 보험 모집 경력이 없는 사람이다. 올해 10~12월 토스인슈 직영 신입 교육에 입과해 수료하고 올해 10월부터 내년 1월까지 직영 소속으로 위촉되면 육성지원금 500만원을...",
+      "companies": [],
+      "score": 2,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-289",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 신입→직영 위촉 설계사에 육성지원금 500만원",
+      "url": "https://www.g-enews.com/view.php?ud=202611130901398713a6e8311f64_1",
+      "date": "2026-11-13",
+      "time": "09:16",
+      "summary": "신입 설계사는 보험업감독규정에 따라 직전 3년간 모집 경력이 없어야 한다. 또 지난 달부터 내달까지 토스인슈 직영 신입 교육에 입과해 수료를 마치고, 내년 1월까지 직영 소속으로 위촉돼야 한다. 신입 설계사 교육...",
+      "companies": [],
+      "score": 2,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-290",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "토스인슈어런스, 신입 설계사에 500만원 지원…초기 정착 지원",
+      "url": "https://www.lcnews.co.kr/news/articleView.html?idxno=211322",
+      "date": "2026-11-13",
+      "time": "09:10",
+      "summary": "지원 대상은 보험업감독규정에 따라 직전 3년간 보험 모집 경력이 없는 사람이다. 올해 10~12월 직영 신입 교육을 수료하고, 올해 10월부터 내년 1월 사이 직영 설계사로 위촉되면 지원금 500만원을 일시 지급받는다. 신입...",
+      "companies": [],
+      "score": 2,
+      "group": 70,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-291",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“지인 영업 부담 덜고 상담만 집중”… 토스인슈어런스, ‘2030이 60%’ 신입 설계사 판 키운다",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33902",
+      "date": "2026-11-13",
+      "time": "08:46",
+      "summary": "법인보험대리점(GA) 토스인슈어런스(대표 조병익)가 무경력 신입 보험설계사의 초기 정착을 돕기 위해 연말까지 ‘신입 육성 지원 프로그램’을 운영한다고 13일 밝혔다.이번 프로그램은 보험 인재를 꿈꾸는 이들이 고객을 위한 전문적인 상담을 제공하는 보험설계사로 성장할 수 있도록 안정적인 출발을 지원하기 위해 마련됐다. 신입 교육 수료 후 직영 소속으로 위촉된 설계사에게 육성지원금 500만 원을 일시 지급하는 방식이다.지원 조건을 충족하기 위해서는 우선 보험업감독규정에 따라 직전 3년간 모집 경력이 없어야 한다. 여기에 올해 10월부터",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 148,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-292",
+      "source": "보험저널",
+      "type": "press",
+      "title": "‘시설 입소’에서 ‘내 집 요양’으로…재가 돌봄 확대가 바꿀 '간병보험' 공식(영상+)",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33889",
+      "date": "2026-11-13",
+      "time": "06:00",
+      "summary": "※유튜브 채널 '보험저널TV'를 구독하면 더 많은 영상을 보실 수 있습니다.(https://youtube.com/channel/UC6v10hcO7KLhWBNYZE4vkDQ)노후 돌봄의 기준이 달라지고 있다. 장기요양 수급자들은 건강이 악화되더라도 익숙한 집에서 계속 생활하기를 원하지만 고령화와 1인가구 증가로 가족이 돌봄을 전적으로 책임지기는 갈수록 어려워지고 있다. 정부도 이에 맞춰 2027년 재가서비스 보장을 대폭 확대하면서 치매·간병보험 역시 단순한 진단금보다 실제로 어디에서 어떤 돌봄을 받을 것인지를 기준으로 살펴야 할 필요",
+      "author": "강성용 기자",
+      "companies": [],
+      "score": 2,
+      "group": 149,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-293",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“리쿠르팅은 막히고 수입은 줄고”…GA 지사장들, 고난의 시대(영상+)",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33875",
+      "date": "2026-11-13",
+      "time": "06:00",
+      "summary": "※유튜브 채널 '보험저널TV'를 구독하면 더 많은 영상을 보실 수 있습니다.(https://youtube.com/channel/UC6v10hcO7KLhWBNYZE4vkDQ)GA업계 지사장들의 한숨이 깊어지고 있다. GA 설계사 1200%룰에 따른 수수료와 시책 축소로 수입이 줄어드는 가운데, 내년 4년 분급 시행까지 앞두면서 조직 운영과 인력 충원에 이중고를 겪고 있다. 특히 직접 영업보다 설계사 조직 관리와 리쿠르팅에 의존해 온 관리형 지사장들의 어려움이 커지고 있다.최근 복수의 GA업계 관계자에 따르면 지사장들의 경영 여건은 빠",
+      "author": "강성용 기자",
+      "companies": [],
+      "score": 2,
+      "group": 150,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-294",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "'2위 경쟁' 메리츠 vs DB, 순이익 격차 400억 '초접전'",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313628",
+      "date": "2026-11-13",
+      "time": "06:00",
+      "summary": "손해보험업계 2위 자리를 다투는 메리츠화재와 DB손해보험의 올해 3분기 누적 당기순이익 격차가 약 400억으로 좁혀졌다. 두 회사 모두 본업 경쟁력 강화에 박차를 가하는 가운데 3분기 당기순이익 역전에...",
+      "companies": [
+        "DB손해보험",
+        "메리츠화재"
+      ],
+      "score": 2,
+      "group": 151,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-295",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "노리스페이스, 웹서밋서 보험 서류 위변조 탐지 AI 공개… \"BCG·딜로이트...",
+      "url": "https://kr.aving.net/news/articleView.html?idxno=1816961",
+      "date": "2026-11-13",
+      "time": "03:34",
+      "summary": "유럽 보험사와 은행을 직접 두드리기보다, 이들의 문제를 풀어 주는 컨설팅 기업을 파트너로 삼아 시장에 들어가겠다는 전략이다. 유럽 보험사 대신 컨설팅 기업을 두드린다… \"멀리 있는 한국 스타트업과 바로...",
+      "companies": [],
+      "score": 2,
+      "group": 152,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-296",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "신협, 공제상품 4종 출시·개편… 일상 상해부터 치매·암 치료까지 보장",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93822",
+      "date": "2026-11-12",
+      "time": "23:21",
+      "summary": "신협중앙회(이하 신협)는 고객의 다양한 보장 수요에 대응하기 위해 지난 11일 신규 공제상품 1종을 출시하고, 기존 공제상품 3종의 보장 내용을 개편했다고 12일 밝혔다.이번 출시·개편 대상은 ▲무배당 신협통합상해보장공제 ▲무배당 신협Plus치매간병공제 ▲무배당 신협3대주요치료비보장공제 ▲무배당 신협3대주요치료비보장공제(갱신형) 등 총 4종이다. 신협은 일상생활 속 상해 위험부터 치매·간병, 암 등 주요 질환 치료비에 이르기까지 고객의 생활환경과 의료 수요 변화를 반영해 선택의 폭을 넓혔다.새롭게 출시한 ‘무배당 신협통합상해보장공제",
+      "author": "한국보험신문",
+      "companies": [],
+      "score": 2,
+      "group": 153,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-297",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"대출 갚느라 돈 없다더니\"…아내 몰래 든 종신보험, 수익자는 남편",
+      "url": "https://www.mt.co.kr/society/2026/11/12/2026111221474337949",
+      "date": "2026-11-12",
+      "time": "22:46",
+      "summary": "재산을 정리하기 위해 서류를 살펴보던 A씨는 남편 앞으로 온 보험사 우편물을 보고 충격에 빠졌다. 남편은... 또 A씨 동의 없이 가입된 종신보험에 대해 \"다른 사람의 사망을 보험사고로 하는 보험계약은 피보험자의 서면...",
+      "companies": [],
+      "score": 2,
+      "group": 154,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-298",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[보험 TIP] 모든 보험이 예금자보호를 받나요?",
+      "url": "https://www.ibabynews.com/news/articleView.html?idxno=156858",
+      "date": "2026-11-12",
+      "time": "21:26",
+      "summary": "✅ 확인할 것 계약자가 개인인지 법인인지 확인 변액보험 여부 확인 상품설명서의 보호 여부 문구 확인 ⚠️ 주의할 점 예금자보호는 보험사 지급불능에 대비한 제도이고, 상품 손실을 보전해 주는 제도는 아니에요. 출처...",
+      "companies": [],
+      "score": 2,
+      "group": 155,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-299",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“근로자추정제로 늘어난 비용, 누가 감당하나”… 고능률 설계사 실수령액 최대 33% 감소 우려",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33899",
+      "date": "2026-11-12",
+      "time": "20:57",
+      "summary": "근로자추정제 도입 가능성이 점쳐지면서, 향후 보험설계사의 근로자성 인정이 확대될 경우 발생하는 추가 비용을 누가 부담할 것인지가 GA(법인보험대리점)업계의 새로운 쟁점으로 떠오를 전망이다.근로자로 인정되는 설계사에 대해서는 국민연금·건강보험 등 사회보험료의 사업주 부담분과 퇴직급여, 연차유급휴가 관련 비용 등이 발생할 수 있다. 그러나 이를 충당할 별도 수수료 재원이 마련되는 것은 아니기 때문이다.2027년부터 판매수수료 분급이 시행되면서 GA의 초기 수수료 유입이 제한되는 상황에서 추가 비용을 본사가 흡수할지, 설계사 수수료 지급",
+      "author": "최환의 기자",
+      "companies": [],
+      "score": 2,
+      "group": 156,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-300",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "퀀텀에이아이, 보험 업무 자동화 에이전트 플랫폼 '로디' 출시",
+      "url": "https://www.itdaily.kr/news/articleView.html?idxno=242900",
+      "date": "2026-11-12",
+      "time": "19:08",
+      "summary": "이에 따라 보험사는 기존 운영 시스템을 유지한 채 필요한 업무부터 선택해 단계적으로 도입할 수 있다. 문서 인식 기술도 자체 개발했다. 문서를 여러 영역으로 겹치게 나눠 읽는 이미지 중첩분할 방식을 적용해 문자...",
+      "companies": [],
+      "score": 2,
+      "group": 157,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-301",
+      "source": "보험매일",
+      "type": "press",
+      "title": "보험연구원 '의학기술 혁신과 금융·보험의 미래' 세미나 개최",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72967",
+      "date": "2026-11-12",
+      "time": "18:58",
+      "summary": "[보험신보 박동우 기자] 보험연구원은 의학기술 혁신을 지원하는 금융의 역할과 수명 연장에 따른 보험산업의 대응 방향을 모색하기 위해 ‘의학기술 혁신과 금융·보험의 미래: 생산적 금융과 장수리스크를 중심으로’ 세미나를 개최했다고 12일 밝혔다.세미나에서는 이광표 한국생명공학연구원 노화연구센터 센터장이 ‘노화·역노화 연구의 현주소와 건강수명 연장의 전망’을 주제로 첫 번째 발표를 진행했다.이 센터장은 생물학적 노화를 측정하는 노화시계와 노화세포 제거 등 최신 연구 동향을 소개하며 건강수명 연장이 의료·돌봄 수요와 보험산업의 위험평가에",
+      "author": "박동우 기자",
+      "companies": [],
+      "score": 2,
+      "group": 158,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-302",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "소부장 수입자금 조달 지원… 무보, 보험 한도 최대 두 배",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93818",
+      "date": "2026-11-12",
+      "time": "18:29",
+      "summary": "소재·부품·장비(소부장) 중소·중견기업의 원자재 수입자금 조달을 돕기 위해 무역보험과 은행 금융지원을 연계한 협력체계가 마련된다. 지원 대상 기업에는 수입보험 한도를 최대 두 배로 늘리고 대출금리와 신용장 수수료 등을 우대한다.한국무역보험공사(이하 무보)는 12일 서울 서초구 대한무역투자진흥공사(코트라) 본사에서 코트라·우리은행과 ‘공급망 수급 안정화 지원을 위한 업무협약’을 체결했다고 밝혔다.이번 협약은 통상환경의 불확실성이 커지면서 원자재와 핵심 소재·부품을 들여오는 데 필요한 자금 확보에 어려움을 겪는 소부장 기업을 지원하기",
+      "author": "주옥진 기자",
+      "companies": [],
+      "score": 2,
+      "group": 159,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-303",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "\"오래 사는 시대…보험사, 연금·돌봄 보장 확대 필요\"",
+      "url": "https://www.ajunews.com/view/20261112181436549",
+      "date": "2026-11-12",
+      "time": "18:26",
+      "summary": "보험硏, 의학기술 혁신·보험산업 미래 세미나 개최 아주경제=김윤섭 기자 angks678@ajunews.com 김헌수 보험연구원... [사진=보험연구원] 의학기술 발달로 기대수명이 늘어나면서 보험산업도 새로운 변화에 대비해야 한다는...",
+      "companies": [],
+      "score": 2,
+      "group": 160,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-304",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "증권사의 약진, 보험사의 반격···은행 흔든다②",
+      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2491909",
+      "date": "2026-11-12",
+      "time": "18:11",
+      "summary": "금감원은 앞서 3일에는 서울 여의도 FKI타워에서 은행연합회, 금융투자협회, 생명·손해보험협회 및 퇴직연금사업자들과 공동으로 퇴직연금 장기·분산투자 문화 정착을 위한 캠페인 출범식을 여는 등 퇴직연금 투자에...",
+      "companies": [],
+      "score": 2,
+      "group": 161,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-305",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "연말 앞둔 은행권, 퇴직연금 경쟁…\"ETF 당일매매 허용, 비대면 확대\"",
+      "url": "https://www.mediapen.com/news/view/1136982",
+      "date": "2026-11-12",
+      "time": "17:22",
+      "summary": "업권별로 보면 은행권이 275조 4860억원으로 전체의 50.8%를 점유해 가장 많고, 증권업계가 160조 3935억원으로 전체의 29.6%, 보험업권이 106조 2419억원으로 전체의 약 19.6%를 각각 차지하고 있다.",
+      "companies": [],
+      "score": 2,
+      "group": 162,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-306",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[기고] 국민이 먼저 알아야 건강보험이 지속된다.",
+      "url": "https://www.pressian.com/pages/articles/2026111211194795679?utm_source=naver&utm_medium=search",
+      "date": "2026-11-12",
+      "time": "16:24",
+      "summary": "국민 생명 위협하고 건강보험 재정 갉아먹는 사무장병원·면허대여약국…특사경 도입과 국민 인식 개선 시급 우리가 아플 때 가장 먼저 찾고 신뢰하는 곳은 병원과 약국이다. 의료진의 전문성을 믿고 건강보험이라는...",
+      "companies": [],
+      "score": 2,
+      "group": 163,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-307",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "[퇴직연금 성적표 ②]수익률 2%대 예금 담고도…은행 퇴직연금 비용 업...",
+      "url": "http://www.fieldnews.kr/news/articleView.html?idxno=33032",
+      "date": "2026-11-12",
+      "time": "16:18",
+      "summary": "생명보험은 0.399%, 손해보험은 0.345%, 증권은 0.335%였다. 적립금 1억원당 은행은 한 해 45만1000원, 증권사는 33만5000원꼴의 비용이 든다. 3분기 말 은행업권 확정기여형(DC)·개인형퇴직연금(IRP) 적립금 177조7531억원...",
+      "companies": [],
+      "score": 2,
+      "group": 164,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-308",
+      "source": "보험저널",
+      "type": "press",
+      "title": "오래 살수록 커지는 노후불안…보험사엔 '연금·돌봄' 새 기회",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33897",
+      "date": "2026-11-12",
+      "time": "16:03",
+      "summary": "인간의 수명이 길어질수록 개인의 노후소득과 의료·돌봄 비용 부담은 커질 수 있지만, 보험회사에는 오히려 새로운 사업 기회가 열릴 수 있다는 분석이 나왔다. 개인이 얼마나 오래 살지 예측하기 어려운 장수리스크는 상당하지만, 보험회사가 여러 가입자의 위험을 분산하는 종신연금과 돌봄·건강보장을 통해 이를 인수하고 체계적으로 관리할 여지가 크다는 것이다.특히 과거 생명표를 활용한 시뮬레이션에서 보험회사가 부담하는 체계적 장수리스크는 상대적으로 작게 측정됐다. 다만 의학기술 혁신으로 사망률과 건강수명이 변화할 가능성이 있는 만큼 보험회사의",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 165,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-309",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "하나금융, 보험 4500억 자본보강·비은행 순익 6032억…함영주 '자생력 ...",
+      "url": "https://www.upkoreanews.kr/news/articleView.html?idxno=101128",
+      "date": "2026-11-12",
+      "time": "14:55",
+      "summary": "특히 보험업은 장기적인 보험부채와 요구자본을 함께 관리해야 하는 만큼 사업 규모뿐 아니라 보험계약의 질과 자본효율성이 중요한 경쟁요소로 작용한다. 함영주 하나금융그룹 회장은 지난해 신년사에서 자생 기반이...",
+      "companies": [],
+      "score": 2,
+      "group": 166,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-310",
+      "source": "보험저널",
+      "type": "press",
+      "title": "[팩트체크] “GA 기관경고 받아도 대표이사 연임 가능?”… 수위별 제재 따져보니",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33893",
+      "date": "2026-11-12",
+      "time": "13:57",
+      "summary": "최근 대형 GA(법인보험대리점)에 대한 금융당국의 기관경고와 거액의 과태료 처분이 잇따르면서 대표이사와 임원의 연임 제한 여부에 관심이 쏠리고 있다.그러나 GA가 기관경고를 받았다는 이유만으로 대표이사나 임원의 연임이 제한되는 것은 아니다. 기관경고는 법인에 대한 제재로, 임원 개인의 자격 제한과는 별개이기 때문이다.반면 GA가 업무정지·등록취소 처분을 받고, 해당 처분에 책임이 있는 임원이 직무정지 이상의 제재를 받는 등 법정 요건을 충족하면 2년간 임원 자격이 제한될 수 있다.현행 보험업법은 GA 법인에 대한 기관제재와 대표이사",
+      "author": "최환의 기자",
+      "companies": [],
+      "score": 2,
+      "group": 167,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-311",
+      "source": "보험저널",
+      "type": "press",
+      "title": "보험사 'CEO 선임' 판 바뀐다…현직 대표 '부당 개입' 차단·성과급 '환수' 추진",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33890",
+      "date": "2026-11-12",
+      "time": "11:39",
+      "summary": "보험사 최고경영자(CEO) 선임 과정에서 현직 대표가 부당하게 영향력을 행사하지 못하도록 하고, 독립이사 중심으로 후보 추천과 검증을 진행하는 방안이 추진된다. 경영진의 고의·중과실로 회사에 손실이 발생하면 이미 지급한 성과급까지 환수할 수 있는 제도도 마련된다.정부와 더불어민주당은 12일 당정협의회를 열고 이 같은 내용을 담은 '금융회사 지배구조 개선방안'을 발표했다. 이번 개선안은 CEO 선임절차의 독립성 강화, 이사회의 경영진 견제기능 확대, 기관투자자의 주주활동 지원, 성과보수 체계 개편 등 총 25개 과제를 담고 있다. 특",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 168,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-312",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "라이나생명, ‘신경계질환 진단 통합 보장’ 배타적사용권 획득",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93808",
+      "date": "2026-11-12",
+      "time": "11:38",
+      "summary": "라이나생명은 신경계질환 진단을 통합 보장하는 보험상품이 배타적사용권을 획득했다고 12일 밝혔다. 지난 1일 출시한 ‘(무)신경계질환통합진단특약’은 업계 최초로 신경계질환(G코드)에 대한 진단 보장을 하나의 특약으로 통합한 상품이다. 경증부터 중증까지 보장 대상 질환을 하나의 특약에 담으면서도 질환마다 다른 중증도가 보험금에 반영되도록 설계했다. 이를 위해 신경과·신경외과 전문의 자문을 거쳐 보장 대상 질환을 1~5종으로 구분했다.보험기간 중 보장 대상 신경계질환으로 진단이 확정되면 해당하는 항목의 진단보험금을 합산해 지급한다. 진단",
+      "author": "한국보험신문",
+      "companies": [],
+      "score": 2,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-313",
+      "source": "보험저널",
+      "type": "press",
+      "title": "신경계질환 진단금, 중증도 높을수록 커진다…라이나생명 ‘통합특약’ 6개월 배타적사용권",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33883",
+      "date": "2026-11-12",
+      "time": "09:01",
+      "summary": "신경계질환의 진단 보장을 하나의 특약에 담고, 질환의 중증도에 따라 보험금을 차등 지급하는 상품이 6개월 배타적사용권을 확보했다. 경증부터 중증까지 다양한 신경계질환을 통합 보장하면서 중증도가 높을수록 진단보험금이 커지도록 설계한 것이 특징이다.라이나생명보험은 지난 1일 출시한 ‘(무)신경계질환통합진단특약’이 6개월 배타적사용권을 획득했다고 12일 밝혔다. 이 특약은 업계 최초로 신경계질환(G코드)에 대한 진단 보장을 하나로 통합한 상품이다. 기존에 질환별로 구분돼 있던 진단 보장을 하나의 특약으로 묶으면서도 질환마다 다른 중증도를",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-314",
+      "source": "보험매일",
+      "type": "press",
+      "title": "라이나생명, ‘신경계질환통합진단특약’ 배타적사용권 6개월 획득",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72961",
+      "date": "2026-11-12",
+      "time": "09:00",
+      "summary": "[보험신보 오윤환 기자] 라이나생명은 신경계질환 진단을 통합 보장하는 ‘신경계질환통합진단특약’이 생명보험협회 신상품심의위원회로부터 6개월 배타적사용권을 획득했다고 12일 밝혔다. 이 특약은 업계 처음으로 신경계질환(G코드)에 대한 진단 보장을 하나로 통합한 것이 특징이다. 경증부터 중증까지 보장 대상 질환을 하나의 특약에 담으면서도 질환마다 다른 중증도를 보험금에 반영하도록 설계했다. 이를 위해 신경과·신경외과 전문의 자문을 거쳐 보장 대상 질환을 1~5종으로 구분했다.보험기간 중 보장 대상 신경계질환으로 진단이 확정되면 해당하는",
+      "author": "오윤환 기자",
+      "companies": [],
+      "score": 2,
+      "group": 87,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-315",
+      "source": "보험저널",
+      "type": "press",
+      "title": "콘서트엔 7000명, 마라톤엔 1100명…AIA생명이 ‘건강’을 즐기는 방법",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33882",
+      "date": "2026-11-12",
+      "time": "08:58",
+      "summary": "건강한 삶에 대한 관심이 신체적 건강을 넘어 정신적 안정과 사회적 관계로 확대되고 있다. 질병을 예방하고 관리하는 것뿐 아니라 일상에서 즐거움과 만족을 느끼며 삶의 질을 높이는 ‘웰니스(Wellness)’가 새로운 건강 트렌드로 주목받고 있다.이러한 변화는 여가 활동에서도 나타난다. 러닝은 체력 관리뿐 아니라 다른 사람들과 함께 목표를 이루고 성취감을 나누는 활동으로 자리 잡았다. 공연이나 전시 등 문화예술 활동 역시 일상의 스트레스를 해소하고 정서적 만족을 얻는 방법으로 관심을 받고 있다. 건강을 위해 무언가를 의무적으로 실천하기",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 169,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-316",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“GA 내부통제, 어디까지 왔나”…준법감시인 워크숍서 현안 집중 조명",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33881",
+      "date": "2026-11-12",
+      "time": "08:54",
+      "summary": "GA업계의 내부통제 역량을 강화하고 주요 준법감시 현안을 공유하기 위한 워크숍이 열린다. 금융감독원의 당부사항과 GA업계의 중장기 발전 방향을 살펴보고, 언론의 시각에서 내부통제 현황과 업계 신뢰도 제고 방안을 짚어보는 자리다.한국보험대리점협회(GA협회)는 오는 12월 10일 오전 10시 30분부터 오후 5시까지 협회 4층 교육장에서 ‘2026년 준법감시인협의회 워크숍’을 개최한다. 대형 GA 준법감시인 등을 대상으로 진행되는 이번 행사는 GA업계의 내부통제 및 준법감시 역량 강화와 주요 현안 공유를 목적으로 마련됐다.워크숍은 오전",
+      "author": "최지호 기자",
+      "companies": [],
+      "score": 2,
+      "group": 170,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-317",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“해킹 막으려 고액 회원 가입했는데”… 금융보안원 해킹 소식에 GA업계 ‘당황’",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33880",
+      "date": "2026-11-12",
+      "time": "08:31",
+      "summary": "해킹 위험에 대비하기 위해 금융보안원에 회원사로 가입하고 보안지원 서비스를 이용하는 GA(법인보험대리점)들이 정작 금융보안원에서 해킹 사고가 발생했다는 소식에 난감한 상황이다.전문 보안인력과 시스템을 자체적으로 확보하기 어려운 GA 입장에서는 금융보안원과 같은 전문기관의 지원이 현실적인 대안이다. 그러나 보안 전문기관마저 해킹 공격을 받으면서 어디까지 대비해야 하는지 고민이 커지고 있다. 비용을 들여 보안관제와 취약점 점검 서비스를 받더라도 해킹 위험을 완전히 차단할 수 없는 만큼, 보안지원의 실효성과 사고 발생 시 책임 범위에도",
+      "author": "최환의 기자",
+      "companies": [],
+      "score": 2,
+      "group": 171,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-318",
+      "source": "보험저널",
+      "type": "press",
+      "title": "“관리 안 하면 제재, 관리하면 근로자?”… 근로자추정제 앞둔 GA 딜레마",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33879",
+      "date": "2026-11-12",
+      "time": "07:48",
+      "summary": "금융당국의 내부통제 강화 요구에 대응해야 하는 GA(법인보험대리점)들이 근로자추정제 도입을 앞두고 새로운 고민에 직면하고 있다. 금융당국은 보험설계사에 대한 관리·감독 강화를 요구하지만, 노동법상 근로자성 분쟁에서는 이러한 관리 방식이 오히려 GA에 불리한 판단 근거로 작용할 가능성이 있기 때문이다.소비자보호를 위해 설계사를 관리해야 하는 금융규제상 의무와 독립사업자성을 유지해야 하는 위촉계약 구조 사이에서 새로운 딜레마가 발생할 수 있다는 것이다.◇ 근로자추정제 연내 처리 불확실… 경총·관련 업권 대응 논의11일 관련 업계에 따르",
+      "author": "최환의 기자",
+      "companies": [],
+      "score": 2,
+      "group": 172,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-319",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "보험계열 금융그룹 자본건전성 희비…삼성·한화↑ 교보·DB↓",
+      "url": "http://www.fins.co.kr/news/articleView.html?idxno=110519",
+      "date": "2026-11-12",
+      "time": "06:20",
+      "summary": "특히 교보의 자본적정성 비율은 보험업권의 지급여력제도(K-ICS) 경과조치를 적용하지 않을 경우 142.4%로 낮아진다. 지난해 말 경과조치 적용 전 비율인 151.1%와 비교하면 8.7%포인트 하락한 수치다. DB 역시 자본적정성...",
+      "companies": [],
+      "score": 2,
+      "group": 173,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-320",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "‘8주룰’에 뇌진탕 진단 늘까…깐깐해진 보험사",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226418",
+      "date": "2026-11-12",
+      "time": "06:10",
+      "summary": "자동차보험 '8주룰' 시행 후 첫 8주가 지나면서 보험사들이 상해등급 상향 진단에 대비해 뇌진탕과 추간판탈출증에 대한 검증을 강화하고 있다.11일 보험업계에 따르면 지난 9월 10일 발생한 사고부터 상해등급 12~14급 중 염좌·타박상 환자가 8주를 초과해 치료비를 보장받으려면 자동차손해배상진흥원(이하 자배원) 내 손해배상의료심사위원회의 심사를 거쳐야 한다.이에 보험사는 8주룰 적용을 피하기 위한 상해등급 상향 진단 가능성에 대비해 의학적 근거를 확인하는 방식으로 대응하고 있다. 대표적으로",
+      "author": "장서현 기자",
+      "companies": [],
+      "score": 2,
+      "group": 174,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-321",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "실손 ‘반값 할인’ 이달 앞두고…1·2세대 1600만명, 갈아탈까 버틸까",
+      "url": "https://www.kukinews.com/article/view/kuk202611110189",
+      "date": "2026-11-12",
+      "time": "06:02",
+      "summary": "금융위는 제도 시행을 뒷받침하기 위해 지난 4일 계약전환 할인제도 관련 실손보험 상품을 단독형 설계 의무 적용 대상에서 제외하는 내용의 ‘보험업감독규정’ 개정안을 의결했다. 그동안 실손보험은 끼워팔기 방지를...",
+      "companies": [],
+      "score": 2,
+      "group": 175,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-322",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "코리안리, 3분기 순익 급감…누적은 사상 첫 4000억 돌파",
+      "url": "http://www.hansbiz.co.kr/news/articleView.html?idxno=882979",
+      "date": "2026-11-13",
+      "time": "10:10",
+      "summary": "서울 종로구 수송동에 들어설 '코리안리재보험 신사옥' 조감도. DL이앤씨 | 서울=한스경제 이성노 기자 | 재보험사 코리안리의 3분기 당기순이익이 전년 동기 대비 30% 가까이 빠졌다. 다만 상반기까지 호실적을...",
+      "companies": [
+        "코리안리"
+      ],
+      "score": 1,
+      "group": 176,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-323",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "코리안리, 3분기 영업익 720억…전년比 50.3%↓",
+      "url": "https://www.jasm.co.kr/news/view/325199/?sc=Naver",
+      "date": "2026-11-13",
+      "time": "10:04",
+      "summary": "코리안리는 올해 3분기 별도기준 영업이익은 지난해 같은 기간보다 50.3% 줄어든 719억9200만원으로 잠정 집계됐다고 13일 공시했다. 같은 기간 매출액은 1조4498억8100만원으로 전년 동기 대비 1.0% 늘었다....",
+      "companies": [
+        "코리안리"
+      ],
+      "score": 1,
+      "group": 177,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-324",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "코리안리, 순익 첫 4000억 돌파…포트폴리오 개선 효과",
+      "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313648",
+      "date": "2026-11-13",
+      "time": "09:42",
+      "summary": "재보험사 코리안리의 올해 당기순이익이 해외 수재 확대와 포트폴리오 개선 효과에 힘입어 처음으로 4000억원을 돌파했다. 13일 코리안리가 공시한 개별 재무제표 기준 올해 1~3분기 당기순이익은 4016억원으로...",
+      "companies": [
+        "코리안리"
+      ],
+      "score": 1,
+      "group": 178,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-325",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "'적자 절반 잘라낸' 신한라이프 베트남…사업비·캡티브 의존은 과제 [베...",
+      "url": "https://www.insidevina.com/news/articleView.html?idxno=44473",
+      "date": "2026-11-12",
+      "time": "17:48",
+      "summary": "신한금융그룹의 생명보험 계열사 신한라이프가 100% 출자한 신한라이프 베트남 법인이 올해 상반기 세전손실을 511억 동(약 30억 원)으로 줄였다. 전년 동기(1,006억 동·약 59억 원) 대비 적자 폭을 절반가량 덜어낸...",
+      "companies": [
+        "신한라이프"
+      ],
+      "score": 1,
+      "group": 179,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-326",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "현대해상, 암·태아 보장 키운 다이렉트 라인업 강화",
+      "url": "https://www.cnbnews.com/news/articleView.html?idxno=1023559",
+      "date": "2026-11-12",
+      "time": "16:40",
+      "summary": "현대해상이 최신 암 치료와 태아·어린이 보장을 강화한 다이렉트 보험 상품 2종을 선보였다. 현대해상은 '다이렉트 퍼펙트건강보험 암플랜'을 신규 출시했고, '다이렉트 굿앤굿어린이종합보험'을 개정했다고 12일 밝혔다....",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 1,
+      "group": 180,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-327",
+      "source": "한국보험신문",
+      "type": "press",
+      "title": "현대해상, 암 치료부터 태아·어린이 건강까지 보장 확대",
+      "url": "https://www.insnews.co.kr/news/articleView.html?idxno=93809",
+      "date": "2026-11-12",
+      "time": "11:39",
+      "summary": "현대해상은 홈페이지 및 앱을 통해 고객이 필요한 보장을 챙기고 가입절차까지 간편하게 마칠 수 있도록 다이렉트 상품 2종을 개편·출시했다고 12일 밝혔다.지난 11일 새로 선보인 ‘다이렉트 퍼펙트건강보험 암플랜’은 암 진단비는 물론 수술, 항암약물·방사선 치료, 전이암까지 암 치료 관련 다양한 보장을 모은 상품이다.특히 중입자치료, CAR-T 항암약물허가치료, 로봇암수술 등 최신 암 치료 보장을 강화했으며, 고객이 보장 범위와 보험료 수준에 맞춰 선택할 수 있도록 4가지 맞춤형 플랜을 제공한다.이와 함께 독창성을 인정받아 배타적사용권",
+      "author": "한국보험신문",
+      "companies": [
+        "현대해상"
+      ],
+      "score": 1,
+      "group": 181,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-328",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "[컨콜노트] 메리츠도 해약준비금에 “부담 커졌다”",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226422",
+      "date": "2026-11-12",
+      "time": "10:15",
+      "summary": "“현행 제도에서 해약환급금준비금 적립은 다소 과도하다. 배당가능이익에 대한 부담이 커졌다.”오종원 메리츠화재 리스크관리팀장 부사장은 전날 오후 열린 메리츠금융그룹 2026년 3분기 실적발표회(IR)에서 이같이 밝혔다.그는 “IFRS17 체제에서 해약환급금준비금 적립은 배당가능이익을 일부 제약하고 있다”면서 “당사는 해약환급금준비금을 충분히 적립할 수 있는 이익잉여금과 자본여력을 가지고 있다”고 말했다.메리츠화재도 해약환급금준비금에 대한 부담을 표했다. 새 보험회계기준(IFRS17)이 도입된 후 해약환급금준비금을 적립한 지 4년 만이",
+      "author": "한지한 기자",
+      "companies": [
+        "메리츠화재"
+      ],
+      "score": 1,
+      "group": 182,
+      "used": true
+    },
+    {
+      "id": "c-2026-11-12-329",
+      "source": "네이버 뉴스",
+      "type": "press",
+      "title": "신한라이프, 저축·연금 판매 99% 급증…영업 저변 확대",
+      "url": "http://www.press9.kr/news/articleView.html?idxno=86058",
+      "date": "2026-11-12",
+      "time": "07:30",
+      "summary": "신한라이프가 저축성·연금보험 판매를 늘리며 상품 다변화에 속도를 내고 있다. 전체 신계약 판매가 감소한 가운데 저축·연금 비중은 1년 새 두 배 이상 커졌다. 주력인 보장성보험 판매가 위축된 만큼 달라진...",
+      "companies": [
+        "신한라이프"
+      ],
+      "score": 1,
+      "group": 183,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-330",
+      "source": "보험저널",
+      "type": "press",
+      "title": "[칼럼] 거절과 실패가 끝은 아니다…영업인이 ‘레몬’을 기회로 바꾸는 법",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33905",
+      "date": "2026-11-13",
+      "time": "09:19",
+      "summary": "데일 카네기는 '카네기의 가르침'을 쓰던 중 시카고대학교 로버트 허친스 총장을 만났다. 허친스는 스승에게서 들은 ‘레몬을 얻으면 레모네이드를 만들라’는 말을 좌우명으로 삼고 있었다. 레몬은 시련과 고난을, 레모네이드는 그 시련을 통해 만들어낸 성취와 행복을 의미했다.어려운 일이 닥치면 ‘나는 실패했다’, ‘더 이상 기회가 없다’며 주저앉기 쉽다. 하지만 카네기가 강조한 것은 반대였다. 지금 겪고 있는 일에서 어떤 교훈을 얻을 수 있는지, 어떻게 상황을 조금이라도 나아지게 할 수 있는지를 생각해야 한다는 것이다. 심리학자 알프레드 아",
+      "author": "보험저널",
+      "companies": [],
+      "score": 0,
+      "group": 184,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-331",
+      "source": "보험매일",
+      "type": "press",
+      "title": "프라임에셋, ‘픽앤플랜’ 서비스 고도화로 이용자 확대 추진",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72964",
+      "date": "2026-11-12",
+      "time": "15:45",
+      "summary": "[보험신보 이재호 기자] 프라임에셋이 보험 비교·상담 플랫폼인 ‘픽앤플랜’의 서비스 고도화와 마케팅 전략 재정비를 통해 이용자 확대에 나선다. 고객의 플랫폼 이용 행태와 상담 전환 데이터를 분석해 상담 접근성을 개선하고 신규 보험 카테고리를 확대하는 한편, 소속 보험설계사의 영업 네트워크를 활용해 고객 유입 경로도 다변화할 계획이다.12일 프라임에셋에 따르면 지난 2023년 5월 출시한 픽앤플랜은 보험에 관심이 있는 고객과 전문 설계사를 연결하는 플랫폼이다. 고객은 보험 관련 정보를 확인하고 상품을 비교하거나 자신의 관심사와 필요에",
+      "author": "이재호 기자",
+      "companies": [],
+      "score": 0,
+      "group": 185,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-332",
+      "source": "대한금융신문",
+      "type": "press",
+      "title": "[머니 언박싱] 개인투자용 국채, 어떻게 투자할까",
+      "url": "https://www.kbanker.co.kr/news/articleView.html?idxno=226424",
+      "date": "2026-11-12",
+      "time": "13:35",
+      "summary": "개인투자용 국채를 퇴직연금 계좌로도 살 수 있다. 지난 9월부터 증권사 5곳과 은행 3곳의 개인형 퇴직연금(IRP)·확정기여형(DC) 계좌에서 10년물과 20년물을 청약할 수 있게 됐다. 판매처는 미래에셋·삼성·한국투자·KB·NH투자증권과 신한·하나·NH농협은행이다.이전까지는 판매대행기관인 미래에셋증권의 전용 계좌로만 살 수 있었다. 전용 계좌에서는 3·5·10·20년물을 모두 매수할 수 있다. 개인투자용 국채는 정부가 개인 투자자를 대상으로 매달 발행하는 국채다. 만기까지 보유하면 표면금리에 가산금리를 더한 금리가 연복리로",
+      "author": "김세연 기자",
+      "companies": [],
+      "score": 0,
+      "group": 186,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-333",
+      "source": "보험매일",
+      "type": "press",
+      "title": "iM라이프, 김장 나눔 봉사활동 실시",
+      "url": "https://www.insweek.co.kr/news/articleView.html?idxno=72963",
+      "date": "2026-11-12",
+      "time": "10:30",
+      "summary": "[보험신보 오윤환 기자] iM라이프는 지난 11일 서울 중구에 위치한 중구자원봉사센터에서 ‘김장 나눔 행사’를 열고 직접 담근 김장김치를 중림동 이웃에 전달했다고 12일 밝혔다. 이와 함께 사단법인 동행연우회에 후원금 200만원을 기부했다.이 행사는 김장을 직접 하기 어려운 이웃의 겨울나기를 돕기 위해 마련했다. 임직원 15여명은 절임배추에 양념소를 넣어 김치를 담그고 포장까지 직접 마쳤다. 후원금은 동행연우회를 통해 중림동 이웃의 겨울나기 지원에 사용할 예정이다.iM라이프 관계자는 “겨울철 도움이 필요한 이웃의 생활 부담을 덜고자",
+      "author": "오윤환 기자",
+      "companies": [],
+      "score": 0,
+      "group": 187,
+      "used": false
+    },
+    {
+      "id": "c-2026-11-12-334",
+      "source": "보험저널",
+      "type": "press",
+      "title": "iM라이프, 임직원이 직접 담근 김장김치로 이웃 겨울나기 지원",
+      "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=33887",
+      "date": "2026-11-12",
+      "time": "09:18",
+      "summary": "2026년 11월 12일 – iM라이프(대표이사 박경원)는 지난 11일 서울 중구자원봉사센터에서 ‘김장 나눔 행사’를 열고 직접 담근 김장김치를 중림동 이웃들에게 전달했다고 12일 밝혔다. 이와 함께 사단법인 동행연우회에 후원금 200만원을 기부했다.이번 행사는 김장을 직접 하기 어려운 이웃의 겨울나기를 돕기 위해 마련됐다. iM라이프 임직원 15여 명은 절임배추에 양념소를 넣어 김치를 담그고 포장까지 직접 마쳤다. 후원금은 동행연우회를 통해 중림동 이웃들의 겨울나기 지원에 쓰일 예정이다.이날 봉사에 참여한 iM라이프 직원은 “김치",
+      "author": "최은빈 기자",
+      "companies": [],
+      "score": 0,
+      "group": 188,
+      "used": false
+    }
+  ]
+}
