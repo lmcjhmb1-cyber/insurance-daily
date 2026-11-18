@@ -241,7 +241,16 @@ for (const it of ISSUES) {
     if (!Array.isArray(it.pre) || it.pre.length < 1 || it.pre.length > 2) err('pre', id, `pre는 용어 1~2개여야 해요 (지금 ${Array.isArray(it.pre) ? it.pre.length : '없음'}개).`);
     else for (const t of it.pre) if (!termNames.has(t)) err('pre', id, `pre의 "${t}"는 terms의 t에 없어요.`);
     if (!Array.isArray(it.chain) || !it.chain.length) err('필수 항목', id, 'chain이 없어요.');
-    else if (it.chain.length < 5 || it.chain.length > 7) warn('개수', id, `chain은 5~7개 고리예요 (지금 ${it.chain.length}개).`);
+    else {
+      if (it.chain.length < 5 || it.chain.length > 7) warn('개수', id, `chain은 5~7개 고리예요 (지금 ${it.chain.length}개).`);
+      // 고리는 문자열이거나 { s: 고리 문장, why: 이어지는 이유(선택), side: 더해진 요인(선택) } 객체예요.
+      it.chain.forEach((k, i) => {
+        if (typeof k === 'string') { if (!isStr(k)) err('chain', id, `chain ${i + 1}번 고리가 비어 있어요.`); }
+        else if (!k || typeof k !== 'object' || !isStr(k.s)) err('chain', id, `chain ${i + 1}번 고리에 문장 s가 필요해요.`);
+        else for (const f of ['why', 'side']) if (k[f] !== undefined && !isStr(k[f])) err('chain', id, `chain ${i + 1}번 고리의 ${f}는 비어 있지 않은 글이어야 해요.`);
+      });
+      if (it.chainQ !== undefined && !isStr(it.chainQ)) err('chain', id, 'chainQ는 비어 있지 않은 글이어야 해요.');
+    }
     if (!it.role || !isStr(it.role.q) || !isStr(it.role.model)) err('필수 항목', id, 'role에 q와 model이 필요해요.');
     else if (!/["“][^"”“]+["”]/.test(it.role.q)) warn('role', id, 'role.q에 큰따옴표로 감싼 상대의 말이 없어요.');
     if (!isStr(it.summary)) err('필수 항목', id, 'summary가 없어요.');
