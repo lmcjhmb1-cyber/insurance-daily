@@ -276,7 +276,7 @@ function collectNotes(){
   return out.sort((x,y)=>x.it.id<y.it.id?1:x.it.id>y.it.id?-1:0);
 }
 function notesText(){
-  const ns=collectNotes();const lines=[`내 생각 노트 · 오늘의 보험 이슈`,`내보낸 날: ${fmtDate(ymd(Date.now()))}`,`쓴 답 ${ns.length}개`,""];
+  const ns=collectNotes();const lines=[`내 생각 노트 · 인슈`,`내보낸 날: ${fmtDate(ymd(Date.now()))}`,`쓴 답 ${ns.length}개`,""];
   let cur=null;
   for(const n of ns){
     if(cur!==n.it.id){cur=n.it.id;lines.push("━━━━━━━━━━━━━━━━━━━━",`[${fmtDate(n.it.date)}] ${n.it.title}`,`분야: ${n.it.tag||""}${n.it.jobs?" · 관련 직무: "+n.it.jobs.join(", "):""}`,"")}
