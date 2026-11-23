@@ -26616,10 +26616,6 @@ window.ISSUES = [
       "id": "actuarial-supervision",
       "name": "계리감독 강화"
     },
-    "frames": [
-      "assumption",
-      "regulation"
-    ],
     "jobs": [
       "계리",
       "리스크관리",
@@ -26903,10 +26899,6 @@ window.ISSUES = [
       "id": "earnings",
       "name": "보험사 실적"
     },
-    "frames": [
-      "two-pillars",
-      "trend"
-    ],
     "jobs": [
       "리스크관리",
       "계리"
@@ -27851,11 +27843,6 @@ window.ISSUES = [
       "id": "silson-reform",
       "name": "실손보험 개편"
     },
-    "frames": [
-      "selection",
-      "stakeholders",
-      "pricing"
-    ],
     "jobs": [
       "상품개발",
       "계리",
@@ -28137,12 +28124,6 @@ window.ISSUES = [
       "id": "auto-loss",
       "name": "자동차보험 손해율과 보험료"
     },
-    "frames": [
-      "temp-struct",
-      "baseline",
-      "trend",
-      "pricing"
-    ],
     "jobs": [
       "계리",
       "상품개발",
@@ -35482,11 +35463,6 @@ window.ISSUES = [
       "id": "ifrs17",
       "name": "새 회계기준과 보험부채"
     },
-    "frames": [
-      "assumption",
-      "trend",
-      "two-pillars"
-    ],
     "jobs": [
       "계리",
       "리스크관리"
@@ -36236,10 +36212,6 @@ window.ISSUES = [
       "id": "actuarial-supervision",
       "name": "계리감독 강화"
     },
-    "frames": [
-      "assumption",
-      "regulation"
-    ],
     "jobs": [
       "계리",
       "상품개발",
@@ -36678,10 +36650,6 @@ window.ISSUES = [
       "id": "kics",
       "name": "지급여력제도(킥스)"
     },
-    "frames": [
-      "regulation",
-      "stakeholders"
-    ],
     "jobs": [
       "리스크관리",
       "계리"
@@ -37952,10 +37920,6 @@ window.ISSUES = [
       "id": "kics",
       "name": "지급여력제도(킥스)"
     },
-    "frames": [
-      "regulation",
-      "stakeholders"
-    ],
     "jobs": [
       "리스크관리",
       "계리"
@@ -39339,11 +39303,6 @@ window.ISSUES = [
       "id": "actuarial-supervision",
       "name": "계리감독 강화"
     },
-    "frames": [
-      "assumption",
-      "selection",
-      "pricing"
-    ],
     "jobs": [
       "계리",
       "상품개발"
@@ -40131,11 +40090,6 @@ window.ISSUES = [
       "id": "ifrs17",
       "name": "새 회계기준과 보험부채"
     },
-    "frames": [
-      "baseline",
-      "assumption",
-      "two-pillars"
-    ],
     "jobs": [
       "계리",
       "리스크관리"
@@ -40364,10 +40318,6 @@ window.ISSUES = [
       "id": "actuarial-supervision",
       "name": "계리감독 강화"
     },
-    "frames": [
-      "assumption",
-      "regulation"
-    ],
     "jobs": [
       "계리",
       "상품개발"
@@ -40592,10 +40542,6 @@ window.ISSUES = [
       "id": "ifrs17",
       "name": "새 회계기준과 보험부채"
     },
-    "frames": [
-      "assumption",
-      "regulation"
-    ],
     "jobs": [
       "계리",
       "상품개발",
@@ -41100,10 +41046,6 @@ window.ISSUES = [
       "id": "kics",
       "name": "지급여력제도(킥스)"
     },
-    "frames": [
-      "regulation",
-      "assumption"
-    ],
     "jobs": [
       "리스크관리",
       "계리"
