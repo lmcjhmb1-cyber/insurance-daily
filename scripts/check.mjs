@@ -250,6 +250,9 @@ for (const it of ISSUES) {
         else for (const f of ['why', 'side']) if (k[f] !== undefined && !isStr(k[f])) err('chain', id, `chain ${i + 1}번 고리의 ${f}는 비어 있지 않은 글이어야 해요.`);
       });
       if (it.chainQ !== undefined && !isStr(it.chainQ)) err('chain', id, 'chainQ는 비어 있지 않은 글이어야 해요.');
+      else if (it.chainQ === undefined) warn('chain', id, 'chainQ(사슬 질문 한 줄)가 없어요.');
+      const noWhy = it.chain.slice(0, -1).filter((k) => typeof k === 'string' || !k || !isStr(k.why)).length;
+      if (noWhy) warn('chain', id, `마지막을 뺀 고리 ${noWhy}개에 why(이어지는 이유)가 없어요.`);
     }
     if (!it.role || !isStr(it.role.q) || !isStr(it.role.model)) err('필수 항목', id, 'role에 q와 model이 필요해요.');
     else if (!/["“][^"”“]+["”]/.test(it.role.q)) warn('role', id, 'role.q에 큰따옴표로 감싼 상대의 말이 없어요.');
